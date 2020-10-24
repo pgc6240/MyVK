@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina3_5" orientation="portrait" appearance="light"/>
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17504.1"/>
@@ -15,11 +15,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="O9Q-E3-dHq">
-                                <rect key="frame" x="55" y="60.5" width="210" height="359"/>
+                                <rect key="frame" x="55" y="104.5" width="210" height="359"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EvZ-YV-K0x">
                                         <rect key="frame" x="0.0" y="0.0" width="210" height="170"/>
@@ -82,11 +82,13 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="O9Q-E3-dHq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="NfW-rf-ojj"/>
+                            <constraint firstItem="O9Q-E3-dHq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" identifier="containerYconstraint" id="NfW-rf-ojj"/>
                             <constraint firstItem="O9Q-E3-dHq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="vLt-ev-DLw"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="containerView" destination="O9Q-E3-dHq" id="enx-qq-NJY"/>
+                        <outlet property="loginTextField" destination="L00-3F-lGd" id="zGE-tD-pOR"/>
                         <outlet property="logoImageView" destination="eug-3x-k55" id="1o8-us-L5Z"/>
                     </connections>
                 </viewController>

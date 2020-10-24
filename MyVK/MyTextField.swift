@@ -17,7 +17,7 @@ final class MyTextField: UITextField {
     private func configure() {
         heightAnchor.constraint(equalToConstant: 40).isActive = true
         
-        backgroundColor     = .systemBackground
+        backgroundColor     = .tertiarySystemBackground
         textColor           = .label
         tintColor           = UIColor(named: "vk-color")
         
