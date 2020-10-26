@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182B37B25438B1000E3E710 /* AppDelegate.swift */; };
-		3182B38025438B1000E3E710 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182B37F25438B1000E3E710 /* ViewController.swift */; };
+		3182B38025438B1000E3E710 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182B37F25438B1000E3E710 /* LoginVC.swift */; };
 		3182B38325438B1000E3E710 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38125438B1000E3E710 /* Main.storyboard */; };
 		3182B38525438B1100E3E710 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38425438B1100E3E710 /* Assets.xcassets */; };
 		3182B38825438B1100E3E710 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38625438B1100E3E710 /* LaunchScreen.storyboard */; };
@@ -18,7 +18,7 @@
 /* Begin PBXFileReference section */
 		3182B37825438B1000E3E710 /* MyVK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3182B37B25438B1000E3E710 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3182B37F25438B1000E3E710 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3182B37F25438B1000E3E710 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		3182B38225438B1000E3E710 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3182B38425438B1100E3E710 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3182B38725438B1100E3E710 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -57,7 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				3182B37B25438B1000E3E710 /* AppDelegate.swift */,
-				3182B37F25438B1000E3E710 /* ViewController.swift */,
+				3182B37F25438B1000E3E710 /* LoginVC.swift */,
 				3182B39125438B8500E3E710 /* MyTextField.swift */,
 				3182B38125438B1000E3E710 /* Main.storyboard */,
 				3182B38425438B1100E3E710 /* Assets.xcassets */,
@@ -137,7 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3182B38025438B1000E3E710 /* ViewController.swift in Sources */,
+				3182B38025438B1000E3E710 /* LoginVC.swift in Sources */,
 				3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */,
 				3182B39225438B8500E3E710 /* MyTextField.swift in Sources */,
 			);
@@ -216,7 +216,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -271,7 +271,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
