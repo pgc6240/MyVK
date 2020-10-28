@@ -32,12 +32,16 @@ class FriendsVC: UITableViewController {
             }
         }
     }
+}
 
-    //
-    // MARK: - Table view data source
-    //
+
+//
+// MARK: - UITableViewDelegate & UITableViewDataSource
+//
+extension FriendsVC {
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        #warning("Сделать 2 секции: 'Заявки в друзья' и 'Мои друзья'")
+        //#warning("Сделать 2 секции: 'Заявки в друзья' и 'Мои друзья'")
         return 1
     }
 
@@ -52,10 +56,14 @@ class FriendsVC: UITableViewController {
         cell.detailTextLabel?.text = friend.lastName
         return cell
     }
+}
+
+
+//
+// MARK: - Dummy data
+//
+extension FriendsVC {
     
-    //
-    // MARK: - Dummy data
-    //
     func loadFriends() {
         let randomFriendCount = Int.random(in: 0..<10_000)
         for i in 0..<randomFriendCount {

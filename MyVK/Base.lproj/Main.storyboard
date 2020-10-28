@@ -318,7 +318,7 @@
         <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="vk-logo" width="2500" height="2500"/>
         <namedColor name="vk-color">
-            <color red="0.36024793980000003" green="0.50206714870000002" blue="0.70590621229999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.36000001430511475" green="0.50199997425079346" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -11,13 +11,13 @@ class SearchVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        clearsSelectionOnViewWillAppear = false
         configureSearchController()
     }
 }
 
+
 //
-// MARK: - Table view data source
+// MARK: - UITableViewDelegate & UITableViewDataSource
 //
 extension SearchVC {
     
@@ -34,6 +34,7 @@ extension SearchVC {
         return cell
     }
 }
+
 
 //
 // MARK: - UISearchBarDelegate
