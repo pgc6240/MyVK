@@ -13,10 +13,8 @@ final class MyTextField: UITextField {
         super.init(coder: coder)
         configure()
     }
-    
+
     private func configure() {
-        heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
         backgroundColor     = .tertiarySystemBackground
         textColor           = .label
         tintColor           = UIColor(named: "vk-color")

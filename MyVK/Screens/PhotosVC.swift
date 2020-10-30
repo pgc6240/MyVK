@@ -9,7 +9,7 @@ import UIKit
 
 class PhotosVC: UICollectionViewController {
 
-    var friend: Friend?
+    var friend: User?
     
     
     override func viewDidLoad() {

@@ -2,74 +2,72 @@
 //  FriendsVC.swift
 //  MyVK
 //
-//  Created by pgc6240 on 27.10.2020.
+//  Created by pgc6240 on 30.10.2020.
 //
 
 import UIKit
 
-class FriendsVC: UITableViewController {
-
-    var friends: [Friend] = []
-    var newFriends = 0
+class FriendsVC: UIViewController {
     
+    var friends: [User] = []
+    var newFriends: [User] = []
+    
+    let sectionHeaders = ["Заявки в друзья", "Мои друзья"]
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadFriends()
+        getFriends()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.tabBarItem.badgeValue = "\(newFriends)"
+        navigationController?.tabBarItem.badgeValue = "\(newFriends.count)"
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? UITableViewCell {
-            if let cellIndex = tableView.indexPath(for: cell)?.row {
-                let friend = friends[cellIndex]
-                let photosVC = segue.destination as! PhotosVC
-                photosVC.friend = friend
-            }
+    func getFriends() {
+        for _ in 0..<Int.random(in: 0..<10_000) {
+            friends.append(User(firstName: "Имя", lastName: "Фамилия"))
+        }
+        for _ in 0..<Int.random(in: 1...3) {
+            newFriends.append(User(firstName: "Имя", lastName: "Фамилия"))
         }
     }
 }
 
+//
+// MARK: - UITableViewDataSource & UITableViewDelegate
+//
+extension FriendsVC: UITableViewDataSource, UITableViewDelegate {
 
-//
-// MARK: - UITableViewDelegate & UITableViewDataSource
-//
-extension FriendsVC {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        sectionHeaders[section]
+    }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        //#warning("Сделать 2 секции: 'Заявки в друзья' и 'Мои друзья'")
-        return 1
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if section == 0 {
+            return newFriends.count
+        } else {
+            return friends.count
+        }
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "FriendCell", for: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseId) as! FriendCell
         let friend = friends[indexPath.row]
-        cell.textLabel?.text = "\(friend.id) \(friend.firstName)"
-        cell.detailTextLabel?.text = friend.lastName
+        cell.set(with: friend)
         return cell
     }
-}
-
-
-//
-// MARK: - Dummy data
-//
-extension FriendsVC {
     
-    func loadFriends() {
-        let randomFriendCount = Int.random(in: 0..<10_000)
-        for i in 0..<randomFriendCount {
-            let friend = Friend(id: i, firstName: "Имя", lastName: "Фамилия")
-            friends.append(friend)
-        }
-        newFriends = Int.random(in: 1...3)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let friend = friends[indexPath.row]
+        let photosVC = PhotosVC()
+        photosVC.friend = friend
+        navigationController?.pushViewController(photosVC, animated: true)
     }
 }
