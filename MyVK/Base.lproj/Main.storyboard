@@ -167,7 +167,7 @@
                                         <connections>
                                             <outlet property="avatarImageView" destination="xn3-ov-Moe" id="LlD-FK-pCC"/>
                                             <outlet property="nameLabel" destination="yU2-Xa-hLc" id="VjT-Bx-GxM"/>
-                                            <segue destination="bWL-tQ-Q8X" kind="show" id="dMy-ne-K0E"/>
+                                            <segue destination="xSV-QQ-YOb" kind="show" id="lKl-Y5-NlQ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -193,37 +193,51 @@
             <point key="canvasLocation" x="2792.8000000000002" y="-297.30134932533736"/>
         </scene>
         <!--Фотографии-->
-        <scene sceneID="HE1-6K-4Uf">
+        <scene sceneID="wmp-pX-Hpa">
             <objects>
-                <collectionViewController id="bWL-tQ-Q8X" customClass="PhotosVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="CTv-LJ-McR">
+                <viewController title="Фотографии" id="xSV-QQ-YOb" customClass="PhotosVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r14-rf-I8u">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mqr-Lj-rpn">
+                                <rect key="frame" x="0.0" y="96" width="375" height="522"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="edi-DK-U9L">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="Wbn-ai-zcA" customClass="PhotoCell" customModule="MyVK" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8aJ-Ey-b8i">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="xSV-QQ-YOb" id="9ab-bD-v6J"/>
+                                    <outlet property="delegate" destination="xSV-QQ-YOb" id="hTT-Ig-9Ui"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="436-9o-RSR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QgY-hq-msK">
-                            <size key="itemSize" width="128" height="128"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="cCC-Fj-5Xi">
-                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="7l8-qr-IAX">
-                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </collectionViewCellContentView>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="bWL-tQ-Q8X" id="fo3-sW-i8u"/>
-                            <outlet property="delegate" destination="bWL-tQ-Q8X" id="TRg-w6-EOY"/>
-                        </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" title="Фотографии" largeTitleDisplayMode="never" id="x49-QB-oU3"/>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="O39-Hh-gkO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                        <constraints>
+                            <constraint firstItem="Mqr-Lj-rpn" firstAttribute="leading" secondItem="436-9o-RSR" secondAttribute="leading" id="1Cc-rs-jbx"/>
+                            <constraint firstItem="436-9o-RSR" firstAttribute="trailing" secondItem="Mqr-Lj-rpn" secondAttribute="trailing" id="rPH-UG-ghC"/>
+                            <constraint firstItem="436-9o-RSR" firstAttribute="bottom" secondItem="Mqr-Lj-rpn" secondAttribute="bottom" id="rp9-vS-Wmm"/>
+                            <constraint firstItem="Mqr-Lj-rpn" firstAttribute="top" secondItem="436-9o-RSR" secondAttribute="top" id="sTm-v8-QvZ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Фотографии" id="oLZ-Mc-5hd"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="poO-O8-9HC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3721" y="-297"/>
         </scene>
@@ -345,6 +359,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

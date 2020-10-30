@@ -65,9 +65,5 @@ extension FriendsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let friend = friends[indexPath.row]
-        let photosVC = PhotosVC()
-        photosVC.friend = friend
-        navigationController?.pushViewController(photosVC, animated: true)
     }
 }
