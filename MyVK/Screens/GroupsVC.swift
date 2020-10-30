@@ -15,13 +15,13 @@ class GroupsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = editButtonItem
+        editButtonItem.tintColor = .red
         loadGroups(for: user)
     }
     
     func loadGroups(for user: User?) {
-        for i in 0..<Int.random(in: 1...100) {
-            groups.append(Group(name: "Сообщество \(i)"))
-        }
+        groups = dummyGroups
     }
 }
 
@@ -44,5 +44,16 @@ extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            groups.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 }
