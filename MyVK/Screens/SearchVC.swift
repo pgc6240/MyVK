@@ -9,7 +9,7 @@ import UIKit
 
 class SearchVC: UITableViewController {
 
-    var searchResults: [Group] = dummyGroups
+    var searchResults: [Group] = makeDummyGroups()
     
     
     override func viewDidLoad() {
@@ -25,7 +25,7 @@ class SearchVC: UITableViewController {
 extension SearchVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dummyGroups.count
+        searchResults.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

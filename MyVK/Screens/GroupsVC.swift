@@ -21,7 +21,7 @@ class GroupsVC: UITableViewController {
     }
     
     func loadGroups(for user: User?) {
-        groups = dummyGroups
+        groups = makeDummyGroups()
     }
 }
 
