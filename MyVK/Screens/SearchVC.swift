@@ -9,6 +9,9 @@ import UIKit
 
 class SearchVC: UITableViewController {
 
+    var searchResults: [Group] = dummyGroups
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchController()
@@ -21,16 +24,14 @@ class SearchVC: UITableViewController {
 //
 extension SearchVC {
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        dummyGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
+        let group = searchResults[indexPath.row]
+        cell.set(with: group)
         return cell
     }
 }

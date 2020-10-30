@@ -20,6 +20,7 @@
 		3182B38825438B1100E3E710 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38625438B1100E3E710 /* LaunchScreen.storyboard */; };
 		3182B39225438B8500E3E710 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182B39125438B8500E3E710 /* MyTextField.swift */; };
 		31E87839254C86500014430E /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E87838254C86500014430E /* UIColor+Ext.swift */; };
+		31E87842254C90220014430E /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E87841254C90220014430E /* GroupCell.swift */; };
 		31E9018B254C7B10009576EB /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E9018A254C7B10009576EB /* PhotosVC.swift */; };
 		31E90192254C7B77009576EB /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E90191254C7B77009576EB /* PhotoCell.swift */; };
 /* End PBXBuildFile section */
@@ -40,6 +41,7 @@
 		3182B38925438B1100E3E710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3182B39125438B8500E3E710 /* MyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 		31E87838254C86500014430E /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		31E87841254C90220014430E /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		31E9018A254C7B10009576EB /* PhotosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
 		31E90191254C7B77009576EB /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,6 +62,7 @@
 			children = (
 				3151A363254C5FC800F9BFAB /* FriendCell.swift */,
 				31E90191254C7B77009576EB /* PhotoCell.swift */,
+				31E87841254C90220014430E /* GroupCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */,
 				3151A364254C5FC800F9BFAB /* FriendCell.swift in Sources */,
 				3151A369254C600900F9BFAB /* User.swift in Sources */,
+				31E87842254C90220014430E /* GroupCell.swift in Sources */,
 				315FF5A32548B9DE0054C539 /* GroupsVC.swift in Sources */,
 				3182B39225438B8500E3E710 /* MyTextField.swift in Sources */,
 				31E87839254C86500014430E /* UIColor+Ext.swift in Sources */,

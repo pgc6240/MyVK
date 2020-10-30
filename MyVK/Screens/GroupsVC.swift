@@ -8,9 +8,20 @@
 import UIKit
 
 class GroupsVC: UITableViewController {
+    
+    var user: User?
+    var groups: [Group] = []
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadGroups(for: user)
+    }
+    
+    func loadGroups(for user: User?) {
+        for i in 0..<Int.random(in: 1...100) {
+            groups.append(Group(name: "Сообщество \(i)"))
+        }
     }
 }
 
@@ -19,17 +30,19 @@ class GroupsVC: UITableViewController {
 // MARK: - UITableViewDelegate & UITableViewDataSource
 //
 extension GroupsVC {
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        groups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
+        let group = groups[indexPath.row]
+        cell.set(with: group)
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
