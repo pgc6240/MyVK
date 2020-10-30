@@ -54,6 +54,19 @@ extension GroupsVC {
         if editingStyle == .delete {
             groups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
+        } else if editingStyle == .insert {
+            let newGroup = Group(name: "Сообщество \(Int.random(in: 100..<1000))")
+            groups.insert(newGroup, at: 0)
+            tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if indexPath == [0,0] {
+            return .insert
+        } else {
+            return .delete
         }
     }
 }
