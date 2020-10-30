@@ -200,21 +200,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mqr-Lj-rpn">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mqr-Lj-rpn">
                                 <rect key="frame" x="0.0" y="96" width="375" height="522"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="edi-DK-U9L">
-                                    <size key="itemSize" width="128" height="128"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="8" minimumInteritemSpacing="8" id="edi-DK-U9L">
+                                    <size key="itemSize" width="120" height="120"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="Wbn-ai-zcA" customClass="PhotoCell" customModule="MyVK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" reuseIdentifier="PhotoCell" id="Wbn-ai-zcA" customClass="PhotoCell" customModule="MyVK" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="120" height="120"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="8aJ-Ey-b8i">
-                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -229,17 +229,17 @@
                         <viewLayoutGuide key="safeArea" id="436-9o-RSR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Mqr-Lj-rpn" firstAttribute="leading" secondItem="436-9o-RSR" secondAttribute="leading" id="1Cc-rs-jbx"/>
-                            <constraint firstItem="436-9o-RSR" firstAttribute="trailing" secondItem="Mqr-Lj-rpn" secondAttribute="trailing" id="rPH-UG-ghC"/>
+                            <constraint firstItem="Mqr-Lj-rpn" firstAttribute="leading" secondItem="436-9o-RSR" secondAttribute="leading" id="WEl-2U-2Xo"/>
                             <constraint firstItem="436-9o-RSR" firstAttribute="bottom" secondItem="Mqr-Lj-rpn" secondAttribute="bottom" id="rp9-vS-Wmm"/>
                             <constraint firstItem="Mqr-Lj-rpn" firstAttribute="top" secondItem="436-9o-RSR" secondAttribute="top" id="sTm-v8-QvZ"/>
+                            <constraint firstItem="436-9o-RSR" firstAttribute="trailing" secondItem="Mqr-Lj-rpn" secondAttribute="trailing" id="sYK-Fz-jk7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Фотографии" id="oLZ-Mc-5hd"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="poO-O8-9HC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3721" y="-297"/>
+            <point key="canvasLocation" x="3720.8000000000002" y="-297.30134932533736"/>
         </scene>
         <!--Поиск-->
         <scene sceneID="jKx-02-fkZ">

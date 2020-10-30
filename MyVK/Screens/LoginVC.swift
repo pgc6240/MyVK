@@ -14,13 +14,17 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         logoImageView.layer.cornerRadius        = 15
         loginTextField.delegate                 = self
         passwordTextField.delegate              = self
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        
+        #if DEBUG
+        loginTextField.text     = "1234"
+        passwordTextField.text  = "1234"
+        #endif
     }
 
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
