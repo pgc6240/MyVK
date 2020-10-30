@@ -10,5 +10,8 @@ import UIKit
 class PhotoCell: UICollectionViewCell {
     static let reuseId = "PhotoCell"
     
-    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        backgroundColor = UIColor.random()
+    }
 }

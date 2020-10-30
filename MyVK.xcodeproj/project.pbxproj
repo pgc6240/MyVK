@@ -19,6 +19,7 @@
 		3182B38525438B1100E3E710 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38425438B1100E3E710 /* Assets.xcassets */; };
 		3182B38825438B1100E3E710 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38625438B1100E3E710 /* LaunchScreen.storyboard */; };
 		3182B39225438B8500E3E710 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182B39125438B8500E3E710 /* MyTextField.swift */; };
+		31E87839254C86500014430E /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E87838254C86500014430E /* UIColor+Ext.swift */; };
 		31E9018B254C7B10009576EB /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E9018A254C7B10009576EB /* PhotosVC.swift */; };
 		31E90192254C7B77009576EB /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E90191254C7B77009576EB /* PhotoCell.swift */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		3182B38725438B1100E3E710 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3182B38925438B1100E3E710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3182B39125438B8500E3E710 /* MyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
+		31E87838254C86500014430E /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		31E9018A254C7B10009576EB /* PhotosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
 		31E90191254C7B77009576EB /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 				3182B38125438B1000E3E710 /* Main.storyboard */,
 				3151A362254C5F8B00F9BFAB /* Cells */,
 				315FF59B2548B81B0054C539 /* Model */,
+				31E87837254C86280014430E /* Extensions */,
 				315FF5962548B61E0054C539 /* Custom Views */,
 				315FF5952548B60C0054C539 /* Screens */,
 				3182B38425438B1100E3E710 /* Assets.xcassets */,
@@ -121,6 +124,14 @@
 				3182B38925438B1100E3E710 /* Info.plist */,
 			);
 			path = MyVK;
+			sourceTree = "<group>";
+		};
+		31E87837254C86280014430E /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				31E87838254C86500014430E /* UIColor+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +213,7 @@
 				3151A369254C600900F9BFAB /* User.swift in Sources */,
 				315FF5A32548B9DE0054C539 /* GroupsVC.swift in Sources */,
 				3182B39225438B8500E3E710 /* MyTextField.swift in Sources */,
+				31E87839254C86500014430E /* UIColor+Ext.swift in Sources */,
 				31E90192254C7B77009576EB /* PhotoCell.swift in Sources */,
 				31E9018B254C7B10009576EB /* PhotosVC.swift in Sources */,
 			);
