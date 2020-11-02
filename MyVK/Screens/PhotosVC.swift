@@ -17,6 +17,7 @@ class PhotosVC: UIViewController {
         collectionView.collectionViewLayout = collectionViewLayout
     }
     
+    
     var collectionViewLayout: UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let columns = sectionIndex.isEven ? 3 : 2
@@ -36,15 +37,20 @@ class PhotosVC: UIViewController {
 }
 
 
+//
+// MARK: - UICollectionViewDataSource & UICollectionViewDelegate
+//
 extension PhotosVC: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        10
+        12
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         6
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
