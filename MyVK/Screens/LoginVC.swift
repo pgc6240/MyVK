@@ -17,9 +17,9 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         logoImageView.layer.cornerRadius        = 15
-        loginTextField.delegate                 = self
-        passwordTextField.delegate              = self
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        //loginTextField.delegate                 = self
+        //passwordTextField.delegate              = self
+        //view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
         
         #if DEBUG
         loginTextField.text     = "1234"
