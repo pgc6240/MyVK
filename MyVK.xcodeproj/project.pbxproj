@@ -31,6 +31,7 @@
 		312AE5482550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		312AE5552550CF4F00B97164 /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
 		312AE5582550CF6600B97164 /* PhotosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
+		312AE5612550D2C600B97164 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		3151A363254C5FC800F9BFAB /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		3151A368254C600900F9BFAB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3151A36B254C60C200F9BFAB /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -100,7 +101,7 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		31710BF72550C53100C6027A /* Supporting Files */ = {
+		31710BF72550C53100C6027A /* Support */ = {
 			isa = PBXGroup;
 			children = (
 				3182B37B25438B1000E3E710 /* AppDelegate.swift */,
@@ -108,7 +109,7 @@
 				3182B38625438B1100E3E710 /* LaunchScreen.storyboard */,
 				3182B38925438B1100E3E710 /* Info.plist */,
 			);
-			path = "Supporting Files";
+			path = Support;
 			sourceTree = "<group>";
 		};
 		3182B36F25438B1000E3E710 = {
@@ -131,12 +132,12 @@
 			isa = PBXGroup;
 			children = (
 				3182B38125438B1000E3E710 /* Main.storyboard */,
-				31E87837254C86280014430E /* Extensions */,
 				315FF59B2548B81B0054C539 /* Model */,
 				3151A362254C5F8B00F9BFAB /* Cells */,
+				31E87837254C86280014430E /* Extensions */,
 				315FF5962548B61E0054C539 /* Custom Views */,
 				315FF5952548B60C0054C539 /* Screens */,
-				31710BF72550C53100C6027A /* Supporting Files */,
+				31710BF72550C53100C6027A /* Support */,
 			);
 			path = MyVK;
 			sourceTree = "<group>";
@@ -246,6 +247,7 @@
 			children = (
 				3182B38225438B1000E3E710 /* Base */,
 				312AE5472550C78200B97164 /* ru */,
+				312AE5612550D2C600B97164 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
