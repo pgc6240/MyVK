@@ -27,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		312AE5472550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		312AE5482550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		3151A363254C5FC800F9BFAB /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		3151A368254C600900F9BFAB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3151A36B254C60C200F9BFAB /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -98,6 +100,17 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		31710BF72550C53100C6027A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3182B37B25438B1000E3E710 /* AppDelegate.swift */,
+				3182B38425438B1100E3E710 /* Assets.xcassets */,
+				3182B38625438B1100E3E710 /* LaunchScreen.storyboard */,
+				3182B38925438B1100E3E710 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		3182B36F25438B1000E3E710 = {
 			isa = PBXGroup;
 			children = (
@@ -117,16 +130,13 @@
 		3182B37A25438B1000E3E710 /* MyVK */ = {
 			isa = PBXGroup;
 			children = (
-				3182B37B25438B1000E3E710 /* AppDelegate.swift */,
 				3182B38125438B1000E3E710 /* Main.storyboard */,
-				3151A362254C5F8B00F9BFAB /* Cells */,
-				315FF59B2548B81B0054C539 /* Model */,
 				31E87837254C86280014430E /* Extensions */,
+				315FF59B2548B81B0054C539 /* Model */,
+				3151A362254C5F8B00F9BFAB /* Cells */,
 				315FF5962548B61E0054C539 /* Custom Views */,
 				315FF5952548B60C0054C539 /* Screens */,
-				3182B38425438B1100E3E710 /* Assets.xcassets */,
-				3182B38625438B1100E3E710 /* LaunchScreen.storyboard */,
-				3182B38925438B1100E3E710 /* Info.plist */,
+				31710BF72550C53100C6027A /* Supporting Files */,
 			);
 			path = MyVK;
 			sourceTree = "<group>";
@@ -181,6 +191,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 3182B36F25438B1000E3E710;
 			productRefGroup = 3182B37925438B1000E3E710 /* Products */;
@@ -234,6 +245,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3182B38225438B1000E3E710 /* Base */,
+				312AE5472550C78200B97164 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -242,6 +254,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3182B38725438B1100E3E710 /* Base */,
+				312AE5482550C78200B97164 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -253,6 +266,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -314,6 +328,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -372,7 +387,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FWZ425S5UY;
-				INFOPLIST_FILE = MyVK/Info.plist;
+				INFOPLIST_FILE = "MyVK/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -392,7 +407,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FWZ425S5UY;
-				INFOPLIST_FILE = MyVK/Info.plist;
+				INFOPLIST_FILE = "MyVK/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

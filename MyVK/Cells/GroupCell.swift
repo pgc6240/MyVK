@@ -7,9 +7,10 @@
 
 import UIKit
 
-class GroupCell: UITableViewCell {
+final class GroupCell: UITableViewCell {
     
     static let reuseId = "GroupCell"
+    
     
     func set(with group: Group) {
         imageView?.image    = UIImage(systemName: "person.3.fill")

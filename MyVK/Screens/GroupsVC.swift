@@ -15,10 +15,10 @@ class GroupsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.rightBarButtonItem = editButtonItem
-        editButtonItem.tintColor = .red
+        navigationItem.leftBarButtonItem = editButtonItem
         loadGroups(for: user)
     }
+    
     
     func loadGroups(for user: User?) {
         groups = makeDummyGroups()
@@ -35,6 +35,7 @@ extension GroupsVC {
         groups.count
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
         let group = groups[indexPath.row]
@@ -42,15 +43,19 @@ extension GroupsVC {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
     }
     
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
             groups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -62,7 +67,9 @@ extension GroupsVC {
         }
     }
     
+    
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        
         if indexPath == [0,0] {
             return .insert
         } else {
@@ -72,7 +79,9 @@ extension GroupsVC {
 }
 
 
+//
 // MARK: - Dummy data
+//
 func makeDummyGroups() -> [Group] {
     var groups: [Group] = []
     for i in 0...Int.random(in: 1...100) {
