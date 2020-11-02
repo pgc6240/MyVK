@@ -70,3 +70,13 @@ extension GroupsVC {
         }
     }
 }
+
+
+// MARK: - Dummy data
+func makeDummyGroups() -> [Group] {
+    var groups: [Group] = []
+    for i in 0...Int.random(in: 1...100) {
+        groups.append(Group(name: "Сообщество \(i)"))
+    }
+    return groups
+}

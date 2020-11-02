@@ -15,13 +15,13 @@
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="LoginVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="O9Q-E3-dHq">
-                                <rect key="frame" x="94" y="155.5" width="187.5" height="356"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="O9Q-E3-dHq">
+                                <rect key="frame" x="94" y="153.5" width="187.5" height="360"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WPp-cV-Bev">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="167"/>
@@ -42,7 +42,7 @@
                                         </variation>
                                     </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Телефон или e-mail" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L00-3F-lGd" customClass="MyTextField" customModule="MyVK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="182" width="187.5" height="34"/>
+                                        <rect key="frame" x="0.0" y="183" width="187.5" height="34"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
@@ -51,7 +51,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b0k-rX-HIg" customClass="MyTextField" customModule="MyVK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="231" width="187.5" height="34"/>
+                                        <rect key="frame" x="0.0" y="233" width="187.5" height="34"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
@@ -60,7 +60,7 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lt-g8-Y2N">
-                                        <rect key="frame" x="0.0" y="280" width="187.5" height="33"/>
+                                        <rect key="frame" x="0.0" y="283" width="187.5" height="33"/>
                                         <color key="backgroundColor" name="vk-color"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                         <color key="tintColor" name="vk-color"/>
@@ -72,7 +72,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGE-Zu-dK7">
-                                        <rect key="frame" x="0.0" y="328" width="187.5" height="28"/>
+                                        <rect key="frame" x="0.0" y="332" width="187.5" height="28"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                         <inset key="titleEdgeInsets" minX="0.0" minY="-5" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Зарегистрироваться">
@@ -82,7 +82,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" name="vk-color"/>
-                                <variation key="heightClass=compact" spacing="10"/>
+                                <variation key="heightClass=compact" spacing="8"/>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
