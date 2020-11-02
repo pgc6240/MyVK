@@ -46,12 +46,18 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="email"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="R0T-5N-FGH"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Пароль" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b0k-rX-HIg" customClass="MyTextField" customModule="MyVK" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="231" width="187.5" height="34"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES" textContentType="password"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="BYZ-38-t0r" id="DUN-BJ-vsz"/>
+                                        </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lt-g8-Y2N">
                                         <rect key="frame" x="0.0" y="280" width="187.5" height="33"/>
@@ -81,10 +87,14 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="O9Q-E3-dHq" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="NFI-5r-GeE"/>
                             <constraint firstItem="O9Q-E3-dHq" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="hGB-iF-MnC"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="VZ4-Wo-NZA" appends="YES" id="zLe-dz-Xv1"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="containerCenterYConstraint" destination="hGB-iF-MnC" id="iVw-jm-EQP"/>
@@ -94,6 +104,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="VZ4-Wo-NZA">
+                    <connections>
+                        <action selector="dismissKeyboard" destination="BYZ-38-t0r" id="2NC-Il-6Wr"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="54" y="73"/>
         </scene>

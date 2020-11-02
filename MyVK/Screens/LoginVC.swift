@@ -14,12 +14,10 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        logoImageView.layer.cornerRadius        = 15
-        //loginTextField.delegate                 = self
-        //passwordTextField.delegate              = self
-        //view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        logoImageView.layer.cornerRadius = 15
         
         #if DEBUG
         loginTextField.text     = "1234"
@@ -43,6 +41,7 @@ class LoginVC: UIViewController {
     }
 }
 
+
 //
 // MARK: - UITextFieldDelegate
 //
@@ -64,7 +63,7 @@ extension LoginVC: UITextFieldDelegate {
         changeContainerCenterY(toConstant: -45)
     }
     
-    @objc func dismissKeyboard() {
+    @IBAction func dismissKeyboard() {
         changeContainerCenterY(toConstant: 0)
         view.endEditing(true)
     }
