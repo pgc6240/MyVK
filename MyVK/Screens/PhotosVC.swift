@@ -2,15 +2,13 @@
 //  PhotosVC.swift
 //  MyVK
 //
-//  Created by pgc6240 on 30.10.2020.
+//  Created by pgc6240 on 03.11.2020.
 //
 
 import UIKit
 
-class PhotosVC: UIViewController {
+class PhotosVC: UICollectionViewController {
 
-    @IBOutlet weak var collectionView: UICollectionView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +16,7 @@ class PhotosVC: UIViewController {
     }
     
     
-    var collectionViewLayout: UICollectionViewLayout {
+    override var collectionViewLayout: UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
             let columns = sectionIndex.isEven ? 3 : 2
             let spacing: CGFloat = 8
@@ -40,19 +38,19 @@ class PhotosVC: UIViewController {
 //
 // MARK: - UICollectionViewDataSource & UICollectionViewDelegate
 //
-extension PhotosVC: UICollectionViewDataSource, UICollectionViewDelegate {
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+extension PhotosVC {
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         12
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         6
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
         return cell
     }

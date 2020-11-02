@@ -2,12 +2,12 @@
 //  FriendsVC.swift
 //  MyVK
 //
-//  Created by pgc6240 on 30.10.2020.
+//  Created by pgc6240 on 03.11.2020.
 //
 
 import UIKit
 
-class FriendsVC: UIViewController {
+class FriendsVC: UITableViewController {
     
     var friends: [User] = []
     var newFriends: [User] = []
@@ -20,10 +20,12 @@ class FriendsVC: UIViewController {
         getFriends()
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.tabBarItem.badgeValue = "\(newFriends.count)"
     }
+    
     
     func getFriends() {
         for _ in 0..<Int.random(in: 0..<10_000) {
@@ -39,32 +41,36 @@ class FriendsVC: UIViewController {
 //
 // MARK: - UITableViewDataSource & UITableViewDelegate
 //
-extension FriendsVC: UITableViewDataSource, UITableViewDelegate {
+extension FriendsVC {
 
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         sectionHeaders[section]
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return newFriends.count
         } else {
             return friends.count
         }
     }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseId) as! FriendCell
         let friend = friends[indexPath.row]
         cell.set(with: friend)
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

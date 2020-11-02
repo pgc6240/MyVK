@@ -7,15 +7,13 @@
 
 import UIKit
 
-class FriendCell: UITableViewCell {
+final class FriendCell: UITableViewCell {
     
     static let reuseId = "FriendCell"
     
-    @IBOutlet weak var avatarImageView: UIImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    
     
     func set(with friend: User) {
-        nameLabel.text = "\(friend.firstName) \(friend.lastName)"
+        imageView?.image    = UIImage(systemName: "person.fill")
+        textLabel?.text     = "\(friend.firstName) \(friend.lastName)"
     }
 }
