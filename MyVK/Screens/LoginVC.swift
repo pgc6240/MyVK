@@ -20,22 +20,22 @@ class LoginVC: UIViewController {
         logoImageView.layer.cornerRadius = 15
         
         #if DEBUG
-        loginTextField.text     = "1234"
-        passwordTextField.text  = "1234"
+        loginTextField.text     = "79154874184"
+        passwordTextField.text  = "12345678"
         #endif
     }
 
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         checkLoginAndPassword()
     }
     
+    
     func checkLoginAndPassword() -> Bool {
-        if loginTextField.text == "1234" && passwordTextField.text == "1234" {
+        if loginTextField.text == "79154874184" && passwordTextField.text == "12345678" {
             return true
         } else {
-            let alert = UIAlertController(title: "Некорректный логин/пароль", message: "Пожалуйста, введите логин и пароль.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Хорошо", style: .cancel))
-            present(alert, animated: true)
+            presentAlert(title: "Некорректный логин/пароль", message: "Пожалуйста, введите логин и пароль.")
             return false
         }
     }
@@ -59,20 +59,23 @@ extension LoginVC: UITextFieldDelegate {
         return true
     }
     
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         changeContainerCenterY(toConstant: -45)
     }
     
-    @IBAction func dismissKeyboard() {
-        changeContainerCenterY(toConstant: 0)
-        view.endEditing(true)
-    }
-
+    
     func changeContainerCenterY(toConstant constant: CGFloat) {
         UIView.animate(withDuration: 0.4) {
             self.containerCenterYConstraint?.constant = constant
             self.view.layoutIfNeeded()
         }
+    }
+    
+    
+    @IBAction func dismissKeyboard() {
+        changeContainerCenterY(toConstant: 0)
+        view.endEditing(true)
     }
 }
 
