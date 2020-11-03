@@ -13,6 +13,10 @@ final class MyTextField: UITextField {
         super.init(coder: coder)
         configure()
     }
+    
+    override var intrinsicContentSize: CGSize {
+        CGSize(width: super.intrinsicContentSize.width, height: super.intrinsicContentSize.height + 5)
+    }
 
     private func configure() {
         backgroundColor     = .tertiarySystemBackground
