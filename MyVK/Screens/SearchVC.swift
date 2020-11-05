@@ -9,12 +9,13 @@ import UIKit
 
 class SearchVC: UITableViewController {
 
-    var searchResults: [Group] = makeDummyGroups()
+    var searchResults: [Group] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchController()
+        (1...Int.random(in: 2...100)).forEach { searchResults.append(Group(name: "Сообщество \($0)")) }
     }
 }
 

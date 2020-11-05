@@ -12,8 +12,8 @@ class GroupsVC: UITableViewController {
     var user: User?
     var groups: [Group] = []
     
-    let sectionHeaders = ["Добавить новое сообщество", "Мои сообщества"]
-    var newGroupTitle = "Новое сообщество..."
+    let sectionHeaders  = ["Добавить новое сообщество", "Мои сообщества"]
+    var newGroupTitle   = "Новое сообщество "
     
     
     override func viewDidLoad() {
@@ -22,9 +22,8 @@ class GroupsVC: UITableViewController {
         loadGroups(for: user)
     }
     
-    
     func loadGroups(for user: User?) {
-        groups = makeDummyGroups()
+        (1...Int.random(in: 2...100)).forEach { groups.append(Group(name: "Сообщество \($0)")) }
     }
 }
 
@@ -45,6 +44,7 @@ extension GroupsVC {
     
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if isEditing {
             return section == 0 ? 1 : groups.count
         } else {
@@ -93,11 +93,7 @@ extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         
-        if indexPath == [0,0] {
-            return .insert
-        } else {
-            return .delete
-        }
+        indexPath == [0,0] ? .insert : .delete
     }
     
     
@@ -106,6 +102,11 @@ extension GroupsVC {
         
         editing ? tableView.insertSections([0], with: .automatic) : tableView.deleteSections([0], with: .automatic)
         tableView.reloadSections([0], with: .automatic)
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        nil
     }
 }
 
@@ -116,19 +117,10 @@ extension GroupsVC {
 extension GroupsVC: UITextFieldDelegate {
  
     @IBAction func editingChanged(_ textField: UITextField) {
-        guard let text = textField.text, text != "" else { return }
+        guard let text = textField.text, text != "" else {
+            newGroupTitle = "Новое сообщество "
+            return
+        }
         newGroupTitle = text
     }
-}
-
-
-//
-// MARK: - Dummy data
-//
-func makeDummyGroups() -> [Group] {
-    var groups: [Group] = []
-    for i in 0...Int.random(in: 1...100) {
-        groups.append(Group(name: "Сообщество \(i)"))
-    }
-    return groups
 }
