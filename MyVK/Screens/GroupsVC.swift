@@ -11,7 +11,9 @@ class GroupsVC: UITableViewController {
     
     var user: User?
     var groups: [Group] = []
-
+    
+    let sectionHeaders = ["Добавить новое сообщество", "Мои сообщества"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,17 +32,37 @@ class GroupsVC: UITableViewController {
 // MARK: - UITableViewDelegate & UITableViewDataSource
 //
 extension GroupsVC {
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        isEditing ? sectionHeaders[section] : nil
+    }
+    
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        isEditing ? 2 : 1
+    }
+    
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        groups.count
+        if isEditing {
+            return section == 0 ? 1 : groups.count
+        } else {
+            return groups.count
+        }
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
-        let group = groups[indexPath.row]
-        cell.set(with: group)
-        return cell
+        
+        if tableView.isEditing && indexPath == [0,0] {
+            return tableView.dequeueReusableCell(withIdentifier: "NewGroupCell", for: indexPath)
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
+            let group = groups[indexPath.row]
+            cell.set(with: group)
+            return cell
+        }
     }
     
     
@@ -63,7 +85,7 @@ extension GroupsVC {
         } else if editingStyle == .insert {
             let newGroup = Group(name: "Сообщество \(Int.random(in: 100..<1000))")
             groups.insert(newGroup, at: 0)
-            tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
         }
     }
     
@@ -75,6 +97,14 @@ extension GroupsVC {
         } else {
             return .delete
         }
+    }
+    
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        editing ? tableView.insertSections([0], with: .automatic) : tableView.deleteSections([0], with: .automatic)
+        tableView.reloadData()
     }
 }
 
