@@ -22,6 +22,7 @@ class LoginVC: UIViewController {
         #if DEBUG
         loginTextField.text     = "79154874184"
         passwordTextField.text  = "12345678"
+        view.addSubview(LikeControl(likeCount: 50))
         #endif
     }
 
@@ -78,4 +79,3 @@ extension LoginVC: UITextFieldDelegate {
         view.endEditing(true)
     }
 }
-

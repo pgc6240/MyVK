@@ -26,3 +26,11 @@ extension UIViewController {
         present(alert, animated: true)
     }
 }
+
+
+extension UIView {
+    
+    func addSubviews(_ views: UIView...) {
+        views.forEach { addSubview($0) }
+    }
+}
