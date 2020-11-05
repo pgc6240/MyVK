@@ -14,8 +14,6 @@ class FriendsVC: UITableViewController {
     
     var alphabetControl = AlphabetControl(frame: .zero)
     
-    @IBOutlet weak var sortButton: UIBarButtonItem!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,18 +101,22 @@ extension FriendsVC: AlphabetControlDelegate {
 
     @IBAction func sortButtonTapped() {
         alphabetControl.removeFromSuperview()
-        let frame = CGRect(x: view.bounds.midX - 132, y: view.bounds.midY - 110, width: 264, height: 220)
-        alphabetControl = AlphabetControl(frame: frame)
+        let letters = friends.keys.sorted(by: <).joined()
+        let rows = (CGFloat(letters.count) / 6).rounded(.up)
+        let frame = CGRect(x: view.bounds.midX - 132, y: view.bounds.midY - 110, width: 264, height: rows * 44)
+        alphabetControl = AlphabetControl(letters: letters, frame: frame)
         alphabetControl.delegate = self
         guard !view.subviews.contains(alphabetControl) else { return }
         view.addSubview(alphabetControl)
     }
+    
     
     func letterTapped(_ letter: String) {
         let sectionsHeaders = friends.keys.sorted(by: <)
         guard let sectionIndex = sectionsHeaders.firstIndex(of: letter) else { return }
         let indexPath = IndexPath(row: 0, section: sectionIndex + 1)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        alphabetControl.delegate = nil
         alphabetControl.removeFromSuperview()
     }
 }

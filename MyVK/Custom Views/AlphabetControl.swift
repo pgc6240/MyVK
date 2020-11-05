@@ -15,7 +15,7 @@ final class AlphabetControl: UIControl {
     
     weak var delegate: AlphabetControlDelegate?
 
-    let letters = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
+    var letters = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
     var letterButtons: [String: UIButton] = [:]
     
     
@@ -24,10 +24,13 @@ final class AlphabetControl: UIControl {
         layoutUI()
     }
     
-    override init(frame: CGRect) {
+    
+    init(letters: String = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ", frame: CGRect) {
         super.init(frame: frame)
+        self.letters = letters
         layoutUI()
     }
+    
     
     private func layoutUI() {
         backgroundColor = .systemGray4
@@ -43,6 +46,7 @@ final class AlphabetControl: UIControl {
             letterButtons[String(letter)] = letterButton
         }
     }
+    
     
     @objc func letterButtonTapped(_ letterButton: UIButton) {
         guard let letter = letterButton.currentTitle else { return }
