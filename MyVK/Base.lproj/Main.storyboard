@@ -292,10 +292,10 @@
             </objects>
             <point key="canvasLocation" x="3721" y="446"/>
         </scene>
-        <!--Друзья-->
+        <!--FriendsNC-->
         <scene sceneID="cwM-BT-l4H">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="R1N-Pm-zQg" sceneMemberID="viewController">
+                <navigationController title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" id="R1N-Pm-zQg" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" image="person.2" catalog="system" badgeValue="1" id="UCP-3E-Tdw">
                         <imageReference key="landscapeImage" image="person.2" catalog="system" symbolScale="small"/>
                     </tabBarItem>
@@ -386,10 +386,10 @@
             </objects>
             <point key="canvasLocation" x="2793" y="446"/>
         </scene>
-        <!--Сообщества-->
+        <!--GroupsNC-->
         <scene sceneID="yJE-mF-7Kp">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fgi-XJ-5Ml" sceneMemberID="viewController">
+                <navigationController title="GroupsNC" automaticallyAdjustsScrollViewInsets="NO" id="fgi-XJ-5Ml" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Сообщества" image="person.3" catalog="system" id="Qka-zD-b41">
                         <imageReference key="landscapeImage" image="person.3" catalog="system" symbolScale="small"/>
                     </tabBarItem>
