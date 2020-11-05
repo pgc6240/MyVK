@@ -9,11 +9,9 @@ import UIKit
 
 class FriendsVC: UITableViewController {
     
-    var friends: [User] = []
+    var friends: [String: [User]] = [:]
     var newFriends: [User] = []
     
-    let sectionHeaders = ["Заявки в друзья", "Мои друзья"]
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +26,20 @@ class FriendsVC: UITableViewController {
     
     
     func getFriends() {
-        for _ in 0..<Int.random(in: 0..<10_000) {
+        for _ in 0..<Int.random(in: 0..<100) {
             let randomFirstName = firstNames.randomElement() ?? "Иван"
             let randomLastName = lastNames.randomElement() ?? "Иванов"
             let friend = User(firstName: randomFirstName, lastName: randomLastName)
             
-            friends.append(friend)
+            let firstLetter = String(friend.lastName.first!)
+            friends[firstLetter] == nil ? friends[firstLetter] = [friend] : friends[firstLetter]?.append(friend)
         }
         for _ in 0..<Int.random(in: 1...3) {
-            newFriends.append(User(firstName: "Имя", lastName: "Фамилия"))
+            let randomFirstName = firstNames.randomElement() ?? "Иван"
+            let randomLastName = lastNames.randomElement() ?? "Иванов"
+            let newFriend = User(firstName: randomFirstName, lastName: randomLastName)
+            
+            newFriends.append(newFriend)
         }
     }
 }
@@ -46,14 +49,14 @@ class FriendsVC: UITableViewController {
 // MARK: - UITableViewDataSource & UITableViewDelegate
 //
 extension FriendsVC {
-
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        sectionHeaders[section]
+        section == 0 ? "Заявки в друзья" : friends.keys.sorted(by: <)[section - 1]
     }
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        2
+        1 + friends.count
     }
     
     
@@ -61,14 +64,21 @@ extension FriendsVC {
         if section == 0 {
             return newFriends.count
         } else {
-            return friends.count
+            let sectionHeader = friends.keys.sorted(by: <)[section - 1]
+            return friends[sectionHeader]!.count
         }
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseId) as! FriendCell
-        let friend = friends[indexPath.row]
+        var friend: User
+        if indexPath.section == 0 {
+            friend = newFriends[indexPath.row]
+        } else {
+            let section = friends.keys.sorted(by: <)[indexPath.section - 1]
+            friend = friends[section]![indexPath.row]
+        }
         cell.set(with: friend)
         return cell
     }

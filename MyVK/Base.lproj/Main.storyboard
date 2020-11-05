@@ -209,7 +209,9 @@
                             <outlet property="delegate" destination="yWS-54-f4Z" id="M0z-09-bUW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Друзья" largeTitleDisplayMode="always" id="swY-ae-BsR"/>
+                    <navigationItem key="navigationItem" title="Друзья" largeTitleDisplayMode="always" id="swY-ae-BsR">
+                        <barButtonItem key="rightBarButtonItem" title="А-я" style="done" id="xUu-uB-8je"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QB4-oZ-5Im" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
