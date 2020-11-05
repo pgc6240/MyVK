@@ -300,28 +300,32 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewGroupCell" id="2Gp-Iy-J9X">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="42.5"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="38.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Gp-Iy-J9X" id="sRA-sf-9EX">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="42.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Новое сообщество..." borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USJ-dL-Roq">
-                                            <rect key="frame" x="20" y="4" width="335" height="34.5"/>
+                                        <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Новое сообщество..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USJ-dL-Roq">
+                                            <rect key="frame" x="20" y="8" width="335" height="22.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="editingChanged:" destination="gag-xF-JEA" eventType="editingChanged" id="CCT-Jz-11w"/>
+                                                <outlet property="delegate" destination="gag-xF-JEA" id="rCW-lP-9oB"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="USJ-dL-Roq" firstAttribute="top" secondItem="sRA-sf-9EX" secondAttribute="top" constant="4" id="5fj-uq-bTg"/>
+                                        <constraint firstItem="USJ-dL-Roq" firstAttribute="top" secondItem="sRA-sf-9EX" secondAttribute="top" constant="8" id="5fj-uq-bTg"/>
                                         <constraint firstAttribute="trailing" secondItem="USJ-dL-Roq" secondAttribute="trailing" constant="20" symbolic="YES" id="M7i-aL-kNI"/>
-                                        <constraint firstAttribute="bottom" secondItem="USJ-dL-Roq" secondAttribute="bottom" constant="4" id="hQq-yW-zSa"/>
+                                        <constraint firstAttribute="bottom" secondItem="USJ-dL-Roq" secondAttribute="bottom" constant="8" id="hQq-yW-zSa"/>
                                         <constraint firstItem="USJ-dL-Roq" firstAttribute="leading" secondItem="sRA-sf-9EX" secondAttribute="leading" constant="20" symbolic="YES" id="sFd-yp-tnf"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" textLabel="p8v-st-Mmj" imageView="Kbk-kN-JMZ" style="IBUITableViewCellStyleDefault" id="4lb-mg-77o" customClass="GroupCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="98" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="94" width="375" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4lb-mg-77o" id="yuC-1I-WoI">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>

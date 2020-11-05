@@ -13,6 +13,7 @@ class GroupsVC: UITableViewController {
     var groups: [Group] = []
     
     let sectionHeaders = ["Добавить новое сообщество", "Мои сообщества"]
+    var newGroupTitle = "Новое сообщество..."
     
     
     override func viewDidLoad() {
@@ -83,7 +84,7 @@ extension GroupsVC {
             tableView.deleteRows(at: [indexPath], with: .fade)
             
         } else if editingStyle == .insert {
-            let newGroup = Group(name: "Сообщество \(Int.random(in: 100..<1000))")
+            let newGroup = Group(name: newGroupTitle)
             groups.insert(newGroup, at: 0)
             tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
         }
@@ -104,7 +105,19 @@ extension GroupsVC {
         super.setEditing(editing, animated: animated)
         
         editing ? tableView.insertSections([0], with: .automatic) : tableView.deleteSections([0], with: .automatic)
-        tableView.reloadData()
+        tableView.reloadSections([0], with: .automatic)
+    }
+}
+
+
+//
+// MARK: - UITextFieldDelegate
+//
+extension GroupsVC: UITextFieldDelegate {
+ 
+    @IBAction func editingChanged(_ textField: UITextField) {
+        guard let text = textField.text, text != "" else { return }
+        newGroupTitle = text
     }
 }
 
