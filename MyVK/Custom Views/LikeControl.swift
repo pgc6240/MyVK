@@ -31,7 +31,7 @@ final class LikeControl: UIControl {
     }
     
     convenience init(likeCount: Int) {
-        self.init(frame: CGRect(x: 50, y: 50, width: 60, height: 40))
+        self.init(frame: CGRect(x: 20, y: 35, width: 60, height: 40))
         self.likeCount = likeCount
         updateUI()
     }
