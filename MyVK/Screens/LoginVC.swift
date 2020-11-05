@@ -23,7 +23,6 @@ class LoginVC: UIViewController {
         loginTextField.text     = "79154874184"
         passwordTextField.text  = "12345678"
         view.addSubview(LikeControl(likeCount: 50))
-        view.addSubview(AlphabetControl(frame: CGRect(x: 90, y: 35, width: 264, height: 220)))
         #endif
     }
 
