@@ -29,7 +29,11 @@ class FriendsVC: UITableViewController {
     
     func getFriends() {
         for _ in 0..<Int.random(in: 0..<10_000) {
-            friends.append(User(firstName: "Имя", lastName: "Фамилия"))
+            let randomFirstName = firstNames.randomElement() ?? "Иван"
+            let randomLastName = lastNames.randomElement() ?? "Иванов"
+            let friend = User(firstName: randomFirstName, lastName: randomLastName)
+            
+            friends.append(friend)
         }
         for _ in 0..<Int.random(in: 1...3) {
             newFriends.append(User(firstName: "Имя", lastName: "Фамилия"))
