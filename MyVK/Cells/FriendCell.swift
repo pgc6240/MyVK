@@ -11,9 +11,12 @@ final class FriendCell: UITableViewCell {
     
     static let reuseId = "FriendCell"
     
+    @IBOutlet weak var friendAvatarImageView: UIImageView!
+    @IBOutlet weak var friendNameLabel: UILabel!
+    
     
     func set(with friend: User) {
-        imageView?.image    = UIImage(systemName: "person.fill")
-        textLabel?.text     = "\(friend.firstName) \(friend.lastName)"
+        
+        friendNameLabel.text = friend.firstName + " " + friend.lastName
     }
 }
