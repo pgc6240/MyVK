@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol AlphabetControlDelegate: class {
+    func letterTapped(_ letter: String)
+}
+
 final class AlphabetControl: UIControl {
+    
+    weak var delegate: AlphabetControlDelegate?
 
     let letters = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
     var letterButtons: [String: UIButton] = [:]
@@ -39,6 +45,7 @@ final class AlphabetControl: UIControl {
     }
     
     @objc func letterButtonTapped(_ letterButton: UIButton) {
-        print(letterButton.currentTitle!)
+        guard let letter = letterButton.currentTitle else { return }
+        delegate?.letterTapped(letter)
     }
 }

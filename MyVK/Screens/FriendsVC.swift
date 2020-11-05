@@ -12,9 +12,12 @@ class FriendsVC: UITableViewController {
     var friends: [String: [User]] = [:]
     var newFriends: [User] = []
     
+    let alphabetControl = AlphabetControl(frame: CGRect(x: 90, y: 35, width: 264, height: 220))
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alphabetControl.delegate = self
         getFriends()
     }
     
@@ -91,5 +94,22 @@ extension FriendsVC {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
+    }
+}
+
+
+extension FriendsVC: AlphabetControlDelegate {
+
+    @IBAction func sortButtonTapped() {
+        guard !view.subviews.contains(alphabetControl) else { return }
+        view.addSubview(alphabetControl)
+    }
+    
+    func letterTapped(_ letter: String) {
+        let sectionsHeaders = friends.keys.sorted(by: <)
+        guard let sectionIndex = sectionsHeaders.firstIndex(of: letter) else { return }
+        let indexPath = IndexPath(row: 0, section: sectionIndex + 1)
+        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        alphabetControl.removeFromSuperview()
     }
 }
