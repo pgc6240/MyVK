@@ -9,9 +9,11 @@ import UIKit
 
 class FriendsVC: UITableViewController {
     
-    var friends: [String: [User]] = [:]
+    var friends: [[User]] = []
     var newFriends: [User] = []
     
+    let collation = UILocalizedIndexedCollation.current()
+    var avaliableLetters: Set<String> = []
     var alphabetControl = AlphabetControl(frame: .zero)
     
     
@@ -28,14 +30,18 @@ class FriendsVC: UITableViewController {
     
     
     func getFriends() {
-        for _ in 0..<Int.random(in: 0..<100) {
+        friends = [[User]](repeating: [], count: collation.sectionTitles.count)
+        
+        for _ in 0..<Int.random(in: 0..<500) {
             let randomFirstName = firstNames.randomElement() ?? "Иван"
             let randomLastName = lastNames.randomElement() ?? "Иванов"
             let friend = User(firstName: randomFirstName, lastName: randomLastName)
             
-            let firstLetter = String(friend.lastName.first!)
-            friends[firstLetter] == nil ? friends[firstLetter] = [friend] : friends[firstLetter]?.append(friend)
+            let sectionIndex = collation.section(for: friend, collationStringSelector: #selector(getter:User.lastName))
+            friends[sectionIndex].append(friend)
+            avaliableLetters.insert(collation.sectionTitles[sectionIndex])
         }
+        
         for _ in 0..<Int.random(in: 1...3) {
             let randomFirstName = firstNames.randomElement() ?? "Иван"
             let randomLastName = lastNames.randomElement() ?? "Иванов"
@@ -53,7 +59,12 @@ class FriendsVC: UITableViewController {
 extension FriendsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? "Заявки в друзья" : friends.keys.sorted(by: <)[section - 1]
+        if section == 0 {
+            return "Заявки в друзья"
+        
+        } else {
+            return friends[section - 1].isEmpty ? nil : collation.sectionTitles[section - 1]
+        }
     }
     
     
@@ -66,8 +77,7 @@ extension FriendsVC {
         if section == 0 {
             return newFriends.count
         } else {
-            let sectionHeader = friends.keys.sorted(by: <)[section - 1]
-            return friends[sectionHeader]!.count
+            return friends[section - 1].count
         }
     }
     
@@ -78,8 +88,7 @@ extension FriendsVC {
         if indexPath.section == 0 {
             friend = newFriends[indexPath.row]
         } else {
-            let section = friends.keys.sorted(by: <)[indexPath.section - 1]
-            friend = friends[section]![indexPath.row]
+            friend = friends[indexPath.section - 1][indexPath.row]
         }
         cell.set(with: friend)
         return cell
@@ -101,7 +110,7 @@ extension FriendsVC: AlphabetControlDelegate {
 
     @IBAction func sortButtonTapped() {
         alphabetControl.removeFromSuperview()
-        let letters = friends.keys.sorted(by: <).joined()
+        let letters = avaliableLetters.joined()
         let rows = (CGFloat(letters.count) / 6).rounded(.up)
         let frame = CGRect(x: view.bounds.midX - 132, y: view.bounds.midY - 110, width: 264, height: rows * 44)
         alphabetControl = AlphabetControl(letters: letters, frame: frame)
@@ -112,7 +121,7 @@ extension FriendsVC: AlphabetControlDelegate {
     
     
     func letterTapped(_ letter: String) {
-        let sectionsHeaders = friends.keys.sorted(by: <)
+        let sectionsHeaders = collation.sectionTitles
         guard let sectionIndex = sectionsHeaders.firstIndex(of: letter) else { return }
         let indexPath = IndexPath(row: 0, section: sectionIndex + 1)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
