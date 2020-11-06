@@ -68,7 +68,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="rtJ-oo-HJX" kind="presentation" identifier="loginSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Bmd-68-6FP"/>
+                                            <segue destination="rtJ-oo-HJX" kind="presentation" identifier="loginSegue" customClass="MySegue" customModule="MyVK" customModuleProvider="target" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Bmd-68-6FP"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGE-Zu-dK7">
@@ -115,7 +115,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="ONa-rr-X9r">
             <objects>
-                <tabBarController id="rtJ-oo-HJX" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="rootTabBarController" id="rtJ-oo-HJX" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Emg-vc-W3p"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WCe-Hn-hfd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>

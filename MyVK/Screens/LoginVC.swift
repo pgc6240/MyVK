@@ -22,7 +22,6 @@ class LoginVC: UIViewController {
         #if DEBUG
         loginTextField.text     = "79154874184"
         passwordTextField.text  = "12345678"
-        view.addSubview(LikeControl(likeCount: 50))
         #endif
     }
 
@@ -40,6 +39,13 @@ class LoginVC: UIViewController {
             return false
         }
     }
+    
+    
+    #if DEBUG
+    deinit {
+        print(#function, String(describing: self))
+    }
+    #endif
 }
 
 
@@ -77,5 +83,15 @@ extension LoginVC: UITextFieldDelegate {
     @IBAction func dismissKeyboard() {
         changeContainerCenterY(toConstant: 0)
         view.endEditing(true)
+    }
+}
+
+ 
+class MySegue: UIStoryboardSegue {
+    
+    override func perform() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootTabBarController = storyboard.instantiateViewController(withIdentifier: "rootTabBarController")
+        UIApplication.shared.windows.first?.rootViewController = rootTabBarController
     }
 }
