@@ -14,11 +14,12 @@ class FriendsVC: UITableViewController {
     
     let collation = UILocalizedIndexedCollation.current()
     var avaliableLetters: Set<String> = []
-    var alphabetControl = AlphabetControl(frame: .zero)
+    var alphabetControl = AlphabetControl()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.rowHeight = 80
         getFriends()
     }
     
@@ -79,11 +80,6 @@ extension FriendsVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
-    }
 }
 
 
@@ -91,22 +87,16 @@ extension FriendsVC: AlphabetControlDelegate {
 
     @IBAction func sortButtonTapped() {
         alphabetControl.removeFromSuperview()
-        let letters = avaliableLetters.sorted(by: <).joined()
-        let rows = (CGFloat(letters.count) / 6).rounded(.up)
-        let frame = CGRect(x: view.bounds.midX - 132, y: view.bounds.midY - 110, width: 264, height: rows * 44)
-        alphabetControl = AlphabetControl(letters: letters, frame: frame)
+        alphabetControl = AlphabetControl(with: avaliableLetters.joined(), in: view)
         alphabetControl.delegate = self
-        guard !view.subviews.contains(alphabetControl) else { return }
         view.addSubview(alphabetControl)
     }
     
     
     func letterTapped(_ letter: String) {
-        let sectionsHeaders = collation.sectionTitles
-        guard let sectionIndex = sectionsHeaders.firstIndex(of: letter) else { return }
-        let indexPath = IndexPath(row: 0, section: sectionIndex + 1)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        alphabetControl.delegate = nil
+        guard let sectionIndex = collation.sectionTitles.firstIndex(of: letter) else { return }
+        
+        tableView.scrollToRow(at: [sectionIndex + 1, 0], at: .top, animated: true)
         alphabetControl.removeFromSuperview()
     }
 }

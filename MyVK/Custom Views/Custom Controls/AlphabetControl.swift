@@ -11,31 +11,42 @@ protocol AlphabetControlDelegate: class {
     func letterTapped(_ letter: String)
 }
 
+
 final class AlphabetControl: UIControl {
     
     weak var delegate: AlphabetControlDelegate?
 
-    var letters = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
-    var letterButtons: [String: UIButton] = [:]
+    var letters                 = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
+    var lettersInRow: CGFloat   = 6
+    var rows: CGFloat           = 1
     
     
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         layoutUI()
     }
     
-    
-    init(letters: String = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ", frame: CGRect) {
-        super.init(frame: frame)
+    init(with letters: String, in superview: UIView) {
+        
+        rows        = (CGFloat(letters.count) / lettersInRow).rounded(.up)
+        let width   = lettersInRow * 44
+        let height  = rows * 44
+        let originX = superview.bounds.midX - width / 2
+        let originY = superview.bounds.midY - height / 2
+       
+        super.init(frame: CGRect(x: originX, y: originY, width: width, height: height))
         self.letters = letters
         layoutUI()
     }
-    
-    
+
     private func layoutUI() {
         backgroundColor = .systemGray4
-        for (i, letter) in letters.enumerated() {
-            let lettersInRow = 6
+        for (i, letter) in letters.sorted(by: <).enumerated() {
+            let lettersInRow = Int(self.lettersInRow)
             let row = i / lettersInRow
             let originX = (i - row * lettersInRow) * 44
             let letterButton = UIButton(frame: CGRect(x: originX, y: row * 44, width: 44, height: 44))
@@ -43,10 +54,8 @@ final class AlphabetControl: UIControl {
             letterButton.setTitleColor(.black, for: .normal)
             letterButton.addTarget(self, action: #selector(letterButtonTapped(_:)), for: .touchUpInside)
             addSubview(letterButton)
-            letterButtons[String(letter)] = letterButton
         }
     }
-    
     
     @objc func letterButtonTapped(_ letterButton: UIButton) {
         guard let letter = letterButton.currentTitle else { return }
