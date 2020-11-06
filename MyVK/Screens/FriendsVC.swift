@@ -33,22 +33,13 @@ class FriendsVC: UITableViewController {
         friends = [[User]](repeating: [], count: collation.sectionTitles.count)
         
         for _ in 0..<Int.random(in: 0..<500) {
-            let randomFirstName = firstNames.randomElement() ?? "Иван"
-            let randomLastName = lastNames.randomElement() ?? "Иванов"
-            let friend = User(firstName: randomFirstName, lastName: randomLastName)
-            
+            let friend = makeFriend()
             let sectionIndex = collation.section(for: friend, collationStringSelector: #selector(getter:User.lastName))
             friends[sectionIndex].append(friend)
             avaliableLetters.insert(collation.sectionTitles[sectionIndex])
         }
         
-        for _ in 0..<Int.random(in: 1...3) {
-            let randomFirstName = firstNames.randomElement() ?? "Иван"
-            let randomLastName = lastNames.randomElement() ?? "Иванов"
-            let newFriend = User(firstName: randomFirstName, lastName: randomLastName)
-            
-            newFriends.append(newFriend)
-        }
+        newFriends = makeRandomNumberOfFriends(upTo: 3)
     }
 }
 
@@ -61,7 +52,6 @@ extension FriendsVC {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "Заявки в друзья"
-        
         } else {
             return friends[section - 1].isEmpty ? nil : collation.sectionTitles[section - 1]
         }
@@ -74,22 +64,13 @@ extension FriendsVC {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return newFriends.count
-        } else {
-            return friends[section - 1].count
-        }
+        section == 0 ? newFriends.count : friends[section - 1].count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseId) as! FriendCell
-        var friend: User
-        if indexPath.section == 0 {
-            friend = newFriends[indexPath.row]
-        } else {
-            friend = friends[indexPath.section - 1][indexPath.row]
-        }
+        let friend = indexPath.section == 0 ? newFriends[indexPath.row] : friends[indexPath.section - 1][indexPath.row]
         cell.set(with: friend)
         return cell
     }
