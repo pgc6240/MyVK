@@ -110,7 +110,7 @@ extension FriendsVC: AlphabetControlDelegate {
 
     @IBAction func sortButtonTapped() {
         alphabetControl.removeFromSuperview()
-        let letters = avaliableLetters.joined()
+        let letters = avaliableLetters.sorted(by: <).joined()
         let rows = (CGFloat(letters.count) / 6).rounded(.up)
         let frame = CGRect(x: view.bounds.midX - 132, y: view.bounds.midY - 110, width: 264, height: rows * 44)
         alphabetControl = AlphabetControl(letters: letters, frame: frame)
