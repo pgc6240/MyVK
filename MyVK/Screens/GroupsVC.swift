@@ -13,7 +13,7 @@ class GroupsVC: UITableViewController {
     var groups: [Group] = []
     
     let sectionHeaders  = ["Добавить новое сообщество", "Мои сообщества"]
-    var newGroupTitle   = "Новое сообщество "
+    var newGroupTitle   = "Новое сообщество \(Int.random(in: 100..<1000))"
     
     
     override func viewDidLoad() {
@@ -56,7 +56,14 @@ extension GroupsVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView.isEditing && indexPath == [0,0] {
-            return tableView.dequeueReusableCell(withIdentifier: "NewGroupCell", for: indexPath)
+            let newGroupCell = tableView.dequeueReusableCell(withIdentifier: "NewGroupCell", for: indexPath)
+            newGroupCell.imageView?.image = UIImage(systemName: "person.3.fill")
+            newGroupCell.imageView?.preferredSymbolConfiguration = .init(scale: .medium)
+            if let newGroupTextField = newGroupCell.viewWithTag(1001) as? UITextField {
+                newGroupTitle = "Новое сообщество \(Int.random(in: 100..<1000))"
+                newGroupTextField.text = newGroupTitle
+            }
+            return newGroupCell
             
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
@@ -87,6 +94,7 @@ extension GroupsVC {
             let newGroup = Group(name: newGroupTitle)
             groups.insert(newGroup, at: 0)
             tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
+            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
         }
     }
     
@@ -118,7 +126,7 @@ extension GroupsVC: UITextFieldDelegate {
  
     @IBAction func editingChanged(_ textField: UITextField) {
         guard let text = textField.text, text != "" else {
-            newGroupTitle = "Новое сообщество "
+            newGroupTitle = "Новое сообщество \(Int.random(in: 100..<1000))"
             return
         }
         newGroupTitle = text

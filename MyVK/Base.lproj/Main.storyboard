@@ -335,8 +335,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Новое сообщество " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USJ-dL-Roq">
-                                            <rect key="frame" x="20" y="8" width="335" height="22.5"/>
+                                        <textField opaque="NO" tag="1001" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Новое сообщество " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USJ-dL-Roq">
+                                            <rect key="frame" x="60" y="8" width="295" height="22.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
@@ -349,7 +349,7 @@
                                         <constraint firstItem="USJ-dL-Roq" firstAttribute="top" secondItem="sRA-sf-9EX" secondAttribute="top" constant="8" id="5fj-uq-bTg"/>
                                         <constraint firstAttribute="trailing" secondItem="USJ-dL-Roq" secondAttribute="trailing" constant="20" symbolic="YES" id="M7i-aL-kNI"/>
                                         <constraint firstAttribute="bottom" secondItem="USJ-dL-Roq" secondAttribute="bottom" constant="8" id="hQq-yW-zSa"/>
-                                        <constraint firstItem="USJ-dL-Roq" firstAttribute="leading" secondItem="sRA-sf-9EX" secondAttribute="leading" constant="20" symbolic="YES" id="sFd-yp-tnf"/>
+                                        <constraint firstItem="USJ-dL-Roq" firstAttribute="leading" secondItem="sRA-sf-9EX" secondAttribute="leading" constant="60" id="sFd-yp-tnf"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
