@@ -9,7 +9,6 @@ import UIKit
 
 class LoginVC: UIViewController {
 
-    @IBOutlet weak var logoImageView: UIImageView!
     @IBOutlet weak var loginTextField: MyTextField!
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
@@ -17,7 +16,6 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        logoImageView.layer.cornerRadius = 15
         
         #if DEBUG
         loginTextField.text     = "79154874184"

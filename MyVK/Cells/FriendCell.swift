@@ -11,7 +11,7 @@ final class FriendCell: UITableViewCell {
     
     static let reuseId = "FriendCell"
     
-    @IBOutlet weak var friendAvatarImageView: AvatarImageView!
+    @IBOutlet weak var friendAvatarImageView: MyImageView!
     @IBOutlet weak var friendNameLabel: UILabel!
     
     
