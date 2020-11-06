@@ -1,17 +1,17 @@
 //
-//  AvatarView.swift
+//  ShadowedView.swift
 //  MyVK
 //
-//  Created by pgc6240 on 05.11.2020.
+//  Created by pgc6240 on 06.11.2020.
 //
 
 import UIKit
 
 @IBDesignable
-final class AvatarView: UIView {
-    
-    @IBInspectable var shadowColor: UIColor = .black {
-        willSet { layer.shadowColor = newValue.cgColor }
+final class ShadowedView: UIView {
+
+    @IBInspectable var shadowColor: UIColor? {
+        willSet { layer.shadowColor = newValue?.cgColor }
     }
 
     @IBInspectable var shadowRadius: CGFloat = 4 {
