@@ -18,7 +18,7 @@ final class AlphabetControl: UIControl {
 
     var letters                 = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
     var lettersInRow: CGFloat   = 6
-    var rows: CGFloat           = 1
+    var rowCount: CGFloat       = 1
     
     
     required init?(coder: NSCoder) {
@@ -32,9 +32,9 @@ final class AlphabetControl: UIControl {
     
     init(with letters: String, in superview: UIView) {
         
-        rows        = (CGFloat(letters.count) / lettersInRow).rounded(.up)
+        rowCount    = (CGFloat(letters.count) / lettersInRow).rounded(.up)
         let width   = lettersInRow * 44
-        let height  = rows * 44
+        let height  = rowCount * 44
         let originX = superview.bounds.midX - width / 2
         let originY = superview.bounds.midY - height / 2
        
@@ -47,11 +47,11 @@ final class AlphabetControl: UIControl {
         backgroundColor = .systemGray4
         for (i, letter) in letters.sorted(by: <).enumerated() {
             let lettersInRow = Int(self.lettersInRow)
-            let row = i / lettersInRow
-            let originX = (i - row * lettersInRow) * 44
-            let letterButton = UIButton(frame: CGRect(x: originX, y: row * 44, width: 44, height: 44))
+            let currentRow = i / lettersInRow
+            let originX = (i - currentRow * lettersInRow) * 44
+            let letterButton = UIButton(frame: CGRect(x: originX, y: currentRow * 44, width: 44, height: 44))
             letterButton.setTitle(String(letter), for: .normal)
-            letterButton.setTitleColor(.black, for: .normal)
+            letterButton.setTitleColor(.label, for: .normal)
             letterButton.addTarget(self, action: #selector(letterButtonTapped(_:)), for: .touchUpInside)
             addSubview(letterButton)
         }
