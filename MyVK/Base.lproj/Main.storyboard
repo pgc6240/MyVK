@@ -73,7 +73,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="rtJ-oo-HJX" kind="presentation" identifier="loginSegue" customClass="MySegue" customModule="MyVK" customModuleProvider="target" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Bmd-68-6FP"/>
+                                            <segue destination="rtJ-oo-HJX" kind="presentation" identifier="MyLoginSegue" customClass="MyLoginSegue" customModule="MyVK" customModuleProvider="target" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Bmd-68-6FP"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGE-Zu-dK7">

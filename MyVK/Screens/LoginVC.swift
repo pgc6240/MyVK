@@ -13,7 +13,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
     
-    var isRememberMeChecked: Bool? = true
+    //var isRememberMeChecked: Bool? = true
     
     
     override func viewDidLoad() {
@@ -66,7 +66,7 @@ extension LoginVC: UITextFieldDelegate {
         } else {
             dismissKeyboard()
             if checkLoginAndPassword() {
-                performSegue(withIdentifier: "loginSegue", sender: nil)
+                performSegue(withIdentifier: String(describing: MyLoginSegue.self), sender: nil)
             }
         }
         return true
@@ -92,8 +92,11 @@ extension LoginVC: UITextFieldDelegate {
     }
 }
 
- 
-class MySegue: UIStoryboardSegue {
+
+//
+// MARK: - MyLoginSegue
+//
+class MyLoginSegue: UIStoryboardSegue {
     
     override func perform() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
