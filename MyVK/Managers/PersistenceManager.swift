@@ -13,17 +13,39 @@ enum PersistenceManager {
         static let selectedTab = "selectedTab"
     }
     
-    static var selectedTab = 0
+    
+    @UserDefault(key: String(describing: Keys.selectedTab), defaultValue: 0)
+    static var selectedTab
     
     
     static func save() {
-        print(String(describing: self), #function)
-        UserDefaults.standard.set(selectedTab, forKey: Keys.selectedTab)
+        print(String(describing: self), #function, selectedTab)
+        
     }
     
     
     static func load() {
-        print(String(describing: self), #function)
-        selectedTab = UserDefaults.standard.object(forKey: Keys.selectedTab) as? Int ?? 0
+        print(String(describing: self), #function, selectedTab)
+        
+    }
+}
+
+
+//
+// MARK: - UserDefault
+//
+@propertyWrapper
+struct UserDefault<T> {
+    
+    let key: String
+    let defaultValue: T
+    
+    var wrappedValue: T {
+        get {
+            UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: key)
+        }
     }
 }
