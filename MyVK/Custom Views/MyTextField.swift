@@ -31,4 +31,16 @@ final class MyTextField: UITextField {
         
         autocorrectionType  = .no
     }
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        guard let restorationIdentifier = restorationIdentifier else { return }
+        super.encodeRestorableState(with: coder)
+        coder.encode(text, forKey: restorationIdentifier)
+    }
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        guard let restorationIdentifier = restorationIdentifier else { return }
+        super.decodeRestorableState(with: coder)
+        text = coder.decodeObject(forKey: restorationIdentifier) as? String
+    }
 }

@@ -17,6 +17,7 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        rememberMeCheckbox.delegate = self
         
         #if DEBUG
         loginTextField.text     = "79154874184"
@@ -95,21 +96,11 @@ class MyLoginSegue: UIStoryboardSegue {
 
 
 //
-// MARK: - State Preservation
+// MARK: - CheckBoxDelegate
 //
-extension LoginVC {
+extension LoginVC: CheckBoxDelegate {
     
-    override func encodeRestorableState(with coder: NSCoder) {
-        super.encodeRestorableState(with: coder)
-        coder.encode(rememberMeCheckbox.checked, forKey: "rememberMe")
-        guard rememberMeCheckbox.checked else { return }
-        coder.encode(loginTextField.text, forKey: "login")
-    }
-
-    
-    override func decodeRestorableState(with coder: NSCoder) {
-        super.decodeRestorableState(with: coder)
-        guard coder.decodeBool(forKey: "rememberMe") else { return }
-        loginTextField.text = coder.decodeObject(forKey: "login") as? String
+    func checkTapped(_ checked: Bool) {
+        loginTextField.restorationIdentifier = checked ? "loginTextField" : nil
     }
 }

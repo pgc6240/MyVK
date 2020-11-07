@@ -46,7 +46,7 @@
                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="0.0" right="8"/>
                                         </variation>
                                     </stackView>
-                                    <textField opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Телефон или e-mail" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L00-3F-lGd" customClass="MyTextField" customModule="MyVK" customModuleProvider="target">
+                                    <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="loginTextField" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder=" Телефон или e-mail" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="L00-3F-lGd" customClass="MyTextField" customModule="MyVK" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="183" width="187.5" height="34"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>

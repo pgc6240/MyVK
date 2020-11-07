@@ -7,8 +7,15 @@
 
 import UIKit
 
+protocol CheckBoxDelegate: class {
+    func checkTapped(_ checked: Bool)
+}
+
+
 final class CheckBox: UIButton {
 
+    weak var delegate: CheckBoxDelegate?
+    
     var checked = false {
         willSet(checked) {
             imageView?.tintColor = checked ? tintColor : .white
@@ -48,5 +55,6 @@ final class CheckBox: UIButton {
     
     @objc func checkmarkTapped() {
         checked.toggle()
+        delegate?.checkTapped(checked)
     }
 }
