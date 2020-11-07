@@ -7,7 +7,13 @@
 
 import UIKit
 
-final class MyTabBarController: UITabBarController {
+final class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
 
-    
+    override var selectedViewController: UIViewController? {
+        willSet {
+            guard let selectedVC = newValue else { return }
+            guard let selectedVCIndex = viewControllers?.firstIndex(of: selectedVC) else { return }
+            PersistenceManager.selectedTab = selectedVCIndex
+        }
+    }
 }
