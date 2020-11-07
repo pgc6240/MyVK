@@ -123,6 +123,7 @@
                         <outlet property="containerCenterYConstraint" destination="hGB-iF-MnC" id="iVw-jm-EQP"/>
                         <outlet property="loginTextField" destination="L00-3F-lGd" id="zGE-tD-pOR"/>
                         <outlet property="passwordTextField" destination="b0k-rX-HIg" id="qay-fS-ihB"/>
+                        <outlet property="rememberMeCheckbox" destination="GJD-yo-Cfa" id="M42-Ug-dDd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

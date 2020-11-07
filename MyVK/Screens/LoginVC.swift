@@ -12,6 +12,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var loginTextField: MyTextField!
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
+    @IBOutlet weak var rememberMeCheckbox: CheckBox!
     
     
     override func viewDidLoad() {
@@ -99,15 +100,16 @@ class MyLoginSegue: UIStoryboardSegue {
 extension LoginVC {
     
     override func encodeRestorableState(with coder: NSCoder) {
-        //coder.encode(rememberMeChecked, forKey: RestorationKeys.rememberMe)
-        //coder.encode(loginTextField.text, forKey: "login")
         super.encodeRestorableState(with: coder)
+        coder.encode(rememberMeCheckbox.checked, forKey: "rememberMe")
+        guard rememberMeCheckbox.checked else { return }
+        coder.encode(loginTextField.text, forKey: "login")
     }
-    
+
     
     override func decodeRestorableState(with coder: NSCoder) {
-        //rememberMeChecked = coder.decodeBool(forKey: RestorationKeys.rememberMe)
-        //loginTextField.text = coder.decodeObject(forKey: "login") as? String ?? "79154874184"
         super.decodeRestorableState(with: coder)
+        guard coder.decodeBool(forKey: "rememberMe") else { return }
+        loginTextField.text = coder.decodeObject(forKey: "login") as? String
     }
 }
