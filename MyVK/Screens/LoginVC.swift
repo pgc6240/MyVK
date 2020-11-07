@@ -13,8 +13,6 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
     
-    //var isRememberMeChecked: Bool? = true
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,19 +36,6 @@ class LoginVC: UIViewController {
             presentAlert(title: "Некорректный логин/пароль", message: "Пожалуйста, введите логин и пароль.")
             return false
         }
-    }
-    
-    
-    override func encodeRestorableState(with coder: NSCoder) {
-        //coder.encode(isRememberMeChecked, forKey: "rememberMe")
-        //coder.encode(loginTextField.text, forKey: "login")
-        super.encodeRestorableState(with: coder)
-    }
-    
-    override func decodeRestorableState(with coder: NSCoder) {
-        //isRememberMeChecked = coder.decodeObject(forKey: "rememberMe") as? Bool
-        //loginTextField.text = coder.decodeObject(forKey: "login") as? String ?? "79154874184"
-        super.decodeRestorableState(with: coder)
     }
 }
 
@@ -104,5 +89,25 @@ class MyLoginSegue: UIStoryboardSegue {
         let myTabBarController = storyboard.instantiateViewController(withIdentifier: identifier) as! MyTabBarController
         myTabBarController.selectedIndex = PersistenceManager.selectedTab
         UIApplication.shared.windows.first?.rootViewController = myTabBarController
+    }
+}
+
+
+//
+// MARK: - State Preservation
+//
+extension LoginVC {
+    
+    override func encodeRestorableState(with coder: NSCoder) {
+        //coder.encode(rememberMeChecked, forKey: RestorationKeys.rememberMe)
+        //coder.encode(loginTextField.text, forKey: "login")
+        super.encodeRestorableState(with: coder)
+    }
+    
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        //rememberMeChecked = coder.decodeBool(forKey: RestorationKeys.rememberMe)
+        //loginTextField.text = coder.decodeObject(forKey: "login") as? String ?? "79154874184"
+        super.decodeRestorableState(with: coder)
     }
 }

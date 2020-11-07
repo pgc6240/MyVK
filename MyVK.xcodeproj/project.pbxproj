@@ -11,6 +11,7 @@
 		311BC4582555A7E800533924 /* ShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BC4572555A7E800533924 /* ShadowedView.swift */; };
 		3122CDC12556DE8C00253485 /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* MyTabBarController.swift */; };
 		3122CDCA2556E14B00253485 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC92556E14B00253485 /* PersistenceManager.swift */; };
+		3122CDD22556FF0800253485 /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDD12556FF0800253485 /* CheckBox.swift */; };
 		312AE5562550CF4F00B97164 /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5552550CF4F00B97164 /* FriendsVC.swift */; };
 		312AE5592550CF6600B97164 /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5582550CF6600B97164 /* PhotosVC.swift */; };
 		312AE5652550D3E100B97164 /* UIKit+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5642550D3E100B97164 /* UIKit+Ext.swift */; };
@@ -38,6 +39,7 @@
 		311BC4572555A7E800533924 /* ShadowedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowedView.swift; sourceTree = "<group>"; };
 		3122CDC02556DE8C00253485 /* MyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		3122CDC92556E14B00253485 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		3122CDD12556FF0800253485 /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		312AE5472550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		312AE5482550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		312AE5552550CF4F00B97164 /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 		318364EE2555AA4800B78F19 /* Custom Controls */ = {
 			isa = PBXGroup;
 			children = (
+				3122CDD12556FF0800253485 /* CheckBox.swift */,
 				3133EFB525540C9400B85844 /* LikeControl.swift */,
 				31A72DEB2554199C006B664D /* AlphabetControl.swift */,
 			);
@@ -286,6 +289,7 @@
 				31E90192254C7B77009576EB /* PhotoCell.swift in Sources */,
 				312AE5562550CF4F00B97164 /* FriendsVC.swift in Sources */,
 				312AE5592550CF6600B97164 /* PhotosVC.swift in Sources */,
+				3122CDD22556FF0800253485 /* CheckBox.swift in Sources */,
 				312AE5652550D3E100B97164 /* UIKit+Ext.swift in Sources */,
 				311BC4582555A7E800533924 /* ShadowedView.swift in Sources */,
 			);
