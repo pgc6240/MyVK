@@ -13,12 +13,13 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
     
+    var isRememberMeChecked: Bool? = true
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         #if DEBUG
-        loginTextField.text     = "79154874184"
         passwordTextField.text  = "12345678"
         #endif
     }
@@ -39,11 +40,17 @@ class LoginVC: UIViewController {
     }
     
     
-    #if DEBUG
-    deinit {
-        print(#function, String(describing: self))
+    override func encodeRestorableState(with coder: NSCoder) {
+        coder.encode(isRememberMeChecked, forKey: "rememberMe")
+        coder.encode(loginTextField.text, forKey: "login")
+        super.encodeRestorableState(with: coder)
     }
-    #endif
+    
+    override func decodeRestorableState(with coder: NSCoder) {
+        isRememberMeChecked = coder.decodeObject(forKey: "rememberMe") as? Bool
+        loginTextField.text = coder.decodeObject(forKey: "login") as? String ?? "79154874184"
+        super.decodeRestorableState(with: coder)
+    }
 }
 
 
