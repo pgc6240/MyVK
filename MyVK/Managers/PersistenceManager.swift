@@ -19,13 +19,13 @@ enum PersistenceManager {
     
     
     static func save() {
-        print(String(describing: self), #function, selectedTab)
+        //print(String(describing: self), #function, selectedTab)
         
     }
     
     
     static func load() {
-        print(String(describing: self), #function, selectedTab)
+        //print(String(describing: self), #function, selectedTab)
         
     }
 }

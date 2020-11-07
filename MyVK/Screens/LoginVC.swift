@@ -88,8 +88,7 @@ class MyLoginSegue: UIStoryboardSegue {
     override func perform() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let identifier = String(describing: MyTabBarController.self)
-        let myTabBarController = storyboard.instantiateViewController(withIdentifier: identifier) as! MyTabBarController
-        myTabBarController.selectedIndex = PersistenceManager.selectedTab
+        let myTabBarController = storyboard.instantiateViewController(identifier: identifier)
         UIApplication.shared.windows.first?.rootViewController = myTabBarController
     }
 }

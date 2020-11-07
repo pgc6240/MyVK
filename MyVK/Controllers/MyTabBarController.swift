@@ -16,4 +16,10 @@ final class MyTabBarController: UITabBarController, UITabBarControllerDelegate {
             PersistenceManager.selectedTab = selectedVCIndex
         }
     }
+    
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        selectedIndex = PersistenceManager.selectedTab
+    }
 }
