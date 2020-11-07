@@ -100,7 +100,8 @@ class MyLoginSegue: UIStoryboardSegue {
     
     override func perform() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let rootTabBarController = storyboard.instantiateViewController(withIdentifier: "rootTabBarController")
-        UIApplication.shared.windows.first?.rootViewController = rootTabBarController
+        let identifier = String(describing: MyTabBarController.self)
+        let myTabBarController = storyboard.instantiateViewController(withIdentifier: identifier) as! MyTabBarController
+        UIApplication.shared.windows.first?.rootViewController = myTabBarController
     }
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		311BC4542555A6DE00533924 /* MyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BC4532555A6DE00533924 /* MyImageView.swift */; };
 		311BC4582555A7E800533924 /* ShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BC4572555A7E800533924 /* ShadowedView.swift */; };
+		3122CDC12556DE8C00253485 /* MyTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* MyTabBarController.swift */; };
 		312AE5562550CF4F00B97164 /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5552550CF4F00B97164 /* FriendsVC.swift */; };
 		312AE5592550CF6600B97164 /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5582550CF6600B97164 /* PhotosVC.swift */; };
 		312AE5652550D3E100B97164 /* UIKit+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5642550D3E100B97164 /* UIKit+Ext.swift */; };
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		311BC4532555A6DE00533924 /* MyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImageView.swift; sourceTree = "<group>"; };
 		311BC4572555A7E800533924 /* ShadowedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowedView.swift; sourceTree = "<group>"; };
+		3122CDC02556DE8C00253485 /* MyTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTabBarController.swift; sourceTree = "<group>"; };
 		312AE5472550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		312AE5482550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		312AE5552550CF4F00B97164 /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
@@ -72,6 +74,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3122CDBF2556DE5600253485 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3122CDC02556DE8C00253485 /* MyTabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		3151A362254C5F8B00F9BFAB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,10 +156,11 @@
 			isa = PBXGroup;
 			children = (
 				3182B38125438B1000E3E710 /* Main.storyboard */,
+				31E87837254C86280014430E /* Extensions */,
 				315FF59B2548B81B0054C539 /* Model */,
 				3151A362254C5F8B00F9BFAB /* Cells */,
-				31E87837254C86280014430E /* Extensions */,
 				315FF5962548B61E0054C539 /* Custom Views */,
+				3122CDBF2556DE5600253485 /* Controllers */,
 				315FF5952548B60C0054C539 /* Screens */,
 				31710BF72550C53100C6027A /* Support */,
 			);
@@ -254,6 +265,7 @@
 				3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */,
 				3151A364254C5FC800F9BFAB /* FriendCell.swift in Sources */,
 				312B2C3125542F1900D1BCAE /* DummyData.swift in Sources */,
+				3122CDC12556DE8C00253485 /* MyTabBarController.swift in Sources */,
 				3151A369254C600900F9BFAB /* User.swift in Sources */,
 				31E87842254C90220014430E /* GroupCell.swift in Sources */,
 				3133EFB625540C9400B85844 /* LikeControl.swift in Sources */,
