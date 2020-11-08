@@ -81,6 +81,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		311BA3E9255884D800221C69 /* ImageView */ = {
+			isa = PBXGroup;
+			children = (
+				311BC4532555A6DE00533924 /* MyImageView.swift */,
+				311BC4572555A7E800533924 /* ShadowedView.swift */,
+			);
+			path = ImageView;
+			sourceTree = "<group>";
+		};
+		311BA3EF25588DB200221C69 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				3182B39125438B8500E3E710 /* MyTextField.swift */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
 		3122CDBF2556DE5600253485 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,9 +142,8 @@
 				3151A362254C5F8B00F9BFAB /* Cells */,
 				318364EE2555AA4800B78F19 /* Controls */,
 				3122CDBF2556DE5600253485 /* Controllers */,
-				3182B39125438B8500E3E710 /* MyTextField.swift */,
-				311BC4532555A6DE00533924 /* MyImageView.swift */,
-				311BC4572555A7E800533924 /* ShadowedView.swift */,
+				311BA3E9255884D800221C69 /* ImageView */,
+				311BA3EF25588DB200221C69 /* TextField */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -145,8 +161,8 @@
 			isa = PBXGroup;
 			children = (
 				3182B37B25438B1000E3E710 /* AppDelegate.swift */,
-				3182B38425438B1100E3E710 /* Assets.xcassets */,
 				319207AC2558801F00DA039B /* LaunchScreen.storyboard */,
+				3182B38425438B1100E3E710 /* Assets.xcassets */,
 				3182B38925438B1100E3E710 /* Info.plist */,
 			);
 			path = Support;
