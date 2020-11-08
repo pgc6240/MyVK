@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class TabBarController: UITabBarController, UITabBarControllerDelegate {
+final class TabBarController: UITabBarController {
 
     override var selectedViewController: UIViewController? {
         willSet {
