@@ -25,4 +25,10 @@ final class ShadowedView: UIView {
     @IBInspectable var shadowOpacity: Float = 0.75 {
         willSet { layer.shadowOpacity = newValue }
     }
+    
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowColor = shadowColor?.cgColor
+    }
 }

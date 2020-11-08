@@ -33,7 +33,7 @@ final class Checkbox: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         imageView?.layer.borderWidth = 1
-        imageView?.layer.borderColor = UIColor.label.cgColor
+        imageView?.layer.borderColor = titleLabel?.textColor.cgColor
     }
 
     private func configure() {
