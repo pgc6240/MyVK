@@ -57,7 +57,7 @@ extension GroupsVC {
         
         if tableView.isEditing && indexPath == [0,0] {
             let newGroupCell = tableView.dequeueReusableCell(withIdentifier: "NewGroupCell", for: indexPath)
-            newGroupCell.imageView?.image = UIImage(systemName: "person.3.fill")
+            newGroupCell.imageView?.image = Images.group
             newGroupCell.imageView?.preferredSymbolConfiguration = .init(scale: .medium)
             if let newGroupTextField = newGroupCell.viewWithTag(1001) as? UITextField {
                 newGroupTitle = "Новое сообщество \(Int.random(in: 100..<1000))"

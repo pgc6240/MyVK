@@ -1,5 +1,5 @@
 //
-//  AlphabetControl.swift
+//  AlphabetPicker.swift
 //  MyVK
 //
 //  Created by pgc6240 on 05.11.2020.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol AlphabetControlDelegate: class {
+protocol AlphabetPickerDelegate: class {
     func letterTapped(_ letter: String)
 }
 
 
-final class AlphabetControl: UIControl {
+final class AlphabetPicker: UIControl {
     
-    weak var delegate: AlphabetControlDelegate?
+    weak var delegate: AlphabetPickerDelegate?
 
     var letters                 = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
     var lettersInRow: CGFloat   = 6

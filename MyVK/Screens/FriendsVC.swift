@@ -14,7 +14,7 @@ class FriendsVC: UITableViewController {
     
     let collation = UILocalizedIndexedCollation.current()
     var avaliableLetters: Set<String> = []
-    var alphabetControl = AlphabetControl()
+    var alphabetControl = AlphabetPicker()
     
     
     override func viewDidLoad() {
@@ -83,11 +83,11 @@ extension FriendsVC {
 }
 
 
-extension FriendsVC: AlphabetControlDelegate {
+extension FriendsVC: AlphabetPickerDelegate {
 
     @IBAction func sortButtonTapped() {
         alphabetControl.removeFromSuperview()
-        alphabetControl = AlphabetControl(with: avaliableLetters.joined(), in: view)
+        alphabetControl = AlphabetPicker(with: avaliableLetters.joined(), in: view)
         alphabetControl.delegate = self
         view.addSubview(alphabetControl)
     }

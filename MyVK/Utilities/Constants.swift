@@ -10,3 +10,8 @@ import UIKit
 enum Colors {
     static let vkColor = UIColor(named: "vk-color")
 }
+
+
+enum Images {
+    static let group = UIImage(systemName: "person.3.fill")
+}

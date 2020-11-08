@@ -1,5 +1,5 @@
 //
-//  LikeControl.swift
+//  LikeButton.swift
 //  MyVK
 //
 //  Created by pgc6240 on 05.11.2020.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LikeControl: UIControl {
+final class LikeButton: UIControl {
 
     let likeImageView   = UIImageView   (frame: CGRect(x: 0, y: 0, width: 40, height: 35))
     let likeCountLabel  = UILabel       (frame: CGRect(x: 40, y: 0, width: 30, height: 35))

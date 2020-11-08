@@ -13,7 +13,7 @@ final class GroupCell: UITableViewCell {
     
     
     func set(with group: Group) {
-        imageView?.image    = UIImage(systemName: "person.3.fill")
+        imageView?.image    = Images.group
         textLabel?.text     = group.name
     }
 }

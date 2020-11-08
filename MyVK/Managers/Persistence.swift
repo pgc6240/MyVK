@@ -1,5 +1,5 @@
 //
-//  PersistenceManager.swift
+//  Persistence.swift
 //  MyVK
 //
 //  Created by pgc6240 on 07.11.2020.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum PersistenceManager {
+enum Persistence {
     
     enum Keys {
         static let selectedTab = "selectedTab"

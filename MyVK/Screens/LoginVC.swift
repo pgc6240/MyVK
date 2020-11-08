@@ -12,7 +12,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var loginTextField: MyTextField!
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
-    @IBOutlet weak var rememberMeCheckbox: CheckBox!
+    @IBOutlet weak var rememberMeCheckbox: Checkbox!
     
     
     override func viewDidLoad() {
@@ -53,7 +53,7 @@ extension LoginVC: UITextFieldDelegate {
         } else {
             dismissKeyboard()
             if checkLoginAndPassword() {
-                performSegue(withIdentifier: String(describing: MyLoginSegue.self), sender: nil)
+                performSegue(withIdentifier: String(describing: LoginSegue.self), sender: nil)
             }
         }
         return true
@@ -81,15 +81,15 @@ extension LoginVC: UITextFieldDelegate {
 
 
 //
-// MARK: - MyLoginSegue
+// MARK: - LoginSegue
 //
-class MyLoginSegue: UIStoryboardSegue {
+class LoginSegue: UIStoryboardSegue {
     
     override func perform() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: MyTabBarController.self)
-        let myTabBarController = storyboard.instantiateViewController(identifier: identifier)
-        UIApplication.shared.windows.first?.rootViewController = myTabBarController
+        let identifier = String(describing: TabBarController.self)
+        let tabBarController = storyboard.instantiateViewController(identifier: identifier)
+        UIApplication.shared.windows.first?.rootViewController = tabBarController
     }
 }
 
@@ -97,7 +97,7 @@ class MyLoginSegue: UIStoryboardSegue {
 //
 // MARK: - CheckBoxDelegate
 //
-extension LoginVC: CheckBoxDelegate {
+extension LoginVC: CheckboxDelegate {
     
     func checkTapped(_ checked: Bool) {
         loginTextField.restorationIdentifier = checked ? "loginTextField" : nil

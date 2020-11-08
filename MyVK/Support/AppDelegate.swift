@@ -17,24 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    
     func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
         return true
     }
-    
     
     func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
         return true
     }
     
-    
     func applicationWillResignActive(_ application: UIApplication) {
-        PersistenceManager.save()
+        Persistence.save()
     }
     
-    
     func applicationDidBecomeActive(_ application: UIApplication) {
-        PersistenceManager.load()
+        Persistence.load()
     }
 }
 

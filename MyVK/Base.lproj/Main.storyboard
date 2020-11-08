@@ -73,21 +73,21 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <segue destination="rtJ-oo-HJX" kind="presentation" identifier="MyLoginSegue" customClass="MyLoginSegue" customModule="MyVK" customModuleProvider="target" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Bmd-68-6FP"/>
+                                            <segue destination="rtJ-oo-HJX" kind="presentation" identifier="LoginSegue" customClass="LoginSegue" customModule="MyVK" customModuleProvider="target" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Bmd-68-6FP"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uOc-dV-GFe">
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="uOc-dV-GFe">
                                         <rect key="frame" x="0.0" y="332" width="187.5" height="22"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" restorationIdentifier="RememberMeCheckBox" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJD-yo-Cfa" customClass="CheckBox" customModule="MyVK" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="43.5" height="22"/>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="749" restorationIdentifier="RememberMeCheckBox" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GJD-yo-Cfa" customClass="Checkbox" customModule="MyVK" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="48.5" height="22"/>
                                                 <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="15" maxY="0.0"/>
                                                 <state key="normal">
                                                     <imageReference key="image" image="checkmark" catalog="system" symbolScale="medium"/>
                                                 </state>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Запомнить меня" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OpI-kh-iWm">
-                                                <rect key="frame" x="43.5" y="0.0" width="144" height="22"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="запомнить меня" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OpI-kh-iWm">
+                                                <rect key="frame" x="48.5" y="0.0" width="139" height="19.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -135,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="54" y="73"/>
         </scene>
-        <!--My Tab Bar Controller-->
+        <!--Tab Bar Controller-->
         <scene sceneID="ONa-rr-X9r">
             <objects>
-                <tabBarController storyboardIdentifier="MyTabBarController" id="rtJ-oo-HJX" customClass="MyTabBarController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="rtJ-oo-HJX" customClass="TabBarController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Emg-vc-W3p"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WCe-Hn-hfd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
