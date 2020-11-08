@@ -21,7 +21,7 @@ final class MyTextField: UITextField {
     private func configure() {
         backgroundColor     = .tertiarySystemBackground
         textColor           = .label
-        tintColor           = UIColor(named: "vk-color")
+        tintColor           = Colors.vkColor
         
         font                = .preferredFont(forTextStyle: .body)
         
@@ -30,7 +30,15 @@ final class MyTextField: UITextField {
         layer.borderColor   = UIColor.secondarySystemFill.cgColor
         
         autocorrectionType  = .no
+        clearButtonMode     = .whileEditing
     }
+}
+
+
+//
+// MARK: - State Preservation
+//
+extension MyTextField {
     
     override func encodeRestorableState(with coder: NSCoder) {
         guard let restorationIdentifier = restorationIdentifier else { return }
