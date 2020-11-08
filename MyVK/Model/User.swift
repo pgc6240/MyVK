@@ -8,6 +8,7 @@
 import Foundation
 
 class User {
+    
     var firstName: String!
     @objc var lastName: String!
     
@@ -16,3 +17,4 @@ class User {
         self.lastName = lastName
     }
 }
+#warning("Do I really need collation?")
