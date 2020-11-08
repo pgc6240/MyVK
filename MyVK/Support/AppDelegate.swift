@@ -26,11 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
-        Persistence.save()
+        PersistenceManager.save()
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
-        Persistence.load()
+        PersistenceManager.load()
     }
 }
 

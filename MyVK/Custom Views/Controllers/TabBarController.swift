@@ -13,13 +13,13 @@ final class TabBarController: UITabBarController, UITabBarControllerDelegate {
         willSet {
             guard let selectedVC = newValue else { return }
             guard let selectedVCIndex = viewControllers?.firstIndex(of: selectedVC) else { return }
-            Persistence.selectedTab = selectedVCIndex
+            PersistenceManager.selectedTab = selectedVCIndex
         }
     }
     
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        selectedIndex = Persistence.selectedTab
+        selectedIndex = PersistenceManager.selectedTab
     }
 }
