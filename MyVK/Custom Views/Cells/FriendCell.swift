@@ -16,7 +16,6 @@ final class FriendCell: UITableViewCell {
     
     
     func set(with friend: User) {
-        
-        friendNameLabel.text        = friend.firstName + " " + friend.lastName
+        friendNameLabel.text = friend.firstName + " " + friend.lastName
     }
 }

@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="O9Q-E3-dHq">
-                                <rect key="frame" x="94" y="146.5" width="187.5" height="374"/>
+                                <rect key="frame" x="94" y="138.5" width="187.5" height="390"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A74-iC-zrN">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="159"/>
@@ -121,9 +121,9 @@
                                         </subviews>
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGE-Zu-dK7">
-                                        <rect key="frame" x="0.0" y="362" width="187.5" height="12"/>
+                                        <rect key="frame" x="0.0" y="362" width="187.5" height="28"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                        <inset key="contentEdgeInsets" minX="0.0" minY="-4" maxX="0.0" maxY="0.0"/>
+                                        <inset key="titleEdgeInsets" minX="0.0" minY="-8" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Зарегистрироваться">
                                             <color key="titleColor" name="vk-color"/>
                                         </state>
