@@ -45,12 +45,7 @@ extension GroupsVC {
     
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if isEditing {
-            return section == 0 ? 1 : groups.count
-        } else {
-            return groups.count
-        }
+        isEditing ? (section == 0 ? 1 : groups.count) : groups.count
     }
 
     
