@@ -8,7 +8,7 @@
 import UIKit
 
 final class LikeButton: UIControl {
-
+    #warning("I need a stackView inside here.")
     let likeImageView   = UIImageView   (frame: CGRect(x: 0, y: 0, width: 40, height: 35))
     let likeCountLabel  = UILabel       (frame: CGRect(x: 40, y: 0, width: 30, height: 35))
     

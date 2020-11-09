@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FriendsVC: UITableViewController {
+final class FriendsVC: UITableViewController {
     
     var friends: [[User]] = []
     var newFriends: [User] = []
@@ -60,12 +60,12 @@ extension FriendsVC {
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        1 + friends.count
+        return 1 + friends.count
     }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0 ? newFriends.count : friends[section - 1].count
+        return section == 0 ? newFriends.count : friends[section - 1].count
     }
     
     

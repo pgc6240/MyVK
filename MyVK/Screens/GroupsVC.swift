@@ -7,12 +7,12 @@
 
 import UIKit
 
-class GroupsVC: UITableViewController {
+final class GroupsVC: UITableViewController {
     
     var user: User?
     var groups: [Group] = []
     
-    let sectionHeaders  = ["Добавить новое сообщество", "Мои сообщества"]
+    let sectionTitles   = ["Добавить новое сообщество", "Мои сообщества"]
     var newGroupTitle   = "Новое сообщество \(Int.random(in: 100..<1000))"
     
     
@@ -21,6 +21,7 @@ class GroupsVC: UITableViewController {
         navigationItem.leftBarButtonItem = editButtonItem
         loadGroups(for: user)
     }
+    
     
     func loadGroups(for user: User?) {
         (1...Int.random(in: 2...100)).forEach { groups.append(Group(name: "Сообщество \($0)")) }
@@ -34,7 +35,7 @@ class GroupsVC: UITableViewController {
 extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        isEditing ? sectionHeaders[section] : nil
+        isEditing ? sectionTitles[section] : nil
     }
     
     

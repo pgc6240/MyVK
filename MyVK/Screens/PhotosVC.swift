@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotosVC: UICollectionViewController {
+final class PhotosVC: UICollectionViewController {
 
     
     override func viewDidLoad() {
@@ -41,12 +41,12 @@ class PhotosVC: UICollectionViewController {
 extension PhotosVC {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        12
+        return 12
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        6
+        return 6
     }
     
     

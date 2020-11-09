@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchVC: UITableViewController {
+final class SearchVC: UITableViewController {
 
     var searchResults: [Group] = []
     
@@ -50,11 +50,11 @@ extension SearchVC {
 extension SearchVC: UISearchBarDelegate {
     
     func configureSearchController() {
-        let searchController = UISearchController()
-        searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "Поиск сообществ"
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        let searchController                                    = UISearchController()
+        searchController.searchBar.delegate                     = self
+        searchController.searchBar.placeholder                  = "Поиск сообществ"
+        searchController.obscuresBackgroundDuringPresentation   = false
+        navigationItem.searchController                         = searchController
+        navigationItem.hidesSearchBarWhenScrolling              = false
     }
 }

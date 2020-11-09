@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+final class LoginVC: UIViewController {
 
     @IBOutlet weak var loginTextField: MyTextField!
     @IBOutlet weak var passwordTextField: MyTextField!
@@ -83,7 +83,7 @@ extension LoginVC: UITextFieldDelegate {
 //
 // MARK: - LoginSegue
 //
-class LoginSegue: UIStoryboardSegue {
+final class LoginSegue: UIStoryboardSegue {
     
     override func perform() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
