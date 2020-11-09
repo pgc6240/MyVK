@@ -8,16 +8,12 @@
 import UIKit
 
 final class LikeButton: UIControl {
-    #warning("I need a stackView inside here.")
-    let likeImageView   = UIImageView   (frame: CGRect(x: 0, y: 0, width: 40, height: 35))
-    let likeCountLabel  = UILabel       (frame: CGRect(x: 40, y: 0, width: 30, height: 35))
+    
+    let likeImageView   = UIImageView(frame: CGRect(x: 0, y: 0, width: 40, height: 35))
+    let likeCountLabel  = UILabel    (frame: CGRect(x: 40, y: 0, width: 30, height: 35))
     
     var liked           = false
     var likeCount       = 0
-    
-    override var intrinsicContentSize: CGSize {
-        frame.size
-    }
     
     
     required init?(coder: NSCoder) {
@@ -31,7 +27,8 @@ final class LikeButton: UIControl {
     }
     
     convenience init(likeCount: Int) {
-        self.init(frame: CGRect(x: 20, y: 35, width: 60, height: 40))
+        let frame = CGRect(x: 0, y: 0, width: 60, height: 35)
+        self.init(frame: frame)
         self.likeCount = likeCount
         updateUI()
     }
@@ -52,11 +49,11 @@ final class LikeButton: UIControl {
     }
     
     override func beginTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        true
+        return true
     }
     
     override func continueTracking(_ touch: UITouch, with event: UIEvent?) -> Bool {
-        false
+        return true
     }
     
     override func endTracking(_ touch: UITouch?, with event: UIEvent?) {
