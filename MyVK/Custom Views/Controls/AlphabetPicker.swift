@@ -43,16 +43,21 @@ final class AlphabetPicker: UIControl {
         layoutUI()
     }
 
+    
     private func layoutUI() {
         backgroundColor = .systemGray4
-        for (i, letter) in letters.sorted(by: <).enumerated() {
-            let lettersInRow = Int(self.lettersInRow)
-            let currentRow = i / lettersInRow
-            let originX = (i - currentRow * lettersInRow) * 44
-            let letterButton = UIButton(frame: CGRect(x: originX, y: currentRow * 44, width: 44, height: 44))
+        
+        for (i, letter) in letters.uppercased().sorted(by: <).enumerated() {
+            
+            let lettersInRow    = Int(self.lettersInRow)
+            let currentRow      = i / lettersInRow
+            let originX         = (i - currentRow * lettersInRow) * 44
+            let letterButton    = UIButton(frame: CGRect(x: originX, y: currentRow * 44, width: 44, height: 44))
+            
             letterButton.setTitle(String(letter), for: .normal)
             letterButton.setTitleColor(.label, for: .normal)
             letterButton.addTarget(self, action: #selector(letterButtonTapped(_:)), for: .touchUpInside)
+            
             addSubview(letterButton)
         }
     }
