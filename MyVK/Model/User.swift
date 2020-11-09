@@ -7,14 +7,14 @@
 
 import Foundation
 
-class User {
+final class User {
     
-    var firstName: String!
-    @objc var lastName: String!
+    @objc var firstName = ""
+    @objc var lastName  = ""
+    
     
     init(firstName: String, lastName: String) {
         self.firstName = firstName
         self.lastName = lastName
     }
 }
-#warning("Do I really need collation?")
