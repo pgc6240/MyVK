@@ -10,11 +10,11 @@ import UIKit
 final class FriendsVC: UITableViewController {
     
     var friends: [[User]] = []
-    var newFriends: [User] = []
+    
+    var alphabetControl = AlphabetPicker()
+    var avaliableLetters: Set<String> = []
     
     let collation = UILocalizedIndexedCollation.current()
-    var avaliableLetters: Set<String> = []
-    var alphabetControl = AlphabetPicker()
     
     
     override func viewDidLoad() {
@@ -26,21 +26,21 @@ final class FriendsVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.tabBarItem.badgeValue = "\(newFriends.count)"
+        navigationController?.tabBarItem.badgeValue = "\(friends[0].count)"
     }
     
     
     func getFriends() {
-        friends = [[User]](repeating: [], count: collation.sectionTitles.count)
+        friends = [[User]](repeating: [], count: collation.sectionTitles.count + 1)
         
         for _ in 0..<Int.random(in: 0..<500) {
             let friend = makeFriend()
             let sectionIndex = collation.section(for: friend, collationStringSelector: #selector(getter:User.lastName))
-            friends[sectionIndex].append(friend)
+            friends[sectionIndex + 1].append(friend)
             avaliableLetters.insert(collation.sectionTitles[sectionIndex])
         }
         
-        newFriends = makeRandomNumberOfFriends(upTo: 3)
+        friends[0] = makeRandomNumberOfFriends(upTo: 3)
     }
 }
 
@@ -51,27 +51,23 @@ final class FriendsVC: UITableViewController {
 extension FriendsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Заявки в друзья"
-        } else {
-            return friends[section - 1].isEmpty ? nil : collation.sectionTitles[section - 1]
-        }
+        section == 0 ? "Заявки в друзья" : (friends[section].isEmpty ? nil : collation.sectionTitles[section - 1])
     }
     
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1 + friends.count
+        friends.count
     }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? newFriends.count : friends[section - 1].count
+        friends[section].count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseId) as! FriendCell
-        let friend = indexPath.section == 0 ? newFriends[indexPath.row] : friends[indexPath.section - 1][indexPath.row]
+        let friend = friends[indexPath.section][indexPath.row]
         cell.set(with: friend)
         return cell
     }
@@ -80,9 +76,22 @@ extension FriendsVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        collation.sectionTitles.filter { avaliableLetters.contains($0) }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        collation.sectionTitles.firstIndex(of: title)! + 1
+    }
 }
 
 
+//
+// MARK: - AlphabetPickerDelegate
+//
 extension FriendsVC: AlphabetPickerDelegate {
 
     @IBAction func sortButtonTapped() {
