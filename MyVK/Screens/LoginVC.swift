@@ -11,7 +11,6 @@ final class LoginVC: UIViewController {
 
     @IBOutlet weak var loginTextField: MyTextField!
     @IBOutlet weak var passwordTextField: MyTextField!
-    @IBOutlet weak var containerCenterYConstraint: NSLayoutConstraint?
     @IBOutlet weak var rememberMeCheckbox: Checkbox!
     
     
@@ -60,21 +59,7 @@ extension LoginVC: UITextFieldDelegate {
     }
     
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        changeContainerCenterY(toConstant: -45)
-    }
-    
-    
-    func changeContainerCenterY(toConstant constant: CGFloat) {
-        UIView.animate(withDuration: 0.4) {
-            self.containerCenterYConstraint?.constant = constant
-            self.view.layoutIfNeeded()
-        }
-    }
-    
-    
     @IBAction func dismissKeyboard() {
-        changeContainerCenterY(toConstant: 0)
         view.endEditing(true)
     }
 }
