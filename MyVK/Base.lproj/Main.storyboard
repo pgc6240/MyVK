@@ -131,7 +131,7 @@
                                 <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                <color key="value" red="0.32203102109999998" green="0.50169056649999999" blue="0.7215941548" alpha="0.070000000000000007" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="value" red="0.32203102109999998" green="0.50169056649999999" blue="0.7215941548" alpha="0.01" colorSpace="custom" customColorSpace="displayP3"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="startLocation">
                                 <real key="value" value="0.0"/>
@@ -143,7 +143,7 @@
                                 <point key="value" x="0.0" y="1"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="point" keyPath="endPoint">
-                                <point key="value" x="1" y="0.0"/>
+                                <point key="value" x="0.5" y="0.0"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
