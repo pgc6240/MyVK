@@ -1,15 +1,25 @@
 //
-//  ShadowedView.swift
+//  ShadowedImageView.swift
 //  MyVK
 //
-//  Created by pgc6240 on 06.11.2020.
+//  Created by pgc6240 on 10.11.2020.
 //
 
 import UIKit
 
 @IBDesignable
-final class ShadowedView: UIView {
+final class ShadowedImageView: UIView {
+    
+    var imageLayer = CALayer()
 
+    @IBInspectable var image: UIImage? {
+        didSet { imageLayer.contents = image?.cgImage }
+    }
+    
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        willSet { imageLayer.cornerRadius = newValue }
+    }
+    
     @IBInspectable var shadowColor: UIColor? {
         willSet { layer.shadowColor = newValue?.cgColor }
     }
@@ -29,6 +39,11 @@ final class ShadowedView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        layer.shadowColor = shadowColor?.cgColor
+        
+        backgroundColor = .clear
+        layer.addSublayer(imageLayer)
+        
+        imageLayer.frame = bounds
+        imageLayer.masksToBounds = true
     }
 }

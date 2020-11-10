@@ -26,34 +26,23 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A74-iC-zrN">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="159"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kbs-Uv-rVs" customClass="ShadowedView" customModule="MyVK" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o2t-4s-Ynx" customClass="ShadowedImageView" customModule="MyVK" customModuleProvider="target">
                                                 <rect key="frame" x="26" y="16" width="135" height="135"/>
-                                                <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="vk-logo" translatesAutoresizingMaskIntoConstraints="NO" id="eug-3x-k55" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="135" height="135"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" secondItem="eug-3x-k55" secondAttribute="height" multiplier="1:1" id="HgK-zi-Xml"/>
-                                                            <constraint firstAttribute="height" constant="135" id="zev-I3-QDZ">
-                                                                <variation key="heightClass=compact" constant="75"/>
-                                                            </constraint>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                <real key="value" value="15"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
-                                                    </imageView>
-                                                </subviews>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="135" id="9hd-TK-M98">
+                                                    <constraint firstAttribute="width" secondItem="o2t-4s-Ynx" secondAttribute="height" multiplier="1:1" id="BVm-qi-j7m"/>
+                                                    <constraint firstAttribute="height" constant="135" id="wIc-ZP-Mmc">
                                                         <variation key="heightClass=compact" constant="75"/>
                                                     </constraint>
-                                                    <constraint firstAttribute="width" secondItem="Kbs-Uv-rVs" secondAttribute="height" multiplier="1:1" id="K5m-Di-gE2"/>
-                                                    <constraint firstItem="eug-3x-k55" firstAttribute="centerY" secondItem="Kbs-Uv-rVs" secondAttribute="centerY" id="cLq-KE-V6Y"/>
-                                                    <constraint firstItem="eug-3x-k55" firstAttribute="centerX" secondItem="Kbs-Uv-rVs" secondAttribute="centerX" id="oba-Jl-g0X"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="image" keyPath="image" value="vk-logo"/>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                        <color key="value" systemColor="labelColor"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="15"/>
+                                                    </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
                                                         <real key="value" value="4"/>
                                                     </userDefinedRuntimeAttribute>
@@ -62,9 +51,6 @@
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                                         <real key="value" value="0.75"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                                        <color key="value" systemColor="labelColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
@@ -195,35 +181,50 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FpE-bq-Kcj" customClass="ShadowedImageView" customModule="MyVK" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="10" width="60" height="60"/>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="60" id="Yiz-cM-tv9"/>
+                                                <constraint firstAttribute="width" secondItem="FpE-bq-Kcj" secondAttribute="height" multiplier="1:1" id="jjP-3f-y7x"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="image" value="sample-avatar"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="15"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                    <color key="value" systemColor="labelColor"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                                    <real key="value" value="4"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOffset">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                    <real key="value" value="0.59999999999999998"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="51C-eH-lX3">
                                             <rect key="frame" x="88" y="29.5" width="267" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sample-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="dYY-ZK-2rW" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="10" width="60" height="60"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="qNb-eq-rPX"/>
-                                                <constraint firstAttribute="width" secondItem="dYY-ZK-2rW" secondAttribute="height" multiplier="1:1" id="vmc-J2-ef6"/>
-                                            </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="15"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="51C-eH-lX3" firstAttribute="leading" secondItem="dYY-ZK-2rW" secondAttribute="trailing" constant="8" symbolic="YES" id="AYA-An-hUM"/>
                                         <constraint firstItem="51C-eH-lX3" firstAttribute="centerY" secondItem="ywS-2T-VgD" secondAttribute="centerY" id="HBS-8C-Ld7"/>
                                         <constraint firstAttribute="trailing" secondItem="51C-eH-lX3" secondAttribute="trailing" constant="20" symbolic="YES" id="VdL-W3-axq"/>
-                                        <constraint firstItem="dYY-ZK-2rW" firstAttribute="centerY" secondItem="ywS-2T-VgD" secondAttribute="centerY" id="We9-l7-PWl"/>
                                         <constraint firstAttribute="trailing" secondItem="51C-eH-lX3" secondAttribute="trailing" constant="20" symbolic="YES" id="Z5L-Xj-ygb"/>
-                                        <constraint firstItem="dYY-ZK-2rW" firstAttribute="leading" secondItem="ywS-2T-VgD" secondAttribute="leading" constant="20" symbolic="YES" id="yc2-sF-XNG"/>
+                                        <constraint firstItem="FpE-bq-Kcj" firstAttribute="centerY" secondItem="ywS-2T-VgD" secondAttribute="centerY" id="dMs-fN-DHJ"/>
+                                        <constraint firstItem="51C-eH-lX3" firstAttribute="leading" secondItem="FpE-bq-Kcj" secondAttribute="trailing" constant="8" symbolic="YES" id="ucJ-Cl-Vhh"/>
+                                        <constraint firstItem="FpE-bq-Kcj" firstAttribute="leading" secondItem="ywS-2T-VgD" secondAttribute="leading" constant="20" symbolic="YES" id="zyI-Xu-eIQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="friendAvatarImageView" destination="FpE-bq-Kcj" id="vOq-iJ-0L9"/>
                                     <outlet property="friendNameLabel" destination="51C-eH-lX3" id="pDa-kz-LPe"/>
                                     <segue destination="iqM-VL-A8R" kind="show" id="ifO-gr-C92"/>
                                 </connections>
@@ -439,14 +440,6 @@
             <point key="canvasLocation" x="1852" y="446"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="dYY-ZK-2rW">
-            <size key="intrinsicContentSize" width="800" height="800"/>
-        </designable>
-        <designable name="eug-3x-k55">
-            <size key="intrinsicContentSize" width="2500" height="2500"/>
-        </designable>
-    </designables>
     <color key="tintColor" name="vk-color"/>
     <resources>
         <image name="checkmark" catalog="system" width="128" height="114"/>

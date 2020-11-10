@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		311BC4542555A6DE00533924 /* MyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BC4532555A6DE00533924 /* MyImageView.swift */; };
-		311BC4582555A7E800533924 /* ShadowedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311BC4572555A7E800533924 /* ShadowedView.swift */; };
 		3122CDC12556DE8C00253485 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* TabBarController.swift */; };
 		3122CDCA2556E14B00253485 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC92556E14B00253485 /* PersistenceManager.swift */; };
 		3122CDD22556FF0800253485 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDD12556FF0800253485 /* Checkbox.swift */; };
@@ -28,6 +26,7 @@
 		3182B38325438B1000E3E710 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38125438B1000E3E710 /* Main.storyboard */; };
 		3182B38525438B1100E3E710 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38425438B1100E3E710 /* Assets.xcassets */; };
 		3182B39225438B8500E3E710 /* MyTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182B39125438B8500E3E710 /* MyTextField.swift */; };
+		318716A1255ABBD300F4AD0C /* ShadowedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318716A0255ABBD300F4AD0C /* ShadowedImageView.swift */; };
 		319207AD2558801F00DA039B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 319207AC2558801F00DA039B /* LaunchScreen.storyboard */; };
 		31A72DEC2554199C006B664D /* AlphabetPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A72DEB2554199C006B664D /* AlphabetPicker.swift */; };
 		31B7A1F925587A30007F4465 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B7A1F825587A30007F4465 /* UserDefault.swift */; };
@@ -37,8 +36,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		311BC4532555A6DE00533924 /* MyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImageView.swift; sourceTree = "<group>"; };
-		311BC4572555A7E800533924 /* ShadowedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowedView.swift; sourceTree = "<group>"; };
 		3122CDC02556DE8C00253485 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3122CDC92556E14B00253485 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		3122CDD12556FF0800253485 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
@@ -62,6 +59,7 @@
 		3182B38425438B1100E3E710 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3182B38925438B1100E3E710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3182B39125438B8500E3E710 /* MyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
+		318716A0255ABBD300F4AD0C /* ShadowedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowedImageView.swift; sourceTree = "<group>"; };
 		319207AC2558801F00DA039B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		31A72DEB2554199C006B664D /* AlphabetPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetPicker.swift; sourceTree = "<group>"; };
 		31B7A1F825587A30007F4465 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
@@ -84,8 +82,7 @@
 		311BA3E9255884D800221C69 /* ImageView */ = {
 			isa = PBXGroup;
 			children = (
-				311BC4532555A6DE00533924 /* MyImageView.swift */,
-				311BC4572555A7E800533924 /* ShadowedView.swift */,
+				318716A0255ABBD300F4AD0C /* ShadowedImageView.swift */,
 			);
 			path = ImageView;
 			sourceTree = "<group>";
@@ -299,7 +296,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				311BC4542555A6DE00533924 /* MyImageView.swift in Sources */,
 				315FF5A62548B9F90054C539 /* SearchVC.swift in Sources */,
 				312AE5692550D48800B97164 /* Swift+Ext.swift in Sources */,
 				3182B38025438B1000E3E710 /* LoginVC.swift in Sources */,
@@ -309,6 +305,7 @@
 				3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */,
 				31B7A1F925587A30007F4465 /* UserDefault.swift in Sources */,
 				3151A364254C5FC800F9BFAB /* FriendCell.swift in Sources */,
+				318716A1255ABBD300F4AD0C /* ShadowedImageView.swift in Sources */,
 				312B2C3125542F1900D1BCAE /* DummyData.swift in Sources */,
 				3122CDC12556DE8C00253485 /* TabBarController.swift in Sources */,
 				3151A369254C600900F9BFAB /* User.swift in Sources */,
@@ -322,7 +319,6 @@
 				312AE5592550CF6600B97164 /* PhotosVC.swift in Sources */,
 				3122CDD22556FF0800253485 /* Checkbox.swift in Sources */,
 				312AE5652550D3E100B97164 /* UIKit+Ext.swift in Sources */,
-				311BC4582555A7E800533924 /* ShadowedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
