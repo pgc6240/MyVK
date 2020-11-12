@@ -9,6 +9,8 @@ import UIKit
 
 final class LoginVC: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var loginTextField: MyTextField!
     @IBOutlet weak var passwordTextField: MyTextField!
     @IBOutlet weak var rememberMeCheckbox: Checkbox!
@@ -16,6 +18,7 @@ final class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         rememberMeCheckbox.delegate = self
         
         #if DEBUG
@@ -23,7 +26,13 @@ final class LoginVC: UIViewController {
         passwordTextField.text  = "12345678"
         #endif
     }
-
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        dismissKeyboard()
+    }
+    
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         checkLoginAndPassword()
@@ -59,8 +68,22 @@ extension LoginVC: UITextFieldDelegate {
     }
     
     
+    @objc func keyboardWillShow(_ notification: Notification) {
+        if let keyboardFrame = notification.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect {
+            UIView.animate(withDuration: 0.4) {
+                self.scrollView.contentSize.height  = self.view.bounds.height + keyboardFrame.height
+                self.scrollView.contentOffset.y     = -(self.view.bounds.height - keyboardFrame.height - self.stackView.bounds.height)
+            }
+        }
+    }
+    
+    
     @IBAction func dismissKeyboard() {
         view.endEditing(true)
+        UIView.animate(withDuration: 0.4) {
+            self.scrollView.contentSize.height  = self.view.bounds.height
+            self.scrollView.contentOffset.y     = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
+        }
     }
 }
 
