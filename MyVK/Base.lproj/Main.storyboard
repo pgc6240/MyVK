@@ -254,11 +254,23 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="c26-lp-5W1">
                                                             <rect key="frame" x="0.0" y="467.5" width="375" height="32"/>
                                                             <subviews>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nm9-zl-mlK">
-                                                                    <rect key="frame" x="0.0" y="8" width="125" height="24"/>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LyO-8M-FIH" customClass="LikeButton" customModule="MyVK" customModuleProvider="target">
+                                                                    <rect key="frame" x="20" y="8" width="84" height="24"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                                                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                                    <state key="normal" title="50">
+                                                                        <color key="titleColor" systemColor="secondaryLabelColor"/>
+                                                                        <imageReference key="image" image="heart" catalog="system" symbolScale="large"/>
+                                                                        <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font" scale="large" weight="regular">
+                                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                        </preferredSymbolConfiguration>
+                                                                    </state>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nm9-zl-mlK">
+                                                                    <rect key="frame" x="104" y="8" width="83.5" height="24"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                    <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                                     <state key="normal">
                                                                         <color key="titleColor" systemColor="secondaryLabelColor"/>
                                                                         <imageReference key="image" image="bubble.left" catalog="system" symbolScale="large"/>
@@ -268,10 +280,9 @@
                                                                     </state>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-s6-TJg">
-                                                                    <rect key="frame" x="125" y="8" width="125" height="24"/>
+                                                                    <rect key="frame" x="187.5" y="8" width="84" height="24"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                                                    <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                     <state key="normal">
                                                                         <color key="titleColor" systemColor="secondaryLabelColor"/>
                                                                         <imageReference key="image" image="arrowshape.turn.up.forward" catalog="system" symbolScale="large"/>
@@ -281,10 +292,9 @@
                                                                     </state>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" enabled="NO" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cA-rh-WPF">
-                                                                    <rect key="frame" x="250" y="8" width="125" height="24"/>
+                                                                    <rect key="frame" x="271.5" y="8" width="83.5" height="24"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
                                                                     <state key="normal" title="1,000">
                                                                         <color key="titleColor" systemColor="secondaryLabelColor"/>
@@ -295,7 +305,7 @@
                                                                     </state>
                                                                 </button>
                                                             </subviews>
-                                                            <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="0.0"/>
+                                                            <edgeInsets key="layoutMargins" top="8" left="20" bottom="0.0" right="20"/>
                                                         </stackView>
                                                     </subviews>
                                                     <edgeInsets key="layoutMargins" top="16" left="0.0" bottom="16" right="0.0"/>
@@ -310,7 +320,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="postActionsStackView" destination="c26-lp-5W1" id="kDU-dF-zYK"/>
+                                            <outlet property="likeButton" destination="LyO-8M-FIH" id="U2k-7u-22s"/>
                                             <outlet property="postTextView" destination="aWm-s0-Efd" id="CT6-kT-dSV"/>
                                         </connections>
                                     </tableViewCell>
@@ -642,6 +652,7 @@
         <image name="bubble.left" catalog="system" width="128" height="110"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="eye.fill" catalog="system" width="128" height="78"/>
+        <image name="heart" catalog="system" width="128" height="109"/>
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>

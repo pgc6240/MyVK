@@ -12,18 +12,7 @@ final class PostCell: UITableViewCell {
     static let reuseId = String(describing: self)
     
     @IBOutlet weak var postTextView: UITextView!
-    @IBOutlet weak var postActionsStackView: UIStackView!
+    @IBOutlet weak var likeButton: LikeButton!
     
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let likeButton = LikeButton(likeCount: 50)
-        postActionsStackView.insertArrangedSubview(likeButton, at: 0)
-    }
 }
