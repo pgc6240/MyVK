@@ -10,11 +10,11 @@ import UIKit
 final class NewsVC: UIViewController {
 
     var posts: [Post] = []
+    @IBOutlet weak var tableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
 }
 
@@ -29,6 +29,7 @@ extension NewsVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
+        return cell
     }
 }
