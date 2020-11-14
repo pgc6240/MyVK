@@ -27,7 +27,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="O9Q-E3-dHq">
-                                                <rect key="frame" x="94" y="144.5" width="187.5" height="378"/>
+                                                <rect key="frame" x="94" y="136.5" width="187.5" height="394"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A74-iC-zrN">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="159"/>
@@ -106,20 +106,18 @@
                                                             </button>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="запомнить меня" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OpI-kh-iWm">
                                                                 <rect key="frame" x="48.5" y="0.0" width="139" height="19.5"/>
-                                                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                                         <variation key="heightClass=compact">
-                                                            <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                                            <edgeInsets key="layoutMargins" top="8" left="0.0" bottom="0.0" right="0.0"/>
                                                         </variation>
                                                     </stackView>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oGE-Zu-dK7">
-                                                        <rect key="frame" x="0.0" y="362" width="187.5" height="16"/>
+                                                        <rect key="frame" x="0.0" y="362" width="187.5" height="32"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                        <inset key="contentEdgeInsets" minX="0.0" minY="-4" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="Зарегистрироваться">
                                                             <color key="titleColor" name="vk-color"/>
                                                         </state>

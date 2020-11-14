@@ -69,10 +69,12 @@ extension LoginVC: UITextFieldDelegate {
     
     
     @objc func keyboardWillShow(_ notification: Notification) {
-        if let keyboardFrame = notification.userInfo?["UIKeyboardFrameEndUserInfoKey"] as? CGRect {
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
+            let viewHeight = view.bounds.height
             UIView.animate(withDuration: 0.4) {
-                self.scrollView.contentSize.height  = self.view.bounds.height + keyboardFrame.height
-                self.scrollView.contentOffset.y     = -(self.view.bounds.height - keyboardFrame.height - self.stackView.bounds.height)
+                self.scrollView.contentSize.height = viewHeight + keyboardFrame.height
+                self.scrollView.contentOffset.y = -(viewHeight - keyboardFrame.height - self.stackView.bounds.height)
+                self.scrollView.verticalScrollIndicatorInsets.bottom = keyboardFrame.height
             }
         }
     }
@@ -81,8 +83,8 @@ extension LoginVC: UITextFieldDelegate {
     @IBAction func dismissKeyboard() {
         view.endEditing(true)
         UIView.animate(withDuration: 0.4) {
-            self.scrollView.contentSize.height  = self.view.bounds.height
-            self.scrollView.contentOffset.y     = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
+            self.scrollView.contentSize.height = self.view.bounds.height
+            self.scrollView.contentOffset.y = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
         }
     }
 }
