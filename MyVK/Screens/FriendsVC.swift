@@ -19,6 +19,7 @@ final class FriendsVC: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
         tableView.rowHeight = 80
         getFriends()
     }
@@ -50,11 +51,6 @@ final class FriendsVC: UITableViewController {
 //
 extension FriendsVC {
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        section == 0 ? "Заявки в друзья" : (friends[section].isEmpty ? nil : collation.sectionTitles[section - 1])
-    }
-    
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         friends.count
     }
@@ -85,6 +81,22 @@ extension FriendsVC {
     
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         collation.sectionTitles.firstIndex(of: title)! + 1
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        friends[section].isEmpty ? 0 : UITableView.automaticDimension
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if !friends[section].isEmpty {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
+            header?.backgroundView = BlurView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+            header?.textLabel?.text = section == 0 ? "Заявки в друзья" : collation.sectionTitles[section - 1]
+            return header
+        }
+        return nil
     }
 }
 
