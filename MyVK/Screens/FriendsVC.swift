@@ -10,7 +10,7 @@ import UIKit
 final class FriendsVC: UITableViewController {
     
     var friends: [[User]] = []
-    var backingStore: [[User]] = []
+    lazy var backingStore: [[User]] = []
     
     var alphabetControl = AlphabetPicker()
     var avaliableLetters: Set<String> = []
