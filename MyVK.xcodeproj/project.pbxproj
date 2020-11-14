@@ -129,6 +129,15 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
+		3140A8D82560665E00140B2A /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				310E852B256028480014C5EF /* SearchBarHeader.swift */,
+				310E852E256028A40014C5EF /* SearchBarHeader.xib */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
 		3151A362254C5F8B00F9BFAB /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -161,10 +170,9 @@
 				3122CDBF2556DE5600253485 /* Controllers */,
 				311BA3E9255884D800221C69 /* ImageView */,
 				311BA3EF25588DB200221C69 /* TextField */,
+				3140A8D82560665E00140B2A /* Headers */,
 				3149C004255AE3E400212299 /* GradientView.swift */,
 				3193AD49256011B000F39D6F /* BlurView.swift */,
-				310E852B256028480014C5EF /* SearchBarHeader.swift */,
-				310E852E256028A40014C5EF /* SearchBarHeader.xib */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";

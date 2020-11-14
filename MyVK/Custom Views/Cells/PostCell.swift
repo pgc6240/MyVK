@@ -14,11 +14,13 @@ final class PostCell: UITableViewCell {
     @IBOutlet weak var postTextView: UITextView!
     @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var likeButton: LikeButton!
+    @IBOutlet weak var viewCount: UIButton!
     
     
     func set(with post: Post) {
         postTextView.text = post.text
         likeButton.likeCount = post.likeCount
+        viewCount.setTitle("\(post.viewCount)", for: .normal)
         
         for attachment in post.attachments {
             switch attachment.type {

@@ -323,6 +323,7 @@
                                             <outlet property="likeButton" destination="LyO-8M-FIH" id="U2k-7u-22s"/>
                                             <outlet property="photoImageView" destination="Sja-Ix-8NH" id="WEa-bk-MsM"/>
                                             <outlet property="postTextView" destination="aWm-s0-Efd" id="CT6-kT-dSV"/>
+                                            <outlet property="viewCount" destination="8cA-rh-WPF" id="C1d-dW-98a"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
