@@ -19,6 +19,7 @@ final class GroupsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = editButtonItem
+        configureSearchBar()
         loadGroups(for: user)
     }
     
@@ -139,5 +140,25 @@ extension GroupsVC: UITextFieldDelegate {
             return
         }
         newGroupTitle = text
+    }
+}
+
+
+//
+// MARK: - UISearchBarDelegate
+//
+extension GroupsVC: UISearchBarDelegate {
+    
+    private func configureSearchBar() {
+        let headerSearchBar = Bundle.main.loadNibNamed("SearchBarHeader", owner: self, options: nil)?[0] as? SearchBarHeader
+        headerSearchBar?.searchBar.delegate               = self
+        headerSearchBar?.searchBar.placeholder            = "Поиск в моих сообществах"
+        headerSearchBar?.searchBar.autocapitalizationType = .words
+        tableView.tableHeaderView = headerSearchBar
+    }
+    
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        #warning("Дописать!")
     }
 }

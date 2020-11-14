@@ -141,7 +141,7 @@ extension FriendsVC: UISearchBarDelegate {
     
     private func configureSearchBar(_ searchBar: UISearchBar?) {
         searchBar?.delegate                  = self
-        searchBar?.placeholder               = "Искать друга..."
+        searchBar?.placeholder               = "Поиск среди моих друзей"
         searchBar?.autocapitalizationType    = .words
     }
     

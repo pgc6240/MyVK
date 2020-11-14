@@ -27,6 +27,5 @@ let photos = [Photo(imageName: "photo-1"), Photo(imageName: "photo-2"), Photo(im
 let somePosts: [Post] = [
     Post(text: "Какой-то очень интересный пост.", attachments: photos, likeCount: 50, viewCount: 697),
     Post(text: "Ещё более интересный пост.", attachments: photos.dropLast(), likeCount: 107, viewCount: 1012),
-    Post(text: "Ещё более интересный пост.", attachments: [photos[1]], likeCount: 107, viewCount: 1012),
-    Post(text: "Ещё более интересный пост.", attachments: [photos[0]], likeCount: 107, viewCount: 1012),
+    Post(text: "Не очень интересный пост.", attachments: [photos[1]], likeCount: 25, viewCount: 273)
 ]
