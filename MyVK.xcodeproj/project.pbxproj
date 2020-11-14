@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		310E852C256028480014C5EF /* SearchBarHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310E852B256028480014C5EF /* SearchBarHeader.swift */; };
+		310E852F256028A40014C5EF /* SearchBarHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 310E852E256028A40014C5EF /* SearchBarHeader.xib */; };
 		3122CDC12556DE8C00253485 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* TabBarController.swift */; };
 		3122CDCA2556E14B00253485 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC92556E14B00253485 /* PersistenceManager.swift */; };
 		3122CDD22556FF0800253485 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDD12556FF0800253485 /* Checkbox.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		310E852B256028480014C5EF /* SearchBarHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarHeader.swift; sourceTree = "<group>"; };
+		310E852E256028A40014C5EF /* SearchBarHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchBarHeader.xib; sourceTree = "<group>"; };
 		3122CDC02556DE8C00253485 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		3122CDC92556E14B00253485 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		3122CDD12556FF0800253485 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 				311BA3EF25588DB200221C69 /* TextField */,
 				3149C004255AE3E400212299 /* GradientView.swift */,
 				3193AD49256011B000F39D6F /* BlurView.swift */,
+				310E852B256028480014C5EF /* SearchBarHeader.swift */,
+				310E852E256028A40014C5EF /* SearchBarHeader.xib */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -289,6 +295,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				310E852F256028A40014C5EF /* SearchBarHeader.xib in Resources */,
 				319207AD2558801F00DA039B /* LaunchScreen.storyboard in Resources */,
 				3182B38525438B1100E3E710 /* Assets.xcassets in Resources */,
 				3182B38325438B1000E3E710 /* Main.storyboard in Resources */,
@@ -306,6 +313,7 @@
 				312AE5692550D48800B97164 /* Swift+Ext.swift in Sources */,
 				3182B38025438B1000E3E710 /* LoginVC.swift in Sources */,
 				3151A36C254C60C200F9BFAB /* Group.swift in Sources */,
+				310E852C256028480014C5EF /* SearchBarHeader.swift in Sources */,
 				31A72DEC2554199C006B664D /* AlphabetPicker.swift in Sources */,
 				31BC1D9C25585F8500D0E798 /* Constants.swift in Sources */,
 				3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */,
