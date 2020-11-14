@@ -12,9 +12,9 @@ final class PostCell: UITableViewCell {
     static let reuseId = String(describing: self)
     
     @IBOutlet weak var postTextView: UITextView!
-    @IBOutlet weak var photoImageView: UIImageView!
     @IBOutlet weak var likeButton: LikeButton!
     @IBOutlet weak var viewCount: UIButton!
+    @IBOutlet var photosImageViews: [UIImageView]!
     
     
     func set(with post: Post) {
@@ -22,11 +22,11 @@ final class PostCell: UITableViewCell {
         likeButton.likeCount = post.likeCount
         viewCount.setTitle("\(post.viewCount)", for: .normal)
         
-        for attachment in post.attachments {
+        for (i, attachment) in post.attachments.enumerated() {
             switch attachment.type {
             case .photo:
                 let photo = attachment as? Photo
-                photoImageView.image = photo?.image
+                photosImageViews[i].image = photo?.image
             }
         }
     }

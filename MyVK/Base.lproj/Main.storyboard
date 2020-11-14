@@ -227,14 +227,14 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="7bt-7C-PlC" customClass="PostCell" customModule="MyVK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="515.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="375" height="466.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7bt-7C-PlC" id="IXz-1p-Nns">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="515.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="466.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="j5G-q2-ao5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="515.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="466.5"/>
                                                     <subviews>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu." adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aWm-s0-Efd">
                                                             <rect key="frame" x="0.0" y="16" width="375" height="60.5"/>
@@ -245,14 +245,30 @@
                                                             <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                                         </textView>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="250" image="photo-1" translatesAutoresizingMaskIntoConstraints="NO" id="Sja-Ix-8NH">
-                                                            <rect key="frame" x="0.0" y="84.5" width="375" height="375"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="Sja-Ix-8NH" secondAttribute="height" multiplier="1:1" id="EpR-GG-30k"/>
-                                                            </constraints>
-                                                        </imageView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="qOu-AH-FfW">
+                                                            <rect key="frame" x="0.0" y="84.5" width="375" height="326"/>
+                                                            <subviews>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0TD-S1-uKz">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="326" height="326"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" secondItem="0TD-S1-uKz" secondAttribute="height" multiplier="1:1" id="yXd-Se-ESa"/>
+                                                                    </constraints>
+                                                                </imageView>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="AK4-ct-id7">
+                                                                    <rect key="frame" x="326" y="0.0" width="49" height="326"/>
+                                                                    <subviews>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H0i-9R-4cb">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="49" height="162.5"/>
+                                                                        </imageView>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kn5-vc-1P0">
+                                                                            <rect key="frame" x="0.0" y="162.5" width="49" height="163.5"/>
+                                                                        </imageView>
+                                                                    </subviews>
+                                                                </stackView>
+                                                            </subviews>
+                                                        </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="c26-lp-5W1">
-                                                            <rect key="frame" x="0.0" y="467.5" width="375" height="32"/>
+                                                            <rect key="frame" x="0.0" y="418.5" width="375" height="32"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LyO-8M-FIH" customClass="LikeButton" customModule="MyVK" customModuleProvider="target">
                                                                     <rect key="frame" x="20" y="8" width="84" height="24"/>
@@ -312,18 +328,22 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Sja-Ix-8NH" firstAttribute="width" secondItem="IXz-1p-Nns" secondAttribute="width" id="GgH-9O-sqZ"/>
                                                 <constraint firstItem="j5G-q2-ao5" firstAttribute="leading" secondItem="IXz-1p-Nns" secondAttribute="leading" id="Glq-e4-pEv"/>
                                                 <constraint firstItem="j5G-q2-ao5" firstAttribute="top" secondItem="IXz-1p-Nns" secondAttribute="top" id="MHk-ab-YOi"/>
                                                 <constraint firstAttribute="trailing" secondItem="j5G-q2-ao5" secondAttribute="trailing" id="elz-Ud-okT"/>
                                                 <constraint firstAttribute="bottom" secondItem="j5G-q2-ao5" secondAttribute="bottom" id="kfj-Fb-KRG"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="0TD-S1-uKz" firstAttribute="width" relation="greaterThanOrEqual" secondItem="7bt-7C-PlC" secondAttribute="width" multiplier="0.5" id="5so-O3-fPt"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="likeButton" destination="LyO-8M-FIH" id="U2k-7u-22s"/>
-                                            <outlet property="photoImageView" destination="Sja-Ix-8NH" id="WEa-bk-MsM"/>
                                             <outlet property="postTextView" destination="aWm-s0-Efd" id="CT6-kT-dSV"/>
                                             <outlet property="viewCount" destination="8cA-rh-WPF" id="C1d-dW-98a"/>
+                                            <outletCollection property="photosImageViews" destination="0TD-S1-uKz" collectionClass="NSMutableArray" id="ooB-Iw-gO8"/>
+                                            <outletCollection property="photosImageViews" destination="H0i-9R-4cb" collectionClass="NSMutableArray" id="6LF-Ft-DY7"/>
+                                            <outletCollection property="photosImageViews" destination="kn5-vc-1P0" collectionClass="NSMutableArray" id="fHj-Hi-zK4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -658,7 +678,6 @@
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
-        <image name="photo-1" width="640" height="640"/>
         <image name="sample-avatar" width="800" height="800"/>
         <image name="vk-logo" width="2500" height="2500"/>
         <namedColor name="vk-color">
