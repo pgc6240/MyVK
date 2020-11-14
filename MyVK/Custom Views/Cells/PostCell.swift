@@ -18,7 +18,7 @@ final class PostCell: UITableViewCell {
     
     
     func set(with post: Post) {
-        postTextView.text = post.text
+        //postTextView.text = post.text
         likeButton.likeCount = post.likeCount
         viewCount.setTitle("\(post.viewCount)", for: .normal)
         
