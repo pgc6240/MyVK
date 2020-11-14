@@ -8,6 +8,7 @@
 struct Post {
     var text: String
     var attachments: [Attachable]
+    var likeCount: Int
     var viewCount: Int
 }
 

@@ -9,7 +9,7 @@ import UIKit
 
 final class NewsVC: UIViewController {
 
-    var posts: [Post] = []
+    var posts: [Post] = somePosts
     @IBOutlet weak var tableView: UITableView!
     
     
@@ -25,11 +25,19 @@ final class NewsVC: UIViewController {
 extension NewsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        10
+        posts.count
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
+        let post = posts[indexPath.row]
+        cell.set(with: post)
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        nil
     }
 }

@@ -22,3 +22,8 @@ func makeRandomNumberOfFriends(upTo: Int) -> [User] {
     }
     return tempFriends
 }
+
+let somePosts: [Post] = [
+    Post(text: "Какой-то очень интересный пост.", attachments: [Photo(imageName: "photo-1")], likeCount: 50, viewCount: 697),
+    Post(text: "Ещё более интересный пост.", attachments: [Photo(imageName: "photo-2")], likeCount: 107, viewCount: 1012)
+]

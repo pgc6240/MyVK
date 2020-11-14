@@ -321,6 +321,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="likeButton" destination="LyO-8M-FIH" id="U2k-7u-22s"/>
+                                            <outlet property="photoImageView" destination="Sja-Ix-8NH" id="WEa-bk-MsM"/>
                                             <outlet property="postTextView" destination="aWm-s0-Efd" id="CT6-kT-dSV"/>
                                         </connections>
                                     </tableViewCell>

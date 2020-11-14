@@ -10,5 +10,5 @@ enum AttachmentType {
 }
 
 protocol Attachable {
-    static var type: AttachmentType { get }
+    var type: AttachmentType { get }
 }
