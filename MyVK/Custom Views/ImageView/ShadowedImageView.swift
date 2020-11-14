@@ -39,11 +39,15 @@ final class ShadowedImageView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         backgroundColor = .clear
-        layer.addSublayer(imageLayer)
         
-        imageLayer.frame = bounds
-        imageLayer.masksToBounds = true
+        layer.shadowColor   = shadowColor?.cgColor
+        layer.shadowRadius  = shadowRadius
+        layer.shadowOffset  = CGSize(width: shadowOffset, height: shadowOffset)
+        layer.shadowOpacity = shadowOpacity
+        
+        layer.addSublayer(imageLayer)
+        imageLayer.frame            = bounds
+        imageLayer.masksToBounds    = true
     }
 }
