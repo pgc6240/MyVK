@@ -9,25 +9,57 @@ import UIKit
 
 final class PhotosVC: UICollectionViewController {
 
+    var photos: [[Photo]] = [[]]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadPhotos()
         collectionView.collectionViewLayout = collectionViewLayout
     }
     
     
+    func loadPhotos() {
+        photos.remove(at: 0)
+        photos.append([somePhotos[0]])
+        photos.append(somePhotos.dropLast())
+        photos.append(somePhotos)
+        photos.append(somePhotos + [somePhotos[2]])
+    }
+    
+    
     override var collectionViewLayout: UICollectionViewLayout {
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, layoutEnvironment in
-            let columns = sectionIndex.isEven ? 3 : 2
-            let spacing: CGFloat = 8
-            let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
-            group.interItemSpacing = NSCollectionLayoutSpacing.fixed(spacing)
+        let layout = UICollectionViewCompositionalLayout { [photos] sectionIndex, layoutEnvironment in
+            
+            var largePhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.65), heightDimension: .fractionalHeight(1))
+            let largePhoto: NSCollectionLayoutItem
+            var smallPhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+            var smallPhoto = NSCollectionLayoutItem(layoutSize: smallPhotoSize)
+            var groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1))
+            let group: NSCollectionLayoutGroup
+            
+            switch photos[sectionIndex].count {
+            case 3, 4:
+                largePhoto = NSCollectionLayoutItem(layoutSize: largePhotoSize)
+                smallPhoto = NSCollectionLayoutItem(layoutSize: smallPhotoSize)
+                let smallPhotosGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.35), heightDimension: .fractionalHeight(1))
+                let smallPhotosGroup = NSCollectionLayoutGroup.vertical(layoutSize: smallPhotosGroupSize, subitem: smallPhoto, count: photos[sectionIndex].count - 1)
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.65))
+                group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [largePhoto, smallPhotosGroup])
+            case 2:
+                largePhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalWidth(0.5))
+                largePhoto = NSCollectionLayoutItem(layoutSize: largePhotoSize)
+                smallPhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalWidth(0.5))
+                smallPhoto = NSCollectionLayoutItem(layoutSize: smallPhotoSize)
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.5))
+                group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [largePhoto, smallPhoto])
+            default:
+                largePhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1))
+                largePhoto = NSCollectionLayoutItem(layoutSize: largePhotoSize)
+                group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [largePhoto])
+            }
+            
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = spacing
-            section.contentInsets = NSDirectionalEdgeInsets(top: spacing, leading: spacing, bottom: 0, trailing: spacing)
             return section
         }
         return layout
@@ -41,12 +73,12 @@ final class PhotosVC: UICollectionViewController {
 extension PhotosVC {
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 12
+        photos.count
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        photos[section].count
     }
     
     
