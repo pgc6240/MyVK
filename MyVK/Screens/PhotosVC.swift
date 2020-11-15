@@ -84,6 +84,8 @@ extension PhotosVC {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
+        let photo = photos[indexPath.section][indexPath.row]
+        cell.set(with: photo)
         return cell
     }
 }

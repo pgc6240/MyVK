@@ -525,7 +525,21 @@
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="owW-Wh-iMG">
                                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-zP-9Hs">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        </imageView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="Zp7-zP-9Hs" secondAttribute="bottom" id="Bnv-vT-zpz"/>
+                                        <constraint firstItem="Zp7-zP-9Hs" firstAttribute="leading" secondItem="owW-Wh-iMG" secondAttribute="leading" id="Cg4-aO-dSn"/>
+                                        <constraint firstItem="Zp7-zP-9Hs" firstAttribute="top" secondItem="owW-Wh-iMG" secondAttribute="top" id="jbs-UB-np8"/>
+                                        <constraint firstAttribute="trailing" secondItem="Zp7-zP-9Hs" secondAttribute="trailing" id="nGn-PA-BE0"/>
+                                    </constraints>
                                 </collectionViewCellContentView>
+                                <connections>
+                                    <outlet property="photoImageView" destination="Zp7-zP-9Hs" id="6pI-zj-FjO"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
