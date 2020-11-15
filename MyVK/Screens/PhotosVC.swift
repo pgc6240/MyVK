@@ -22,9 +22,11 @@ final class PhotosVC: UICollectionViewController {
     func loadPhotos() {
         photos.remove(at: 0)
         photos.append([somePhotos[0]])
-        photos.append(somePhotos.dropLast())
         photos.append(somePhotos)
-        photos.append(somePhotos + [somePhotos[2]])
+        photos.append(somePhotos.dropLast())
+        photos.append([somePhotos[1]])
+        photos.append(somePhotos + [somePhotos[1]])
+        photos.append(Array(somePhotos[1...2]))
     }
     
     
