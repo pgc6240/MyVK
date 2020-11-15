@@ -8,15 +8,24 @@
 import UIKit
 
 final class PhotoCell: UICollectionViewCell {
-    
     static let reuseId = "PhotoCell"
     
-    @IBOutlet weak var photoImageView: UIImageView!
+    var photoImageView: UIImageView!
     
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        backgroundColor = UIColor.random()
+        layoutUI()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layoutUI()
+    }
+    
+    private func layoutUI() {
+        photoImageView = UIImageView(frame: bounds)
+        addSubview(photoImageView)
     }
     
     func set(with photo: Photo) {

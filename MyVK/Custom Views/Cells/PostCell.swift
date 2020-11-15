@@ -14,7 +14,17 @@ final class PostCell: UITableViewCell {
     @IBOutlet weak var postTextView: UITextView!
     @IBOutlet weak var likeButton: LikeButton!
     @IBOutlet weak var viewCount: UIButton!
+    @IBOutlet weak var photosStackView: UIStackView!
     @IBOutlet var photosImageViews: [UIImageView]!
+    
+    var photos: [Photo] = []
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        photos = []
+        photosImageViews.forEach { $0.image = nil }
+    }
     
     
     func set(with post: Post) {
@@ -25,9 +35,20 @@ final class PostCell: UITableViewCell {
         for (i, attachment) in post.attachments.enumerated() {
             switch attachment.type {
             case .photo:
-                let photo = attachment as? Photo
-                photosImageViews[i].image = photo?.image
+                if let photo = attachment as? Photo {
+                    photos.append(photo)
+                    photosImageViews[i].image = photo.image
+                }
             }
         }
+        
+        photosStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(photosTapped)))
+    }
+    
+    @objc func photosTapped() {
+        let photosVC = PhotosVC(photos: photos, maxPhotosPerSection: Int.random(in: 1...photos.count))
+        let tabBarController = UIApplication.shared.windows.first?.rootViewController as? TabBarController
+        let navigationController = tabBarController?.selectedViewController as? UINavigationController
+        navigationController?.pushViewController(photosVC, animated: true)
     }
 }

@@ -12,25 +12,54 @@ final class PhotosVC: UICollectionViewController {
     var photos: [[Photo]] = [[]]
     
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setPhotos()
+    }
+    
+    override init(collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(collectionViewLayout: .init())
+    }
+    
+    convenience init(photos: [Photo], maxPhotosPerSection: Int) {
+        self.init(collectionViewLayout: .init())
+        setPhotos(with: photos, maxPhotosPerSection: maxPhotosPerSection)
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadPhotos()
-        collectionView.collectionViewLayout = collectionViewLayout
+        configureCollectionView()
     }
     
     
-    func loadPhotos() {
+    func configureCollectionView() {
+        collectionView.backgroundColor = .systemBackground
+        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
+        collectionView.collectionViewLayout = photosCollectionViewLayout
+    }
+    
+    
+    func setPhotos(with photosArray: [Photo] = [], maxPhotosPerSection: Int = 4) {
         photos.remove(at: 0)
-        photos.append([somePhotos[0]])
-        photos.append(somePhotos)
-        photos.append(somePhotos.dropLast())
-        photos.append([somePhotos[1]])
-        photos.append(somePhotos + [somePhotos[1]])
-        photos.append(Array(somePhotos[1...2]))
+        
+        if photosArray.isEmpty {
+            photos.append(contentsOf: [[somePhotos[0]], somePhotos, somePhotos.dropLast(), [somePhotos[1]], somePhotos + [somePhotos[1]], Array(somePhotos[1...2])])
+        
+        } else {
+            let maxPhotosPerSection = maxPhotosPerSection > 4 ? 4 : maxPhotosPerSection
+            for (index, photo) in photosArray.enumerated() {
+                if index % maxPhotosPerSection == 0 {
+                    photos.append([photo])
+                    continue
+                }
+                photos[photos.endIndex - 1].append(photo)
+            }
+        }
     }
     
     
-    override var collectionViewLayout: UICollectionViewLayout {
+    var photosCollectionViewLayout: UICollectionViewLayout {
         let layout = UICollectionViewCompositionalLayout { [photos] sectionIndex, layoutEnvironment in
             
             var largePhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.65), heightDimension: .fractionalHeight(1))

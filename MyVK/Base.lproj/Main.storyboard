@@ -390,6 +390,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="likeButton" destination="LyO-8M-FIH" id="U2k-7u-22s"/>
+                                            <outlet property="photosStackView" destination="qOu-AH-FfW" id="z05-g7-vAB"/>
                                             <outlet property="postTextView" destination="aWm-s0-Efd" id="CT6-kT-dSV"/>
                                             <outlet property="viewCount" destination="8cA-rh-WPF" id="C1d-dW-98a"/>
                                             <outletCollection property="photosImageViews" destination="0TD-S1-uKz" collectionClass="NSMutableArray" id="ooB-Iw-gO8"/>
