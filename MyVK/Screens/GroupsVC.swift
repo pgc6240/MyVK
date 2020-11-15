@@ -163,4 +163,9 @@ extension GroupsVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchText.isEmpty ? (groups = backingStore) : (groups = backingStore.filter { $0.name.lowercased().contains(searchText.lowercased()) })
     }
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }
