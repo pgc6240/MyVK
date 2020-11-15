@@ -47,7 +47,9 @@ final class PhotosVC: UICollectionViewController {
                 let smallPhotosGroupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.35), heightDimension: .fractionalHeight(1))
                 let smallPhotosGroup = NSCollectionLayoutGroup.vertical(layoutSize: smallPhotosGroupSize, subitem: smallPhoto, count: photos[sectionIndex].count - 1)
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.65))
-                group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [largePhoto, smallPhotosGroup])
+                let largePhotoFirst = Bool.random()
+                let groupItems = largePhotoFirst ? [largePhoto, smallPhotosGroup] : [smallPhotosGroup, largePhoto]
+                group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: groupItems)
             case 2:
                 largePhotoSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .fractionalWidth(0.5))
                 largePhoto = NSCollectionLayoutItem(layoutSize: largePhotoSize)
