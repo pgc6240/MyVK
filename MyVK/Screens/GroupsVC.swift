@@ -10,7 +10,8 @@ import UIKit
 final class GroupsVC: UITableViewController {
     
     var user: User?
-    var groups: [Group] = []
+    var groups: [Group] = [] { didSet { tableView.reloadData() }}
+    lazy var backingStore: [Group] = []
     
     let sectionTitles   = ["Добавить новое сообщество", "Мои сообщества"]
     var newGroupTitle   = "Новое сообщество \(Int.random(in: 100..<1000))"
@@ -26,6 +27,7 @@ final class GroupsVC: UITableViewController {
     
     func loadGroups(for user: User?) {
         (1...Int.random(in: 2...100)).forEach { groups.append(Group(name: "Сообщество \($0)")) }
+        backingStore = groups
     }
 }
 
@@ -159,6 +161,6 @@ extension GroupsVC: UISearchBarDelegate {
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        #warning("Дописать!")
+        searchText.isEmpty ? (groups = backingStore) : (groups = backingStore.filter { $0.name.lowercased().contains(searchText.lowercased()) })
     }
 }
