@@ -36,6 +36,7 @@
 		31A72DEC2554199C006B664D /* AlphabetPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A72DEB2554199C006B664D /* AlphabetPicker.swift */; };
 		31B7A1F925587A30007F4465 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B7A1F825587A30007F4465 /* UserDefault.swift */; };
 		31BC1D9C25585F8500D0E798 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BC1D9B25585F8500D0E798 /* Constants.swift */; };
+		31BF7BA12563F863003A07C0 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BF7BA02563F863003A07C0 /* LoadingView.swift */; };
 		31C9A6CE2563D99500619276 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C9A6CD2563D99500619276 /* LoginButton.swift */; };
 		31E87842254C90220014430E /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E87841254C90220014430E /* GroupCell.swift */; };
 		31E90192254C7B77009576EB /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E90191254C7B77009576EB /* PhotoCell.swift */; };
@@ -79,6 +80,7 @@
 		31A72DEB2554199C006B664D /* AlphabetPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetPicker.swift; sourceTree = "<group>"; };
 		31B7A1F825587A30007F4465 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		31BC1D9B25585F8500D0E798 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		31BF7BA02563F863003A07C0 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		31C9A6CD2563D99500619276 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
 		31E87841254C90220014430E /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		31E90191254C7B77009576EB /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
@@ -155,11 +157,11 @@
 			isa = PBXGroup;
 			children = (
 				3182B37F25438B1000E3E710 /* LoginVC.swift */,
-				312AE5552550CF4F00B97164 /* FriendsVC.swift */,
-				312AE5582550CF6600B97164 /* PhotosVC.swift */,
-				315FF5A22548B9DE0054C539 /* GroupsVC.swift */,
-				315FF5A52548B9F90054C539 /* SearchVC.swift */,
 				310E853125603BB20014C5EF /* NewsVC.swift */,
+				312AE5552550CF4F00B97164 /* FriendsVC.swift */,
+				315FF5A22548B9DE0054C539 /* GroupsVC.swift */,
+				312AE5582550CF6600B97164 /* PhotosVC.swift */,
+				315FF5A52548B9F90054C539 /* SearchVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -176,6 +178,7 @@
 				31C9A6CC2563D97700619276 /* Buttons */,
 				3193AD49256011B000F39D6F /* BlurView.swift */,
 				3149C004255AE3E400212299 /* GradientView.swift */,
+				31BF7BA02563F863003A07C0 /* LoadingView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 			children = (
 				3182B38125438B1000E3E710 /* Main.storyboard */,
 				31BC1D9A25585F5E00D0E798 /* Utilities */,
+				31E87837254C86280014430E /* Extensions */,
 				3122CDC52556E08400253485 /* Managers */,
 				315FF59B2548B81B0054C539 /* Model */,
 				315FF5962548B61E0054C539 /* Custom Views */,
@@ -247,9 +251,8 @@
 			isa = PBXGroup;
 			children = (
 				31BC1D9B25585F8500D0E798 /* Constants.swift */,
-				312B2C3025542F1900D1BCAE /* DummyData.swift */,
 				31B7A1F825587A30007F4465 /* UserDefault.swift */,
-				31E87837254C86280014430E /* Extensions */,
+				312B2C3025542F1900D1BCAE /* DummyData.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -268,7 +271,8 @@
 				312AE5682550D48800B97164 /* Swift+Ext.swift */,
 				312AE5642550D3E100B97164 /* UIKit+Ext.swift */,
 			);
-			path = Extensions;
+			name = Extensions;
+			path = Utilities/Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,6 +361,7 @@
 				31C9A6CE2563D99500619276 /* LoginButton.swift in Sources */,
 				318716A1255ABBD300F4AD0C /* ShadowedImageView.swift in Sources */,
 				312B2C3125542F1900D1BCAE /* DummyData.swift in Sources */,
+				31BF7BA12563F863003A07C0 /* LoadingView.swift in Sources */,
 				3122CDC12556DE8C00253485 /* TabBarController.swift in Sources */,
 				3193AD4A256011B000F39D6F /* BlurView.swift in Sources */,
 				3151A369254C600900F9BFAB /* User.swift in Sources */,

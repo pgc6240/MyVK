@@ -30,4 +30,21 @@ extension UIView {
     func addSubviews(_ views: UIView...) {
         views.forEach { addSubview($0) }
     }
+    
+    
+    func showLoadingView(duration: TimeInterval) {
+        
+        let loadingView             = LoadingView(frame: .zero, blurEffectStyle: .dark)
+        loadingView.frame.origin.x  = frame.midX - loadingView.intrinsicContentSize.width / 2
+        loadingView.frame.origin.y  = frame.midY - loadingView.intrinsicContentSize.height / 2
+        
+        addSubview(loadingView)
+        
+        UIView.transition(with: loadingView, duration: duration, options: .curveEaseIn) {
+            loadingView.layer.opacity = 0
+            
+        } completion: { _ in
+            loadingView.removeFromSuperview()
+        }
+    }
 }
