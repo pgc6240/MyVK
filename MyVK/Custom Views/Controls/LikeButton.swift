@@ -9,8 +9,8 @@ import UIKit
 
 final class LikeButton: UIButton {
     
-    var liked       = false { didSet { layoutSubviews() }}
-    var likeCount   = 0     { didSet { layoutSubviews() }}
+    var liked       = false { didSet { updateUI() }}
+    var likeCount   = 0     { didSet { updateUI() }}
     
     
     required init?(coder: NSCoder) {
@@ -21,11 +21,19 @@ final class LikeButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         tintColor = liked ? Colors.vkColor : .secondaryLabel
-        setImage(UIImage(systemName: liked ? "heart.fill" : "heart"), for: .normal)
-        setTitle(liked ? "\(likeCount + 1)" : "\(likeCount)", for: .normal)
+        updateUI()
     }
     
     @objc func likeTapped() {
         liked.toggle()
+    }
+    
+    func updateUI() {
+        UIView.transition(with: self, duration: 0.5, options: [.allowUserInteraction, .transitionFlipFromBottom]) {
+            [liked, likeCount] in
+            
+            self.setImage(UIImage(systemName: liked ? "heart.fill" : "heart"), for: .normal)
+            self.setTitle(liked ? "\(likeCount + 1)" : "\(likeCount)", for: .normal)
+        }
     }
 }
