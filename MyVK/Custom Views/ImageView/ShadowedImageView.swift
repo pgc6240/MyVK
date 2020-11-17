@@ -37,6 +37,11 @@ final class ShadowedImageView: UIView {
     }
     
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(springInImage)))
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .clear
@@ -49,5 +54,16 @@ final class ShadowedImageView: UIView {
         layer.addSublayer(imageLayer)
         imageLayer.frame            = bounds
         imageLayer.masksToBounds    = true
+    }
+    
+    @objc func springInImage() {
+        let springInAnimation           = CASpringAnimation(keyPath: "transform.scale")
+        springInAnimation.toValue       = 0.75
+        springInAnimation.stiffness     = 200
+        springInAnimation.mass          = 0.5
+        springInAnimation.duration      = 0.15
+        springInAnimation.autoreverses  = true
+        
+        layer.add(springInAnimation, forKey: nil)
     }
 }
