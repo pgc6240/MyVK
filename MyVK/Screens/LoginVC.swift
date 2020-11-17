@@ -19,6 +19,7 @@ final class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        stackView.isHidden = true
         rememberMeCheckbox.delegate = self
         
         #if DEBUG
@@ -31,6 +32,9 @@ final class LoginVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         dismissKeyboard()
+        UIView.transition(with: stackView, duration: 0.7, options: .transitionCrossDissolve) {
+            self.stackView.isHidden = false
+        }
     }
     
     
