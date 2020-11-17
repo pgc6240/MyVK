@@ -82,7 +82,7 @@
                                                             <outlet property="delegate" destination="BYZ-38-t0r" id="DUN-BJ-vsz"/>
                                                         </connections>
                                                     </textField>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lt-g8-Y2N">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6lt-g8-Y2N" customClass="LoginButton" customModule="MyVK" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="275" width="187.5" height="33"/>
                                                         <color key="backgroundColor" name="vk-color"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
