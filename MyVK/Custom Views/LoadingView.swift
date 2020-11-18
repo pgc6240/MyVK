@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class LoadingView: BlurView {
+final class LoadingView: UIView {
 
     var pointDiameter: CGFloat  = 15
     var spacing: CGFloat        = 5
@@ -25,20 +25,31 @@ final class LoadingView: BlurView {
     var point3: UIView!
     
     override var intrinsicContentSize: CGSize {
-        let width = spacing * 4 + pointDiameter * 3
+        let width = spacing * 6 + pointDiameter * 3
         return CGSize(width: width, height: width)
     }
     
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layoutUI()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layoutUI()
+    }
+    
+    
+    private func layoutUI() {
+        backgroundColor = UIColor.black.withAlphaComponent(0.75)
         
         frame.size = intrinsicContentSize
         
         layer.cornerRadius = 8
         layer.masksToBounds = true
         
-        point1 = point(spacing, pointDiameter, 1)
+        point1 = point(spacing * 2, pointDiameter, 1)
         point2 = point(point1.frame.maxX + spacing, pointDiameter, 0.4)
         point3 = point(point2.frame.maxX + spacing, pointDiameter, 0.1)
         

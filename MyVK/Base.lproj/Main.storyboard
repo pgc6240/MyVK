@@ -251,19 +251,19 @@
                                                                     <userDefinedRuntimeAttributes>
                                                                         <userDefinedRuntimeAttribute type="image" keyPath="image" value="sample-avatar"/>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                            <real key="value" value="15"/>
+                                                                            <real key="value" value="25"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                                             <color key="value" systemColor="labelColor"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                                                            <real key="value" value="4"/>
+                                                                            <real key="value" value="6"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowOffset">
                                                                             <real key="value" value="0.0"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                         <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                                            <real key="value" value="0.75"/>
+                                                                            <real key="value" value="1"/>
                                                                         </userDefinedRuntimeAttribute>
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
@@ -698,14 +698,26 @@
                     <view key="view" contentMode="scaleToFill" id="96w-eK-jdd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88t-yd-9zx">
+                                <rect key="frame" x="141.5" y="317" width="92" height="33.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bQ0-jI-FJ4"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="88t-yd-9zx" firstAttribute="centerY" secondItem="96w-eK-jdd" secondAttribute="centerY" id="pzi-7v-ayp"/>
+                            <constraint firstItem="88t-yd-9zx" firstAttribute="centerX" secondItem="96w-eK-jdd" secondAttribute="centerX" id="wxU-qX-JNO"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="IFI-d8-o0M"/>
+                    <navigationItem key="navigationItem" title="Анимации" id="IFI-d8-o0M"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QqP-ZL-oLp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852" y="1198"/>
+            <point key="canvasLocation" x="1852" y="1197.7511244377813"/>
         </scene>
         <!--GroupsNC-->
         <scene sceneID="yJE-mF-7Kp">
@@ -756,8 +768,8 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mEQ-H5-wq6" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Анимации" image="play" catalog="system" id="FN2-1t-eCq"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Qty-Ct-n6f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qty-Ct-n6f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

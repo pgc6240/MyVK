@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BlurView: UIView {
+final class BlurView: UIView {
     
     var blurEffectStyle: UIBlurEffect.Style?
     

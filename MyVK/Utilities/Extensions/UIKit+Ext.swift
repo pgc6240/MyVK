@@ -26,7 +26,7 @@ extension UIViewController {
     
     func showLoadingView(duration: TimeInterval) {
         
-        let loadingView             = LoadingView(frame: .zero, blurEffectStyle: .dark)
+        let loadingView             = LoadingView(frame: .zero)
         loadingView.frame.origin.x  = view.frame.midX - loadingView.intrinsicContentSize.width / 2
         loadingView.frame.origin.y  = view.frame.midY - loadingView.intrinsicContentSize.height / 2
         
