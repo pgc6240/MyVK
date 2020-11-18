@@ -102,12 +102,9 @@ extension LoginVC: UITextFieldDelegate {
 final class LoginSegue: UIStoryboardSegue {
     
     override func perform() {
-        UIApplication.shared.windows.first?.rootViewController?.view.showLoadingView(duration: 1.5)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let identifier = String(describing: TabBarController.self)
-        let tabBarController = storyboard.instantiateViewController(identifier: identifier)
+        source.showLoadingView(duration: 2)
         DispatchQueue.main.async {
-            UIApplication.shared.windows.first?.rootViewController = tabBarController
+            UIApplication.shared.windows.first?.rootViewController = self.destination
         }
     }
 }

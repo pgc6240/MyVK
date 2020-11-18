@@ -210,6 +210,7 @@
                         <segue destination="fIT-ue-kvp" kind="relationship" relationship="viewControllers" id="kVo-kg-wkr"/>
                         <segue destination="R1N-Pm-zQg" kind="relationship" relationship="viewControllers" id="n9o-Zr-dx7"/>
                         <segue destination="fgi-XJ-5Ml" kind="relationship" relationship="viewControllers" id="eHK-x1-h51"/>
+                        <segue destination="mEQ-H5-wq6" kind="relationship" relationship="viewControllers" id="4MU-VM-L0c"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arR-nQ-0EP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -690,6 +691,22 @@
             </objects>
             <point key="canvasLocation" x="2793" y="446"/>
         </scene>
+        <!--Анимации-->
+        <scene sceneID="LHN-Jd-qH3">
+            <objects>
+                <viewController title="Анимации" id="P8w-hU-o8N" customClass="AnimationsVC" customModule="MyVK" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="96w-eK-jdd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="bQ0-jI-FJ4"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="IFI-d8-o0M"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QqP-ZL-oLp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1852" y="1198"/>
+        </scene>
         <!--GroupsNC-->
         <scene sceneID="yJE-mF-7Kp">
             <objects>
@@ -733,6 +750,25 @@
             </objects>
             <point key="canvasLocation" x="1852" y="-1030"/>
         </scene>
+        <!--Анимации-->
+        <scene sceneID="v2n-Jo-NFZ">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mEQ-H5-wq6" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Анимации" image="play" catalog="system" id="FN2-1t-eCq"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Qty-Ct-n6f">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="P8w-hU-o8N" kind="relationship" relationship="rootViewController" id="DYH-hH-MVJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DLt-TH-zB2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="966" y="1198"/>
+        </scene>
     </scenes>
     <color key="tintColor" name="vk-color"/>
     <resources>
@@ -744,6 +780,7 @@
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
+        <image name="play" catalog="system" width="120" height="128"/>
         <image name="sample-avatar" width="800" height="800"/>
         <image name="vk-logo" width="2500" height="2500"/>
         <namedColor name="vk-color">

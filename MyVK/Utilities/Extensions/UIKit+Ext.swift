@@ -22,23 +22,15 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "Хорошо", style: .cancel))
         present(alert, animated: true)
     }
-}
-
-
-extension UIView {
-    
-    func addSubviews(_ views: UIView...) {
-        views.forEach { addSubview($0) }
-    }
     
     
     func showLoadingView(duration: TimeInterval) {
         
         let loadingView             = LoadingView(frame: .zero, blurEffectStyle: .dark)
-        loadingView.frame.origin.x  = frame.midX - loadingView.intrinsicContentSize.width / 2
-        loadingView.frame.origin.y  = frame.midY - loadingView.intrinsicContentSize.height / 2
+        loadingView.frame.origin.x  = view.frame.midX - loadingView.intrinsicContentSize.width / 2
+        loadingView.frame.origin.y  = view.frame.midY - loadingView.intrinsicContentSize.height / 2
         
-        addSubview(loadingView)
+        view.addSubview(loadingView)
         
         UIView.transition(with: loadingView, duration: duration, options: .curveEaseIn) {
             loadingView.layer.opacity = 0
@@ -46,5 +38,13 @@ extension UIView {
         } completion: { _ in
             loadingView.removeFromSuperview()
         }
+    }
+}
+
+
+extension UIView {
+    
+    func addSubviews(_ views: UIView...) {
+        views.forEach { addSubview($0) }
     }
 }
