@@ -41,9 +41,9 @@ final class PostCell: UITableViewCell {
     
     
     @objc func photosTapped() {
-        let photosVC = PhotosVC(photos: photos, maxPhotosPerSection: Int.random(in: 1...photos.count))
+        let photosVC = PhotosVC(photos)
         let tabBarController = UIApplication.shared.windows.first?.rootViewController as? MyTabBarController
         let navigationController = tabBarController?.selectedViewController as? UINavigationController
-        navigationController?.pushViewController(photosVC, animated: true)
+        navigationController?.pushViewController(photosVC, animated: false)
     }
 }

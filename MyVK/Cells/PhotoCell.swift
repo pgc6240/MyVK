@@ -11,25 +11,12 @@ final class PhotoCell: UICollectionViewCell {
     
     static let reuseId = String(describing: PhotoCell.self)
     
-    var photoImageView: UIImageView!
+    @IBOutlet var photoImageView: UIImageView!
     
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        layoutUI()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        layoutUI()
-    }
-    
-    private func layoutUI() {
-        photoImageView = UIImageView(frame: bounds)
-        addSubview(photoImageView)
-    }
     
     func set(with photo: Photo) {
+        photoImageView = UIImageView(frame: contentView.bounds)
         photoImageView.image = photo.image
+        addSubview(photoImageView)
     }
 }
