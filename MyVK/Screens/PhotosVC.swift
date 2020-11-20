@@ -97,8 +97,13 @@ extension PhotosVC {
 extension PhotosVC {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let currentOffset   = scrollView.contentOffset.x
-        currentPage         = Int((currentOffset + pageWidth / 2) / pageWidth)
+        let currentOffset       = scrollView.contentOffset.x
+        let relativeOffset      = currentOffset.truncatingRemainder(dividingBy: pageWidth) / pageWidth
+        currentPage             = Int((currentOffset + pageWidth / 2) / pageWidth)
+        let selectedCellIndex   = collectionView.indexPathForItem(at: CGPoint(x: currentOffset, y: view.frame.midY))
+        let selectedCell        = collectionView.cellForItem(at: selectedCellIndex ?? [0,0])
+        let scaleFactor         = 1 - relativeOffset * 0.5
+        selectedCell?.transform = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
     }
     
     
@@ -107,7 +112,7 @@ extension PhotosVC {
     }
     
     
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         collectionView.scrollToItem(at: [0, currentPage], at: .centeredHorizontally, animated: true)
     }
 }
