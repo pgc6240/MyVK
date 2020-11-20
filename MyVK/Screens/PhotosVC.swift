@@ -19,7 +19,7 @@ final class PhotosVC: UICollectionViewController {
     
     
     init(_ photos: [Photo] = []) {
-        super.init(collectionViewLayout: PhotosLayout())
+        super.init(collectionViewLayout: UICollectionViewFlowLayout())
         self.photos = photos
         self.userInterfaceStyle = traitCollection.userInterfaceStyle
     }
@@ -60,6 +60,13 @@ final class PhotosVC: UICollectionViewController {
         collectionView.backgroundColor = .black
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize                 = CGSize(width: pageWidth, height: pageWidth)
+            layout.scrollDirection          = .horizontal
+            layout.minimumLineSpacing       = 0
+            layout.minimumInteritemSpacing  = 0
+        }
     }
     
     
@@ -111,29 +118,5 @@ extension PhotosVC {
     
     override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         collectionView.scrollToItem(at: [0, currentPage], at: .centeredHorizontally, animated: true)
-    }
-}
-
-
-//
-// MARK: - UICollectionViewFlowLayout
-//
-final class PhotosLayout: UICollectionViewFlowLayout {
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configureLayout()
-    }
-    
-    override init() {
-        super.init()
-        configureLayout()
-    }
-    
-    private func configureLayout() {
-        itemSize                = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-        scrollDirection         = .horizontal
-        minimumLineSpacing      = 0
-        minimumInteritemSpacing = 0
     }
 }
