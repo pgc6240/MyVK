@@ -10,6 +10,8 @@ import UIKit
 final class PhotosVC: UICollectionViewController {
     
     var photos: [Photo] = []
+    let pageWidth = UIScreen.main.bounds.width
+    var currentPage = 0 { didSet { updateUI() }}
     
     private var userInterfaceStyle: UIUserInterfaceStyle!
     
@@ -60,16 +62,20 @@ final class PhotosVC: UICollectionViewController {
     private func configureCollectionView() {
         collectionView.backgroundColor = .black
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
-        collectionView.contentSize.width = CGFloat(photos.count) * UIScreen.main.bounds.width
-        
+        collectionView.showsHorizontalScrollIndicator = false
+    }
+    
+    
+    private func updateUI() {
+        title = photos.isEmpty ? "Нет фотографий" : "Фотография \(currentPage + 1) из \(photos.count)"
     }
 }
 
 
 //
+// MARK: - UICollectionViewDataSource & UICollectionViewDelegate
 //
-//
-extension PhotosVC: UICollectionViewDelegateFlowLayout {
+extension PhotosVC {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         photos.count
@@ -85,6 +91,31 @@ extension PhotosVC: UICollectionViewDelegateFlowLayout {
 }
 
 
+//
+// MARK: - UIScrollViewDelegate
+//
+extension PhotosVC {
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset   = scrollView.contentOffset.x
+        currentPage         = Int((currentOffset + pageWidth / 2) / pageWidth)
+    }
+    
+    
+    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        collectionView.scrollToItem(at: [0, currentPage], at: .centeredHorizontally, animated: true)
+    }
+    
+    
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        collectionView.scrollToItem(at: [0, currentPage], at: .centeredHorizontally, animated: true)
+    }
+}
+
+
+//
+// MARK: - UICollectionViewFlowLayout
+//
 final class PhotosLayout: UICollectionViewFlowLayout {
     
     required init?(coder: NSCoder) {
@@ -98,7 +129,9 @@ final class PhotosLayout: UICollectionViewFlowLayout {
     }
     
     private func configure() {
-        itemSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
-        scrollDirection = .horizontal
+        itemSize                = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
+        scrollDirection         = .horizontal
+        minimumLineSpacing      = 0
+        minimumInteritemSpacing = 0
     }
 }
