@@ -38,7 +38,7 @@ final class GroupsVC: UITableViewController {
 extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        isEditing ? sectionTitles[section] : nil
+        isEditing ? sectionTitles[section] : sectionTitles[1]
     }
     
     
