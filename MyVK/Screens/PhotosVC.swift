@@ -10,10 +10,12 @@ import UIKit
 final class PhotosVC: UICollectionViewController {
     
     var photos: [Photo] = []
-    let pageWidth = UIScreen.main.bounds.width
-    var currentPage = 0 { didSet { updateUI() }}
+    
+    private let pageWidth   = UIScreen.main.bounds.width
+    private var currentPage = 0 { didSet { updateUI() }}
     
     private var userInterfaceStyle: UIUserInterfaceStyle!
+    override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
     
     init(_ photos: [Photo] = []) {
@@ -32,37 +34,32 @@ final class PhotosVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
-    }
-    
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .darkContent
+        configureCollectionView()
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         UIView.setAnimationsEnabled(false)
-        overrideUserInterfaceStyle = userInterfaceStyle
-        navigationController?.navigationBar.barStyle = .default
-        tabBarController?.overrideUserInterfaceStyle = userInterfaceStyle
+        overrideUserInterfaceStyle                    = userInterfaceStyle
+        navigationController?.navigationBar.barStyle  = .default
+        tabBarController?.overrideUserInterfaceStyle  = userInterfaceStyle
     }
     
     
     private func configureViewController() {
-        view.backgroundColor = .black
-        overrideUserInterfaceStyle = .dark
-        navigationController?.navigationBar.barStyle = .black
-        tabBarController?.overrideUserInterfaceStyle = .dark
+        view.backgroundColor                          = .black
+        overrideUserInterfaceStyle                    = .dark
+        navigationController?.navigationBar.barStyle  = .black
+        tabBarController?.overrideUserInterfaceStyle  = .dark
         setNeedsStatusBarAppearanceUpdate()
-        configureCollectionView()
     }
     
     
     private func configureCollectionView() {
         collectionView.backgroundColor = .black
-        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
     }
     
     
@@ -83,7 +80,7 @@ extension PhotosVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
+        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
         let photo = photos[indexPath.row]
         cell.set(with: photo)
         return cell
@@ -125,15 +122,15 @@ final class PhotosLayout: UICollectionViewFlowLayout {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        configure()
+        configureLayout()
     }
     
     override init() {
         super.init()
-        configure()
+        configureLayout()
     }
     
-    private func configure() {
+    private func configureLayout() {
         itemSize                = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width)
         scrollDirection         = .horizontal
         minimumLineSpacing      = 0

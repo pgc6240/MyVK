@@ -59,6 +59,12 @@ final class FriendsVC: UITableViewController {
         avaliableLetters = []
         friends.forEach { $0.forEach { avaliableLetters.insert(String($0.lastName.first ?? "A")) }}
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let photosVC = segue.destination as? PhotosVC
+        photosVC?.photos = somePhotos
+    }
 }
 
 
