@@ -20,7 +20,7 @@ final class GroupsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = editButtonItem
-        configureSearchBar()
+        configureSearchController()
         loadGroups(for: user)
     }
     
@@ -56,7 +56,7 @@ extension GroupsVC {
         
         if tableView.isEditing && indexPath == [0,0] {
             let newGroupCell = tableView.dequeueReusableCell(withIdentifier: "NewGroupCell", for: indexPath)
-            newGroupCell.imageView?.image = Images.group
+            newGroupCell.imageView?.image = UIImage(systemName: "person.3.fill")
             newGroupCell.imageView?.preferredSymbolConfiguration = .init(scale: .medium)
             if let newGroupTextField = newGroupCell.viewWithTag(1001) as? UITextField {
                 newGroupTitle = "Новое сообщество \(Int.random(in: 100..<1000))"
@@ -151,12 +151,14 @@ extension GroupsVC: UITextFieldDelegate {
 //
 extension GroupsVC: UISearchBarDelegate {
     
-    private func configureSearchBar() {
-        let headerSearchBar = Bundle.main.loadNibNamed("SearchBarHeader", owner: self, options: nil)?[0] as? SearchBarHeader
-        headerSearchBar?.searchBar.delegate               = self
-        headerSearchBar?.searchBar.placeholder            = "Поиск в моих сообществах"
-        headerSearchBar?.searchBar.autocapitalizationType = .words
-        tableView.tableHeaderView = headerSearchBar
+    private func configureSearchController() {
+        let searchController                                    = UISearchController()
+        searchController.searchBar.delegate                     = self
+        searchController.searchBar.placeholder                  = "Поиск в моих сообществах"
+        searchController.searchBar.autocapitalizationType       = .sentences
+        searchController.obscuresBackgroundDuringPresentation   = false
+        navigationItem.searchController                         = searchController
+        navigationItem.hidesSearchBarWhenScrolling              = false
     }
     
     

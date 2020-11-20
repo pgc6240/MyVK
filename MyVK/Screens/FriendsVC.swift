@@ -21,6 +21,7 @@ final class FriendsVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+        configureSearchController()
         getFriends()
     }
     
@@ -32,11 +33,8 @@ final class FriendsVC: UITableViewController {
     
     
     private func configureTableView() {
-        let headerSearchBar = Bundle.main.loadNibNamed("SearchBarHeader", owner: self, options: nil)?[0] as? SearchBarHeader
-        tableView.tableHeaderView = headerSearchBar
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
         tableView.rowHeight = 80
-        configureSearchBar(headerSearchBar?.searchBar)
     }
     
     
@@ -47,12 +45,19 @@ final class FriendsVC: UITableViewController {
             let friend = makeFriend()
             let sectionIndex = collation.section(for: friend, collationStringSelector: #selector(getter:User.lastName))
             friends[sectionIndex + 1].append(friend)
-            avaliableLetters.insert(collation.sectionTitles[sectionIndex])
         }
         
         friends[0] = makeRandomNumberOfFriends(upTo: 3)
         
         backingStore = friends
+        
+        updateAvaliableLetters()
+    }
+    
+    
+    private func updateAvaliableLetters() {
+        avaliableLetters = []
+        friends.forEach { $0.forEach { avaliableLetters.insert(String($0.lastName.first ?? "A")) }}
     }
 }
 
@@ -139,10 +144,13 @@ extension FriendsVC: AlphabetPickerDelegate {
 //
 extension FriendsVC: UISearchBarDelegate {
     
-    private func configureSearchBar(_ searchBar: UISearchBar?) {
-        searchBar?.delegate                  = self
-        searchBar?.placeholder               = "Поиск среди моих друзей"
-        searchBar?.autocapitalizationType    = .words
+    private func configureSearchController() {
+        let searchController                                    = UISearchController()
+        searchController.searchBar.delegate                     = self
+        searchController.searchBar.placeholder                  = "Поиск среди моих друзей"
+        searchController.searchBar.autocapitalizationType       = .words
+        searchController.obscuresBackgroundDuringPresentation   = false
+        navigationItem.searchController                         = searchController
     }
     
     
@@ -150,7 +158,7 @@ extension FriendsVC: UISearchBarDelegate {
         
         if searchText.isEmpty {
             friends = backingStore
-            
+
         } else {
             friends = backingStore.map { $0.filter { friend in
                 
@@ -165,8 +173,7 @@ extension FriendsVC: UISearchBarDelegate {
             }}
         }
         
-        avaliableLetters = []
-        friends.forEach { $0.forEach { avaliableLetters.insert(String($0.lastName.first ?? "A")) }}
+        updateAvaliableLetters()
         
         tableView.reloadData()
     }
@@ -174,5 +181,12 @@ extension FriendsVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+    }
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        friends = backingStore
+        updateAvaliableLetters()
+        tableView.reloadData()
     }
 }

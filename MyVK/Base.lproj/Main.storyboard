@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17504.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -196,10 +196,10 @@
             </objects>
             <point key="canvasLocation" x="54" y="73"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--My Tab Bar Controller-->
         <scene sceneID="ONa-rr-X9r">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" id="rtJ-oo-HJX" customClass="TabBarController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="rtJ-oo-HJX" customClass="MyTabBarController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Emg-vc-W3p"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WCe-Hn-hfd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -210,7 +210,6 @@
                         <segue destination="fIT-ue-kvp" kind="relationship" relationship="viewControllers" id="kVo-kg-wkr"/>
                         <segue destination="R1N-Pm-zQg" kind="relationship" relationship="viewControllers" id="n9o-Zr-dx7"/>
                         <segue destination="fgi-XJ-5Ml" kind="relationship" relationship="viewControllers" id="eHK-x1-h51"/>
-                        <segue destination="mEQ-H5-wq6" kind="relationship" relationship="viewControllers" id="4MU-VM-L0c"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arR-nQ-0EP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -622,20 +621,19 @@
         <scene sceneID="G5g-UA-lB9">
             <objects>
                 <tableViewController storyboardIdentifier="GroupsVC" title="Сообщества" id="gag-xF-JEA" customClass="GroupsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ShW-2W-Agd">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ShW-2W-Agd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewGroupCell" id="2Gp-Iy-J9X">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="38.5"/>
+                                <rect key="frame" x="16" y="55.5" width="343" height="38.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Gp-Iy-J9X" id="sRA-sf-9EX">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="38.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="38.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" tag="1001" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Новое сообщество " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USJ-dL-Roq">
-                                            <rect key="frame" x="60" y="8" width="295" height="22.5"/>
+                                            <rect key="frame" x="60" y="8" width="263" height="22.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
@@ -653,14 +651,14 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" textLabel="p8v-st-Mmj" imageView="Kbk-kN-JMZ" style="IBUITableViewCellStyleDefault" id="4lb-mg-77o" customClass="GroupCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="94" width="375" height="43.5"/>
+                                <rect key="frame" x="16" y="94" width="343" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4lb-mg-77o" id="yuC-1I-WoI">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p8v-st-Mmj">
-                                            <rect key="frame" x="61" y="0.0" width="298" height="43.5"/>
+                                            <rect key="frame" x="61" y="0.0" width="266" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -691,34 +689,6 @@
             </objects>
             <point key="canvasLocation" x="2793" y="446"/>
         </scene>
-        <!--Анимации-->
-        <scene sceneID="LHN-Jd-qH3">
-            <objects>
-                <viewController title="Анимации" id="P8w-hU-o8N" customClass="AnimationsVC" customModule="MyVK" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="96w-eK-jdd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="content" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="88t-yd-9zx">
-                                <rect key="frame" x="141.5" y="317" width="92" height="33.5"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="bQ0-jI-FJ4"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="88t-yd-9zx" firstAttribute="centerY" secondItem="96w-eK-jdd" secondAttribute="centerY" id="pzi-7v-ayp"/>
-                            <constraint firstItem="88t-yd-9zx" firstAttribute="centerX" secondItem="96w-eK-jdd" secondAttribute="centerX" id="wxU-qX-JNO"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Анимации" id="IFI-d8-o0M"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QqP-ZL-oLp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1852" y="1197.7511244377813"/>
-        </scene>
         <!--GroupsNC-->
         <scene sceneID="yJE-mF-7Kp">
             <objects>
@@ -727,8 +697,8 @@
                         <imageReference key="landscapeImage" image="person.3" catalog="system" symbolScale="small"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Nsa-vp-02P">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nsa-vp-02P">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -762,25 +732,6 @@
             </objects>
             <point key="canvasLocation" x="1852" y="-1030"/>
         </scene>
-        <!--Анимации-->
-        <scene sceneID="v2n-Jo-NFZ">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mEQ-H5-wq6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Анимации" image="play" catalog="system" id="FN2-1t-eCq"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qty-Ct-n6f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="P8w-hU-o8N" kind="relationship" relationship="rootViewController" id="DYH-hH-MVJ"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DLt-TH-zB2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="966" y="1198"/>
-        </scene>
     </scenes>
     <color key="tintColor" name="vk-color"/>
     <resources>
@@ -792,7 +743,6 @@
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
-        <image name="play" catalog="system" width="120" height="128"/>
         <image name="sample-avatar" width="800" height="800"/>
         <image name="vk-logo" width="2500" height="2500"/>
         <namedColor name="vk-color">

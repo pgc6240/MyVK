@@ -7,10 +7,10 @@
 
 import UIKit
 
-final class Photo: Attachable {
+final class Photo {
     
-    let type: AttachmentType = .photo
     var image: UIImage?
+    
     
     init(imageName: String) {
         image = UIImage(named: imageName)

@@ -7,19 +7,19 @@
 
 import UIKit
 
-extension UIColor {
+extension UIView {
     
-    static func random() -> UIColor {
-        UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)
+    func addSubviews(_ views: UIView...) {
+        views.forEach { addSubview($0) }
     }
 }
 
 
 extension UIViewController {
     
-    func presentAlert(title: String, message: String) {
+    func presentAlert(title: String, message: String, actionTitle: String = "Хорошо") {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Хорошо", style: .cancel))
+        alert.addAction(UIAlertAction(title: actionTitle, style: .cancel))
         present(alert, animated: true)
     }
     
@@ -42,9 +42,9 @@ extension UIViewController {
 }
 
 
-extension UIView {
+extension UIColor {
     
-    func addSubviews(_ views: UIView...) {
-        views.forEach { addSubview($0) }
+    static func random() -> UIColor {
+        UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)
     }
 }
