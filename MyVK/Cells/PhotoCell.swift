@@ -8,7 +8,8 @@
 import UIKit
 
 final class PhotoCell: UICollectionViewCell {
-    static let reuseId = "PhotoCell"
+    
+    static let reuseId = String(describing: PhotoCell.self)
     
     var photoImageView: UIImageView!
     

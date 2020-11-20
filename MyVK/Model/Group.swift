@@ -6,5 +6,6 @@
 //
 
 struct Group {
-    let name: String
+    
+    var name: String
 }

@@ -7,7 +7,6 @@
 
 import UIKit
 
-@IBDesignable
 final class ShadowedImageView: UIView {
     
     var imageLayer = CALayer()
@@ -42,6 +41,7 @@ final class ShadowedImageView: UIView {
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(springInImage)))
     }
     
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         backgroundColor = .clear
@@ -55,6 +55,7 @@ final class ShadowedImageView: UIView {
         imageLayer.frame            = bounds
         imageLayer.masksToBounds    = true
     }
+    
     
     @objc func springInImage() {
         let springInAnimation           = CASpringAnimation(keyPath: "transform.scale")

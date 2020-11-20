@@ -17,9 +17,11 @@ final class PhotosVC: UICollectionViewController {
         setPhotos()
     }
     
+    
     override init(collectionViewLayout layout: UICollectionViewLayout) {
         super.init(collectionViewLayout: .init())
     }
+    
     
     convenience init(photos: [Photo], maxPhotosPerSection: Int) {
         self.init(collectionViewLayout: .init())

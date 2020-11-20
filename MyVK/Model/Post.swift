@@ -6,6 +6,7 @@
 //
 
 struct Post {
+    
     var text: String
     var photos: [Photo]
     var likeCount: Int

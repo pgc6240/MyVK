@@ -11,11 +11,9 @@ protocol CheckboxDelegate: class {
     func checkTapped(_ checked: Bool)
 }
 
-
 final class Checkbox: UIButton {
 
     weak var delegate: CheckboxDelegate?
-    
     var checked = false { willSet(checked) { imageView?.tintColor = checked ? tintColor : .clear }}
     
     

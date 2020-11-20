@@ -11,13 +11,14 @@ final class LoginVC: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackView: UIStackView!
-    @IBOutlet weak var loginTextField: MyTextField!
-    @IBOutlet weak var passwordTextField: MyTextField!
+    @IBOutlet private weak var loginTextField: MyTextField!
+    @IBOutlet private weak var passwordTextField: MyTextField!
     @IBOutlet weak var rememberMeCheckbox: Checkbox!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         stackView.isHidden = true
         rememberMeCheckbox.delegate = self
@@ -43,7 +44,7 @@ final class LoginVC: UIViewController {
     }
     
     
-    func checkLoginAndPassword() -> Bool {
+    private func checkLoginAndPassword() -> Bool {
         if loginTextField.text == "79154874184" && passwordTextField.text == "12345678" {
             return true
         } else {
@@ -102,7 +103,7 @@ extension LoginVC: UITextFieldDelegate {
 final class LoginSegue: UIStoryboardSegue {
     
     override func perform() {
-        source.showLoadingView(duration: 2)
+        source.showLoadingView(duration: 10)
         DispatchQueue.main.async {
             UIApplication.shared.windows.first?.rootViewController = self.destination
         }

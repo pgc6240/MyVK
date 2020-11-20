@@ -8,9 +8,6 @@
 import UIKit
 
 final class LoadingView: UIView {
-
-    var pointDiameter: CGFloat  = 15
-    var spacing: CGFloat        = 5
     
     lazy var point: (CGFloat, CGFloat, Float) -> UIView = { [bounds] originX, diameter, opacity in
         let point = UIView(frame: CGRect(x: originX, y: bounds.midY - diameter / 2, width: diameter, height: diameter))
@@ -23,6 +20,10 @@ final class LoadingView: UIView {
     var point1: UIView!
     var point2: UIView!
     var point3: UIView!
+    
+    var pointDiameter: CGFloat  = 15
+    var spacing: CGFloat        = 5
+
     
     override var intrinsicContentSize: CGSize {
         let width = spacing * 6 + pointDiameter * 3

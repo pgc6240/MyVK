@@ -24,16 +24,16 @@ final class LikeButton: UIButton {
         updateUI()
     }
     
-    @objc func likeTapped() {
-        liked.toggle()
-    }
-    
-    func updateUI() {
+    private func updateUI() {
         UIView.transition(with: self, duration: 0.5, options: [.allowUserInteraction, .transitionFlipFromBottom]) {
             [liked, likeCount] in
             
             self.setImage(UIImage(systemName: liked ? "heart.fill" : "heart"), for: .normal)
             self.setTitle(liked ? "\(likeCount + 1)" : "\(likeCount)", for: .normal)
         }
+    }
+    
+    @objc func likeTapped() {
+        liked.toggle()
     }
 }

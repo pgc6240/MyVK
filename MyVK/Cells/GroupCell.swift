@@ -9,7 +9,7 @@ import UIKit
 
 final class GroupCell: UITableViewCell {
     
-    static let reuseId = "GroupCell"
+    static let reuseId = String(describing: GroupCell.self)
     
     
     func set(with group: Group) {

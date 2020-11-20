@@ -9,7 +9,7 @@ import UIKit
 
 final class PostCell: UITableViewCell {
 
-    static let reuseId = String(describing: self)
+    static let reuseId = String(describing: PostCell.self)
     
     @IBOutlet weak var postTextView: UITextView!
     @IBOutlet weak var likeButton: LikeButton!

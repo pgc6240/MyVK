@@ -10,7 +10,6 @@ import UIKit
 final class NewsVC: UIViewController {
 
     var posts: [Post] = somePosts
-    @IBOutlet weak var tableView: UITableView!
     
     
     override func viewDidLoad() {
@@ -30,7 +29,7 @@ extension NewsVC: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! PostCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
         cell.set(with: post)
         return cell

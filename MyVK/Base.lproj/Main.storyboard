@@ -415,9 +415,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Новости" largeTitleDisplayMode="always" id="8Wm-F1-L5F"/>
-                    <connections>
-                        <outlet property="tableView" destination="5cF-4Y-gnu" id="sVF-9K-9qe"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNZ-GW-shA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -482,7 +479,6 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="friendAvatarImageView" destination="FpE-bq-Kcj" id="vOq-iJ-0L9"/>
                                     <outlet property="friendNameLabel" destination="51C-eH-lX3" id="pDa-kz-LPe"/>
                                     <segue destination="iqM-VL-A8R" kind="show" id="ifO-gr-C92"/>
                                 </connections>
@@ -710,17 +706,17 @@
             </objects>
             <point key="canvasLocation" x="1852" y="446"/>
         </scene>
-        <!--Новости-->
+        <!--NewsNC-->
         <scene sceneID="wtx-6m-dNb">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fIT-ue-kvp" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NewsNC" title="NewsNC" automaticallyAdjustsScrollViewInsets="NO" id="fIT-ue-kvp" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Новости" image="newspaper" catalog="system" id="UxT-YE-jyv">
                         <imageReference key="landscapeImage" image="newspaper" catalog="system" symbolScale="medium"/>
                         <imageReference key="largeContentSizeImage" image="newspaper" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="lqi-CY-lAX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lqi-CY-lAX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

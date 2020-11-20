@@ -11,7 +11,6 @@ protocol AlphabetPickerDelegate: class {
     func letterTapped(_ letter: String)
 }
 
-
 final class AlphabetPicker: UIControl {
     
     weak var delegate: AlphabetPickerDelegate?
@@ -29,6 +28,7 @@ final class AlphabetPicker: UIControl {
         super.init(frame: frame)
         layoutUI()
     }
+    
     
     init(with letters: String, in superview: UIView) {
         
@@ -61,6 +61,7 @@ final class AlphabetPicker: UIControl {
             addSubview(letterButton)
         }
     }
+    
     
     @objc func letterButtonTapped(_ letterButton: UIButton) {
         guard let letter = letterButton.currentTitle else { return }

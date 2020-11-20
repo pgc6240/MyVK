@@ -14,7 +14,7 @@ final class User {
     
     
     init(firstName: String, lastName: String) {
-        self.firstName = firstName
-        self.lastName = lastName
+        self.firstName  = firstName
+        self.lastName   = lastName
     }
 }
