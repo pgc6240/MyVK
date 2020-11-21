@@ -26,9 +26,8 @@ extension UIViewController {
     
     func showLoadingView(duration: TimeInterval) {
         
-        let loadingView             = LoadingView(frame: .zero)
-        loadingView.frame.origin.x  = view.frame.midX - loadingView.intrinsicContentSize.width / 2
-        loadingView.frame.origin.y  = view.frame.midY - loadingView.intrinsicContentSize.height / 2
+        let loadingViewFrame    = CGRect(x: view.frame.midX - 30, y: view.frame.midY, width: 60, height: 60)
+        let loadingView         = LoadingView(frame: loadingViewFrame)
         
         view.addSubview(loadingView)
         

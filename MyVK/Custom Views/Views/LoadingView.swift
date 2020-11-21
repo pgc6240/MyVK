@@ -9,70 +9,41 @@ import UIKit
 
 final class LoadingView: UIView {
     
-    lazy var point: (CGFloat, CGFloat, Float) -> UIView = { [bounds] originX, diameter, opacity in
-        let point = UIView(frame: CGRect(x: originX, y: bounds.midY - diameter / 2, width: diameter, height: diameter))
-        point.backgroundColor = .white
-        point.layer.cornerRadius = diameter / 2
-        point.layer.opacity = opacity
-        return point
-    }
-    
-    var point1: UIView!
-    var point2: UIView!
-    var point3: UIView!
-    
-    var pointDiameter: CGFloat  = 15
-    var spacing: CGFloat        = 5
-
-    
-    override var intrinsicContentSize: CGSize {
-        let width = spacing * 6 + pointDiameter * 3
-        return CGSize(width: width, height: width)
-    }
+    let circleLayer = CAShapeLayer()
     
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        layoutUI()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        layoutUI()
-    }
-    
-    
-    private func layoutUI() {
-        backgroundColor = UIColor.black.withAlphaComponent(0.75)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        frame.size = intrinsicContentSize
+        backgroundColor     = UIColor(named: "vk-color")?.withAlphaComponent(0.75)
+        layer.cornerRadius  = 8
         
-        layer.cornerRadius = 8
-        layer.masksToBounds = true
+        let circlePath          = UIBezierPath(roundedRect: bounds.insetBy(dx: 12, dy: 12), cornerRadius: bounds.width / 2)
+        circleLayer.path        = circlePath.cgPath
+        circleLayer.fillColor   = UIColor.clear.cgColor
+        circleLayer.strokeColor = UIColor.white.cgColor
+        circleLayer.lineWidth   = 5
         
-        point1 = point(spacing * 2, pointDiameter, 1)
-        point2 = point(point1.frame.maxX + spacing, pointDiameter, 0.4)
-        point3 = point(point2.frame.maxX + spacing, pointDiameter, 0.1)
+        layer.addSublayer(circleLayer)
         
-        addSubviews(point1, point2, point3)
         startAnimating()
     }
     
     
     func startAnimating() {
-        UIView.animateKeyframes(withDuration: 1, delay: 0, options: [.repeat, .autoreverse]) {
-            [weak point1, weak point2, weak point3] in
-            
-            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5) {
-                point1?.layer.opacity = 0.4
-                point2?.layer.opacity = 1
-                point3?.layer.opacity = 0.4
-            }
-            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 1) {
-                point1?.layer.opacity = 0.1
-                point2?.layer.opacity = 0.4
-                point3?.layer.opacity = 1
-            }
-        }
+        let strokeStartAnimation        = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeStart))
+        strokeStartAnimation.fromValue  = 0
+        strokeStartAnimation.toValue    = 1
+        
+        let strokeEndAnimation          = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeEnd))
+        strokeEndAnimation.fromValue    = 0
+        strokeEndAnimation.toValue      = 2
+        
+        let animationGroup              = CAAnimationGroup()
+        animationGroup.duration         = 2
+        animationGroup.animations       = [strokeStartAnimation, strokeEndAnimation]
+        animationGroup.repeatCount      = .infinity
+        
+        circleLayer.add(animationGroup, forKey: nil)
     }
 }
