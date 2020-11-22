@@ -40,7 +40,6 @@ final class PhotosVC: UICollectionViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        UIView.setAnimationsEnabled(false)
         overrideUserInterfaceStyle                    = userInterfaceStyle
         navigationController?.navigationBar.barStyle  = .default
         tabBarController?.overrideUserInterfaceStyle  = userInterfaceStyle

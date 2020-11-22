@@ -34,6 +34,9 @@
 		31B7A1F925587A30007F4465 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B7A1F825587A30007F4465 /* UserDefault.swift */; };
 		31BF7BA12563F863003A07C0 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31BF7BA02563F863003A07C0 /* LoadingView.swift */; };
 		31C9A6CE2563D99500619276 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C9A6CD2563D99500619276 /* LoginButton.swift */; };
+		31CBF0C2256ACBD00041CC26 /* PushAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CBF0C1256ACBD00041CC26 /* PushAnimator.swift */; };
+		31CBF0C6256ACF380041CC26 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CBF0C5256ACF380041CC26 /* PopAnimator.swift */; };
+		31CBF0C9256AD18F0041CC26 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CBF0C8256AD18F0041CC26 /* MyNavigationController.swift */; };
 		31E87842254C90220014430E /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E87841254C90220014430E /* GroupCell.swift */; };
 		31E90192254C7B77009576EB /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E90191254C7B77009576EB /* PhotoCell.swift */; };
 		31FC97E125603F320038AE21 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC97E025603F320038AE21 /* Post.swift */; };
@@ -73,6 +76,9 @@
 		31B7A1F825587A30007F4465 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		31BF7BA02563F863003A07C0 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		31C9A6CD2563D99500619276 /* LoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		31CBF0C1256ACBD00041CC26 /* PushAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAnimator.swift; sourceTree = "<group>"; };
+		31CBF0C5256ACF380041CC26 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
+		31CBF0C8256AD18F0041CC26 /* MyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
 		31E87841254C90220014430E /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		31E90191254C7B77009576EB /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		31FC97E025603F320038AE21 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -213,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				3182B38125438B1000E3E710 /* Main.storyboard */,
+				31CBF0C0256ACBA10041CC26 /* Transitions */,
 				31E87837254C86280014430E /* Extensions */,
 				3122CDC52556E08400253485 /* Managers */,
 				315FF59B2548B81B0054C539 /* Model */,
@@ -240,6 +247,16 @@
 				31C9A6CD2563D99500619276 /* LoginButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		31CBF0C0256ACBA10041CC26 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				31CBF0C1256ACBD00041CC26 /* PushAnimator.swift */,
+				31CBF0C5256ACF380041CC26 /* PopAnimator.swift */,
+				31CBF0C8256AD18F0041CC26 /* MyNavigationController.swift */,
+			);
+			path = Transitions;
 			sourceTree = "<group>";
 		};
 		31E87837254C86280014430E /* Extensions */ = {
@@ -325,8 +342,10 @@
 			files = (
 				315FF5A62548B9F90054C539 /* SearchVC.swift in Sources */,
 				312AE5692550D48800B97164 /* Swift+Ext.swift in Sources */,
+				31CBF0C6256ACF380041CC26 /* PopAnimator.swift in Sources */,
 				3182B38025438B1000E3E710 /* LoginVC.swift in Sources */,
 				3151A36C254C60C200F9BFAB /* Group.swift in Sources */,
+				31CBF0C2256ACBD00041CC26 /* PushAnimator.swift in Sources */,
 				31A72DEC2554199C006B664D /* AlphabetPicker.swift in Sources */,
 				3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */,
 				310E853225603BB20014C5EF /* NewsVC.swift in Sources */,
@@ -338,6 +357,7 @@
 				3122CDC12556DE8C00253485 /* MyTabBarController.swift in Sources */,
 				3193AD4A256011B000F39D6F /* BlurView.swift in Sources */,
 				3151A369254C600900F9BFAB /* User.swift in Sources */,
+				31CBF0C9256AD18F0041CC26 /* MyNavigationController.swift in Sources */,
 				31AA53BE2567F01000C9FB27 /* PhotosVC.swift in Sources */,
 				31FC97F5256052530038AE21 /* PostCell.swift in Sources */,
 				31E87842254C90220014430E /* GroupCell.swift in Sources */,

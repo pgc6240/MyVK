@@ -596,7 +596,7 @@
         <!--FriendsNC-->
         <scene sceneID="cwM-BT-l4H">
             <objects>
-                <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" id="R1N-Pm-zQg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" id="R1N-Pm-zQg" customClass="MyNavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" image="person.2" catalog="system" badgeValue="1" id="UCP-3E-Tdw">
                         <imageReference key="landscapeImage" image="person.2" catalog="system" symbolScale="small"/>
                     </tabBarItem>
