@@ -9,6 +9,10 @@ import UIKit
 
 final class _NavigationController: UINavigationController, UINavigationControllerDelegate {
 
+    var popAnimator: UIViewControllerAnimatedTransitioning?
+    var interactiveTransition: UIViewControllerInteractiveTransitioning?
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
@@ -20,9 +24,14 @@ final class _NavigationController: UINavigationController, UINavigationControlle
         case .push:
             return _PushAnimator()
         case .pop:
-            return _PopAnimator()
+            popAnimator = _PopAnimator()
+            return popAnimator
         default:
             return nil
         }
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        animationController === popAnimator ? interactiveTransition : nil
     }
 }

@@ -22,6 +22,8 @@ final class PhotosVC: UICollectionViewController {
         recognizer.delegate = self
         return recognizer
     }()
+    lazy private var interactiveTransition = UIPercentDrivenInteractiveTransition()
+    private var shouldFinishTransition = false
     
     
     init(_ photos: [Photo] = []) {
@@ -39,8 +41,13 @@ final class PhotosVC: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
         configureCollectionView()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureViewController()
     }
     
     
@@ -139,19 +146,25 @@ extension PhotosVC: UIGestureRecognizerDelegate {
     
     
     @objc func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
+        let navigationController = self.navigationController as? _NavigationController
         
+        switch recognizer.state {
         case .began:
-            print(recognizer.state.rawValue)
-            
+            navigationController?.interactiveTransition = interactiveTransition
+            navigationController?.popViewController(animated: true)
+        
         case .changed:
-            print(recognizer.state.rawValue)
+            let translationX        = recognizer.translation(in: view).x
+            let relativeTranslation = translationX / pageWidth
+            shouldFinishTransition  = relativeTranslation > 0.33
+            
+            interactiveTransition.update(relativeTranslation)
             
         case .ended:
-            print(recognizer.state.rawValue)
+            shouldFinishTransition ? interactiveTransition.finish() : interactiveTransition.cancel()
             
         case .cancelled:
-            print(recognizer.state.rawValue)
+            interactiveTransition.cancel()
         
         default:
             return
