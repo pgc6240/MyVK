@@ -28,7 +28,8 @@ final class FriendsVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.tabBarItem.badgeValue = "\(friends[0].count)"
+        navigationController?.tabBarItem.badgeValue         = "\(friends[0].count)"
+        navigationItem.searchController?.searchBar.isHidden = false
     }
     
     
@@ -64,6 +65,8 @@ final class FriendsVC: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let photosVC = segue.destination as? PhotosVC
         photosVC?.photos = somePhotos
+        
+        navigationItem.searchController?.searchBar.isHidden = true
     }
 }
 
