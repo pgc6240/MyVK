@@ -1,5 +1,5 @@
 //
-//  PopAnimator.swift
+//  _PopAnimator.swift
 //  MyVK
 //
 //  Created by pgc6240 on 22.11.2020.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+final class _PopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -18,17 +16,17 @@
             <objects>
                 <viewController storyboardIdentifier="LoginVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LoginVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fCQ-TD-NVc">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4nO-jf-iz8">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nfw-ur-WcJ" customClass="GradientView" customModule="MyVK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="O9Q-E3-dHq">
-                                                <rect key="frame" x="94" y="140.5" width="187.5" height="386"/>
+                                                <rect key="frame" x="206.5" y="107" width="187.5" height="386"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="A74-iC-zrN">
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="159"/>
@@ -221,24 +219,24 @@
             <objects>
                 <viewController storyboardIdentifier="NewsVC" title="Новости" id="eN6-S5-HpU" customClass="NewsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0tk-dX-GFn">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5cF-4Y-gnu">
-                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="507"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="7bt-7C-PlC" customClass="PostCell" customModule="MyVK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="499.5"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="672.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7bt-7C-PlC" id="IXz-1p-Nns">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="499.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="672.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="j5G-q2-ao5">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="499.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="672.5"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Z8F-Ol-K2w">
-                                                            <rect key="frame" x="0.0" y="16" width="375" height="50"/>
+                                                            <rect key="frame" x="0.0" y="16" width="600" height="50"/>
                                                             <subviews>
                                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YDb-TA-xOs" customClass="ShadowedImageView" customModule="MyVK" customModuleProvider="target">
                                                                     <rect key="frame" x="8" y="0.0" width="50" height="50"/>
@@ -267,17 +265,17 @@
                                                                     </userDefinedRuntimeAttributes>
                                                                 </view>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="HQx-9z-FcH">
-                                                                    <rect key="frame" x="66" y="0.0" width="301" height="50"/>
+                                                                    <rect key="frame" x="66" y="0.0" width="526" height="50"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Иван Иванов" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tg9-Wc-UII">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="301" height="25"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="526" height="25"/>
                                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15.11.20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="se0-G1-un2">
-                                                                            <rect key="frame" x="0.0" y="25" width="301" height="25"/>
+                                                                            <rect key="frame" x="0.0" y="25" width="526" height="25"/>
                                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                                             <nil key="highlightedColor"/>
@@ -288,7 +286,7 @@
                                                             <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
                                                         </stackView>
                                                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu." adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aWm-s0-Efd">
-                                                            <rect key="frame" x="0.0" y="66" width="375" height="60.5"/>
+                                                            <rect key="frame" x="0.0" y="66" width="600" height="38.5"/>
                                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                                             <color key="textColor" systemColor="labelColor"/>
@@ -297,32 +295,32 @@
                                                             <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                                         </textView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="qOu-AH-FfW">
-                                                            <rect key="frame" x="0.0" y="126.5" width="375" height="325"/>
+                                                            <rect key="frame" x="0.0" y="104.5" width="600" height="520"/>
                                                             <subviews>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0TD-S1-uKz">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="325" height="325"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="520" height="520"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" secondItem="0TD-S1-uKz" secondAttribute="height" multiplier="1:1" id="yXd-Se-ESa"/>
                                                                     </constraints>
                                                                 </imageView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="AK4-ct-id7">
-                                                                    <rect key="frame" x="325" y="0.0" width="50" height="325"/>
+                                                                    <rect key="frame" x="520" y="0.0" width="80" height="520"/>
                                                                     <subviews>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="H0i-9R-4cb">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="50" height="162"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="259"/>
                                                                         </imageView>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kn5-vc-1P0">
-                                                                            <rect key="frame" x="0.0" y="162" width="50" height="163"/>
+                                                                            <rect key="frame" x="0.0" y="259" width="80" height="261"/>
                                                                         </imageView>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
                                                         </stackView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="c26-lp-5W1">
-                                                            <rect key="frame" x="0.0" y="451.5" width="375" height="32"/>
+                                                            <rect key="frame" x="0.0" y="624.5" width="600" height="32"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LyO-8M-FIH" customClass="LikeButton" customModule="MyVK" customModuleProvider="target">
-                                                                    <rect key="frame" x="20" y="8" width="84" height="24"/>
+                                                                    <rect key="frame" x="20" y="8" width="140" height="24"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                                     <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -335,7 +333,7 @@
                                                                     </state>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nm9-zl-mlK">
-                                                                    <rect key="frame" x="104" y="8" width="83.5" height="24"/>
+                                                                    <rect key="frame" x="160" y="8" width="140" height="24"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                                     <state key="normal">
@@ -347,7 +345,7 @@
                                                                     </state>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-s6-TJg">
-                                                                    <rect key="frame" x="187.5" y="8" width="84" height="24"/>
+                                                                    <rect key="frame" x="300" y="8" width="140" height="24"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                                     <state key="normal">
@@ -359,7 +357,7 @@
                                                                     </state>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" enabled="NO" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8cA-rh-WPF">
-                                                                    <rect key="frame" x="271.5" y="8" width="83.5" height="24"/>
+                                                                    <rect key="frame" x="440" y="8" width="140" height="24"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="3" maxY="0.0"/>
@@ -425,15 +423,15 @@
             <objects>
                 <tableViewController storyboardIdentifier="FriendsVC" id="yWS-54-f4Z" customClass="FriendsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="TJP-rr-2CL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="80" id="vjn-Px-n9Y" customClass="FriendCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vjn-Px-n9Y" id="ywS-2T-VgD">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="80"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FpE-bq-Kcj" customClass="ShadowedImageView" customModule="MyVK" customModuleProvider="target">
@@ -463,7 +461,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="51C-eH-lX3">
-                                            <rect key="frame" x="88" y="29.5" width="267" height="21"/>
+                                            <rect key="frame" x="88" y="29.5" width="492" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -506,7 +504,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="PhotosVC" id="iqM-VL-A8R" customClass="PhotosVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="XDz-gz-cup">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="049-dI-Lfi">
@@ -517,7 +515,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="kLl-dB-cJf" customClass="PhotoCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99.5" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="66" width="375" height="375"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="owW-Wh-iMG">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
@@ -556,26 +554,26 @@
             <objects>
                 <tableViewController storyboardIdentifier="SearchVC" id="mF9-cf-Rto" customClass="SearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bfx-TB-ldl">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" textLabel="9bb-XZ-gtT" imageView="NDQ-7G-Ecj" style="IBUITableViewCellStyleDefault" id="bwW-8G-0LR" customClass="GroupCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="bwW-8G-0LR" id="J7b-OT-GFx">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9bb-XZ-gtT">
-                                            <rect key="frame" x="61" y="0.0" width="298" height="43.5"/>
+                                            <rect key="frame" x="65" y="0.0" width="515" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="person.3" catalog="system" id="NDQ-7G-Ecj">
-                                            <rect key="frame" x="10" y="13" width="36" height="17.5"/>
+                                            <rect key="frame" x="14" y="13" width="36" height="17.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
                                     </subviews>
@@ -596,7 +594,7 @@
         <!--FriendsNC-->
         <scene sceneID="cwM-BT-l4H">
             <objects>
-                <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" id="R1N-Pm-zQg" customClass="MyNavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" id="R1N-Pm-zQg" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" image="person.2" catalog="system" badgeValue="1" id="UCP-3E-Tdw">
                         <imageReference key="landscapeImage" image="person.2" catalog="system" symbolScale="small"/>
                     </tabBarItem>
@@ -619,18 +617,18 @@
             <objects>
                 <tableViewController storyboardIdentifier="GroupsVC" title="Сообщества" id="gag-xF-JEA" customClass="GroupsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ShW-2W-Agd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewGroupCell" id="2Gp-Iy-J9X">
-                                <rect key="frame" x="16" y="55.5" width="343" height="38.5"/>
+                                <rect key="frame" x="20" y="55.5" width="560" height="38.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Gp-Iy-J9X" id="sRA-sf-9EX">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="38.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="560" height="38.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <textField opaque="NO" tag="1001" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Новое сообщество " textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="USJ-dL-Roq">
-                                            <rect key="frame" x="60" y="8" width="263" height="22.5"/>
+                                            <rect key="frame" x="60" y="8" width="480" height="22.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <textInputTraits key="textInputTraits"/>
                                             <connections>
@@ -648,14 +646,14 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" textLabel="p8v-st-Mmj" imageView="Kbk-kN-JMZ" style="IBUITableViewCellStyleDefault" id="4lb-mg-77o" customClass="GroupCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="16" y="94" width="343" height="43.5"/>
+                                <rect key="frame" x="20" y="94" width="560" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4lb-mg-77o" id="yuC-1I-WoI">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="560" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p8v-st-Mmj">
-                                            <rect key="frame" x="61" y="0.0" width="266" height="43.5"/>
+                                            <rect key="frame" x="61" y="0.0" width="483" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>

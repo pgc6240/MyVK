@@ -17,10 +17,9 @@ final class PhotosVC: UICollectionViewController {
     private var userInterfaceStyle: UIUserInterfaceStyle!
     override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
-    lazy private var swipeGesture: UISwipeGestureRecognizer = {
-        let recognizer          = UISwipeGestureRecognizer(target: self, action: #selector(swipeRightToPop(_:)))
-        recognizer.delegate     = self
-        recognizer.direction    = .right
+    lazy private var swipeGesture: UIPanGestureRecognizer = {
+        let recognizer      = UIPanGestureRecognizer(target: self, action: #selector(swipeRightToPop(_:)))
+        recognizer.delegate = self
         return recognizer
     }()
     
@@ -139,7 +138,23 @@ extension PhotosVC: UIGestureRecognizerDelegate {
     }
     
     
-    @objc func swipeRightToPop(_ recognizer: UISwipeGestureRecognizer) {
-        print(#function)
+    @objc func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        
+        case .began:
+            print(recognizer.state.rawValue)
+            
+        case .changed:
+            print(recognizer.state.rawValue)
+            
+        case .ended:
+            print(recognizer.state.rawValue)
+            
+        case .cancelled:
+            print(recognizer.state.rawValue)
+        
+        default:
+            return
+        }
     }
 }
