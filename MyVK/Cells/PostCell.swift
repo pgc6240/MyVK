@@ -44,6 +44,6 @@ final class PostCell: UITableViewCell {
         let photosVC = PhotosVC(photos)
         let tabBarController = UIApplication.shared.windows.first?.rootViewController as? MyTabBarController
         let navigationController = tabBarController?.selectedViewController as? UINavigationController
-        navigationController?.pushViewController(photosVC, animated: false)
+        navigationController?.pushViewController(photosVC, animated: true)
     }
 }
