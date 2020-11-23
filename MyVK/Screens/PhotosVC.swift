@@ -17,6 +17,13 @@ final class PhotosVC: UICollectionViewController {
     private var userInterfaceStyle: UIUserInterfaceStyle!
     override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
+    lazy private var swipeGesture: UISwipeGestureRecognizer = {
+        let recognizer          = UISwipeGestureRecognizer(target: self, action: #selector(swipeRightToPop(_:)))
+        recognizer.delegate     = self
+        recognizer.direction    = .right
+        return recognizer
+    }()
+    
     
     init(_ photos: [Photo] = []) {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -59,6 +66,7 @@ final class PhotosVC: UICollectionViewController {
         collectionView.backgroundColor = .black
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
+        collectionView.addGestureRecognizer(swipeGesture)
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.itemSize                 = CGSize(width: pageWidth, height: pageWidth)
@@ -117,5 +125,21 @@ extension PhotosVC {
     
     override func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         collectionView.scrollToItem(at: [0, currentPage], at: .centeredHorizontally, animated: true)
+    }
+}
+
+
+//
+// MARK: - UIGestureRecognizerDelegate
+//
+extension PhotosVC: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return currentPage == 0 ? true : false
+    }
+    
+    
+    @objc func swipeRightToPop(_ recognizer: UISwipeGestureRecognizer) {
+        print(#function)
     }
 }
