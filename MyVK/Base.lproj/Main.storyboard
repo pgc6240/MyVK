@@ -612,7 +612,7 @@
                         <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="person.2" catalog="system" symbolScale="small"/>
                         <imageReference key="largeContentSizeImage" image="person.2" catalog="system" symbolScale="large"/>
-                        <color key="badgeColor" systemColor="secondaryLabelColor"/>
+                        <color key="badgeColor" name="vk-color"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Z78-qI-sma">
