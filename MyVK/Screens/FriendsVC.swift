@@ -207,7 +207,7 @@ extension FriendsVC: UISearchBarDelegate {
 //
 extension FriendsVC {
     
-    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         alphabetControl.removeFromSuperview()
     }
 }
