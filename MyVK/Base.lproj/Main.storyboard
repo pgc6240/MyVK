@@ -196,10 +196,10 @@
             </objects>
             <point key="canvasLocation" x="54" y="73"/>
         </scene>
-        <!--My Tab Bar Controller-->
+        <!--Root Tab Bar Controller-->
         <scene sceneID="ONa-rr-X9r">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" id="rtJ-oo-HJX" customClass="MyTabBarController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="rtJ-oo-HJX" customClass="RootTabBarController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Emg-vc-W3p"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WCe-Hn-hfd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
