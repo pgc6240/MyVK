@@ -45,7 +45,7 @@ final class LoginVC: UIViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        dismissKeyboard()
+        moveStackViewToCenter()
     }
     
     
@@ -61,6 +61,15 @@ final class LoginVC: UIViewController {
             presentAlert(title: "Некорректный логин/пароль", message: "Пожалуйста, введите логин и пароль.")
             return false
         }
+    }
+    
+    
+    private func moveStackViewToCenter() {
+        DispatchQueue.main.async {
+        UIView.animate(withDuration: 0.4) {
+            self.scrollView.contentSize.height  = self.view.bounds.height
+            self.scrollView.contentOffset.y     = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
+        }}
     }
 }
 
@@ -101,12 +110,7 @@ extension LoginVC: UITextFieldDelegate {
     
     @IBAction func dismissKeyboard() {
         view.endEditing(true)
-        
-        DispatchQueue.main.async {
-        UIView.animate(withDuration: 0.4) {
-            self.scrollView.contentSize.height  = self.view.bounds.height
-            self.scrollView.contentOffset.y     = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
-        }}
+        moveStackViewToCenter()
     }
 }
 
