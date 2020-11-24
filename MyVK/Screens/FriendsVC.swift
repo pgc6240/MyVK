@@ -200,3 +200,14 @@ extension FriendsVC: UISearchBarDelegate {
         tableView.reloadData()
     }
 }
+
+
+//
+// MARK: - UIScrollViewDelegate
+//
+extension FriendsVC {
+    
+    override func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        alphabetControl.removeFromSuperview()
+    }
+}
