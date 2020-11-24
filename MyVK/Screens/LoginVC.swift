@@ -37,11 +37,15 @@ final class LoginVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        dismissKeyboard()
         UIView.transition(with: stackView, duration: 1.2, options: .transitionCrossDissolve) {
             self.stackView.isHidden = false
         }
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        dismissKeyboard()
     }
     
     
@@ -98,10 +102,11 @@ extension LoginVC: UITextFieldDelegate {
     @IBAction func dismissKeyboard() {
         view.endEditing(true)
         
+        DispatchQueue.main.async {
         UIView.animate(withDuration: 0.4) {
             self.scrollView.contentSize.height  = self.view.bounds.height
             self.scrollView.contentOffset.y     = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
-        }
+        }}
     }
 }
 
