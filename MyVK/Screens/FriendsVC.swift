@@ -117,7 +117,7 @@ extension FriendsVC {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if !friends[section].isEmpty {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
-            header?.backgroundView = BlurView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+            header?.backgroundView = BlurView()
             header?.textLabel?.text = section == 0 ? "Заявки в друзья" : collation.sectionTitles[section - 1]
             return header
         }
@@ -160,6 +160,7 @@ extension FriendsVC: UISearchBarDelegate {
         searchController.searchBar.autocapitalizationType       = .words
         searchController.obscuresBackgroundDuringPresentation   = false
         navigationItem.searchController                         = searchController
+        navigationItem.hidesSearchBarWhenScrolling              = false
     }
     
     

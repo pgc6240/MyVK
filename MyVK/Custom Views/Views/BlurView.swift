@@ -7,29 +7,14 @@
 
 import UIKit
 
-final class BlurView: UIView {
-    
-    var blurEffectStyle: UIBlurEffect.Style?
-    
+final class BlurView: UIVisualEffectView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        layoutUI()
     }
     
-    init(frame: CGRect, blurEffectStyle: UIBlurEffect.Style? = nil) {
-        super.init(frame: frame)
-        self.blurEffectStyle = blurEffectStyle
-        layoutUI()
-    }
-    
-    private func layoutUI() {
-        let blurEffect  = UIBlurEffect(style: blurEffectStyle ?? .systemUltraThinMaterial)
-        let blurView    = UIVisualEffectView(effect: blurEffect)
-        backgroundColor = UIColor.systemGray.withAlphaComponent(0.25)
-        addSubview(blurView)
-        blurView.translatesAutoresizingMaskIntoConstraints                  = false
-        blurView.widthAnchor.constraint(equalTo: widthAnchor).isActive      = true
-        blurView.heightAnchor.constraint(equalTo: heightAnchor).isActive    = true
+    init(blurEffectStyle: UIBlurEffect.Style? = nil) {
+        let blurEffect = UIBlurEffect(style: blurEffectStyle ?? .systemChromeMaterial)
+        super.init(effect: blurEffect)
     }
 }
