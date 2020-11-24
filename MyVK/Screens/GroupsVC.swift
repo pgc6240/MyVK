@@ -10,7 +10,7 @@ import UIKit
 final class GroupsVC: UITableViewController {
     
     var user: User?
-    var groups: [Group] = [] { didSet { tableView.reloadData() }}
+    var groups: [Group] = []
     lazy var backingStore: [Group] = []
     
     let sectionTitles   = ["Добавить новое сообщество", "Мои сообщества"]
@@ -164,6 +164,7 @@ extension GroupsVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchText.isEmpty ? (groups = backingStore) : (groups = backingStore.filter { $0.name.lowercased().contains(searchText.lowercased()) })
+        tableView.reloadData()
     }
     
     
