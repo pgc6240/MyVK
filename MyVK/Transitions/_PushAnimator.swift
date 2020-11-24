@@ -10,7 +10,7 @@ import UIKit
 final class _PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        10
+        1.5
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -32,6 +32,10 @@ final class _PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             destination.view.transform  = .identity
             
         } completion: { finished in
+            
+            source.view.transform       = .identity
+            destination.view.transform  = .identity
+            
             transitionContext.completeTransition(finished && !transitionContext.transitionWasCancelled)
         }
     }
