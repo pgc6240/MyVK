@@ -132,7 +132,7 @@ extension PhotosVC {
 //
 // MARK: - UIGestureRecognizerDelegate
 //
-extension PhotosVC {
+extension PhotosVC: UIGestureRecognizerDelegate {
     
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         currentPage == 0
