@@ -17,11 +17,6 @@ final class PhotosVC: UICollectionViewController {
     private var userInterfaceStyle: UIUserInterfaceStyle!
     override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
-    lazy private var swipeGesture: UIPanGestureRecognizer = {
-        let recognizer      = UIPanGestureRecognizer(target: self, action: #selector(swipeRightToPop(_:)))
-        recognizer.delegate = self
-        return recognizer
-    }()
     lazy private var interactiveTransition = UIPercentDrivenInteractiveTransition()
     private var shouldFinishTransition = false
     
@@ -51,8 +46,8 @@ final class PhotosVC: UICollectionViewController {
     }
     
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
         overrideUserInterfaceStyle                    = userInterfaceStyle
         navigationController?.navigationBar.barStyle  = .default
         tabBarController?.overrideUserInterfaceStyle  = userInterfaceStyle
@@ -72,7 +67,6 @@ final class PhotosVC: UICollectionViewController {
         collectionView.backgroundColor = .black
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
-        collectionView.addGestureRecognizer(swipeGesture)
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.itemSize                 = CGSize(width: pageWidth, height: pageWidth)
@@ -138,14 +132,20 @@ extension PhotosVC {
 //
 // MARK: - UIGestureRecognizerDelegate
 //
-extension PhotosVC: UIGestureRecognizerDelegate {
+extension PhotosVC {
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return currentPage == 0 ? true : false
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        currentPage == 0
     }
     
     
-    @objc func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        true
+    }
+    
+    
+    @IBAction func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
+        let translationX         = recognizer.translation(in: view).x
         let navigationController = self.navigationController as? _NavigationController
         
         switch recognizer.state {
@@ -154,7 +154,6 @@ extension PhotosVC: UIGestureRecognizerDelegate {
             navigationController?.popViewController(animated: true)
         
         case .changed:
-            let translationX        = recognizer.translation(in: view).x
             let relativeTranslation = translationX / pageWidth
             shouldFinishTransition  = relativeTranslation > 0.33
             

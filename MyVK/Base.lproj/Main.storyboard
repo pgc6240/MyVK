@@ -509,6 +509,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="049-dI-Lfi">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -543,11 +544,18 @@
                         <connections>
                             <outlet property="dataSource" destination="iqM-VL-A8R" id="ALX-1D-PSm"/>
                             <outlet property="delegate" destination="iqM-VL-A8R" id="v1f-QY-PDt"/>
+                            <outletCollection property="gestureRecognizers" destination="Kz5-35-rno" appends="YES" id="rsp-F2-Nij"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Фотографии" largeTitleDisplayMode="never" id="RvG-g5-Dfv"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2k0-Yf-q9v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Kz5-35-rno">
+                    <connections>
+                        <action selector="swipeRightToPop:" destination="iqM-VL-A8R" id="Azj-DK-Gk4"/>
+                        <outlet property="delegate" destination="iqM-VL-A8R" id="RqS-bI-zdx"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3720.8000000000002" y="-297.30134932533736"/>
         </scene>
@@ -597,8 +605,8 @@
         <scene sceneID="cwM-BT-l4H">
             <objects>
                 <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" id="R1N-Pm-zQg" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Друзья" image="person.2" catalog="system" badgeValue="1" id="UCP-3E-Tdw">
-                        <imageReference key="landscapeImage" image="person.2" catalog="system" symbolScale="small"/>
+                    <tabBarItem key="tabBarItem" title="Друзья" image="person.2.fill" catalog="system" badgeValue="1" id="UCP-3E-Tdw">
+                        <imageReference key="landscapeImage" image="person.2.fill" catalog="system" symbolScale="small"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Z78-qI-sma">
@@ -690,8 +698,8 @@
         <scene sceneID="yJE-mF-7Kp">
             <objects>
                 <navigationController storyboardIdentifier="GroupsNC" title="GroupsNC" automaticallyAdjustsScrollViewInsets="NO" id="fgi-XJ-5Ml" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Сообщества" image="person.3" catalog="system" id="Qka-zD-b41">
-                        <imageReference key="landscapeImage" image="person.3" catalog="system" symbolScale="small"/>
+                    <tabBarItem key="tabBarItem" title="Сообщества" image="person.3.fill" catalog="system" id="Qka-zD-b41">
+                        <imageReference key="landscapeImage" image="person.3.fill" catalog="system" symbolScale="small"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nsa-vp-02P">
@@ -711,9 +719,9 @@
         <scene sceneID="wtx-6m-dNb">
             <objects>
                 <navigationController storyboardIdentifier="NewsNC" title="NewsNC" automaticallyAdjustsScrollViewInsets="NO" id="fIT-ue-kvp" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Новости" image="newspaper" catalog="system" id="UxT-YE-jyv">
-                        <imageReference key="landscapeImage" image="newspaper" catalog="system" symbolScale="medium"/>
-                        <imageReference key="largeContentSizeImage" image="newspaper" catalog="system" symbolScale="large"/>
+                    <tabBarItem key="tabBarItem" title="Новости" image="text.alignleft" catalog="system" id="UxT-YE-jyv">
+                        <imageReference key="landscapeImage" image="text.alignleft" catalog="system" symbolScale="medium"/>
+                        <imageReference key="largeContentSizeImage" image="text.alignleft" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lqi-CY-lAX">
@@ -737,10 +745,11 @@
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="eye.fill" catalog="system" width="128" height="78"/>
         <image name="heart" catalog="system" width="128" height="109"/>
-        <image name="newspaper" catalog="system" width="128" height="108"/>
-        <image name="person.2" catalog="system" width="128" height="81"/>
+        <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
+        <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <image name="sample-avatar" width="800" height="800"/>
+        <image name="text.alignleft" catalog="system" width="128" height="100"/>
         <image name="vk-logo" width="2500" height="2500"/>
         <namedColor name="vk-color">
             <color red="0.36000001430511475" green="0.50199997425079346" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
