@@ -14,7 +14,13 @@ final class PhotosVC: UICollectionViewController {
     private let pageWidth   = UIScreen.main.bounds.width
     private var currentPage = 0 { didSet { updateUI() }}
     
-    private var interactiveTransition  = _InteractiveTransition()
+    private var interactiveTransition = _InteractiveTransition()
+    
+    lazy private var swipeGesture: UIPanGestureRecognizer = {
+        let recognizer      = UIPanGestureRecognizer(target: self, action: #selector(swipeRightToPop(_:)))
+        recognizer.delegate = self
+        return recognizer
+    }()
     
     override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
@@ -60,9 +66,10 @@ final class PhotosVC: UICollectionViewController {
     
     
     private func configureCollectionView() {
-        collectionView.backgroundColor = .black
+        collectionView.backgroundColor                = .black
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
+        collectionView.addGestureRecognizer(swipeGesture)
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             layout.itemSize                 = CGSize(width: pageWidth, height: pageWidth)
@@ -140,7 +147,7 @@ extension PhotosVC: UIGestureRecognizerDelegate {
     }
     
     
-    @IBAction func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
+    @objc func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
         let translationX         = recognizer.translation(in: view).x
         let navigationController = self.navigationController as? _NavigationController
         

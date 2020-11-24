@@ -549,18 +549,11 @@
                         <connections>
                             <outlet property="dataSource" destination="iqM-VL-A8R" id="ALX-1D-PSm"/>
                             <outlet property="delegate" destination="iqM-VL-A8R" id="v1f-QY-PDt"/>
-                            <outletCollection property="gestureRecognizers" destination="Kz5-35-rno" appends="YES" id="rsp-F2-Nij"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Фотографии" largeTitleDisplayMode="never" id="RvG-g5-Dfv"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2k0-Yf-q9v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="Kz5-35-rno">
-                    <connections>
-                        <action selector="swipeRightToPop:" destination="iqM-VL-A8R" id="Azj-DK-Gk4"/>
-                        <outlet property="delegate" destination="iqM-VL-A8R" id="RqS-bI-zdx"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3720.8000000000002" y="-297.30134932533736"/>
         </scene>
