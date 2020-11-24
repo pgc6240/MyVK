@@ -490,7 +490,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Друзья" largeTitleDisplayMode="always" id="swY-ae-BsR">
-                        <barButtonItem key="rightBarButtonItem" id="xUu-uB-8je">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="xUu-uB-8je">
                             <imageReference key="image" image="a.square" catalog="system" symbolScale="large"/>
                             <imageReference key="landscapeImage" image="a.square" catalog="system" symbolScale="small"/>
                             <imageReference key="largeContentSizeImage" image="a.square" catalog="system" symbolScale="large"/>
@@ -689,7 +689,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Сообщества" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="always" id="dfK-79-1B0">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="wTC-QQ-L3x">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="search" id="wTC-QQ-L3x">
                             <connections>
                                 <segue destination="mF9-cf-Rto" kind="show" id="rse-Sh-3E5"/>
                             </connections>

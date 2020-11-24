@@ -46,11 +46,11 @@ final class PhotosVC: UICollectionViewController {
     }
     
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        overrideUserInterfaceStyle                    = userInterfaceStyle
-        navigationController?.navigationBar.barStyle  = .default
-        tabBarController?.overrideUserInterfaceStyle  = userInterfaceStyle
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.overrideUserInterfaceStyle                    = .unspecified
+        self.navigationController?.navigationBar.barStyle  = .default
+        self.tabBarController?.overrideUserInterfaceStyle  = .unspecified
     }
     
     
@@ -147,6 +147,8 @@ extension PhotosVC: UIGestureRecognizerDelegate {
     @IBAction func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
         let translationX         = recognizer.translation(in: view).x
         let navigationController = self.navigationController as? _NavigationController
+        
+        guard translationX > 0 else { return }
         
         switch recognizer.state {
         case .began:

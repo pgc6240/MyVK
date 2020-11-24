@@ -21,6 +21,5 @@ final class RootTabBarController: UITabBarController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         selectedIndex = PersistenceManager.selectedTab
-        overrideUserInterfaceStyle = .dark
     }
 }
