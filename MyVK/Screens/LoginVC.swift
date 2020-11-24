@@ -37,6 +37,7 @@ final class LoginVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
         UIView.transition(with: stackView, duration: 1.2, options: .transitionCrossDissolve) {
             self.stackView.isHidden = false
         }

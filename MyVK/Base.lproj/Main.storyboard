@@ -416,7 +416,7 @@
                             <constraint firstItem="5cF-4Y-gnu" firstAttribute="top" secondItem="5fB-cG-Dsu" secondAttribute="top" id="zNo-uc-dM9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Новости" largeTitleDisplayMode="always" id="8Wm-F1-L5F"/>
+                    <navigationItem key="navigationItem" title="Новости" id="8Wm-F1-L5F"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNZ-GW-shA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

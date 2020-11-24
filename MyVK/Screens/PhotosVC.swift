@@ -14,23 +14,19 @@ final class PhotosVC: UICollectionViewController {
     private let pageWidth   = UIScreen.main.bounds.width
     private var currentPage = 0 { didSet { updateUI() }}
     
-    private var userInterfaceStyle: UIUserInterfaceStyle!
-    override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
-    
     private var interactiveTransition  = _InteractiveTransition()
-    private var shouldFinishTransition = false
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
     
     init(_ photos: [Photo] = []) {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
         self.photos = photos
-        self.userInterfaceStyle = traitCollection.userInterfaceStyle
     }
 
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.userInterfaceStyle = traitCollection.userInterfaceStyle
     }
     
     
@@ -48,9 +44,9 @@ final class PhotosVC: UICollectionViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.overrideUserInterfaceStyle                    = .unspecified
-        self.navigationController?.navigationBar.barStyle  = .default
-        self.tabBarController?.overrideUserInterfaceStyle  = .unspecified
+        overrideUserInterfaceStyle                    = .unspecified
+        navigationController?.navigationBar.barStyle  = .default
+        tabBarController?.overrideUserInterfaceStyle  = .unspecified
     }
     
     
