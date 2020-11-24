@@ -458,12 +458,12 @@
                                                     <real key="value" value="0.0"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                                    <real key="value" value="1"/>
+                                                    <real key="value" value="0.90000000000000002"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="51C-eH-lX3">
-                                            <rect key="frame" x="88" y="29.5" width="267" height="21"/>
+                                            <rect key="frame" x="94" y="29.5" width="261" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -474,7 +474,7 @@
                                         <constraint firstAttribute="trailing" secondItem="51C-eH-lX3" secondAttribute="trailing" constant="20" symbolic="YES" id="VdL-W3-axq"/>
                                         <constraint firstAttribute="trailing" secondItem="51C-eH-lX3" secondAttribute="trailing" constant="20" symbolic="YES" id="Z5L-Xj-ygb"/>
                                         <constraint firstItem="FpE-bq-Kcj" firstAttribute="centerY" secondItem="ywS-2T-VgD" secondAttribute="centerY" id="dMs-fN-DHJ"/>
-                                        <constraint firstItem="51C-eH-lX3" firstAttribute="leading" secondItem="FpE-bq-Kcj" secondAttribute="trailing" constant="8" symbolic="YES" id="ucJ-Cl-Vhh"/>
+                                        <constraint firstItem="51C-eH-lX3" firstAttribute="leading" secondItem="FpE-bq-Kcj" secondAttribute="trailing" constant="14" id="ucJ-Cl-Vhh"/>
                                         <constraint firstItem="FpE-bq-Kcj" firstAttribute="leading" secondItem="ywS-2T-VgD" secondAttribute="leading" constant="20" symbolic="YES" id="zyI-Xu-eIQ"/>
                                     </constraints>
                                 </tableViewCellContentView>

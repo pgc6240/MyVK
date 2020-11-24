@@ -35,7 +35,7 @@ final class FriendsVC: UITableViewController {
     
     private func configureTableView() {
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
-        tableView.rowHeight = 80
+        tableView.rowHeight = 86
     }
     
     
