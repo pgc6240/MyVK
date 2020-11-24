@@ -17,7 +17,7 @@ final class PhotosVC: UICollectionViewController {
     private var userInterfaceStyle: UIUserInterfaceStyle!
     override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
-    lazy private var interactiveTransition = UIPercentDrivenInteractiveTransition()
+    private var interactiveTransition  = _InteractiveTransition()
     private var shouldFinishTransition = false
     
     
@@ -150,19 +150,21 @@ extension PhotosVC {
         
         switch recognizer.state {
         case .began:
+            interactiveTransition.hasBegan = true
             navigationController?.interactiveTransition = interactiveTransition
             navigationController?.popViewController(animated: true)
         
         case .changed:
             let relativeTranslation = translationX / pageWidth
-            shouldFinishTransition  = relativeTranslation > 0.33
-            
+            interactiveTransition.shouldFinishTransition = relativeTranslation > 0.33
             interactiveTransition.update(relativeTranslation)
             
         case .ended:
-            shouldFinishTransition ? interactiveTransition.finish() : interactiveTransition.cancel()
+            interactiveTransition.hasBegan = false
+            interactiveTransition.shouldFinishTransition ? interactiveTransition.finish() : interactiveTransition.cancel()
             
         case .cancelled:
+            interactiveTransition.hasBegan = false
             interactiveTransition.cancel()
         
         default:

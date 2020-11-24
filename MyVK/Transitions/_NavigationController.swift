@@ -9,9 +9,7 @@ import UIKit
 
 final class _NavigationController: UINavigationController, UINavigationControllerDelegate {
 
-    var popAnimator: UIViewControllerAnimatedTransitioning?
-    var interactiveTransition: UIViewControllerInteractiveTransitioning?
-    
+    weak var interactiveTransition: _InteractiveTransition?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,14 +22,13 @@ final class _NavigationController: UINavigationController, UINavigationControlle
         case .push:
             return _PushAnimator()
         case .pop:
-            popAnimator = _PopAnimator()
-            return popAnimator
+            return _PopAnimator()
         default:
             return nil
         }
     }
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        animationController === popAnimator ? interactiveTransition : nil
+        interactiveTransition?.hasBegan ?? false ? interactiveTransition : nil
     }
 }
