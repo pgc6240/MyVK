@@ -132,10 +132,15 @@ extension FriendsVC {
 extension FriendsVC: AlphabetPickerDelegate {
 
     @IBAction func sortButtonTapped() {
-        alphabetControl.removeFromSuperview()
-        alphabetControl = AlphabetPicker(with: avaliableLetters.joined(), in: view)
-        alphabetControl.delegate = self
-        view.addSubview(alphabetControl)
+        
+        if view.subviews.contains(alphabetControl) {
+            alphabetControl.removeFromSuperview()
+            
+        } else {
+            alphabetControl = AlphabetPicker(with: avaliableLetters.joined(), in: view)
+            alphabetControl.delegate = self
+            view.addSubview(alphabetControl)
+        }
     }
     
     
