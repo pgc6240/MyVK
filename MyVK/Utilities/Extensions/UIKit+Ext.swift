@@ -26,8 +26,8 @@ extension UIViewController {
     
     func showLoadingView(duration: TimeInterval) {
         
-        let loadingViewFrame    = CGRect(x: view.frame.midX - 30, y: view.frame.midY, width: 60, height: 60)
-        let loadingView         = LoadingView(frame: loadingViewFrame)
+        let loadingViewFrame = CGRect(x: view.frame.midX - 30, y: view.frame.midY, width: 60, height: 60)
+        let loadingView      = LoadingView(frame: loadingViewFrame)
         
         view.addSubview(loadingView)
         
@@ -44,6 +44,9 @@ extension UIViewController {
 extension UIColor {
     
     static func random() -> UIColor {
-        UIColor(red: CGFloat.random(in: 0...1), green: CGFloat.random(in: 0...1), blue: CGFloat.random(in: 0...1), alpha: 1)
+        UIColor(red: CGFloat.random(in: 0...1),
+                green: CGFloat.random(in: 0...1),
+                blue: CGFloat.random(in: 0...1),
+                alpha: 1)
     }
 }
