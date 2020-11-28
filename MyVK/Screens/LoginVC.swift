@@ -9,17 +9,17 @@ import UIKit
 
 final class LoginVC: UIViewController {
 
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private weak var stackView: UIStackView!
     @IBOutlet private weak var loginTextField: MyTextField!
     @IBOutlet private weak var passwordTextField: MyTextField!
-    @IBOutlet weak var rememberMeCheckbox: Checkbox!
+    @IBOutlet private weak var rememberMeCheckbox: Checkbox!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        overrideUserInterfaceStyle  = .light
+        overrideUserInterfaceStyle = .light
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -29,8 +29,8 @@ final class LoginVC: UIViewController {
         rememberMeCheckbox.delegate = self
         
         #if DEBUG
-        loginTextField.text     = "79154874184"
-        passwordTextField.text  = "12345678"
+        loginTextField.text    = "79154874184"
+        passwordTextField.text = "12345678"
         #endif
     }
     
@@ -39,7 +39,7 @@ final class LoginVC: UIViewController {
         super.viewDidAppear(animated)
         
         moveStackViewToCenter()
-        UIView.transition(with: stackView, duration: 1.2, options: [.transitionCrossDissolve, .allowUserInteraction]) {
+        UIView.transition(with: stackView, duration: 1, options: [.transitionCrossDissolve, .allowUserInteraction]) {
             self.stackView.isHidden = false
         }
     }
@@ -69,8 +69,8 @@ final class LoginVC: UIViewController {
     private func moveStackViewToCenter() {
         DispatchQueue.main.async {
         UIView.animate(withDuration: 0.4) {
-            self.scrollView.contentSize.height  = self.view.bounds.height
-            self.scrollView.contentOffset.y     = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
+            self.scrollView.contentSize.height = self.view.bounds.height
+            self.scrollView.contentOffset.y    = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
         }}
     }
 }
@@ -84,33 +84,29 @@ extension LoginVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == loginTextField {
             passwordTextField.becomeFirstResponder()
-        } else {
-            dismissKeyboard()
-            if checkLoginAndPassword() {
-                performSegue(withIdentifier: String(describing: LoginSegue.self), sender: nil)
-            }
+        
+        } else if checkLoginAndPassword() {
+            performSegue(withIdentifier: String(describing: LoginSegue.self), sender: nil)
         }
+        
         return true
     }
     
     
-    @objc func keyboardWillShow(_ notification: Notification) {
+    @objc private func keyboardWillShow(_ notification: Notification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect {
             let viewHeight      = view.bounds.height
-            let stackViewHeight = self.stackView.bounds.height
+            let stackViewHeight = stackView.bounds.height
             
+            scrollView.contentOffset.y                      = -(viewHeight - keyboardFrame.height - stackViewHeight)
             scrollView.contentSize.height                   = viewHeight + keyboardFrame.height
             scrollView.contentInset.bottom                  = -(viewHeight - stackViewHeight)
             scrollView.verticalScrollIndicatorInsets.bottom = keyboardFrame.height
-            
-            UIView.animate(withDuration: 0.4) {
-                self.scrollView.contentOffset.y = -(viewHeight - keyboardFrame.height - stackViewHeight)
-            }
         }
     }
     
     
-    @IBAction func dismissKeyboard() {
+    @IBAction private func dismissKeyboard() {
         view.endEditing(true)
         moveStackViewToCenter()
     }
@@ -123,7 +119,7 @@ extension LoginVC: UITextFieldDelegate {
 final class LoginSegue: UIStoryboardSegue {
     
     override func perform() {
-        source.showLoadingView(duration: 10)
+        source.showLoadingView(duration: .infinity)
         DispatchQueue.main.async {
             UIApplication.shared.windows.first?.rootViewController = self.destination
         }
