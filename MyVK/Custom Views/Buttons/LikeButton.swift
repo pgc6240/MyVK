@@ -9,8 +9,8 @@ import UIKit
 
 final class LikeButton: UIButton {
     
-    var liked       = false { didSet { updateUI() }}
-    var likeCount   = 0     { didSet { updateUI() }}
+    var liked     = false { didSet { updateUI() }}
+    var likeCount = 0     { didSet { updateUI() }}
     
     
     required init?(coder: NSCoder) {
@@ -30,6 +30,7 @@ final class LikeButton: UIButton {
             
             self.setImage(UIImage(systemName: liked ? "heart.fill" : "heart"), for: .normal)
             self.setTitle(liked ? "\(likeCount + 1)" : "\(likeCount)", for: .normal)
+            self.setTitleColor(self.tintColor, for: .normal)
         }
     }
     

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CheckboxDelegate: class {
-    func checkTapped(_ checked: Bool)
+    func checkTapped(_ checkbox: Checkbox, checked: Bool)
 }
 
 final class Checkbox: UIButton {
@@ -33,7 +33,7 @@ final class Checkbox: UIButton {
         imageView?.layer.borderWidth = 1
         imageView?.layer.borderColor = titleLabel?.textColor.cgColor
     }
-
+    
     private func configure() {
         addTarget(self, action: #selector(checkmarkTapped), for: .touchUpInside)
         imageView?.tintColor = checked ? tintColor : .clear
@@ -41,7 +41,7 @@ final class Checkbox: UIButton {
 
     @objc func checkmarkTapped() {
         checked.toggle()
-        delegate?.checkTapped(checked)
+        delegate?.checkTapped(self, checked: checked)
     }
 }
 

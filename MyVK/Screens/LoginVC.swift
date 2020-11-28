@@ -136,7 +136,7 @@ final class LoginSegue: UIStoryboardSegue {
 //
 extension LoginVC: CheckboxDelegate {
     
-    func checkTapped(_ checked: Bool) {
+    func checkTapped(_ checkbox: Checkbox, checked: Bool) {
         loginTextField.restorationIdentifier = checked ? "loginTextField" : nil
     }
 }
