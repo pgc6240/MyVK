@@ -64,5 +64,3 @@ let somePosts: [Post] = [
     Post(text: "Ещё более интересный пост.", photos: somePhotos.dropLast(), likeCount: 107, viewCount: 1012),
     Post(text: "Не очень интересный пост.", photos: [somePhotos[1]], likeCount: 25, viewCount: 273)
 ]
-
-#warning("Добавить иконку приложения.")
