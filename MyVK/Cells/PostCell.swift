@@ -42,7 +42,7 @@ final class PostCell: UITableViewCell {
     
     @objc func photosTapped() {
         let photosVC = PhotosVC(photos)
-        let tabBarController = UIApplication.shared.windows.first?.rootViewController as? RootTabBarController
+        let tabBarController = UIApplication.shared.windows.first?.rootViewController as? _TabBarController
         let navigationController = tabBarController?.selectedViewController as? UINavigationController
         navigationController?.pushViewController(photosVC, animated: true)
     }

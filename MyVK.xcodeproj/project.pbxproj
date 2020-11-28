@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		310E853225603BB20014C5EF /* NewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310E853125603BB20014C5EF /* NewsVC.swift */; };
-		3122CDC12556DE8C00253485 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* RootTabBarController.swift */; };
+		3122CDC12556DE8C00253485 /* _TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* _TabBarController.swift */; };
 		3122CDCA2556E14B00253485 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC92556E14B00253485 /* PersistenceManager.swift */; };
 		3122CDD22556FF0800253485 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDD12556FF0800253485 /* Checkbox.swift */; };
 		312AE5562550CF4F00B97164 /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5552550CF4F00B97164 /* FriendsVC.swift */; };
@@ -47,7 +47,7 @@
 
 /* Begin PBXFileReference section */
 		310E853125603BB20014C5EF /* NewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVC.swift; sourceTree = "<group>"; };
-		3122CDC02556DE8C00253485 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
+		3122CDC02556DE8C00253485 /* _TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _TabBarController.swift; sourceTree = "<group>"; };
 		3122CDC92556E14B00253485 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		3122CDD12556FF0800253485 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		312AE5472550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -125,14 +125,6 @@
 			path = TextField;
 			sourceTree = "<group>";
 		};
-		3122CDBF2556DE5600253485 /* View Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				3122CDC02556DE8C00253485 /* RootTabBarController.swift */,
-			);
-			path = "View Controllers";
-			sourceTree = "<group>";
-		};
 		3122CDC52556E08400253485 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,7 +166,6 @@
 				311BA3E9255884D800221C69 /* ImageView */,
 				311BA3EF25588DB200221C69 /* TextField */,
 				3112C5DA2567AC1C002EB38D /* Views */,
-				3122CDBF2556DE5600253485 /* View Controllers */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -221,12 +212,12 @@
 			isa = PBXGroup;
 			children = (
 				3182B38125438B1000E3E710 /* Main.storyboard */,
-				31CBF0C0256ACBA10041CC26 /* Transitions */,
 				31E87837254C86280014430E /* Extensions */,
 				3122CDC52556E08400253485 /* Managers */,
 				315FF59B2548B81B0054C539 /* Model */,
 				3151A362254C5F8B00F9BFAB /* Cells */,
 				315FF5962548B61E0054C539 /* Custom Views */,
+				31CBF0C0256ACBA10041CC26 /* Transitions */,
 				315FF5952548B60C0054C539 /* Screens */,
 				31710BF72550C53100C6027A /* Support */,
 			);
@@ -254,10 +245,11 @@
 		31CBF0C0256ACBA10041CC26 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
+				3122CDC02556DE8C00253485 /* _TabBarController.swift */,
 				31CBF0C8256AD18F0041CC26 /* _NavigationController.swift */,
+				3151FD63256CE107002C4B14 /* _InteractiveTransition.swift */,
 				31CBF0C1256ACBD00041CC26 /* _PushAnimator.swift */,
 				31CBF0C5256ACF380041CC26 /* _PopAnimator.swift */,
-				3151FD63256CE107002C4B14 /* _InteractiveTransition.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -358,7 +350,7 @@
 				31C9A6CE2563D99500619276 /* LoginButton.swift in Sources */,
 				318716A1255ABBD300F4AD0C /* ShadowedImageView.swift in Sources */,
 				31BF7BA12563F863003A07C0 /* LoadingView.swift in Sources */,
-				3122CDC12556DE8C00253485 /* RootTabBarController.swift in Sources */,
+				3122CDC12556DE8C00253485 /* _TabBarController.swift in Sources */,
 				3193AD4A256011B000F39D6F /* BlurView.swift in Sources */,
 				3151A369254C600900F9BFAB /* User.swift in Sources */,
 				31CBF0C9256AD18F0041CC26 /* _NavigationController.swift in Sources */,
