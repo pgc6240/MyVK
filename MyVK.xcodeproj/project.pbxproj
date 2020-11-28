@@ -204,12 +204,12 @@
 			isa = PBXGroup;
 			children = (
 				3182B38125438B1000E3E710 /* Main.storyboard */,
+				31CBF0C0256ACBA10041CC26 /* Transitions */,
 				31E87837254C86280014430E /* Extensions */,
 				3122CDC52556E08400253485 /* Managers */,
 				315FF59B2548B81B0054C539 /* Model */,
 				3151A362254C5F8B00F9BFAB /* Cells */,
 				315FF5962548B61E0054C539 /* Custom Views */,
-				31CBF0C0256ACBA10041CC26 /* Transitions */,
 				315FF5952548B60C0054C539 /* Screens */,
 				31710BF72550C53100C6027A /* Support */,
 			);
