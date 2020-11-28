@@ -8,7 +8,6 @@
 import UIKit
 
 final class PostCell: UITableViewCell {
-
     static let reuseId = String(describing: PostCell.self)
     
     @IBOutlet weak var postTextView: UITextView!
@@ -22,8 +21,8 @@ final class PostCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        photos = []
         photosImageViews.forEach { $0.image = nil }
+        photos = []
     }
     
     
@@ -41,9 +40,10 @@ final class PostCell: UITableViewCell {
     
     
     @objc func photosTapped() {
-        let photosVC = PhotosVC(photos)
-        let tabBarController = UIApplication.shared.windows.first?.rootViewController as? _TabBarController
-        let navigationController = tabBarController?.selectedViewController as? UINavigationController
+        let photosVC             = PhotosVC(photos)
+        let tabBarController     = UIApplication.shared.windows.first?.rootViewController as? _TabBarController
+        let navigationController = tabBarController?.selectedViewController as? _NavigationController
+        
         navigationController?.pushViewController(photosVC, animated: true)
     }
 }

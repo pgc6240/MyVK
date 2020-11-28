@@ -8,12 +8,11 @@
 import UIKit
 
 final class GroupCell: UITableViewCell {
-    
     static let reuseId = String(describing: GroupCell.self)
     
     
     func set(with group: Group) {
-        imageView?.image    = UIImage(systemName: "person.3.fill")
-        textLabel?.text     = group.name
+        imageView?.image = UIImage(systemName: "person.3.fill")
+        textLabel?.text  = group.name
     }
 }

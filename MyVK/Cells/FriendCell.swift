@@ -8,7 +8,6 @@
 import UIKit
 
 final class FriendCell: UITableViewCell {
-    
     static let reuseId = String(describing: FriendCell.self)
     
     @IBOutlet weak var friendNameLabel: UILabel!
