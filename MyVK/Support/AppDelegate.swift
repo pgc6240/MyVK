@@ -11,7 +11,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
-        coder.decodeObject(forKey: PersistenceManager.Keys.appVersion) as? String == PersistenceManager.appVersion
+        return coder.decodeObject(forKey: PersistenceManager.Keys.appVersion) as? String == PersistenceManager.appVersion
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
@@ -64,3 +64,5 @@ let somePosts: [Post] = [
     Post(text: "Ещё более интересный пост.", photos: somePhotos.dropLast(), likeCount: 107, viewCount: 1012),
     Post(text: "Не очень интересный пост.", photos: [somePhotos[1]], likeCount: 25, viewCount: 273)
 ]
+
+#warning("Добавить иконку приложения.")
