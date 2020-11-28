@@ -52,8 +52,8 @@ final class ShadowedImageView: UIView {
         layer.shadowOpacity = shadowOpacity
         
         layer.addSublayer(imageLayer)
-        imageLayer.frame            = bounds
-        imageLayer.masksToBounds    = true
+        imageLayer.frame         = bounds
+        imageLayer.masksToBounds = true
     }
     
     

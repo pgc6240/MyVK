@@ -21,11 +21,11 @@ final class GradientView: UIView {
     @IBInspectable var endPoint: CGPoint       = .zero  { willSet { gradientLayer.startPoint = newValue }}
     
     
-    func updateColors() {
-        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+    private func updateColors() {
+        gradientLayer.colors    = [startColor.cgColor, endColor.cgColor]
     }
     
-    func updateLocations() {
+    private func updateLocations() {
         gradientLayer.locations = [startLocation as NSNumber, endLocation as NSNumber]
     }
 }
