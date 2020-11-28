@@ -17,7 +17,6 @@ final class _TabBarController: UITabBarController {
         }
     }
     
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         selectedIndex = PersistenceManager.selectedTab
