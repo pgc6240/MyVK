@@ -99,16 +99,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3112C5DA2567AC1C002EB38D /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				3193AD49256011B000F39D6F /* BlurView.swift */,
-				3149C004255AE3E400212299 /* GradientView.swift */,
-				31BF7BA02563F863003A07C0 /* LoadingView.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		311BA3E9255884D800221C69 /* ImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -165,7 +155,9 @@
 				318364EE2555AA4800B78F19 /* Controls */,
 				311BA3E9255884D800221C69 /* ImageView */,
 				311BA3EF25588DB200221C69 /* TextField */,
-				3112C5DA2567AC1C002EB38D /* Views */,
+				3193AD49256011B000F39D6F /* BlurView.swift */,
+				3149C004255AE3E400212299 /* GradientView.swift */,
+				31BF7BA02563F863003A07C0 /* LoadingView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
