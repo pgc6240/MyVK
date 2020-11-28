@@ -198,10 +198,10 @@
             </objects>
             <point key="canvasLocation" x="54" y="73"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--RootTabBarController-->
         <scene sceneID="ONa-rr-X9r">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" id="rtJ-oo-HJX" customClass="_TabBarController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="_TabBarController" title="RootTabBarController" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="rtJ-oo-HJX" customClass="_TabBarController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Emg-vc-W3p"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WCe-Hn-hfd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
@@ -221,7 +221,7 @@
         <!--Новости-->
         <scene sceneID="6In-4J-C9E">
             <objects>
-                <viewController storyboardIdentifier="NewsVC" title="Новости" id="eN6-S5-HpU" customClass="NewsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewsVC" title="Новости" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="eN6-S5-HpU" customClass="NewsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0tk-dX-GFn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -425,7 +425,7 @@
         <!--Друзья-->
         <scene sceneID="H0D-QG-ly9">
             <objects>
-                <tableViewController storyboardIdentifier="FriendsVC" id="yWS-54-f4Z" customClass="FriendsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="FriendsVC" title="Друзья" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="yWS-54-f4Z" customClass="FriendsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="TJP-rr-2CL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -509,7 +509,7 @@
         <!--Фотографии-->
         <scene sceneID="jY0-xv-MPy">
             <objects>
-                <collectionViewController storyboardIdentifier="PhotosVC" id="iqM-VL-A8R" customClass="PhotosVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="PhotosVC" title="Фотографии" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="iqM-VL-A8R" customClass="PhotosVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="XDz-gz-cup">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -560,7 +560,7 @@
         <!--Поиск-->
         <scene sceneID="jKx-02-fkZ">
             <objects>
-                <tableViewController storyboardIdentifier="SearchVC" id="mF9-cf-Rto" customClass="SearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SearchVC" title="Поиск" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="mF9-cf-Rto" customClass="SearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bfx-TB-ldl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -602,7 +602,7 @@
         <!--FriendsNC-->
         <scene sceneID="cwM-BT-l4H">
             <objects>
-                <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" id="R1N-Pm-zQg" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="R1N-Pm-zQg" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" badgeValue="1" id="UCP-3E-Tdw">
                         <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="person.2" catalog="system" symbolScale="small"/>
@@ -626,7 +626,7 @@
         <!--Сообщества-->
         <scene sceneID="G5g-UA-lB9">
             <objects>
-                <tableViewController storyboardIdentifier="GroupsVC" title="Сообщества" id="gag-xF-JEA" customClass="GroupsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="GroupsVC" title="Сообщества" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gag-xF-JEA" customClass="GroupsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ShW-2W-Agd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -698,7 +698,7 @@
         <!--GroupsNC-->
         <scene sceneID="yJE-mF-7Kp">
             <objects>
-                <navigationController storyboardIdentifier="GroupsNC" title="GroupsNC" automaticallyAdjustsScrollViewInsets="NO" id="fgi-XJ-5Ml" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="GroupsNC" title="GroupsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="fgi-XJ-5Ml" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Сообщества" id="Qka-zD-b41">
                         <imageReference key="image" image="person.3" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="person.3" catalog="system" symbolScale="small"/>
@@ -721,7 +721,7 @@
         <!--NewsNC-->
         <scene sceneID="wtx-6m-dNb">
             <objects>
-                <navigationController storyboardIdentifier="NewsNC" title="NewsNC" automaticallyAdjustsScrollViewInsets="NO" id="fIT-ue-kvp" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NewsNC" title="NewsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="fIT-ue-kvp" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Новости" id="UxT-YE-jyv">
                         <imageReference key="image" image="menubar.rectangle" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="menubar.rectangle" catalog="system" symbolScale="small"/>
@@ -733,6 +733,9 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="IHB-cq-0aK">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="eN6-S5-HpU" kind="relationship" relationship="rootViewController" id="X5i-iz-Ose"/>
                     </connections>
