@@ -38,14 +38,15 @@ final class LoginVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        moveStackViewToCenter()
         UIView.transition(with: stackView, duration: 1.2, options: [.transitionCrossDissolve, .allowUserInteraction]) {
             self.stackView.isHidden = false
         }
     }
     
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
         moveStackViewToCenter()
     }
     
