@@ -12,7 +12,7 @@ final class FriendsVC: UITableViewController {
     var friends: [[User]] = []
     lazy var backingStore: [[User]] = []
     
-    var alphabetControl = AlphabetPicker()
+    var alphabetPicker = AlphabetPicker()
     var avaliableLetters: Set<String> = []
     
     let collation = UILocalizedIndexedCollation.current()
@@ -133,22 +133,22 @@ extension FriendsVC: AlphabetPickerDelegate {
 
     @IBAction func sortButtonTapped() {
         
-        if view.subviews.contains(alphabetControl) {
-            alphabetControl.removeFromSuperview()
+        if view.subviews.contains(alphabetPicker) {
+            alphabetPicker.removeFromSuperview()
             
         } else {
-            alphabetControl = AlphabetPicker(with: avaliableLetters.joined(), in: view)
-            alphabetControl.delegate = self
-            view.addSubview(alphabetControl)
+            alphabetPicker = AlphabetPicker(with: avaliableLetters.joined(), in: view)
+            alphabetPicker.delegate = self
+            view.addSubview(alphabetPicker)
         }
     }
     
     
-    func letterTapped(_ letter: String) {
+    func letterTapped(_ alphabetPicker: AlphabetPicker, letter: String) {
         guard let sectionIndex = collation.sectionTitles.firstIndex(of: letter) else { return }
         
         tableView.scrollToRow(at: [sectionIndex + 1, 0], at: .top, animated: true)
-        alphabetControl.removeFromSuperview()
+        alphabetPicker.removeFromSuperview()
     }
 }
 
@@ -213,6 +213,6 @@ extension FriendsVC: UISearchBarDelegate {
 extension FriendsVC {
     
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        alphabetControl.removeFromSuperview()
+        alphabetPicker.removeFromSuperview()
     }
 }

@@ -8,20 +8,21 @@
 import UIKit
 
 protocol AlphabetPickerDelegate: class {
-    func letterTapped(_ letter: String)
+    func letterTapped(_ alphabetPicker: AlphabetPicker, letter: String)
 }
 
 final class AlphabetPicker: UIControl {
     
     weak var delegate: AlphabetPickerDelegate?
 
-    var letters                 = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
-    var lettersInRow: CGFloat   = 6
-    var rowCount: CGFloat       = 1
+    var letters               = "АБВГДЕЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ"
+    var lettersInRow: CGFloat = 6
+    var rowCount: CGFloat     = 1
     
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        layoutUI()
     }
     
     override init(frame: CGRect) {
@@ -65,6 +66,6 @@ final class AlphabetPicker: UIControl {
     
     @objc func letterButtonTapped(_ letterButton: UIButton) {
         guard let letter = letterButton.currentTitle else { return }
-        delegate?.letterTapped(letter)
+        delegate?.letterTapped(self, letter: letter)
     }
 }
