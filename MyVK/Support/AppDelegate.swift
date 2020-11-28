@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        UserDefaults.standard.set("ru", forKey: "AppleLanguages")
+        UserDefaults.standard.set(["ru"], forKey: "AppleLanguages")
         return true
     }
     
