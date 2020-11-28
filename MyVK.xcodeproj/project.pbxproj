@@ -12,10 +12,10 @@
 		3122CDCA2556E14B00253485 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC92556E14B00253485 /* PersistenceManager.swift */; };
 		3122CDD22556FF0800253485 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDD12556FF0800253485 /* Checkbox.swift */; };
 		312AE5562550CF4F00B97164 /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5552550CF4F00B97164 /* FriendsVC.swift */; };
-		312AE5652550D3E100B97164 /* UIKit+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5642550D3E100B97164 /* UIKit+Ext.swift */; };
-		312AE5692550D48800B97164 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5682550D48800B97164 /* Swift+Ext.swift */; };
 		3133EFB625540C9400B85844 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133EFB525540C9400B85844 /* LikeButton.swift */; };
 		3149C005255AE3E400212299 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149C004255AE3E400212299 /* GradientView.swift */; };
+		314FBDB525729E8800DA5E57 /* UIKit+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBDB325729E8800DA5E57 /* UIKit+Ext.swift */; };
+		314FBDB625729E8800DA5E57 /* Swift+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314FBDB425729E8800DA5E57 /* Swift+Ext.swift */; };
 		3151A364254C5FC800F9BFAB /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151A363254C5FC800F9BFAB /* FriendCell.swift */; };
 		3151A369254C600900F9BFAB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151A368254C600900F9BFAB /* User.swift */; };
 		3151A36C254C60C200F9BFAB /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151A36B254C60C200F9BFAB /* Group.swift */; };
@@ -53,10 +53,10 @@
 		312AE5472550C78200B97164 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		312AE5552550CF4F00B97164 /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
 		312AE5612550D2C600B97164 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		312AE5642550D3E100B97164 /* UIKit+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Ext.swift"; sourceTree = "<group>"; };
-		312AE5682550D48800B97164 /* Swift+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
 		3133EFB525540C9400B85844 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		3149C004255AE3E400212299 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		314FBDB325729E8800DA5E57 /* UIKit+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Ext.swift"; sourceTree = "<group>"; };
+		314FBDB425729E8800DA5E57 /* Swift+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Swift+Ext.swift"; sourceTree = "<group>"; };
 		3151A363254C5FC800F9BFAB /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		3151A368254C600900F9BFAB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3151A36B254C60C200F9BFAB /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -122,6 +122,15 @@
 				3122CDC92556E14B00253485 /* PersistenceManager.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		314FBDB225729E6B00DA5E57 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				314FBDB425729E8800DA5E57 /* Swift+Ext.swift */,
+				314FBDB325729E8800DA5E57 /* UIKit+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		3151A362254C5F8B00F9BFAB /* Cells */ = {
@@ -205,7 +214,7 @@
 			children = (
 				3182B38125438B1000E3E710 /* Main.storyboard */,
 				31CBF0C0256ACBA10041CC26 /* Transitions */,
-				31E87837254C86280014430E /* Extensions */,
+				314FBDB225729E6B00DA5E57 /* Extensions */,
 				3122CDC52556E08400253485 /* Managers */,
 				315FF59B2548B81B0054C539 /* Model */,
 				3151A362254C5F8B00F9BFAB /* Cells */,
@@ -244,16 +253,6 @@
 				31CBF0C5256ACF380041CC26 /* _PopAnimator.swift */,
 			);
 			path = Transitions;
-			sourceTree = "<group>";
-		};
-		31E87837254C86280014430E /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				312AE5682550D48800B97164 /* Swift+Ext.swift */,
-				312AE5642550D3E100B97164 /* UIKit+Ext.swift */,
-			);
-			name = Extensions;
-			path = Utilities/Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -328,7 +327,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				315FF5A62548B9F90054C539 /* SearchVC.swift in Sources */,
-				312AE5692550D48800B97164 /* Swift+Ext.swift in Sources */,
 				31CBF0C6256ACF380041CC26 /* _PopAnimator.swift in Sources */,
 				3182B38025438B1000E3E710 /* LoginVC.swift in Sources */,
 				3151A36C254C60C200F9BFAB /* Group.swift in Sources */,
@@ -338,8 +336,10 @@
 				310E853225603BB20014C5EF /* NewsVC.swift in Sources */,
 				31B7A1F925587A30007F4465 /* UserDefault.swift in Sources */,
 				3151A364254C5FC800F9BFAB /* FriendCell.swift in Sources */,
+				314FBDB625729E8800DA5E57 /* Swift+Ext.swift in Sources */,
 				3151FD64256CE107002C4B14 /* _InteractiveTransition.swift in Sources */,
 				31C9A6CE2563D99500619276 /* LoginButton.swift in Sources */,
+				314FBDB525729E8800DA5E57 /* UIKit+Ext.swift in Sources */,
 				318716A1255ABBD300F4AD0C /* ShadowedImageView.swift in Sources */,
 				31BF7BA12563F863003A07C0 /* LoadingView.swift in Sources */,
 				3122CDC12556DE8C00253485 /* _TabBarController.swift in Sources */,
@@ -359,7 +359,6 @@
 				31FC97E7256041190038AE21 /* Photo.swift in Sources */,
 				312AE5562550CF4F00B97164 /* FriendsVC.swift in Sources */,
 				3122CDD22556FF0800253485 /* Checkbox.swift in Sources */,
-				312AE5652550D3E100B97164 /* UIKit+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
