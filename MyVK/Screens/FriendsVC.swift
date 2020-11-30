@@ -45,6 +45,7 @@ final class FriendsVC: UITableViewController {
         for _ in 0..<Int.random(in: 0..<500) {
             let friend = makeFriend()
             let sectionIndex = collation.section(for: friend, collationStringSelector: #selector(getter:User.lastName))
+            
             friends[sectionIndex + 1].append(friend)
         }
         

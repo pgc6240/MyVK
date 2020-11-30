@@ -46,7 +46,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3104D1442572C6F100FB4C38 /* ru */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ru; path = ru.lproj/Main.storyboard; sourceTree = "<group>"; };
 		310E853125603BB20014C5EF /* NewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVC.swift; sourceTree = "<group>"; };
 		3122CDC02556DE8C00253485 /* _TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _TabBarController.swift; sourceTree = "<group>"; };
 		3122CDC92556E14B00253485 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
@@ -69,6 +68,8 @@
 		3182B38925438B1100E3E710 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3182B39125438B8500E3E710 /* MyTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTextField.swift; sourceTree = "<group>"; };
 		318716A0255ABBD300F4AD0C /* ShadowedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowedImageView.swift; sourceTree = "<group>"; };
+		318A6B202574FDCD00C6FA73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		318A6B212574FDD500C6FA73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		319207AC2558801F00DA039B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3193AD49256011B000F39D6F /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		31A72DEB2554199C006B664D /* AlphabetPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetPicker.swift; sourceTree = "<group>"; };
@@ -293,6 +294,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				ru,
+				Base,
+				en,
 			);
 			mainGroup = 3182B36F25438B1000E3E710;
 			productRefGroup = 3182B37925438B1000E3E710 /* Products */;
@@ -364,7 +367,8 @@
 		3182B38125438B1000E3E710 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				3104D1442572C6F100FB4C38 /* ru */,
+				318A6B202574FDCD00C6FA73 /* Base */,
+				318A6B212574FDD500C6FA73 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

@@ -1,0 +1,99 @@
+
+/* Class = "UILabel"; text = "Имя Фамилия"; ObjectID = "51C-eH-lX3"; */
+"51C-eH-lX3.text" = "Имя Фамилия";
+
+/* Class = "UIButton"; normalTitle = "Войти"; ObjectID = "6lt-g8-Y2N"; */
+"6lt-g8-Y2N.normalTitle" = "Sign in";
+
+/* Class = "UINavigationItem"; title = "Новости"; ObjectID = "8Wm-F1-L5F"; */
+"8Wm-F1-L5F.title" = "News";
+
+/* Class = "UIButton"; normalTitle = "1,000"; ObjectID = "8cA-rh-WPF"; */
+"8cA-rh-WPF.normalTitle" = "1,000";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "9bb-XZ-gtT"; */
+"9bb-XZ-gtT.text" = "Title";
+
+/* Class = "UIViewController"; title = "LoginVC"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "LoginVC";
+
+/* Class = "UITextField"; placeholder = " Телефон или e-mail"; ObjectID = "L00-3F-lGd"; */
+"L00-3F-lGd.placeholder" = " Phone number or e-mail";
+
+/* Class = "UIButton"; normalTitle = "50"; ObjectID = "LyO-8M-FIH"; */
+"LyO-8M-FIH.normalTitle" = "50";
+
+/* Class = "UILabel"; text = "запомнить меня"; ObjectID = "OpI-kh-iWm"; */
+"OpI-kh-iWm.text" = "remember me";
+
+/* Class = "UITabBarItem"; title = "Сообщества"; ObjectID = "Qka-zD-b41"; */
+"Qka-zD-b41.title" = "Communities";
+
+/* Class = "UINavigationController"; title = "FriendsNC"; ObjectID = "R1N-Pm-zQg"; */
+"R1N-Pm-zQg.title" = "FriendsNC";
+
+/* Class = "UINavigationItem"; title = "Фотографии"; ObjectID = "RvG-g5-Dfv"; */
+"RvG-g5-Dfv.title" = "Photos";
+
+/* Class = "UILabel"; text = "Иван Иванов"; ObjectID = "Tg9-Wc-UII"; */
+"Tg9-Wc-UII.text" = "Ivan Ivanov";
+
+/* Class = "UITabBarItem"; badgeValue = "1"; ObjectID = "UCP-3E-Tdw"; */
+"UCP-3E-Tdw.badgeValue" = "1";
+
+/* Class = "UITabBarItem"; title = "Друзья"; ObjectID = "UCP-3E-Tdw"; */
+"UCP-3E-Tdw.title" = "Friends";
+
+/* Class = "UITextField"; text = "Новое сообщество "; ObjectID = "USJ-dL-Roq"; */
+"USJ-dL-Roq.text" = "New communitie ";
+
+/* Class = "UITabBarItem"; title = "Новости"; ObjectID = "UxT-YE-jyv"; */
+"UxT-YE-jyv.title" = "News";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu."; ObjectID = "aWm-s0-Efd"; */
+"aWm-s0-Efd.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu.";
+
+/* Class = "UITextField"; placeholder = " Пароль"; ObjectID = "b0k-rX-HIg"; */
+"b0k-rX-HIg.placeholder" = " Password";
+
+/* Class = "UINavigationItem"; title = "Сообщества"; ObjectID = "dfK-79-1B0"; */
+"dfK-79-1B0.title" = "Communities";
+
+/* Class = "UIViewController"; title = "Новости"; ObjectID = "eN6-S5-HpU"; */
+"eN6-S5-HpU.title" = "News";
+
+/* Class = "UINavigationController"; title = "NewsNC"; ObjectID = "fIT-ue-kvp"; */
+"fIT-ue-kvp.title" = "NewsNC";
+
+/* Class = "UINavigationController"; title = "GroupsNC"; ObjectID = "fgi-XJ-5Ml"; */
+"fgi-XJ-5Ml.title" = "GroupsNC";
+
+/* Class = "UITableViewController"; title = "Сообщества"; ObjectID = "gag-xF-JEA"; */
+"gag-xF-JEA.title" = "Communities";
+
+/* Class = "UICollectionViewController"; title = "Фотографии"; ObjectID = "iqM-VL-A8R"; */
+"iqM-VL-A8R.title" = "Photos";
+
+/* Class = "UINavigationItem"; title = "Поиск"; ObjectID = "kgv-O1-d6f"; */
+"kgv-O1-d6f.title" = "Search";
+
+/* Class = "UITableViewController"; title = "Поиск"; ObjectID = "mF9-cf-Rto"; */
+"mF9-cf-Rto.title" = "Search";
+
+/* Class = "UIButton"; normalTitle = "Зарегистрироваться"; ObjectID = "oGE-Zu-dK7"; */
+"oGE-Zu-dK7.normalTitle" = "Sign up";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "p8v-st-Mmj"; */
+"p8v-st-Mmj.text" = "Title";
+
+/* Class = "UITabBarController"; title = "RootTabBarController"; ObjectID = "rtJ-oo-HJX"; */
+"rtJ-oo-HJX.title" = "RootTabBarController";
+
+/* Class = "UILabel"; text = "15.11.20"; ObjectID = "se0-G1-un2"; */
+"se0-G1-un2.text" = "15.11.20";
+
+/* Class = "UINavigationItem"; title = "Друзья"; ObjectID = "swY-ae-BsR"; */
+"swY-ae-BsR.title" = "Friends";
+
+/* Class = "UITableViewController"; title = "Друзья"; ObjectID = "yWS-54-f4Z"; */
+"yWS-54-f4Z.title" = "Friends";
