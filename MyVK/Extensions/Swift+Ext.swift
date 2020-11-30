@@ -41,6 +41,14 @@ extension String {
     var localized: String {
         NSLocalizedString(self, comment: "")
     }
+    
+    var isProbablyEmail: Bool {
+        self.contains("@")
+    }
+    
+    mutating func removeCharacters(_ character: Character...) {
+        character.forEach { characterToRemove in self = self.filter { $0 != characterToRemove }}
+    }
 }
 
 

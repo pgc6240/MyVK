@@ -31,7 +31,7 @@ extension SearchVC {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
+        let cell  = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
         let group = searchResults[indexPath.row]
         cell.set(with: group)
         return cell
@@ -49,12 +49,12 @@ extension SearchVC {
 //
 extension SearchVC: UISearchBarDelegate {
     
-    func configureSearchController() {
-        let searchController                                    = UISearchController()
-        searchController.searchBar.delegate                     = self
-        searchController.searchBar.placeholder                  = "Поиск сообществ".localized
-        searchController.obscuresBackgroundDuringPresentation   = false
-        navigationItem.searchController                         = searchController
-        navigationItem.hidesSearchBarWhenScrolling              = false
+    private func configureSearchController() {
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск сообществ".localized
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
     }
 }

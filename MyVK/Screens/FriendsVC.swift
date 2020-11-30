@@ -10,12 +10,12 @@ import UIKit
 final class FriendsVC: UITableViewController {
     
     var friends: [[User]] = []
-    lazy var backingStore: [[User]] = []
+    private lazy var backingStore: [[User]] = []
     
-    var alphabetPicker = AlphabetPicker()
-    var avaliableLetters: Set<String> = []
+    private var alphabetPicker = AlphabetPicker()
+    private var avaliableLetters: Set<String> = []
     
-    let collation = UILocalizedIndexedCollation.current()
+    private let collation = UILocalizedIndexedCollation.current()
     
     
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ final class FriendsVC: UITableViewController {
     
     
     private func configureTableView() {
-        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
+        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "sectionHeader")
         tableView.rowHeight = 86
     }
     
@@ -43,7 +43,7 @@ final class FriendsVC: UITableViewController {
         friends = [[User]](repeating: [], count: collation.sectionTitles.count + 1)
         
         for _ in 0..<Int.random(in: 0..<500) {
-            let friend = makeFriend()
+            let friend       = makeFriend()
             let sectionIndex = collation.section(for: friend, collationStringSelector: #selector(getter:User.lastName))
             
             friends[sectionIndex + 1].append(friend)
@@ -64,7 +64,7 @@ final class FriendsVC: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let photosVC = segue.destination as? PhotosVC
+        let photosVC     = segue.destination as? PhotosVC
         photosVC?.photos = somePhotos
         
         navigationItem.searchController?.searchBar.isHidden = true
@@ -116,10 +116,12 @@ extension FriendsVC {
     
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
         if !friends[section].isEmpty {
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
-            header?.backgroundView = BlurView()
+            let header              = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader")
+            header?.backgroundView  = BlurView()
             header?.textLabel?.text = section == 0 ? "Заявки в друзья".localized : collation.sectionTitles[section - 1]
+            
             return header
         }
         return nil
@@ -160,13 +162,13 @@ extension FriendsVC: AlphabetPickerDelegate {
 extension FriendsVC: UISearchBarDelegate {
     
     private func configureSearchController() {
-        let searchController                                    = UISearchController()
-        searchController.searchBar.delegate                     = self
-        searchController.searchBar.placeholder                  = "Поиск среди моих друзей".localized
-        searchController.searchBar.autocapitalizationType       = .words
-        searchController.obscuresBackgroundDuringPresentation   = false
-        navigationItem.searchController                         = searchController
-        navigationItem.hidesSearchBarWhenScrolling              = false
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск среди моих друзей".localized
+        searchController.searchBar.autocapitalizationType     = .words
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
     }
     
     

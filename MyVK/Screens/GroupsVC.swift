@@ -9,12 +9,13 @@ import UIKit
 
 final class GroupsVC: UITableViewController {
     
-    var user: User?
     var groups: [Group] = []
-    lazy var backingStore: [Group] = []
+    private lazy var backingStore: [Group] = []
     
-    let sectionTitles   = ["Добавить новое сообщество", "Мои сообщества"].localized
-    var newGroupTitle   = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
+    private var user: User?
+    
+    private let sectionTitles = ["Добавить новое сообщество", "Мои сообщества"].localized
+    private var newGroupTitle = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
     
     
     override func viewDidLoad() {
@@ -152,18 +153,21 @@ extension GroupsVC: UITextFieldDelegate {
 extension GroupsVC: UISearchBarDelegate {
     
     private func configureSearchController() {
-        let searchController                                    = UISearchController()
-        searchController.searchBar.delegate                     = self
-        searchController.searchBar.placeholder                  = "Поиск в моих сообществах".localized
-        searchController.searchBar.autocapitalizationType       = .sentences
-        searchController.obscuresBackgroundDuringPresentation   = false
-        navigationItem.searchController                         = searchController
-        navigationItem.hidesSearchBarWhenScrolling              = false
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск в моих сообществах".localized
+        searchController.searchBar.autocapitalizationType     = .sentences
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
     }
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchText.isEmpty ? (groups = backingStore) : (groups = backingStore.filter { $0.name.lowercased().contains(searchText.lowercased()) })
+        searchText.isEmpty ?
+            (groups = backingStore)
+            :
+            (groups = backingStore.filter { $0.name.lowercased().contains(searchText.lowercased()) })
         tableView.reloadData()
     }
     

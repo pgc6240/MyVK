@@ -70,9 +70,28 @@ final class LoginVC: UIViewController {
     private func checkLoginAndPassword() -> Bool {
         
         func performChecks() throws {
-            guard let enteredLogin = loginTextField.text, let enteredPassword = passwordTextField.text else { return }
-            guard enteredPassword.isValidPassword else                                { throw LoginError.invalidPassword }
-            guard enteredLogin == "79154874184" && enteredPassword == "12345678" else { throw LoginError.invalidCredentials }
+            guard var enteredLogin = loginTextField.text, let enteredPassword = passwordTextField.text else {
+                return
+            }
+            
+            if enteredLogin.isProbablyEmail {
+                guard enteredLogin.isValidEmail else {
+                    throw LoginError.invalidEmail
+                }
+            } else {
+                enteredLogin.removeCharacters(" ", "+", "(", ")", "-")
+                guard enteredLogin.isValidPhoneNumber else {
+                    throw LoginError.invalidPhoneNumber
+                }
+            }
+            
+            guard enteredPassword.isValidPassword else {
+                throw LoginError.invalidPassword
+            }
+            
+            guard enteredLogin == "79154874184" && enteredPassword == "12345678" else {
+                throw LoginError.invalidCredentials
+            }
         }
 
         do {
@@ -153,8 +172,10 @@ extension LoginVC: CheckboxDelegate {
 //
 fileprivate enum LoginError: String, LocalizedError {
     
-    case invalidCredentials = "Некорректный логин и/или пароль"
+    case invalidCredentials = "Неправильный\nлогин и/или пароль"
     case invalidPassword    = "Некорректный пароль"
+    case invalidEmail       = "Некорректный e-mail"
+    case invalidPhoneNumber = "Некорректный номер телефона"
     
     
     var name: String        { rawValue.localized }
@@ -164,6 +185,8 @@ fileprivate enum LoginError: String, LocalizedError {
         switch self {
         case .invalidCredentials:   return "\nПожалуйста, проверьте введённый логин и пароль."
         case .invalidPassword:      return "\nПароль должен содержать более восьми символов."
+        case .invalidEmail:         return "\nE-mail может содержать буквы, цифры, точку и символы: _, %, +, -."
+        case .invalidPhoneNumber:   return "\nНомер телефона может содержать цифры, пробелы и символы: +, (, ), -."
         }
     }
 }

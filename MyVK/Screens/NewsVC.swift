@@ -10,11 +10,6 @@ import UIKit
 final class NewsVC: UIViewController {
 
     var posts: [Post] = somePosts
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 }
 
 
@@ -33,10 +28,5 @@ extension NewsVC: UITableViewDataSource, UITableViewDelegate {
         let post = posts[indexPath.row]
         cell.set(with: post)
         return cell
-    }
-    
-    
-    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        nil
     }
 }
