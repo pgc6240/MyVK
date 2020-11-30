@@ -15,7 +15,7 @@ final class LoadingView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        backgroundColor     = UIColor(named: "vk-color")?.withAlphaComponent(0.75)
+        backgroundColor     = UIColor.vkColor?.withAlphaComponent(0.75)
         layer.cornerRadius  = 8
         
         let circlePath          = UIBezierPath(roundedRect: bounds.insetBy(dx: 12, dy: 12), cornerRadius: bounds.width / 2)

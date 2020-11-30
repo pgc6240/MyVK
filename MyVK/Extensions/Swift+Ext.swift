@@ -16,7 +16,7 @@ extension Int {
 extension String {
     
     var isValidPhoneNumber: Bool {
-        let phoneNumberFormat    = ""
+        let phoneNumberFormat    = "^((\\+7|7|8)+([0-9]){10})$"
         let phoneNumberPredicate = NSPredicate(format: "SELF MATCHES %@", phoneNumberFormat)
         return phoneNumberPredicate.evaluate(with: self)
     }
@@ -28,7 +28,7 @@ extension String {
     }
     
     var isValidPassword: Bool {
-        let passwordFormat    = ""
+        let passwordFormat    = ".{8,}"
         let passwordPredicate = NSPredicate(format: "SELF MATCHES %@", passwordFormat)
         return passwordPredicate.evaluate(with: self)
     }
@@ -36,5 +36,17 @@ extension String {
     var toLatin: String {
         let latinString = self.applyingTransform(StringTransform.toLatin, reverse: false) ?? self
         return latinString.applyingTransform(StringTransform.stripDiacritics, reverse: false) ?? self
+    }
+    
+    var localized: String {
+        NSLocalizedString(self, comment: "")
+    }
+}
+
+
+extension Array where Element == String {
+    
+    var localized: Array<String> {
+        self.map { $0.localized }
     }
 }

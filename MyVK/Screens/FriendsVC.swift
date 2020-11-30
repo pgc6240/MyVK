@@ -119,7 +119,7 @@ extension FriendsVC {
         if !friends[section].isEmpty {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "header")
             header?.backgroundView = BlurView()
-            header?.textLabel?.text = section == 0 ? "Заявки в друзья" : collation.sectionTitles[section - 1]
+            header?.textLabel?.text = section == 0 ? "Заявки в друзья".localized : collation.sectionTitles[section - 1]
             return header
         }
         return nil
@@ -162,7 +162,7 @@ extension FriendsVC: UISearchBarDelegate {
     private func configureSearchController() {
         let searchController                                    = UISearchController()
         searchController.searchBar.delegate                     = self
-        searchController.searchBar.placeholder                  = "Поиск среди моих друзей"
+        searchController.searchBar.placeholder                  = "Поиск среди моих друзей".localized
         searchController.searchBar.autocapitalizationType       = .words
         searchController.obscuresBackgroundDuringPresentation   = false
         navigationItem.searchController                         = searchController

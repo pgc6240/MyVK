@@ -15,7 +15,7 @@ final class SearchVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchController()
-        (1...Int.random(in: 2...100)).forEach { searchResults.append(Group(name: "Сообщество \($0)")) }
+        (1...Int.random(in: 2...100)).forEach { searchResults.append(Group(name: "Сообщество".localized + " \($0)")) }
     }
 }
 
@@ -52,7 +52,7 @@ extension SearchVC: UISearchBarDelegate {
     func configureSearchController() {
         let searchController                                    = UISearchController()
         searchController.searchBar.delegate                     = self
-        searchController.searchBar.placeholder                  = "Поиск сообществ"
+        searchController.searchBar.placeholder                  = "Поиск сообществ".localized
         searchController.obscuresBackgroundDuringPresentation   = false
         navigationItem.searchController                         = searchController
         navigationItem.hidesSearchBarWhenScrolling              = false

@@ -13,8 +13,8 @@ final class GroupsVC: UITableViewController {
     var groups: [Group] = []
     lazy var backingStore: [Group] = []
     
-    let sectionTitles   = ["Добавить новое сообщество", "Мои сообщества"]
-    var newGroupTitle   = "Новое сообщество \(Int.random(in: 100..<1000))"
+    let sectionTitles   = ["Добавить новое сообщество", "Мои сообщества"].localized
+    var newGroupTitle   = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
     
     
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ final class GroupsVC: UITableViewController {
     
     
     func loadGroups(for user: User?) {
-        (1...Int.random(in: 2...100)).forEach { groups.append(Group(name: "Сообщество \($0)")) }
+        (1...Int.random(in: 2...100)).forEach { groups.append(Group(name: "Сообщество".localized + " \($0)")) }
         backingStore = groups
     }
 }
@@ -59,7 +59,7 @@ extension GroupsVC {
             newGroupCell.imageView?.image = UIImage(systemName: "person.3.fill")
             newGroupCell.imageView?.preferredSymbolConfiguration = .init(scale: .medium)
             if let newGroupTextField = newGroupCell.viewWithTag(1001) as? UITextField {
-                newGroupTitle = "Новое сообщество \(Int.random(in: 100..<1000))"
+                newGroupTitle = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
                 newGroupTextField.text = newGroupTitle
             }
             return newGroupCell
@@ -138,7 +138,7 @@ extension GroupsVC: UITextFieldDelegate {
  
     @IBAction func editingChanged(_ textField: UITextField) {
         guard let text = textField.text, text != "" else {
-            newGroupTitle = "Новое сообщество \(Int.random(in: 100..<1000))"
+            newGroupTitle = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
             return
         }
         newGroupTitle = text
@@ -154,7 +154,7 @@ extension GroupsVC: UISearchBarDelegate {
     private func configureSearchController() {
         let searchController                                    = UISearchController()
         searchController.searchBar.delegate                     = self
-        searchController.searchBar.placeholder                  = "Поиск в моих сообществах"
+        searchController.searchBar.placeholder                  = "Поиск в моих сообществах".localized
         searchController.searchBar.autocapitalizationType       = .sentences
         searchController.obscuresBackgroundDuringPresentation   = false
         navigationItem.searchController                         = searchController

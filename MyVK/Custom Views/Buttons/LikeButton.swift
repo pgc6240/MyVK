@@ -20,7 +20,7 @@ final class LikeButton: UIButton {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        tintColor = liked ? UIColor(named: "vk-color") : .secondaryLabel
+        tintColor = liked ? .vkColor : .secondaryLabel
         updateUI()
     }
     

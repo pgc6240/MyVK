@@ -21,7 +21,7 @@ final class MyTextField: UITextField {
     private func configure() {
         backgroundColor     = .tertiarySystemBackground
         textColor           = .label
-        tintColor           = UIColor(named: "vk-color")
+        tintColor           = .vkColor
         
         font                = .preferredFont(forTextStyle: .body)
         

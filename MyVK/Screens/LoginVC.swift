@@ -15,6 +15,8 @@ final class LoginVC: UIViewController {
     @IBOutlet private weak var passwordTextField: MyTextField!
     @IBOutlet private weak var rememberMeCheckbox: Checkbox!
     
+    fileprivate var loginError: LoginError? { willSet(error) { presentAlert(title: error?.name, message: error?.message) }}
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,22 +58,30 @@ final class LoginVC: UIViewController {
     }
     
     
-    private func checkLoginAndPassword() -> Bool {
-        if loginTextField.text == "79154874184" && passwordTextField.text == "12345678" {
-            return true
-        } else {
-            presentAlert(title: "Некорректный логин/пароль", message: "Пожалуйста, введите логин и пароль.")
-            return false
-        }
-    }
-    
-    
     private func moveStackViewToCenter() {
         DispatchQueue.main.async {
         UIView.animate(withDuration: 0.4) {
             self.scrollView.contentSize.height = self.view.bounds.height
             self.scrollView.contentOffset.y    = -(self.view.bounds.height / 2 - self.stackView.bounds.height / 2)
         }}
+    }
+    
+    
+    private func checkLoginAndPassword() -> Bool {
+        
+        func performChecks() throws {
+            guard let enteredLogin = loginTextField.text, let enteredPassword = passwordTextField.text else { return }
+            guard enteredPassword.isValidPassword else                                { throw LoginError.invalidPassword }
+            guard enteredLogin == "79154874184" && enteredPassword == "12345678" else { throw LoginError.invalidCredentials }
+        }
+
+        do {
+            try performChecks()
+            return true
+        } catch {
+            loginError = error as? LoginError
+            return false
+        }
     }
 }
 
@@ -134,5 +144,26 @@ extension LoginVC: CheckboxDelegate {
     
     func checkTapped(_ checkbox: Checkbox, checked: Bool) {
         loginTextField.restorationIdentifier = checked ? "loginTextField" : nil
+    }
+}
+
+
+//
+// MARK: - LoginError
+//
+fileprivate enum LoginError: String, LocalizedError {
+    
+    case invalidCredentials = "Некорректный логин и/или пароль"
+    case invalidPassword    = "Некорректный пароль"
+    
+    
+    var name: String        { rawValue.localized }
+    var message: String?    { recoverySuggestion?.localized }
+    
+    var recoverySuggestion: String? {
+        switch self {
+        case .invalidCredentials:   return "\nПожалуйста, проверьте введённый логин и пароль."
+        case .invalidPassword:      return "\nПароль должен содержать более восьми символов."
+        }
     }
 }

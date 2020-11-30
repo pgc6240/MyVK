@@ -17,7 +17,7 @@ extension UIView {
 
 extension UIViewController {
     
-    func presentAlert(title: String, message: String, actionTitle: String = "Хорошо") {
+    func presentAlert(title: String?, message: String?, actionTitle: String? = "Хорошо") {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: .cancel))
         present(alert, animated: true)
@@ -42,6 +42,11 @@ extension UIViewController {
 
 
 extension UIColor {
+    
+    static var vkColor: UIColor? {
+        UIColor(named: "vk-color")
+    }
+    
     
     static func random() -> UIColor {
         UIColor(red: CGFloat.random(in: 0...1),
