@@ -20,8 +20,9 @@ final class LoginVC: UIViewController {
     
     
     private func configureWebView() {
-        webView                  = WKWebView(frame: UIScreen.main.bounds)
-        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        webView                     = WKWebView(frame: UIScreen.main.bounds)
+        webView.autoresizingMask    = [.flexibleWidth, .flexibleHeight]
+        webView.navigationDelegate  = self
         view.addSubview(webView)
         
         loadAuthPage()
@@ -37,12 +38,39 @@ final class LoginVC: UIViewController {
             "scope"         : "262150",
             "response_type" : "token",
             "state"         : "pgc6240",
-            "revoke"        : "1"
+            "revoke"        : "0"
         ]
         urlComponents?.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         
         if let url = urlComponents?.url {
             webView.load(URLRequest(url: url))
         }
+    }
+}
+
+
+//
+// MARK: - WKNavigationDelegate
+//
+extension LoginVC: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment else {
+            decisionHandler(.allow)
+            return
+        }
+        
+        let parameters = fragment
+            .components(separatedBy: "&")
+            .map { $0.components(separatedBy: "=") }
+            .reduce([String: String]()) {
+                var parameters = $0
+                parameters[$1[0]] = $1[1]
+                return parameters
+            }
+
+        Session.shared.token = parameters["access_token"]
+        
+        decisionHandler(.cancel)
     }
 }
