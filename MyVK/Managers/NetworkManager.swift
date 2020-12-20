@@ -17,6 +17,11 @@ final class NetworkManager {
         components?.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         return components
     }()
+    private let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
+    }()
     
     private init() {}
     
@@ -25,8 +30,9 @@ final class NetworkManager {
         urlComponents?.path = "/method/friends.get"
         urlComponents?.queryItems?.append(URLQueryItem(name: "fields", value: "bdate"))
         guard let url = urlComponents?.url else { return }
-        AF.request(url).responseJSON { response in
-            debugPrint(response)
+        AF.request(url).responseDecodable(of: Response.self, decoder: decoder) { response in
+            let friends = response.value?.response.items
+            friends?.forEach { print($0.firstName, $0.lastName) }
         }
     }
 }

@@ -7,7 +7,16 @@
 
 import Foundation
 
-final class User {
+struct Response: Decodable {
+    var response: Users
+}
+
+struct Users: Decodable {
+    var items: [User] = []
+}
+
+
+final class User: Decodable {
     
     @objc var firstName = ""
     @objc var lastName  = ""
