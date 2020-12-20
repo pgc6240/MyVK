@@ -46,6 +46,13 @@ final class LoginVC: UIViewController {
             webView.load(URLRequest(url: url))
         }
     }
+    
+    
+    private func login() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootTabBarController = storyboard.instantiateInitialViewController() as? _TabBarController
+        UIApplication.shared.windows.first?.rootViewController = rootTabBarController
+    }
 }
 
 
@@ -55,6 +62,7 @@ final class LoginVC: UIViewController {
 extension LoginVC: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        
         guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment else {
             decisionHandler(.allow)
             return
@@ -64,12 +72,17 @@ extension LoginVC: WKNavigationDelegate {
             .components(separatedBy: "&")
             .map { $0.components(separatedBy: "=") }
             .reduce([String: String]()) {
-                var parameters = $0
+                var parameters    = $0
                 parameters[$1[0]] = $1[1]
                 return parameters
             }
-
-        Session.shared.token = parameters["access_token"]
+        
+        if let token = parameters["access_token"], let usedId = Int(parameters["user_id"] ?? "unknown") {
+            Session.shared.token  = token
+            Session.shared.userId = usedId
+            
+            login()
+        }
         
         decisionHandler(.cancel)
     }
