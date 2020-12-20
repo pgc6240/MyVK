@@ -14,7 +14,7 @@ final class NewsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NetworkManager.shared.getPhotos()
+        NetworkManager.shared.getPhotos(for: Session.shared.userId ?? 0)
     }
 }
 

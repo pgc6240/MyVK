@@ -9,6 +9,7 @@ import Foundation
 
 final class User: Decodable {
     
+    var id: Int         = 0
     @objc var firstName = ""
     @objc var lastName  = ""
     

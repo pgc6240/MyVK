@@ -65,8 +65,12 @@ final class NetworkManager {
     }
     
     
-    func getPhotos() {
-        guard let url = makeUrl(method: .getPhotos, parameters: ["album_id": "profile"]) else { return }
+    func getPhotos(for userId: Int) {
+        let parameters = [
+            "owner_id": String(userId == 0 ? Session.shared.userId! : userId), // это временно
+            "album_id": "profile"
+        ]
+        guard let url = makeUrl(method: .getPhotos, parameters: parameters) else { return }
         #if DEBUG
         print(url.absoluteString)
         #endif
