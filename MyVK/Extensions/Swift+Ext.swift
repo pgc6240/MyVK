@@ -58,3 +58,11 @@ extension Array where Element == String {
         self.map { $0.localized }
     }
 }
+
+
+extension Dictionary {
+    
+    static func + (lhs: Dictionary, rhs: Dictionary) -> Dictionary {
+        return lhs.merging(rhs) { _, new in new }
+    }
+}

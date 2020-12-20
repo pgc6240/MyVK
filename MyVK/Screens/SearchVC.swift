@@ -57,4 +57,10 @@ extension SearchVC: UISearchBarDelegate {
         navigationItem.searchController                       = searchController
         navigationItem.hidesSearchBarWhenScrolling            = false
     }
+    
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchQuery = searchBar.text, searchQuery != "" else { return }
+        NetworkManager.shared.searchGroups(searchQuery)
+    }
 }

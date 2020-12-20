@@ -1,5 +1,5 @@
 //
-//  Response.swift
+//  Response+Items.swift
 //  MyVK
 //
 //  Created by pgc6240 on 20.12.2020.
