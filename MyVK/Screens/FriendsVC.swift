@@ -54,6 +54,8 @@ final class FriendsVC: UITableViewController {
         backingStore = friends
         
         updateAvaliableLetters()
+        
+        NetworkManager.shared.getFriends()
     }
     
     
