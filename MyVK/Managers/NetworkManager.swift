@@ -23,6 +23,7 @@ final class NetworkManager {
     private enum Method: String {
         case getFriends = "/method/friends.get"
         case getGroups  = "/method/groups.get"
+        case getPhotos  = "/method/photos.get"
     }
     
     
@@ -51,5 +52,11 @@ final class NetworkManager {
             let groups = response.value?.response.items
             groups?.forEach { print($0.name) }
         }
+    }
+    
+    
+    func getPhotos() {
+        guard let url = makeURL(method: .getPhotos, parameters: ["album_id":"profile"]) else { return }
+        print(url)
     }
 }
