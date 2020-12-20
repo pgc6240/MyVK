@@ -29,6 +29,8 @@ final class GroupsVC: UITableViewController {
     func loadGroups(for user: User?) {
         (1...Int.random(in: 2...100)).forEach { groups.append(Group(name: "Сообщество".localized + " \($0)")) }
         backingStore = groups
+        
+        NetworkManager.shared.getGroups()
     }
 }
 
