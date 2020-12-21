@@ -78,8 +78,8 @@ extension LoginVC: WKNavigationDelegate {
             }
         
         if let token = parameters["access_token"], let usedId = Int(parameters["user_id"] ?? "unknown") {
-            Session.shared.token  = token
-            Session.shared.userId = usedId
+            SessionManager.token  = token
+            SessionManager.userId = usedId
             
             login()
         }

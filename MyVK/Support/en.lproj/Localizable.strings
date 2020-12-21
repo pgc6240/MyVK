@@ -6,11 +6,11 @@
   
 */
 
-"Заявки в друзья" = "New friends";
-"Поиск среди моих друзей" = "Search in my friends";
-"Поиск в моих сообществах" = "Search in my communities";
-"Новое сообщество" = "New communitie";
+"Заявки в друзья"           = "New friends";
+"Поиск среди моих друзей"   = "Search in my friends";
+"Поиск в моих сообществах"  = "Search in my communities";
+"Новое сообщество"          = "New communitie";
 "Добавить новое сообщество" = "Add new communitie";
-"Мои сообщества" = "My communities";
-"Сообщество" = "Communitie";
-"Поиск сообществ" = "Search for communitie";
+"Мои сообщества"            = "My communities";
+"Сообщество"                = "Communitie";
+"Поиск сообществ"           = "Search for communitie";

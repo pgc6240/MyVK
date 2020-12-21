@@ -34,7 +34,7 @@ final class NetworkManager {
     
     private func makeUrl(method: Method, parameters input: [String: String?]) -> URL? {
         var components         = URLComponents(string: baseURL)
-        let parameters         = ["access_token" : Session.shared.token, "v" : apiVersion] + input
+        let parameters         = ["access_token" : SessionManager.token, "v" : apiVersion] + input
         components?.path       = method.path
         components?.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         return components?.url
@@ -67,7 +67,7 @@ final class NetworkManager {
     
     func getPhotos(for userId: Int) {
         let parameters = [
-            "owner_id": String(userId == 0 ? Session.shared.userId! : userId), // это временно
+            "owner_id": String(userId == 0 ? SessionManager.userId! : userId), // это временно
             "album_id": "profile"
         ]
         guard let url = makeUrl(method: .getPhotos, parameters: parameters) else { return }

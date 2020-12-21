@@ -10,12 +10,6 @@ import UIKit
 final class NewsVC: UIViewController {
 
     var posts: [Post] = somePosts
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        NetworkManager.shared.getPhotos(for: Session.shared.userId ?? 0)
-    }
 }
 
 

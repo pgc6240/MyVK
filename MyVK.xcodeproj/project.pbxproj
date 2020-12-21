@@ -23,7 +23,7 @@
 		3151FD64256CE107002C4B14 /* _InteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151FD63256CE107002C4B14 /* _InteractiveTransition.swift */; };
 		315FF5A32548B9DE0054C539 /* GroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315FF5A22548B9DE0054C539 /* GroupsVC.swift */; };
 		315FF5A62548B9F90054C539 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315FF5A52548B9F90054C539 /* SearchVC.swift */; };
-		317EF764258B555200BF786D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317EF763258B555200BF786D /* Session.swift */; };
+		317EF764258B555200BF786D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317EF763258B555200BF786D /* SessionManager.swift */; };
 		3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182B37B25438B1000E3E710 /* AppDelegate.swift */; };
 		3182B38325438B1000E3E710 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38125438B1000E3E710 /* Main.storyboard */; };
 		3182B38525438B1100E3E710 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38425438B1100E3E710 /* Assets.xcassets */; };
@@ -67,7 +67,7 @@
 		3151FD63256CE107002C4B14 /* _InteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _InteractiveTransition.swift; sourceTree = "<group>"; };
 		315FF5A22548B9DE0054C539 /* GroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsVC.swift; sourceTree = "<group>"; };
 		315FF5A52548B9F90054C539 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
-		317EF763258B555200BF786D /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		317EF763258B555200BF786D /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		3182B37825438B1000E3E710 /* MyVK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3182B37B25438B1000E3E710 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3182B38425438B1100E3E710 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -138,6 +138,7 @@
 		3122CDC52556E08400253485 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				317EF763258B555200BF786D /* SessionManager.swift */,
 				3129C700258E29320050DEDD /* NetworkManager.swift */,
 				3122CDC92556E14B00253485 /* PersistenceManager.swift */,
 				31B7A1F825587A30007F4465 /* UserDefault.swift */,
@@ -195,7 +196,6 @@
 		315FF59B2548B81B0054C539 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				317EF763258B555200BF786D /* Session.swift */,
 				31AC9B6E258F7DF600D76E39 /* Response+Items.swift */,
 				3151A368254C600900F9BFAB /* User.swift */,
 				3151A36B254C60C200F9BFAB /* Group.swift */,
@@ -426,7 +426,7 @@
 				3122CDC12556DE8C00253485 /* _TabBarController.swift in Sources */,
 				3129C701258E29320050DEDD /* NetworkManager.swift in Sources */,
 				3193AD4A256011B000F39D6F /* BlurView.swift in Sources */,
-				317EF764258B555200BF786D /* Session.swift in Sources */,
+				317EF764258B555200BF786D /* SessionManager.swift in Sources */,
 				3151A369254C600900F9BFAB /* User.swift in Sources */,
 				31CBF0C9256AD18F0041CC26 /* _NavigationController.swift in Sources */,
 				31AA53BE2567F01000C9FB27 /* PhotosVC.swift in Sources */,

@@ -10,8 +10,8 @@ import Foundation
 enum PersistenceManager {
     
     enum Keys {
-        static let appVersion   = "CFBundleVersion"
-        static let selectedTab  = "selectedTab"
+        static let appVersion  = "CFBundleVersion"
+        static let selectedTab = "selectedTab"
     }
     
     static let appVersion = Bundle.main.infoDictionary?[Keys.appVersion] as? String
