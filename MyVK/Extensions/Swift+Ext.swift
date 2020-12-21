@@ -10,6 +10,12 @@ import Foundation
 extension Int {
     
     var isEven: Bool { self % 2 == 0 }
+    
+    
+    init?(_ string: String?) {
+        guard let string = string else { return nil }
+        self.init(string)
+    }
 }
 
 

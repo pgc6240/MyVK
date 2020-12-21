@@ -46,13 +46,6 @@ final class LoginVC: UIViewController {
             webView.load(URLRequest(url: url))
         }
     }
-    
-    
-    private func login() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let rootTabBarController = storyboard.instantiateInitialViewController() as? _TabBarController
-        UIApplication.shared.windows.first?.rootViewController = rootTabBarController
-    }
 }
 
 
@@ -77,12 +70,7 @@ extension LoginVC: WKNavigationDelegate {
                 return parameters
             }
         
-        if let token = parameters["access_token"], let usedId = Int(parameters["user_id"] ?? "unknown") {
-            SessionManager.token  = token
-            SessionManager.userId = usedId
-            
-            login()
-        }
+        SessionManager.login(token: parameters["access_token"], usedId: parameters["user_id"])
         
         decisionHandler(.cancel)
     }
