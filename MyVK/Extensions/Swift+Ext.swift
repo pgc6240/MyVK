@@ -55,6 +55,12 @@ extension String {
     mutating func removeCharacters(_ character: Character...) {
         character.forEach { characterToRemove in self = self.filter { $0 != characterToRemove }}
     }
+    
+    
+    init?(_ int: Int?) {
+        guard let int = int else { return nil }
+        self.init(int)
+    }
 }
 
 

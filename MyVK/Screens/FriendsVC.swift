@@ -42,20 +42,19 @@ final class FriendsVC: UITableViewController {
     func getFriends() {
         friends = [[User]](repeating: [], count: collation.sectionTitles.count + 1)
         
-        for _ in 0..<Int.random(in: 0..<500) {
-            let friend       = makeFriend()
-            let sectionIndex = collation.section(for: friend, collationStringSelector: #selector(getter:User.lastName))
+        NetworkManager.shared.getFriends { [weak self] friends in
+            guard let self = self else { return }
             
-            friends[sectionIndex + 1].append(friend)
+            friends.forEach { friend in
+                let sectionIndex = self.collation.section(for: friend,
+                                                          collationStringSelector: #selector(getter:User.lastName))
+                self.friends[sectionIndex + 1].append(friend)
+            }
+            
+            self.backingStore = self.friends
+            self.updateAvaliableLetters()
+            self.tableView.reloadData()
         }
-        
-        friends[0] = makeRandomNumberOfFriends(upTo: 3)
-        
-        backingStore = friends
-        
-        updateAvaliableLetters()
-        
-        NetworkManager.shared.getFriends()
     }
     
     

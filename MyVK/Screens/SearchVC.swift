@@ -61,6 +61,11 @@ extension SearchVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchQuery = searchBar.text, searchQuery != "" else { return }
-        NetworkManager.shared.searchGroups(searchQuery)
+        NetworkManager.shared.searchGroups(searchQuery) { [weak self] searchResults in
+            guard let self = self else { return }
+            
+            self.searchResults = searchResults
+            self.tableView.reloadData()
+        }
     }
 }
