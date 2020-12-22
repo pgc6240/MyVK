@@ -21,6 +21,7 @@ final class NetworkManager {
         case getGroups     = "/method/groups.get"
         case getPhotos     = "/method/photos.get"
         case searchGroups  = "/method/groups.search"
+        case leaveGroup    = "/method/groups.leave"
         
         var path: String   { rawValue }
     }
@@ -50,6 +51,17 @@ final class NetworkManager {
     }
     
     
+    private func makeRequest(_ url: URL, completed: @escaping (Bool) -> Void) {
+        AF.request(url).responseJSON {
+            if let value = $0.value as? [String: Int], value["response"] == 1 {
+                completed(true)
+            } else {
+                completed(false)
+            }
+        }
+    }
+    
+    
     func getFriends(friends: @escaping ([User]) -> Void) {
         guard let url = makeURL(method: .getFriends, parameters: ["fields": "bdate"]) else { return }
         makeRequest(url, responseItem: User.self) { friends($0) }
@@ -65,7 +77,6 @@ final class NetworkManager {
     func getPhotos(for userId: Int, photos: @escaping ([Photo]) -> Void) {
         let parameters = ["owner_id": String(userId), "album_id": "profile"]
         guard let url = makeURL(method: .getPhotos, parameters: parameters) else { return }
-        print(url)
         makeRequest(url, responseItem: Photo.self) { photos($0) }
     }
     
@@ -73,6 +84,12 @@ final class NetworkManager {
     func searchGroups(_ searchQuery: String?, searchResults: @escaping ([Group]) -> Void) {
         guard let url = makeURL(method: .searchGroups, parameters: ["q": searchQuery]) else { return }
         makeRequest(url, responseItem: Group.self) { searchResults($0) }
+    }
+    
+    
+    func leaveGroup(groupId: Int, completed: @escaping (Bool) -> Void) {
+        guard let url = makeURL(method: .leaveGroup, parameters: ["group_id": String(groupId)]) else { return }
+        makeRequest(url, completed: completed)
     }
 }
 

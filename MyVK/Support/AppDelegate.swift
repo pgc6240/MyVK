@@ -39,15 +39,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PersistenceManager.load()
     }
 }
-
-
-//
-// MARK: - Dummy data
-//
-//let somePhotos = [Photo(imageName: "photo-1"), Photo(imageName: "photo-2"), Photo(imageName: "photo-1")]
-
-//let somePosts: [Post] = [
-//    Post(text: "Какой-то очень интересный пост.", photos: somePhotos, likeCount: 50, viewCount: 697),
-//    Post(text: "Ещё более интересный пост.", photos: somePhotos.dropLast(), likeCount: 107, viewCount: 1012),
-//    Post(text: "Не очень интересный пост.", photos: [somePhotos[1]], likeCount: 25, viewCount: 273)
-//]

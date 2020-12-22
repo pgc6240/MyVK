@@ -92,9 +92,15 @@ extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
+        let group = groups[indexPath.row]
+        
         if editingStyle == .delete {
-            groups.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccesful in
+                if isSuccesful {
+                    self?.groups.remove(at: indexPath.row)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                }
+            }
             
         } else if editingStyle == .insert {
             let newGroup = Group(id: Int.random(in: 0..<1000), name: newGroupTitle)
