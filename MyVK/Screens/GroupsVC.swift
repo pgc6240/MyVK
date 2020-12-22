@@ -28,7 +28,7 @@ final class GroupsVC: UITableViewController {
     
     func loadGroups() {
         NetworkManager.shared.getGroups { [weak self] groups in
-            self?.groups       = groups
+            self?.groups = groups
             self?.backingStore = groups
             self?.tableView.reloadData()
         }
@@ -40,11 +40,6 @@ final class GroupsVC: UITableViewController {
 // MARK: - UITableViewDelegate & UITableViewDataSource
 //
 extension GroupsVC {
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Мои сообщества".localized
-    }
-    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         groups.count
@@ -59,13 +54,13 @@ extension GroupsVC {
     }
     
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        "Мои сообщества".localized
     }
     
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        true
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
@@ -73,20 +68,17 @@ extension GroupsVC {
         let group = groups[indexPath.row]
         
         showLoadingView()
-        NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccesful in
+        NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
             self?.dismissLoadingView()
             
-            if isSuccesful {
+            if isSuccessful {
                 self?.groups.remove(at: indexPath.row)
                 self?.presentAlert(title: "", message: "Вы покинули сообщество\n\"\(group.name)\".")
                 tableView.deleteRows(at: [indexPath], with: .fade)
+            } else {
+                self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
             }
         }
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        .delete
     }
     
     
@@ -94,11 +86,6 @@ extension GroupsVC {
         let movedGroup = groups.remove(at: sourceIndexPath.row)
         groups.insert(movedGroup, at: destinationIndexPath.row)
         tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        true
     }
 }
 
@@ -117,13 +104,21 @@ extension GroupsVC: UISearchBarDelegate {
         navigationItem.searchController                       = searchController
         navigationItem.hidesSearchBarWhenScrolling            = false
     }
-    
+
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchText.isEmpty ?
-            (groups = backingStore)
-            :
-            (groups = backingStore.filter { $0.name.lowercased().contains(searchText.lowercased()) })
+        if searchText == "" {
+            groups = backingStore
+        } else {
+            groups = backingStore.filter {
+                var match = false
+                for word in searchText.split(separator: " ") {
+                    guard !match else { break }
+                    match = $0.name.lowercased().contains(word.lowercased())
+                }
+                return match
+            }
+        }
         tableView.reloadData()
     }
     

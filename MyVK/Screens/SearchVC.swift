@@ -9,7 +9,7 @@ import UIKit
 
 final class SearchVC: UITableViewController {
 
-    private var searchResults: [Group] = [] { didSet { tableView.reloadData() }}
+    var searchResults: [Group] = [] { didSet { tableView.reloadData() }}
     
     
     override func viewDidLoad() {
