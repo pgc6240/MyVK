@@ -10,9 +10,7 @@ import UIKit
 final class GroupsVC: UITableViewController {
     
     var groups: [Group] = []
-    private lazy var backingStore: [Group] = []
-    
-    private var user: User?
+    private var backingStore: [Group] = []
     
     private let sectionTitles = ["Добавить новое сообщество", "Мои сообщества"].localized
     private var newGroupTitle = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
@@ -22,18 +20,20 @@ final class GroupsVC: UITableViewController {
         super.viewDidLoad()
         navigationItem.leftBarButtonItem = editButtonItem
         configureSearchController()
-        loadGroups(for: user)
     }
     
     
-    func loadGroups(for user: User?) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadGroups()
+    }
+    
+    
+    func loadGroups() {
         NetworkManager.shared.getGroups { [weak self] groups in
-            guard let self = self else { return }
-            
-            self.groups       = groups
-            self.backingStore = groups
-            
-            self.tableView.reloadData()
+            self?.groups       = groups
+            self?.backingStore = groups
+            self?.tableView.reloadData()
         }
     }
 }
@@ -93,13 +93,15 @@ extension GroupsVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         let group = groups[indexPath.row]
-        
         if editingStyle == .delete {
+            showLoadingView()
             NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccesful in
+                self?.dismissLoadingView()
+                
                 if isSuccesful {
                     self?.groups.remove(at: indexPath.row)
+                    self?.presentAlert(title: "", message: "Вы покинули сообщество\n\"\(group.name)\".")
                     tableView.deleteRows(at: [indexPath], with: .fade)
-                    self?.presentAlert(title: "", message: "Вы покинули сообщество \(group.name).")
                 }
             }
             
