@@ -99,6 +99,7 @@ extension GroupsVC {
                 if isSuccesful {
                     self?.groups.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
+                    self?.presentAlert(title: "", message: "Вы покинули сообщество \(group.name).")
                 }
             }
             

@@ -10,6 +10,7 @@ import UIKit
 final class PhotosVC: UICollectionViewController {
     
     var photos: [Photo] = []
+    var userId: Int?
     
     private let pageWidth   = UIScreen.main.bounds.width
     private var currentPage = 0 { didSet { updateUI() }}

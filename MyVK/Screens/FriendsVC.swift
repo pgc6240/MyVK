@@ -65,8 +65,10 @@ final class FriendsVC: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let photosVC     = segue.destination as? PhotosVC
-        //photosVC?.photos = somePhotos
+        let photosVC = segue.destination as? PhotosVC
+        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+            photosVC?.userId = friends[indexPath.section][indexPath.row].id
+        }
         
         navigationItem.searchController?.searchBar.isHidden = true
     }
