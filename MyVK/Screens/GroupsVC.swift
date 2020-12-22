@@ -12,9 +12,6 @@ final class GroupsVC: UITableViewController {
     var groups: [Group] = []
     private var backingStore: [Group] = []
     
-    private let sectionTitles = ["Добавить новое сообщество", "Мои сообщества"].localized
-    private var newGroupTitle = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,38 +42,20 @@ final class GroupsVC: UITableViewController {
 extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        isEditing ? sectionTitles[section] : sectionTitles[1]
+        "Мои сообщества".localized
     }
     
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        isEditing ? 2 : 1
-    }
-    
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        isEditing ? (section == 0 ? 1 : groups.count) : groups.count
+        groups.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if tableView.isEditing && indexPath == [0,0] {
-            let newGroupCell = tableView.dequeueReusableCell(withIdentifier: "NewGroupCell", for: indexPath)
-            newGroupCell.imageView?.image = UIImage(systemName: "person.3.fill")
-            newGroupCell.imageView?.preferredSymbolConfiguration = .init(scale: .medium)
-            if let newGroupTextField = newGroupCell.viewWithTag(1001) as? UITextField {
-                newGroupTitle = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
-                newGroupTextField.text = newGroupTitle
-            }
-            return newGroupCell
-            
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
-            let group = groups[indexPath.row]
-            cell.set(with: group)
-            return cell
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
+        let group = groups[indexPath.row]
+        cell.set(with: group)
+        return cell
     }
     
     
@@ -91,50 +70,27 @@ extension GroupsVC {
     
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
         let group = groups[indexPath.row]
-        if editingStyle == .delete {
-            showLoadingView()
-            NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccesful in
-                self?.dismissLoadingView()
-                
-                if isSuccesful {
-                    self?.groups.remove(at: indexPath.row)
-                    self?.presentAlert(title: "", message: "Вы покинули сообщество\n\"\(group.name)\".")
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                }
-            }
+        
+        showLoadingView()
+        NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccesful in
+            self?.dismissLoadingView()
             
-        } else if editingStyle == .insert {
-            let newGroup = Group(id: Int.random(in: 0..<1000), name: newGroupTitle)
-            groups.insert(newGroup, at: 0)
-            tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
-            tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+            if isSuccesful {
+                self?.groups.remove(at: indexPath.row)
+                self?.presentAlert(title: "", message: "Вы покинули сообщество\n\"\(group.name)\".")
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         }
     }
     
     
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        
-        indexPath == [0,0] ? .insert : .delete
-    }
-    
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
-        super.setEditing(editing, animated: animated)
-        
-        editing ? tableView.insertSections([0], with: .automatic) : tableView.deleteSections([0], with: .automatic)
-        tableView.reloadSections([0], with: .automatic)
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        nil
+        .delete
     }
     
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
         let movedGroup = groups.remove(at: sourceIndexPath.row)
         groups.insert(movedGroup, at: destinationIndexPath.row)
         tableView.moveRow(at: sourceIndexPath, to: destinationIndexPath)
@@ -142,22 +98,7 @@ extension GroupsVC {
     
     
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        indexPath == [0,0] ? false : true
-    }
-}
-
-
-//
-// MARK: - UITextFieldDelegate
-//
-extension GroupsVC: UITextFieldDelegate {
- 
-    @IBAction func editingChanged(_ textField: UITextField) {
-        guard let text = textField.text, text != "" else {
-            newGroupTitle = "Новое сообщество".localized + " \(Int.random(in: 100..<1000))"
-            return
-        }
-        newGroupTitle = text
+        true
     }
 }
 
@@ -187,7 +128,8 @@ extension GroupsVC: UISearchBarDelegate {
     }
     
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        groups = backingStore
+        tableView.reloadData()
     }
 }
