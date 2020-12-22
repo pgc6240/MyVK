@@ -98,6 +98,19 @@ final class NetworkManager {
         guard let url = makeURL(apiMethod: .leaveGroup, parameters: ["group_id": String(groupId)]) else { return }
         makeRequest(url, completed: isSuccessful)
     }
+    
+    
+    func downloadPhoto(url: String?, photo: @escaping (UIImage?) -> Void) {
+        guard let url = url else { return }
+        AF.request(url).responseData {
+            guard let data = $0.data else {
+                photo(nil)
+                return
+            }
+            let image = UIImage(data: data)
+            photo(image)
+        }
+    }
 }
 
 

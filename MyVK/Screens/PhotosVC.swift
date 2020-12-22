@@ -40,6 +40,10 @@ final class PhotosVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        NetworkManager.shared.getPhotos(for: userId!) { [weak self] photos in
+            self?.photos = photos
+            self?.collectionView.reloadData()
+        }
     }
     
     
