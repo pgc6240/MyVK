@@ -7,17 +7,12 @@
 
 import UIKit
 
-extension UIView {
-    
-    func addSubviews(_ views: UIView...) {
-        views.forEach { addSubview($0) }
-    }
-}
-
-
 extension UIViewController {
     
-    func presentAlert(title: String?, message: String?, actionTitle: String? = "Хорошо") {
+    var loadingViewTag: Int { 1000 }
+    
+    
+    func presentAlert(title: String? = nil, message: String?, actionTitle: String = "Хорошо") {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: actionTitle, style: .cancel))
         present(alert, animated: true)
@@ -25,21 +20,21 @@ extension UIViewController {
     
     
     func showLoadingView() {
-        let loadingViewFrame              = CGRect(x: view.bounds.midX - 30, y: view.bounds.midY, width: 60, height: 60)
-        let loadingView                   = LoadingView(frame: loadingViewFrame)
-        loadingView.restorationIdentifier = "loading view"
-        loadingView.layer.opacity         = 0
-        
+        let width: CGFloat = 60
+        let frame = CGRect(x: view.bounds.midX - width / 2, y: view.bounds.midY, width: width, height: width)
+        let loadingView = LoadingView(frame: frame)
+        loadingView.tag = loadingViewTag
+        loadingView.layer.opacity = 0
         view.addSubview(loadingView)
         
-        UIView.transition(with: loadingView, duration: 2, options: .curveEaseIn) {
+        UIView.transition(with: loadingView, duration: 2, options: .transitionCrossDissolve) {
             loadingView.layer.opacity = 1
         }
     }
     
     
     func dismissLoadingView() {
-        let loadingView = view.subviews.filter { $0.restorationIdentifier == "loading view" }.first
+        let loadingView = view.viewWithTag(loadingViewTag)
         loadingView?.removeFromSuperview()
     }
 }
@@ -49,13 +44,5 @@ extension UIColor {
     
     static var vkColor: UIColor? {
         UIColor(named: "vk-color")
-    }
-    
-    
-    static func random() -> UIColor {
-        UIColor(red: CGFloat.random(in: 0...1),
-                green: CGFloat.random(in: 0...1),
-                blue: CGFloat.random(in: 0...1),
-                alpha: 1)
     }
 }
