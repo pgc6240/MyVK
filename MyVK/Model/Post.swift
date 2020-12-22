@@ -2,16 +2,11 @@
 //  Post.swift
 //  MyVK
 //
-//  Created by pgc6240 on 14.11.2020.
+//  Created by pgc6240 on 22.12.2020.
 //
 
-struct Post {
+struct Post: Decodable {
     
-    var text: String
-    var photos: [Photo]
-    var likeCount: Int
-    var viewCount: Int
+    let id: Int
+    let text: String
 }
-
-
-
