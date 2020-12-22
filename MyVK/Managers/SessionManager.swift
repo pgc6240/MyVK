@@ -23,7 +23,7 @@ enum SessionManager {
     
     
     static func logout() {
-        SessionManager.token  = nil
+        SessionManager.token  = "loggingOut"
         SessionManager.userId = nil
         
         UIApplication.shared.windows.first?.rootViewController = LoginVC()

@@ -10,6 +10,11 @@ import UIKit
 final class NewsVC: UIViewController {
 
     var posts: [Post] = []
+    
+    
+    @IBAction func logoutButtonTapped() {
+        SessionManager.logout()
+    }
 }
 
 

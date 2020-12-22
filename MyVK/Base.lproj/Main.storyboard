@@ -229,7 +229,16 @@
                             <constraint firstItem="5cF-4Y-gnu" firstAttribute="top" secondItem="5fB-cG-Dsu" secondAttribute="top" id="zNo-uc-dM9"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Новости" id="8Wm-F1-L5F"/>
+                    <navigationItem key="navigationItem" title="Новости" id="8Wm-F1-L5F">
+                        <barButtonItem key="rightBarButtonItem" style="done" id="Wzv-In-D3Z">
+                            <imageReference key="image" image="arrow.right.square" catalog="system" symbolScale="large"/>
+                            <imageReference key="landscapeImage" image="arrow.right.square" catalog="system" symbolScale="small"/>
+                            <imageReference key="largeContentSizeImage" image="arrow.right.square" catalog="system" symbolScale="large"/>
+                            <connections>
+                                <action selector="logoutButtonTapped" destination="eN6-S5-HpU" id="MH8-4J-dSn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNZ-GW-shA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -535,6 +544,7 @@
     <color key="tintColor" name="vk-color"/>
     <resources>
         <image name="a.square" catalog="system" width="128" height="114"/>
+        <image name="arrow.right.square" catalog="system" width="128" height="114"/>
         <image name="arrowshape.turn.up.forward" catalog="system" width="128" height="106"/>
         <image name="bubble.left" catalog="system" width="128" height="110"/>
         <image name="eye.fill" catalog="system" width="128" height="78"/>

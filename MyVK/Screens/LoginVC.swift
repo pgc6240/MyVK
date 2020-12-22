@@ -32,13 +32,13 @@ final class LoginVC: UIViewController {
     private func loadAuthPage() {
         var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize")
         let parameters    = [
-            "client_id"     : "7704322",
+            "client_id"     : "7707492",
             "redirect_uri"  : "https://oauth.vk.com/blank.html",
             "display"       : "mobile",
             "scope"         : "262150",
             "response_type" : "token",
             "state"         : "pgc6240",
-            "revoke"        : "0"
+            "revoke"        : SessionManager.token == "loggingOut" ? "1" : "0"
         ]
         urlComponents?.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         
