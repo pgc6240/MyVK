@@ -24,19 +24,23 @@ extension UIViewController {
     }
     
     
-    func showLoadingView(duration: TimeInterval) {
-        
-        let loadingViewFrame = CGRect(x: view.frame.midX - 30, y: view.frame.midY, width: 60, height: 60)
-        let loadingView      = LoadingView(frame: loadingViewFrame)
+    func showLoadingView() {
+        let loadingViewFrame              = CGRect(x: view.bounds.midX - 30, y: view.bounds.midY, width: 60, height: 60)
+        let loadingView                   = LoadingView(frame: loadingViewFrame)
+        loadingView.restorationIdentifier = "loading view"
+        loadingView.layer.opacity         = 0
         
         view.addSubview(loadingView)
         
-        UIView.transition(with: loadingView, duration: duration, options: .curveEaseIn) {
-            loadingView.layer.opacity = 0
-            
-        } completion: { _ in
-            loadingView.removeFromSuperview()
+        UIView.transition(with: loadingView, duration: 2, options: .curveEaseIn) {
+            loadingView.layer.opacity = 1
         }
+    }
+    
+    
+    func dismissLoadingView() {
+        let loadingView = view.subviews.filter { $0.restorationIdentifier == "loading view" }.first
+        loadingView?.removeFromSuperview()
     }
 }
 

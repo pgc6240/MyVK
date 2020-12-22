@@ -9,13 +9,12 @@ import UIKit
 
 final class SearchVC: UITableViewController {
 
-    var searchResults: [Group] = []
+    private var searchResults: [Group] = [] { didSet { tableView.reloadData() }}
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchController()
-        (1...Int.random(in: 2...100)).forEach { searchResults.append(Group(id: $0, name: "Сообщество".localized + " \($0)")) }
     }
 }
 
@@ -31,19 +30,29 @@ extension SearchVC {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell  = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
         let group = searchResults[indexPath.row]
         cell.set(with: group)
         return cell
     }
     
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        "Результаты поиска".localized
+    }
+    
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        
         let group = searchResults[indexPath.row]
+        
+        showLoadingView()
         NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
+            self?.dismissLoadingView()
+            
             if isSuccessful {
-                self?.presentAlert(title: "Hooray! 🎉", message: "Вы теперь состоите в сообществе \(group.name).")
+                self?.presentAlert(title: "Hooray! 🎉", message: "\nВы теперь состоите в сообществе\n\"\(group.name)\".")
             } else {
                 self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
             }
@@ -69,11 +78,16 @@ extension SearchVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchQuery = searchBar.text, searchQuery != "" else { return }
+        
+        showLoadingView()
         NetworkManager.shared.searchGroups(searchQuery) { [weak self] searchResults in
-            guard let self = self else { return }
-            
-            self.searchResults = searchResults
-            self.tableView.reloadData()
+            self?.dismissLoadingView()
+            self?.searchResults = searchResults
         }
+    }
+    
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchResults = []
     }
 }
