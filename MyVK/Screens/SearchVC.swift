@@ -40,6 +40,14 @@ extension SearchVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let group = searchResults[indexPath.row]
+        NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
+            if isSuccessful {
+                self?.presentAlert(title: "Hooray! 🎉", message: "Вы теперь состоите в сообществе \(group.name).")
+            } else {
+                self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
+            }
+        }
     }
 }
 
