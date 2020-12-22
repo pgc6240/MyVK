@@ -15,7 +15,7 @@ final class SearchVC: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchController()
-        (1...Int.random(in: 2...100)).forEach { searchResults.append(Group(name: "Сообщество".localized + " \($0)")) }
+        (1...Int.random(in: 2...100)).forEach { searchResults.append(Group(id: $0, name: "Сообщество".localized + " \($0)")) }
     }
 }
 

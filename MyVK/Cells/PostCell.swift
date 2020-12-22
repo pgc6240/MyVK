@@ -31,7 +31,7 @@ final class PostCell: UITableViewCell {
         viewCount.setTitle("\(post.viewCount)", for: .normal)
         
         for (index, photo) in post.photos.enumerated() {
-            photosImageViews[index].image = photo.image
+            //photosImageViews[index].image = photo.image
             photos.append(photo)
         }
         

@@ -62,10 +62,11 @@ final class NetworkManager {
     }
     
     
-    func getPhotos(for userId: Int?) {
+    func getPhotos(for userId: Int, photos: @escaping ([Photo]) -> Void) {
         let parameters = ["owner_id": String(userId), "album_id": "profile"]
         guard let url = makeURL(method: .getPhotos, parameters: parameters) else { return }
         print(url)
+        makeRequest(url, responseItem: Photo.self) { photos($0) }
     }
     
     

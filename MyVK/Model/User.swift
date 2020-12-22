@@ -9,13 +9,7 @@ import Foundation
 
 final class User: Decodable {
     
-    var id: Int         = 0
-    @objc var firstName = ""
-    @objc var lastName  = ""
-    
-    
-    init(firstName: String, lastName: String) {
-        self.firstName  = firstName
-        self.lastName   = lastName
-    }
+    let id: Int
+    @objc let firstName: String
+    @objc let lastName: String
 }

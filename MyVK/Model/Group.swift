@@ -7,5 +7,6 @@
 
 struct Group: Decodable {
     
-    var name: String
+    let id: Int
+    let name: String
 }

@@ -9,7 +9,7 @@ import UIKit
 
 final class NewsVC: UIViewController {
 
-    var posts: [Post] = somePosts
+    var posts: [Post] = []
 }
 
 

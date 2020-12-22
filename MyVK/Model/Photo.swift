@@ -5,14 +5,11 @@
 //  Created by pgc6240 on 14.11.2020.
 //
 
-import UIKit
-
-final class Photo {
+struct Photo: Decodable {
+    var id: Int
+    var sizes: [Sizes]
     
-    var image: UIImage?
-    
-    
-    init(imageName: String) {
-        image = UIImage(named: imageName)
+    struct Sizes: Decodable {
+        var url: String
     }
 }

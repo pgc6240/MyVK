@@ -29,6 +29,6 @@ final class PhotoCell: UICollectionViewCell {
     }
     
     func set(with photo: Photo) {
-        photoImageView.image = photo.image
+        //photoImageView.image = photo.image
     }
 }

@@ -97,7 +97,7 @@ extension GroupsVC {
             tableView.deleteRows(at: [indexPath], with: .fade)
             
         } else if editingStyle == .insert {
-            let newGroup = Group(name: newGroupTitle)
+            let newGroup = Group(id: Int.random(in: 0..<1000), name: newGroupTitle)
             groups.insert(newGroup, at: 0)
             tableView.insertRows(at: [IndexPath(row: 0, section: 1)], with: .automatic)
             tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)

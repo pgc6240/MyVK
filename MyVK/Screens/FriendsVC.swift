@@ -66,7 +66,7 @@ final class FriendsVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let photosVC     = segue.destination as? PhotosVC
-        photosVC?.photos = somePhotos
+        //photosVC?.photos = somePhotos
         
         navigationItem.searchController?.searchBar.isHidden = true
     }
@@ -99,7 +99,9 @@ extension FriendsVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let friend = friends[indexPath.section][indexPath.row]
-        NetworkManager.shared.getPhotos(for: friend.id)
+        NetworkManager.shared.getPhotos(for: friend.id) {
+            $0.forEach { print($0.sizes[0].url) }
+        }
     }
     
     
