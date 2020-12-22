@@ -10,6 +10,6 @@ import Foundation
 final class User: Decodable {
     
     let id: Int
-    @objc let firstName: String
-    @objc let lastName: String
+    @objc var firstName: String
+    @objc var lastName: String
 }

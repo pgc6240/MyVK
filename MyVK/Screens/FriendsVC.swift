@@ -48,6 +48,12 @@ final class FriendsVC: UITableViewController {
             friends.forEach { friend in
                 let sectionIndex = self.collation.section(for: friend,
                                                           collationStringSelector: #selector(getter:User.lastName))
+                
+                if Locale.current.languageCode == "en" {
+                    friend.firstName = friend.firstName.toLatin
+                    friend.lastName = friend.lastName.toLatin
+                }
+                
                 self.friends[sectionIndex + 1].append(friend)
             }
             
