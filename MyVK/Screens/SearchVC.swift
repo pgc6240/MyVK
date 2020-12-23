@@ -9,11 +9,12 @@ import UIKit
 
 final class SearchVC: UITableViewController {
 
-    var searchResults: [Group] = [] { didSet { tableView.reloadData() }}
+    var searchResults: [Group] = []
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.setEditing(true, animated: false)
         configureSearchController()
     }
     
@@ -56,17 +57,55 @@ extension SearchVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        let group = searchResults[indexPath.row]
+        if group.isMember {
+            return .delete
+        } else if group.isOpen {
+            return .insert
+        }
+        return .none
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        let group = searchResults[indexPath.row]
+        return group.isOpen
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let group = searchResults[indexPath.row]
         
         showLoadingView()
-        NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
-            self?.dismissLoadingView()
-            
-            if isSuccessful {
-                self?.presentAlert(title: "Hooray! 🎉", message: "\nВы теперь состоите в сообществе\n\"\(group.name)\".")
-            } else {
-                self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
+        if editingStyle == .insert {
+            NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
+                self?.dismissLoadingView()
+                
+                if isSuccessful {
+                    self?.presentAlert(title: "Hooray! 🎉", message: "\nВы теперь состоите в сообществе\n\"\(group.name)\".")
+                    group.isMember = true
+                } else {
+                    self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
+                }
+                
+                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
+            }
+        } else if editingStyle == .delete {
+            NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
+                self?.dismissLoadingView()
+                
+                if isSuccessful {
+                    self?.presentAlert(message: "Вы покинули сообщество\n\"\(group.name)\".")
+                    group.isMember = false
+                } else {
+                    self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
+                }
+                
+                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         }
     }
@@ -85,11 +124,13 @@ extension SearchVC: UISearchBarDelegate {
         NetworkManager.shared.searchGroups(searchQuery) { [weak self] searchResults in
             self?.dismissLoadingView()
             self?.searchResults = searchResults
+            self?.tableView.reloadData()
         }
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchResults = []
+        tableView.reloadData()
     }
 }
