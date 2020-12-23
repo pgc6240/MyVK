@@ -30,6 +30,7 @@ final class GroupsVC: UITableViewController {
         let searchController                                  = UISearchController()
         searchController.searchBar.delegate                   = self
         searchController.searchBar.placeholder                = "Поиск в моих сообществах".localized
+        searchController.searchBar.autocorrectionType         = .no
         searchController.searchBar.autocapitalizationType     = .sentences
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController                       = searchController

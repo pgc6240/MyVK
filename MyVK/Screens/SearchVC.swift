@@ -16,6 +16,18 @@ final class SearchVC: UITableViewController {
         super.viewDidLoad()
         configureSearchController()
     }
+    
+    
+    private func configureSearchController() {
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск сообществ".localized
+        searchController.searchBar.autocorrectionType         = .no
+        searchController.searchBar.autocapitalizationType     = .sentences
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
+    }
 }
 
 
@@ -65,16 +77,6 @@ extension SearchVC {
 // MARK: - UISearchBarDelegate
 //
 extension SearchVC: UISearchBarDelegate {
-    
-    private func configureSearchController() {
-        let searchController                                  = UISearchController()
-        searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск сообществ".localized
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController                       = searchController
-        navigationItem.hidesSearchBarWhenScrolling            = false
-    }
-    
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchQuery = searchBar.text, searchQuery != "" else { return }

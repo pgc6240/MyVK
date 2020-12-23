@@ -44,6 +44,7 @@ final class FriendsVC: UITableViewController {
         let searchController                                  = UISearchController()
         searchController.searchBar.delegate                   = self
         searchController.searchBar.placeholder                = "Поиск среди моих друзей".localized
+        searchController.searchBar.autocorrectionType         = .no
         searchController.searchBar.autocapitalizationType     = .words
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController                       = searchController
