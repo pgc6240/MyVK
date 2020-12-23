@@ -10,7 +10,7 @@ import UIKit
 final class GroupsVC: UITableViewController {
     
     var groups: [Group] = []
-    private var backingStore: [Group] = []
+    private lazy var backingStore: [Group] = []
     
     
     override func viewDidLoad() {
@@ -23,6 +23,17 @@ final class GroupsVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         loadGroups()
+    }
+    
+    
+    private func configureSearchController() {
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск в моих сообществах".localized
+        searchController.searchBar.autocapitalizationType     = .sentences
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
     }
     
     
@@ -55,7 +66,7 @@ extension GroupsVC {
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Мои сообщества".localized
+        groups.isEmpty ? "Вы не состоите в сообществах".localized : "Мои сообщества".localized
     }
     
     
@@ -95,26 +106,16 @@ extension GroupsVC {
 //
 extension GroupsVC: UISearchBarDelegate {
     
-    private func configureSearchController() {
-        let searchController                                  = UISearchController()
-        searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск в моих сообществах".localized
-        searchController.searchBar.autocapitalizationType     = .sentences
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController                       = searchController
-        navigationItem.hidesSearchBarWhenScrolling            = false
-    }
-
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             groups = backingStore
         } else {
-            groups = backingStore.filter {
+            groups = backingStore.filter { group in
                 var match = false
-                for word in searchText.split(separator: " ") {
+                let wordsInSearchQuery = searchText.split(separator: " ")
+                for word in wordsInSearchQuery {
                     guard !match else { break }
-                    match = $0.name.lowercased().contains(word.lowercased())
+                    match = group.name.lowercased().contains(word.lowercased())
                 }
                 return match
             }

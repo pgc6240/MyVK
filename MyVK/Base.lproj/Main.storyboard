@@ -261,16 +261,18 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FpE-bq-Kcj" customClass="ShadowedImageView" customModule="MyVK" customModuleProvider="target">
-                                            <rect key="frame" x="20" y="10" width="60" height="60"/>
+                                            <rect key="frame" x="20" y="25" width="30" height="30"/>
                                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="Yiz-cM-tv9"/>
+                                                <constraint firstAttribute="width" constant="30" id="Yiz-cM-tv9"/>
                                                 <constraint firstAttribute="width" secondItem="FpE-bq-Kcj" secondAttribute="height" multiplier="1:1" id="jjP-3f-y7x"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="image" keyPath="image" value="sample-avatar"/>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="image">
+                                                    <imageReference key="value" image="person.fill" catalog="system" symbolScale="small"/>
+                                                </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                    <real key="value" value="30"/>
+                                                    <real key="value" value="15"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                                     <color key="value" systemColor="labelColor"/>
@@ -287,7 +289,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="51C-eH-lX3">
-                                            <rect key="frame" x="94" y="29.5" width="261" height="21"/>
+                                            <rect key="frame" x="64" y="29.5" width="291" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -424,7 +426,7 @@
         <scene sceneID="cwM-BT-l4H">
             <objects>
                 <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="R1N-Pm-zQg" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Друзья" badgeValue="1" id="UCP-3E-Tdw">
+                    <tabBarItem key="tabBarItem" title="Друзья" id="UCP-3E-Tdw">
                         <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="person.2" catalog="system" symbolScale="small"/>
                         <imageReference key="largeContentSizeImage" image="person.2" catalog="system" symbolScale="large"/>
@@ -553,6 +555,7 @@
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="sample-avatar" width="800" height="800"/>
         <namedColor name="vk-color">
             <color red="0.36000001430511475" green="0.50199997425079346" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

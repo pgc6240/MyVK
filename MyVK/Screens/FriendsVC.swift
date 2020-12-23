@@ -17,6 +17,8 @@ final class FriendsVC: UITableViewController {
     
     private let collation = UILocalizedIndexedCollation.current()
     
+    private let headerReuseId = "letterHeader"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,56 +30,73 @@ final class FriendsVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.tabBarItem.badgeValue         = "\(friends[0].count)"
-        navigationItem.searchController?.searchBar.isHidden = false
+        navigationItem.searchController?.searchBar.isHidden = false /* animation-related */
     }
     
     
     private func configureTableView() {
-        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "sectionHeader")
+        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: headerReuseId)
         tableView.rowHeight = 86
     }
     
     
+    private func configureSearchController() {
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск среди моих друзей".localized
+        searchController.searchBar.autocapitalizationType     = .words
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
+    }
+    
+    
     func getFriends() {
-        friends = [[User]](repeating: [], count: collation.sectionTitles.count + 1)
+        friends = [[User]](repeating: [], count: collation.sectionTitles.count)
         
         NetworkManager.shared.getFriends { [weak self] friends in
             guard let self = self else { return }
             
             friends.forEach { friend in
-                let sectionIndex = self.collation.section(for: friend,
-                                                          collationStringSelector: #selector(getter:User.lastName))
                 
                 if Locale.current.languageCode == "en" {
                     friend.firstName = friend.firstName.toLatin
                     friend.lastName = friend.lastName.toLatin
                 }
                 
-                self.friends[sectionIndex + 1].append(friend)
+                let sectionIndex = self.collation.section(for: friend,
+                                                          collationStringSelector: #selector(getter:User.lastName))
+                self.friends[sectionIndex].append(friend)
             }
             
             self.backingStore = self.friends
-            self.updateAvaliableLetters()
-            self.tableView.reloadData()
+            self.updateUI()
         }
+    }
+    
+    
+    private func updateUI() {
+        updateAvaliableLetters()
+        tableView.reloadData()
     }
     
     
     private func updateAvaliableLetters() {
         avaliableLetters = []
-        friends.forEach { $0.forEach { avaliableLetters.insert(String($0.lastName.first ?? "A")) }}
+        friends.forEach { $0.forEach { avaliableLetters.insert(String($0.lastName.first ?? " ")) }}
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let photosVC = segue.destination as? PhotosVC
-        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+        if let cell = sender as? UITableViewCell,
+           let indexPath = tableView.indexPath(for: cell),
+           let photosVC = segue.destination as? PhotosVC {
+            
             let friend = friends[indexPath.section][indexPath.row]
-            photosVC?.userId = friend.id
+            photosVC.userId = friend.id
         }
         
-        navigationItem.searchController?.searchBar.isHidden = true
+        navigationItem.searchController?.searchBar.isHidden = true /* animation-related */
     }
 }
 
@@ -115,26 +134,18 @@ extension FriendsVC {
     }
     
     
-    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        collation.sectionTitles.firstIndex(of: title)! + 1
-    }
-    
-    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         friends[section].isEmpty ? 0 : UITableView.automaticDimension
     }
     
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard !friends[section].isEmpty else { return nil }
         
-        if !friends[section].isEmpty {
-            let header              = tableView.dequeueReusableHeaderFooterView(withIdentifier: "sectionHeader")
-            header?.backgroundView  = BlurView()
-            header?.textLabel?.text = section == 0 ? "Заявки в друзья".localized : collation.sectionTitles[section - 1]
-            
-            return header
-        }
-        return nil
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerReuseId)
+        sectionHeader?.backgroundView = BlurView()
+        sectionHeader?.textLabel?.text = collation.sectionTitles[section]
+        return sectionHeader
     }
 }
 
@@ -145,12 +156,11 @@ extension FriendsVC {
 extension FriendsVC: AlphabetPickerDelegate {
 
     @IBAction func sortButtonTapped() {
-        
         if view.subviews.contains(alphabetPicker) {
             alphabetPicker.removeFromSuperview()
-            
         } else {
-            alphabetPicker = AlphabetPicker(with: avaliableLetters.joined(), in: view)
+            let letters = avaliableLetters.filter { $0 != " " }.joined()
+            alphabetPicker = AlphabetPicker(with: letters, in: view)
             alphabetPicker.delegate = self
             view.addSubview(alphabetPicker)
         }
@@ -160,7 +170,7 @@ extension FriendsVC: AlphabetPickerDelegate {
     func letterTapped(_ alphabetPicker: AlphabetPicker, letter: String) {
         guard let sectionIndex = collation.sectionTitles.firstIndex(of: letter) else { return }
         
-        tableView.scrollToRow(at: [sectionIndex + 1, 0], at: .top, animated: true)
+        tableView.scrollToRow(at: [sectionIndex, 0], at: .top, animated: true)
         alphabetPicker.removeFromSuperview()
     }
 }
@@ -171,51 +181,29 @@ extension FriendsVC: AlphabetPickerDelegate {
 //
 extension FriendsVC: UISearchBarDelegate {
     
-    private func configureSearchController() {
-        let searchController                                  = UISearchController()
-        searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск среди моих друзей".localized
-        searchController.searchBar.autocapitalizationType     = .words
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController                       = searchController
-        navigationItem.hidesSearchBarWhenScrolling            = false
-    }
-    
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        if searchText.isEmpty {
+        if searchText == "" {
             friends = backingStore
-
         } else {
-            friends = backingStore.map { $0.filter { friend in
-                
-                let firstName           = friend.firstName.lowercased()
-                let lastName            = friend.lastName.lowercased()
-                let wordsInSearchQuery  = searchText.lowercased().split(separator: " ")
-                
+            friends = backingStore.lazy.map { $0.filter { friend in
+                var match = false
+                let wordsInSearchQuery = searchText.split(separator: " ")
                 for word in wordsInSearchQuery {
-                    return firstName.contains(word) || lastName.contains(word)
+                    guard !match else { break }
+                    match = friend.firstName.lowercased().contains(word.lowercased())
+                            ||
+                            friend.lastName.lowercased().contains(word.lowercased())
                 }
-                return false
+                return match
             }}
         }
-        
-        updateAvaliableLetters()
-        
-        tableView.reloadData()
-    }
-    
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
+        updateUI()
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         friends = backingStore
-        updateAvaliableLetters()
-        tableView.reloadData()
+        updateUI()
     }
 }
 
