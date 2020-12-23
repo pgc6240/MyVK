@@ -7,33 +7,26 @@
 
 import UIKit
 
-struct Photo: Decodable {
+final class Photo: Decodable {
     
     let id: Int
-    private let sizes: [Sizes]
+    fileprivate let sizes: [Resolution]
+    var url: String? { sizes.max()?.url }
+}
 
-    private struct Sizes: Decodable {
-        let url: String
-        let type: String
-    }
+
+fileprivate struct Resolution: Decodable, Comparable {
+    let url: String
+    let type: String
     
-    private enum Resolution: String, Comparable {
-        case s, m, x, o, p, q, r, y, z, w
-        
-        static func < (lhs: Photo.Resolution, rhs: Photo.Resolution) -> Bool {
-            switch lhs {
-            case .s:
-                return true
-            case .w:
-                return false
-            default:
-                return lhs.rawValue < rhs.rawValue
-            }
+    static func < (lhs: Resolution, rhs: Resolution) -> Bool {
+        switch lhs.type {
+        case "s": /* min resolution */
+            return true
+        case "w": /* max resolution */
+            return false
+        default:
+            return lhs.type < rhs.type
         }
-    }
-    
-    var url: String? {
-        let maxSize = sizes.sorted { Resolution(rawValue: $0.type)! > Resolution(rawValue: $1.type)! }.first
-        return maxSize?.url
     }
 }
