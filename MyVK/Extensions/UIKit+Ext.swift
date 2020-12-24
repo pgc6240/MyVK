@@ -9,6 +9,7 @@ import UIKit
 
 extension UIViewController {
     
+    var isLoading: Bool { view.viewWithTag(loadingViewTag) != nil }
     var loadingViewTag: Int { 1000 }
     
     
@@ -20,6 +21,8 @@ extension UIViewController {
     
     
     func showLoadingView() {
+        guard !isLoading else { return }
+        
         let width: CGFloat = 60
         let frame = CGRect(x: view.bounds.midX - width / 2, y: view.bounds.midY, width: width, height: width)
         let loadingView = LoadingView(frame: frame)

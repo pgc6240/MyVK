@@ -6,14 +6,14 @@
   
 */
 
-"Заявки в друзья"               = "New friends";
-"Поиск среди моих друзей"       = "Search for a friend";
-"Поиск в моих сообществах"      = "Search in my communities";
-"Новое сообщество"              = "New communitie";
-"Добавить новое сообщество"     = "Add new communitie";
-"Мои сообщества"                = "My communities";
-"Сообщество"                    = "Communitie";
-"Поиск сообществ"               = "Search for communitie";
-"Результаты поиска"             = "Search results";
-"Вы не состоите в сообществах"  = "No communities";
-"Выйти из сообщества"           = "Leave communitie";
+"Заявки в друзья"           = "New friends";
+"Поиск среди моих друзей"   = "Search for a friend";
+"Поиск в моих сообществах"  = "Search in my communities";
+"Новое сообщество"          = "New communitie";
+"Добавить новое сообщество" = "Add new communitie";
+"Мои сообщества"            = "My communities";
+"Сообщество"                = "Communitie";
+"Поиск сообществ"           = "Search for communitie";
+"Результаты поиска"         = "Search results";
+"Нет сообществ"             = "No communities";
+"Выйти из сообщества"       = "Leave communitie";

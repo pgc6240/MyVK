@@ -37,6 +37,11 @@ final class SearchVC: UITableViewController {
 //
 extension SearchVC {
     
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        "Результаты поиска".localized
+    }
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         searchResults.count
     }
@@ -47,11 +52,6 @@ extension SearchVC {
         let group = searchResults[indexPath.row]
         cell.set(with: group)
         return cell
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Результаты поиска".localized
     }
     
     
@@ -72,8 +72,7 @@ extension SearchVC {
     
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        let group = searchResults[indexPath.row]
-        return group.isOpen
+        return !isLoading
     }
     
     
@@ -84,28 +83,24 @@ extension SearchVC {
         if editingStyle == .insert {
             NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
                 self?.dismissLoadingView()
-                
                 if isSuccessful {
-                    self?.presentAlert(title: "Hooray! 🎉", message: "\nВы теперь состоите в сообществе\n\"\(group.name)\".")
                     group.isMember = true
+                    self?.tableView.reloadRows(at: [indexPath], with: .right)
+                    self?.presentAlert(title: "Hooray! 🎉", message: "\nВы теперь состоите в сообществе\n\"\(group.name)\".")
                 } else {
                     self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
                 }
-                
-                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         } else if editingStyle == .delete {
             NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
                 self?.dismissLoadingView()
-                
                 if isSuccessful {
-                    self?.presentAlert(message: "Вы покинули сообщество\n\"\(group.name)\".")
                     group.isMember = false
+                    self?.tableView.reloadRows(at: [indexPath], with: .left)
+                    self?.presentAlert(message: "Вы покинули сообщество\n\"\(group.name)\".")
                 } else {
                     self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
                 }
-                
-                self?.tableView.reloadRows(at: [indexPath], with: .automatic)
             }
         }
     }
@@ -129,7 +124,7 @@ extension SearchVC: UISearchBarDelegate {
         NetworkManager.shared.searchGroups(searchQuery) { [weak self] searchResults in
             self?.dismissLoadingView()
             self?.searchResults = searchResults
-            self?.tableView.reloadData()
+            self?.tableView.reloadSections([0], with: .automatic)
         }
     }
     

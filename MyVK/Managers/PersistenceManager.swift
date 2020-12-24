@@ -16,7 +16,7 @@ enum PersistenceManager {
     
     static let appVersion = Bundle.main.infoDictionary?[Keys.appVersion] as? String
     
-    @UserDefault(key: Keys.selectedTab, defaultValue: 0)
+    @UserDefault(key: Keys.selectedTab, defaultValue: 2)
     static var selectedTab
     
     

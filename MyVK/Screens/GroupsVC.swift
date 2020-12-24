@@ -42,7 +42,7 @@ final class GroupsVC: UITableViewController {
         NetworkManager.shared.getGroups { [weak self] groups in
             self?.groups = groups
             self?.backingStore = groups
-            self?.tableView.reloadData()
+            self?.tableView.reloadSections([0], with: .automatic)
         }
     }
 }
@@ -52,6 +52,11 @@ final class GroupsVC: UITableViewController {
 // MARK: - UITableViewDelegate & UITableViewDataSource
 //
 extension GroupsVC {
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        groups.isEmpty ? "Нет сообществ".localized : "Мои сообщества".localized
+    }
+    
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         groups.count
@@ -63,11 +68,6 @@ extension GroupsVC {
         let group = groups[indexPath.row]
         cell.set(with: group)
         return cell
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        groups.isEmpty ? "Вы не состоите в сообществах".localized : "Мои сообщества".localized
     }
     
     
@@ -85,9 +85,9 @@ extension GroupsVC {
             
             if isSuccessful {
                 self?.groups.remove(at: indexPath.row)
-                self?.presentAlert(message: "Вы покинули сообщество\n\"\(group.name)\".")
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.reloadData()
+                tableView.reloadSections([0], with: .automatic)
+                self?.presentAlert(message: "Вы покинули сообщество\n\"\(group.name)\".")
             } else {
                 self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
             }
