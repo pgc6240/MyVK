@@ -109,6 +109,11 @@ extension SearchVC {
             }
         }
     }
+    
+    
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        "Выйти из сообщества".localized
+    }
 }
 
 

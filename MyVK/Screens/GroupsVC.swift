@@ -95,6 +95,11 @@ extension GroupsVC {
     }
     
     
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        "Выйти из сообщества".localized
+    }
+    
+    
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let movedGroup = groups.remove(at: sourceIndexPath.row)
         groups.insert(movedGroup, at: destinationIndexPath.row)
