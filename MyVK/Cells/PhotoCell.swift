@@ -29,7 +29,7 @@ final class PhotoCell: UICollectionViewCell {
     }
     
     func set(with photo: Photo) {
-        NetworkManager.shared.downloadPhoto(url: photo.url) { [weak self] photo in
+        NetworkManager.shared.downloadPhoto(url: photo.maxSizeUrl) { [weak self] photo in
             self?.photoImageView.image = photo
             self?.layoutIfNeeded()
         }

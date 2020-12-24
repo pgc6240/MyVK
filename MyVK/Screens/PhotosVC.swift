@@ -42,6 +42,7 @@ final class PhotosVC: UICollectionViewController {
         configureCollectionView()
         NetworkManager.shared.getPhotos(for: userId!) { [weak self] photos in
             self?.photos = photos
+            self?.updateUI()
             self?.collectionView.reloadData()
         }
     }

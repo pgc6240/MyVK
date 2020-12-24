@@ -11,7 +11,7 @@ final class Photo: Decodable {
     
     let id: Int
     fileprivate let sizes: [Resolution]
-    var url: String? { sizes.max()?.url }
+    var maxSizeUrl: String? { sizes.max()?.url }
 }
 
 
@@ -20,10 +20,10 @@ fileprivate struct Resolution: Decodable, Comparable {
     let type: String
     
     static func < (lhs: Resolution, rhs: Resolution) -> Bool {
-        switch lhs.type {
-        case "s": /* min resolution */
+        switch (lhs.type, rhs.type) {
+        case ("s", _), (_, "w"): /* s - min resolution, w - max resolution */
             return true
-        case "w": /* max resolution */
+        case (_, "s"), ("w", _):
             return false
         default:
             return lhs.type < rhs.type
