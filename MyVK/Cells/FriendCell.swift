@@ -14,6 +14,12 @@ final class FriendCell: UITableViewCell {
     @IBOutlet weak var friendNameLabel: UILabel!
     
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        avatarImageView.prepareForReuse()
+    }
+    
+    
     func set(with friend: User) {
         avatarImageView.downloadImage(url: friend.photoMax)
         friendNameLabel.text = friend.firstName + " " + friend.lastName

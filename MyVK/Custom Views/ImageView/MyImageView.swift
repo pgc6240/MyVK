@@ -9,36 +9,26 @@ import UIKit
 
 final class MyImageView: UIImageView {
     
-    @IBInspectable var cornerRadius: CGFloat = 15 {
-        willSet { layer.cornerRadius = newValue }
-    }
-
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.waitsForConnectivity = true
+        configuration.requestCachePolicy = .returnCacheDataElseLoad
         return URLSession(configuration: configuration)
     }()
+    private weak var task: URLSessionDataTask?
     
-    private var task: URLSessionDataTask?
     
+    func downloadImage(url: String) {
+        guard let url = URL(string: url) else { return }
+        task = session.dataTask(with: url) { [weak self] data, _, _ in
+            guard let data = data else { return }
+            DispatchQueue.main.async { self?.image = UIImage(data: data) }
+        }
+        task?.resume()
+    }
     
     func prepareForReuse() {
         task?.cancel()
         image = nil
-    }
-    
-    
-    func downloadImage(url: String?) {
-        guard let string = url, let url = URL(string: string) else { return }
-        
-        let request = URLRequest(url: url, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 30)
-        
-        task = session.dataTask(with: request) { data, response, error in
-            guard let data = data else { return }
-            DispatchQueue.main.async {
-                self.image = UIImage(data: data)
-            }
-        }
-        task?.resume()
     }
 }
