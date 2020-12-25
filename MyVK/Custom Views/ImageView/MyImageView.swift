@@ -7,17 +7,16 @@
 
 import UIKit
 
-private let session: URLSession = {
+fileprivate let session: URLSession = {
     let configuration = URLSessionConfiguration.ephemeral
     configuration.waitsForConnectivity = true
-    configuration.requestCachePolicy = .returnCacheDataElseLoad
+    configuration.urlCache = URLCache(memoryCapacity: 2 * 1024 * 1024, diskCapacity: 100 * 1024 * 1024)
     return URLSession(configuration: configuration)
 }()
 
 final class MyImageView: UIImageView {
     
     private weak var task: URLSessionDataTask?
-    
     
     func downloadImage(url: String) {
         guard let url = URL(string: url) else { return }
