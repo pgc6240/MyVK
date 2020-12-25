@@ -8,6 +8,10 @@
 import UIKit
 
 final class MyImageView: UIImageView {
+    
+    @IBInspectable var cornerRadius: CGFloat = 15 {
+        willSet { layer.cornerRadius = newValue }
+    }
 
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.ephemeral

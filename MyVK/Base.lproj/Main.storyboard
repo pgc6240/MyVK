@@ -267,6 +267,11 @@
                                                 <constraint firstAttribute="width" constant="60" id="zq3-wb-gXC"/>
                                             </constraints>
                                             <imageReference key="image" image="person.fill" catalog="system" symbolScale="small"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="15"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HIY-Ri-1iQ">
                                             <rect key="frame" x="88" y="27.5" width="267" height="21"/>
