@@ -15,7 +15,7 @@ final class FriendCell: UITableViewCell {
     
     
     func set(with friend: User) {
-        avatarImageView.downloadImage(url: friend.photo100)
+        avatarImageView.downloadImage(url: friend.photoMax)
         friendNameLabel.text = friend.firstName + " " + friend.lastName
     }
 }

@@ -12,5 +12,5 @@ final class User: Decodable {
     let id: Int
     @objc var firstName: String
     @objc var lastName: String
-    let photo100: String
+    let photoMax: String
 }

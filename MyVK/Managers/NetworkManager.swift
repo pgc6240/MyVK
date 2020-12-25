@@ -75,7 +75,7 @@ final class NetworkManager {
     
     
     func getFriends(friends: @escaping ([User]) -> Void) {
-        makeRequest(.getFriends, parameters: ["fields": "bdate,photo_100"], responseItem: User.self) { friends($0) }
+        makeRequest(.getFriends, parameters: ["fields": "photo_max"], responseItem: User.self) { friends($0) }
     }
     
     
