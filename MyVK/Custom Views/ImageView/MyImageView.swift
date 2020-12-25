@@ -9,8 +9,9 @@ import UIKit
 
 fileprivate let session: URLSession = {
     let configuration = URLSessionConfiguration.ephemeral
+    let MB = 1024 * 1024
+    configuration.urlCache = URLCache(memoryCapacity: 2 * MB, diskCapacity: 100 * MB, diskPath: "imageCache")
     configuration.waitsForConnectivity = true
-    configuration.urlCache = URLCache(memoryCapacity: 2 * 1024 * 1024, diskCapacity: 100 * 1024 * 1024)
     return URLSession(configuration: configuration)
 }()
 
