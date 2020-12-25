@@ -7,14 +7,15 @@
 
 import UIKit
 
+private let session: URLSession = {
+    let configuration = URLSessionConfiguration.ephemeral
+    configuration.waitsForConnectivity = true
+    configuration.requestCachePolicy = .returnCacheDataElseLoad
+    return URLSession(configuration: configuration)
+}()
+
 final class MyImageView: UIImageView {
     
-    private lazy var session: URLSession = {
-        let configuration = URLSessionConfiguration.ephemeral
-        configuration.waitsForConnectivity = true
-        configuration.requestCachePolicy = .returnCacheDataElseLoad
-        return URLSession(configuration: configuration)
-    }()
     private weak var task: URLSessionDataTask?
     
     
