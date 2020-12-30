@@ -9,10 +9,12 @@ import Foundation
 import RealmSwift
 
 final class User: Object, Decodable {
-    @objc dynamic var id: Int
-    @objc dynamic var firstName: String
-    @objc dynamic var lastName: String
-    @objc dynamic var photoMax: String
+    
+    @objc dynamic var id = 0
+    @objc dynamic var firstName = ""
+    @objc dynamic var lastName = ""
+    @objc dynamic var photoMax = ""
+    
     
     override class func primaryKey() -> String? { "id" }
 }

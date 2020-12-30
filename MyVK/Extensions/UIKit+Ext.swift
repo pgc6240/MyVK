@@ -46,6 +46,6 @@ extension UIViewController {
 extension UIColor {
     
     static var vkColor: UIColor? {
-        UIColor(named: "vk-color")
+        UIColor(named: "AccentColor")
     }
 }

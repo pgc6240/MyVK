@@ -30,12 +30,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
         return coder.decodeObject(forKey: PersistenceManager.Keys.appVersion) as? String == PersistenceManager.appVersion
     }
-    
-    func applicationWillResignActive(_ application: UIApplication) {
-        //PersistenceManager.save()
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        //PersistenceManager.load()
-    }
 }
