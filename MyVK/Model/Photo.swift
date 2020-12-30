@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import RealmSwift
 
-final class Photo: Decodable {
+final class Photo: Object, Decodable {
     
-    let id: Int
+    @objc dynamic var id: Int
     fileprivate let sizes: [Resolution]
     var maxSizeUrl: String? { sizes.max()?.url }
+    
+    override class func primaryKey() -> String? { "id" }
 }
 
 
