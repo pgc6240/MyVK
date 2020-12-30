@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 extension Int {
     
@@ -34,6 +35,29 @@ extension Array where Element == String {
     
     var localized: Array<String> {
         self.map { $0.localized }
+    }
+}
+
+
+extension Array where Element: Object {
+    
+    @discardableResult
+    mutating func updating(with newElement: Element) -> Bool {
+        guard !self.contains(where: { $0.hashValue == newElement.hashValue }) else { return false }
+        self.append(newElement)
+        return true
+    }
+    
+    
+    @discardableResult
+    mutating func updating(with newElements: [Element]) -> Bool {
+        var updated = false
+        newElements.forEach {
+            if updating(with: $0) {
+                updated = true
+            }
+        }
+        return updated
     }
 }
 

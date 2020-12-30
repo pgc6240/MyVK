@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class FriendsVC: UITableViewController {
     
@@ -55,23 +56,48 @@ final class FriendsVC: UITableViewController {
     func getFriends() {
         friends = [[User]](repeating: [], count: collation.sectionTitles.count)
         
+        if let storedFriends = PersistenceManager.load(User.self) {
+            updateFriends(with: storedFriends)
+        }
+        
         NetworkManager.shared.getFriends { [weak self] friends in
-            guard let self = self else { return }
-            
-            friends.forEach { friend in
-                
-                if Locale.current.languageCode == "en" {
-                    friend.firstName = friend.firstName.toLatin
-                    friend.lastName = friend.lastName.toLatin
-                }
-                
-                let sectionIndex = self.collation.section(for: friend,
-                                                          collationStringSelector: #selector(getter:User.lastName))
-                self.friends[sectionIndex].append(friend)
+            self?.updateFriends(with: friends)
+            PersistenceManager.save(friends)
+        }
+    }
+    
+    
+    private func updateFriends(with friends: [User]) {
+        var friendsUpdated = false
+        
+        friends.forEach { friend in
+            if Locale.current.languageCode == "en" {
+                localize(friend)
             }
             
-            self.backingStore = self.friends
-            self.updateUI()
+            let sectionIndex = self.collation.section(for: friend,
+                                                      collationStringSelector: #selector(getter:User.lastName))
+            if self.friends[sectionIndex].updating(with: friend) {
+                friendsUpdated = true
+            }
+        }
+        
+        if friendsUpdated {
+            backingStore = self.friends
+            updateUI()
+        }
+    }
+    
+    
+    private func localize(_ friend: User) {
+        do {
+            let realm = try Realm()
+            try realm.write {
+                friend.firstName = friend.firstName.toLatin
+                friend.lastName = friend.lastName.toLatin
+            }
+        } catch {
+            print(error)
         }
     }
     

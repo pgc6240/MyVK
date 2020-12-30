@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 enum PersistenceManager {
     
@@ -20,8 +21,26 @@ enum PersistenceManager {
     static var selectedTab
     
     
-    static func save() {}
+    static func save(_ objects: [Object]) {
+        do {
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.add(objects, update: .modified)
+            try realm.commitWrite()
+        } catch {
+            print(error)
+        }
+    }
     
-    static func load() {}
+    static func load<T: Object>(_ type: T.Type) -> [T]? {
+        do {
+            let realm = try Realm()
+            let objects: [T] = realm.objects(type).map { $0 }
+            return objects
+        } catch {
+            print(error)
+        }
+        return nil
+    }
 }
 
