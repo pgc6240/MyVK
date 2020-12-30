@@ -5,6 +5,7 @@
 //  Created by pgc6240 on 19.12.2020.
 //
 
+import UIKit
 import Alamofire
 
 final class NetworkManager {

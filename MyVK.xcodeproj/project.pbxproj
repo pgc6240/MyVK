@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -22,6 +22,7 @@
 		3151A369254C600900F9BFAB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151A368254C600900F9BFAB /* User.swift */; };
 		3151A36C254C60C200F9BFAB /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151A36B254C60C200F9BFAB /* Group.swift */; };
 		3151FD64256CE107002C4B14 /* _InteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151FD63256CE107002C4B14 /* _InteractiveTransition.swift */; };
+		3153ED6B259D08A60092F7F1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3153ED6A259D08A60092F7F1 /* Alamofire */; };
 		315FF5A32548B9DE0054C539 /* GroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315FF5A22548B9DE0054C539 /* GroupsVC.swift */; };
 		315FF5A62548B9F90054C539 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315FF5A52548B9F90054C539 /* SearchVC.swift */; };
 		317EF764258B555200BF786D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317EF763258B555200BF786D /* SessionManager.swift */; };
@@ -47,7 +48,6 @@
 		31E87842254C90220014430E /* GroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E87841254C90220014430E /* GroupCell.swift */; };
 		31E90192254C7B77009576EB /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E90191254C7B77009576EB /* PhotoCell.swift */; };
 		31FC97E7256041190038AE21 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31FC97E6256041190038AE21 /* Photo.swift */; };
-		E8B83FB74256607BBF9156C6 /* Pods_MyVK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADE32528DA6682012114D49 /* Pods_MyVK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -94,9 +94,6 @@
 		31E87841254C90220014430E /* GroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCell.swift; sourceTree = "<group>"; };
 		31E90191254C7B77009576EB /* PhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
 		31FC97E6256041190038AE21 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
-		5E2FC0DB6486027157B78AF1 /* Pods-MyVK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyVK.release.xcconfig"; path = "Target Support Files/Pods-MyVK/Pods-MyVK.release.xcconfig"; sourceTree = "<group>"; };
-		784ADE9ECF4F1B26F20D164D /* Pods-MyVK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyVK.debug.xcconfig"; path = "Target Support Files/Pods-MyVK/Pods-MyVK.debug.xcconfig"; sourceTree = "<group>"; };
-		9ADE32528DA6682012114D49 /* Pods_MyVK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyVK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,21 +101,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E8B83FB74256607BBF9156C6 /* Pods_MyVK.framework in Frameworks */,
+				3153ED6B259D08A60092F7F1 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		13E842B84BCE3CE2A38F076D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				9ADE32528DA6682012114D49 /* Pods_MyVK.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		311BA3E9255884D800221C69 /* ImageView */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,8 +211,6 @@
 			children = (
 				3182B37A25438B1000E3E710 /* MyVK */,
 				3182B37925438B1000E3E710 /* Products */,
-				C5893F533B1C9C10254D07B3 /* Pods */,
-				13E842B84BCE3CE2A38F076D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -281,15 +268,6 @@
 			path = Transitions;
 			sourceTree = "<group>";
 		};
-		C5893F533B1C9C10254D07B3 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				784ADE9ECF4F1B26F20D164D /* Pods-MyVK.debug.xcconfig */,
-				5E2FC0DB6486027157B78AF1 /* Pods-MyVK.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -297,17 +275,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3182B38C25438B1100E3E710 /* Build configuration list for PBXNativeTarget "MyVK" */;
 			buildPhases = (
-				A0EEA342995A0B5826D7C02F /* [CP] Check Pods Manifest.lock */,
 				3182B37425438B1000E3E710 /* Sources */,
 				3182B37525438B1000E3E710 /* Frameworks */,
 				3182B37625438B1000E3E710 /* Resources */,
-				C815C9CF3D3733E6EA5D943E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = MyVK;
+			packageProductDependencies = (
+				3153ED6A259D08A60092F7F1 /* Alamofire */,
+			);
 			productName = MyVK;
 			productReference = 3182B37825438B1000E3E710 /* MyVK.app */;
 			productType = "com.apple.product-type.application";
@@ -336,6 +315,9 @@
 				en,
 			);
 			mainGroup = 3182B36F25438B1000E3E710;
+			packageReferences = (
+				3153ED69259D08A60092F7F1 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 3182B37925438B1000E3E710 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -358,48 +340,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		A0EEA342995A0B5826D7C02F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MyVK-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C815C9CF3D3733E6EA5D943E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyVK/Pods-MyVK-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MyVK/Pods-MyVK-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MyVK/Pods-MyVK-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3182B37425438B1000E3E710 /* Sources */ = {
@@ -588,7 +528,6 @@
 		};
 		3182B38D25438B1100E3E710 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 784ADE9ECF4F1B26F20D164D /* Pods-MyVK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -609,7 +548,6 @@
 		};
 		3182B38E25438B1100E3E710 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E2FC0DB6486027157B78AF1 /* Pods-MyVK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -650,6 +588,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3153ED69259D08A60092F7F1 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3153ED6A259D08A60092F7F1 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3153ED69259D08A60092F7F1 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3182B37025438B1000E3E710 /* Project object */;
 }
