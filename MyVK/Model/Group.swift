@@ -5,17 +5,24 @@
 //  Created by pgc6240 on 30.10.2020.
 //
 
-final class Group: Decodable {
+import Foundation
+import RealmSwift
+
+final class Group: Object, Decodable {
     
-    let id: Int
-    let name: String
-    let isOpen: Bool
-    var isMember: Bool
+    @objc dynamic var id = 0
+    @objc dynamic var name = ""
+    @objc dynamic var isOpen = false
+    @objc dynamic var isMember = false
     
     private enum CodingKeys: CodingKey {
         case id, name, isClosed, isMember
     }
     
+    
+    override class func primaryKey() -> String? { "id" }
+    
+    override init() { super.init() }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
