@@ -32,6 +32,7 @@ enum PersistenceManager {
         }
     }
     
+    
     static func load<T: Object>(_ type: T.Type) -> [T]? {
         do {
             let realm = try Realm()
@@ -41,6 +42,19 @@ enum PersistenceManager {
             print(error)
         }
         return nil
+    }
+    
+    
+    static func delete(_ objects: [Object?]) {
+        do {
+            let realm = try Realm()
+            let objects = objects.compactMap { $0 }
+            realm.beginWrite()
+            realm.delete(objects)
+            try realm.commitWrite()
+        } catch {
+            print(error)
+        }
     }
 }
 
