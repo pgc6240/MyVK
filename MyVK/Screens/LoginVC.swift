@@ -32,7 +32,7 @@ final class LoginVC: UIViewController {
     private func loadAuthPage() {
         var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize")
         let parameters    = [
-            "client_id"     : "7715455",
+            "client_id"     : "7704322",
             "redirect_uri"  : "https://oauth.vk.com/blank.html",
             "display"       : "mobile",
             "scope"         : "262150",
