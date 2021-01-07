@@ -78,7 +78,7 @@ final class PhotosVC: UICollectionViewController {
         collectionView.addGestureRecognizer(swipeGesture)
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.itemSize                 = CGSize(width: pageWidth, height: pageWidth)
+            layout.itemSize                 = CGSize(width: pageWidth, height: UIScreen.main.bounds.height)
             layout.scrollDirection          = .horizontal
             layout.minimumLineSpacing       = 0
             layout.minimumInteritemSpacing  = 0

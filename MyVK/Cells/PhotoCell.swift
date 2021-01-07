@@ -29,6 +29,7 @@ final class PhotoCell: UICollectionViewCell {
     }
     
     func set(with photo: Photo) {
+        photoImageView.contentMode = .scaleAspectFit
         NetworkManager.shared.downloadPhoto(url: photo.maxSizeUrl) { [weak self] photo in
             self?.photoImageView.image = photo
             self?.layoutIfNeeded()
