@@ -87,7 +87,11 @@ final class PhotosVC: UICollectionViewController {
     
     
     private func updateUI() {
-        title = photos.isEmpty ? "Нет фотографий" : "Фотография \(currentPage + 1) из \(photos.count)"
+        if photos.isEmpty {
+            title = "Нет фотографий".localized
+        } else {
+            title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)
+        }
     }
 }
 

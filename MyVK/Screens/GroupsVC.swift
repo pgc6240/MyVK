@@ -99,7 +99,7 @@ extension GroupsVC {
                 let removedGroup = self?.groups.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.reloadSections([0], with: .automatic)
-                self?.presentAlert(message: "Вы покинули сообщество\n\"\(group.name)\".")
+                self?.presentAlert(message: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
                 PersistenceManager.delete([removedGroup])
             } else {
                 self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")

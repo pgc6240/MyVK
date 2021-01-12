@@ -14,8 +14,8 @@ extension UIViewController {
     
     
     func presentAlert(title: String? = nil, message: String?, actionTitle: String = "Хорошо") {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle, style: .cancel))
+        let alert = UIAlertController(title: title?.localized, message: message?.localized, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: actionTitle.localized, style: .cancel))
         present(alert, animated: true)
     }
     

@@ -86,7 +86,8 @@ extension SearchVC {
                 if isSuccessful {
                     group.isMember = true
                     self?.tableView.reloadRows(at: [indexPath], with: .right)
-                    self?.presentAlert(title: "Hooray! 🎉", message: "\nВы теперь состоите в сообществе\n\"\(group.name)\".")
+                    let message = "\nВы теперь состоите в сообществе".localized + "\n\"\(group.name)\".".localized
+                    self?.presentAlert(title: "Hooray! 🎉", message: message)
                 } else {
                     self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
                 }
@@ -97,7 +98,7 @@ extension SearchVC {
                 if isSuccessful {
                     group.isMember = false
                     self?.tableView.reloadRows(at: [indexPath], with: .left)
-                    self?.presentAlert(message: "Вы покинули сообщество\n\"\(group.name)\".")
+                    self?.presentAlert(message: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
                 } else {
                     self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
                 }
