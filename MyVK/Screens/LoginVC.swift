@@ -38,7 +38,8 @@ final class LoginVC: UIViewController {
             "scope"         : "262150",
             "response_type" : "token",
             "state"         : "pgc6240",
-            "revoke"        : SessionManager.token == "loggingOut" ? "1" : "0"
+            "revoke"        : SessionManager.token == "loggingOut" ? "1" : "0",
+            "lang"          : Locale.current.identifier
         ]
         urlComponents?.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
         
