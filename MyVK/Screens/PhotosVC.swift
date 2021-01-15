@@ -12,7 +12,6 @@ final class PhotosVC: UICollectionViewController {
     var photos: [Photo] = []
     var userId: Int?
     
-    private let pageWidth   = UIScreen.main.bounds.width
     private var currentPage = 0 { didSet { updateUI() }}
     
     private var interactiveTransition = _InteractiveTransition()
@@ -78,7 +77,7 @@ final class PhotosVC: UICollectionViewController {
         collectionView.addGestureRecognizer(swipeGesture)
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.itemSize                 = CGSize(width: pageWidth, height: UIScreen.main.bounds.height)
+            layout.itemSize                 = CGSize(width: Screen.width, height: Screen.height)
             layout.scrollDirection          = .horizontal
             layout.minimumLineSpacing       = 0
             layout.minimumInteritemSpacing  = 0
@@ -122,8 +121,8 @@ extension PhotosVC {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let currentOffset       = scrollView.contentOffset.x
-        let relativeOffset      = currentOffset.truncatingRemainder(dividingBy: pageWidth) / pageWidth
-        currentPage             = Int((currentOffset + pageWidth / 2) / pageWidth)
+        let relativeOffset      = currentOffset.truncatingRemainder(dividingBy: Screen.width) / Screen.width
+        currentPage             = Int((currentOffset + Screen.width / 2) / Screen.width)
         let selectedCellIndex   = collectionView.indexPathForItem(at: CGPoint(x: currentOffset, y: view.frame.midY))
         let selectedCell        = collectionView.cellForItem(at: selectedCellIndex ?? [0,0])
         let scaleFactor         = 1 - relativeOffset * 0.5
@@ -170,7 +169,7 @@ extension PhotosVC: UIGestureRecognizerDelegate {
             navigationController?.popViewController(animated: true)
         
         case .changed:
-            let relativeTranslation = translationX / pageWidth
+            let relativeTranslation = translationX / Screen.width
             interactiveTransition.shouldFinishTransition = relativeTranslation > 0.33
             interactiveTransition.update(relativeTranslation)
             

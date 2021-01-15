@@ -45,10 +45,7 @@ final class NetworkManager {
     {
         guard let url = makeURL(apiMethod, parameters) else { return }
         
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        
-        AF.request(url).responseDecodable(of: Response<I>.self, decoder: decoder) {
+        AF.request(url).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             switch $0.result {
             case .success(let data):
                 completion(data.response.items)
