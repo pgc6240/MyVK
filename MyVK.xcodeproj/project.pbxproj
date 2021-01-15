@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		310E853225603BB20014C5EF /* NewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310E853125603BB20014C5EF /* NewsVC.swift */; };
-		3122CDC12556DE8C00253485 /* _TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* _TabBarController.swift */; };
+		3122CDC12556DE8C00253485 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* RootTabBarController.swift */; };
 		3122CDCA2556E14B00253485 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC92556E14B00253485 /* PersistenceManager.swift */; };
 		3122CDD22556FF0800253485 /* Checkbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDD12556FF0800253485 /* Checkbox.swift */; };
 		3129C701258E29320050DEDD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3129C700258E29320050DEDD /* NetworkManager.swift */; };
@@ -54,7 +54,7 @@
 
 /* Begin PBXFileReference section */
 		310E853125603BB20014C5EF /* NewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVC.swift; sourceTree = "<group>"; };
-		3122CDC02556DE8C00253485 /* _TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _TabBarController.swift; sourceTree = "<group>"; };
+		3122CDC02556DE8C00253485 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		3122CDC92556E14B00253485 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		3122CDD12556FF0800253485 /* Checkbox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkbox.swift; sourceTree = "<group>"; };
 		3129C700258E29320050DEDD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -180,6 +180,7 @@
 				318364EE2555AA4800B78F19 /* Controls */,
 				311BA3E9255884D800221C69 /* ImageView */,
 				311BA3EF25588DB200221C69 /* TextField */,
+				31CBF0C0256ACBA10041CC26 /* Transitions */,
 				3193AD49256011B000F39D6F /* BlurView.swift */,
 				3149C004255AE3E400212299 /* GradientView.swift */,
 				31BF7BA02563F863003A07C0 /* LoadingView.swift */,
@@ -235,7 +236,6 @@
 				315FF59B2548B81B0054C539 /* Model */,
 				3151A362254C5F8B00F9BFAB /* Cells */,
 				315FF5962548B61E0054C539 /* Custom Views */,
-				31CBF0C0256ACBA10041CC26 /* Transitions */,
 				315FF5952548B60C0054C539 /* Screens */,
 				31710BF72550C53100C6027A /* Support */,
 			);
@@ -263,7 +263,7 @@
 		31CBF0C0256ACBA10041CC26 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
-				3122CDC02556DE8C00253485 /* _TabBarController.swift */,
+				3122CDC02556DE8C00253485 /* RootTabBarController.swift */,
 				31CBF0C8256AD18F0041CC26 /* _NavigationController.swift */,
 				3151FD63256CE107002C4B14 /* _InteractiveTransition.swift */,
 				31CBF0C1256ACBD00041CC26 /* _PushAnimator.swift */,
@@ -370,7 +370,7 @@
 				31B5549A25920074007A4891 /* PostCell.swift in Sources */,
 				318716A1255ABBD300F4AD0C /* ShadowedImageView.swift in Sources */,
 				31BF7BA12563F863003A07C0 /* LoadingView.swift in Sources */,
-				3122CDC12556DE8C00253485 /* _TabBarController.swift in Sources */,
+				3122CDC12556DE8C00253485 /* RootTabBarController.swift in Sources */,
 				3129C701258E29320050DEDD /* NetworkManager.swift in Sources */,
 				3193AD4A256011B000F39D6F /* BlurView.swift in Sources */,
 				314227882595EB8800E4829C /* MyImageView.swift in Sources */,
@@ -467,7 +467,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -523,7 +523,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -542,7 +542,7 @@
 				CURRENT_PROJECT_VERSION = 0.3.5;
 				DEVELOPMENT_TEAM = FWZ425S5UY;
 				INFOPLIST_FILE = MyVK/Support/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -564,7 +564,7 @@
 				CURRENT_PROJECT_VERSION = 0.3.5;
 				DEVELOPMENT_TEAM = FWZ425S5UY;
 				INFOPLIST_FILE = MyVK/Support/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
