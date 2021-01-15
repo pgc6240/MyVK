@@ -10,7 +10,7 @@ import UIKit
 final class PhotoCell: UICollectionViewCell {
     static let reuseId = String(describing: PhotoCell.self)
     
-    var photoImageView: UIImageView!
+    var photoImageView: MyImageView!
     
     
     required init?(coder: NSCoder) {
@@ -24,15 +24,12 @@ final class PhotoCell: UICollectionViewCell {
     }
     
     private func layoutUI() {
-        photoImageView = UIImageView(frame: contentView.bounds)
+        photoImageView = MyImageView(frame: contentView.bounds)
         addSubview(photoImageView)
     }
     
     func set(with photo: Photo) {
         photoImageView.contentMode = .scaleAspectFit
-        NetworkManager.shared.downloadPhoto(url: photo.maxSizeUrl) { [weak self] photo in
-            self?.photoImageView.image = photo
-            self?.layoutIfNeeded()
-        }
+        photoImageView.downloadImage(url: photo.maxSizeUrl ?? "")
     }
 }

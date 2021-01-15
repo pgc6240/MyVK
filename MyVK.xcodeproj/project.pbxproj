@@ -37,6 +37,7 @@
 		318A6B3625750CC900C6FA73 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 318A6B3825750CC900C6FA73 /* Localizable.strings */; };
 		319207AD2558801F00DA039B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 319207AC2558801F00DA039B /* LaunchScreen.storyboard */; };
 		3193AD4A256011B000F39D6F /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3193AD49256011B000F39D6F /* BlurView.swift */; };
+		31A3517225B242E700CCC70F /* URLBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A3517125B242E700CCC70F /* URLBuilder.swift */; };
 		31A72DEC2554199C006B664D /* AlphabetPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A72DEB2554199C006B664D /* AlphabetPicker.swift */; };
 		31AA53BE2567F01000C9FB27 /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AA53BD2567F01000C9FB27 /* PhotosVC.swift */; };
 		31B554972591FF53007A4891 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B554962591FF53007A4891 /* Post.swift */; };
@@ -84,6 +85,7 @@
 		318A6B3725750CC900C6FA73 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		319207AC2558801F00DA039B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3193AD49256011B000F39D6F /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
+		31A3517125B242E700CCC70F /* URLBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLBuilder.swift; sourceTree = "<group>"; };
 		31A72DEB2554199C006B664D /* AlphabetPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphabetPicker.swift; sourceTree = "<group>"; };
 		31AA53BD2567F01000C9FB27 /* PhotosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
 		31B554962591FF53007A4891 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				317EF763258B555200BF786D /* SessionManager.swift */,
 				3129C700258E29320050DEDD /* NetworkManager.swift */,
 				3122CDC92556E14B00253485 /* PersistenceManager.swift */,
+				31A3517125B242E700CCC70F /* URLBuilder.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				310E853225603BB20014C5EF /* NewsVC.swift in Sources */,
 				31B7A1F925587A30007F4465 /* UserDefault.swift in Sources */,
 				3151A364254C5FC800F9BFAB /* FriendCell.swift in Sources */,
+				31A3517225B242E700CCC70F /* URLBuilder.swift in Sources */,
 				31BD2D90258E5B14002A71E3 /* LoginVC.swift in Sources */,
 				314FBDB625729E8800DA5E57 /* Swift+Ext.swift in Sources */,
 				3151FD64256CE107002C4B14 /* _InteractiveTransition.swift in Sources */,

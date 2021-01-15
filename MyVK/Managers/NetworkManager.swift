@@ -5,7 +5,6 @@
 //  Created by pgc6240 on 19.12.2020.
 //
 
-import UIKit
 import Alamofire
 
 final class NetworkManager {
@@ -14,36 +13,15 @@ final class NetworkManager {
     
     private init() {}
     
-    private let baseURL    = "https://api.vk.com"
-    private let apiVersion = "5.126"
     
-    private enum VKAPIMethod: String {
-        var path: String   { "/method/" + rawValue }
-        
-        case getFriends    = "friends.get"
-        case getGroups     = "groups.get"
-        case getPhotos     = "photos.get"
-        case searchGroups  = "groups.search"
-        case joinGroup     = "groups.join"
-        case leaveGroup    = "groups.leave"
-    }
-    
-    
-    private func makeURL(_ apiMethod: VKAPIMethod, _ parameters: [String: String?]) -> URL? {
-        var components         = URLComponents(string: baseURL)
-        let parameters         = ["access_token": SessionManager.token, "v": apiVersion] + parameters
-        components?.path       = apiMethod.path
-        components?.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
-        return components?.url
-    }
-    
-    
-    private func makeRequest<I: Decodable>(_ apiMethod: VKAPIMethod,
+    private func makeRequest<I: Decodable>(_ apiMethod: VKApiMethod,
                                            parameters: [String: String?],
                                            responseItem: I.Type,
                                            completion: @escaping ([I]) -> Void)
     {
-        guard let url = makeURL(apiMethod, parameters) else { return }
+        guard let url = URLBuilder.buildURL(apiMethod, with: parameters) else {
+            return
+        }
         
         AF.request(url).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             switch $0.result {
@@ -56,18 +34,16 @@ final class NetworkManager {
     }
     
     
-    private func makeRequest(_ apiMethod: VKAPIMethod,
+    private func makeRequest(_ apiMethod: VKApiMethod,
                              parameters: [String: String?],
-                             completed: @escaping (Bool) -> Void)
+                             isSuccessful: @escaping (Bool) -> Void)
     {
-        guard let url = makeURL(apiMethod, parameters) else { return }
+        guard let url = URLBuilder.buildURL(apiMethod, with: parameters) else {
+            return
+        }
         
         AF.request(url).responseJSON {
-            if let value = $0.value as? [String: Int], value["response"] == 1 {
-                completed(true)
-            } else {
-                completed(false)
-            }
+            isSuccessful(($0.value as? [String: Int])?["response"] == 1)
         }
     }
     
@@ -94,25 +70,12 @@ final class NetworkManager {
     
     
     func joinGroup(groupId: Int, isSuccessful: @escaping (Bool) -> Void) {
-        makeRequest(.joinGroup, parameters: ["group_id": String(groupId)], completed: isSuccessful)
+        makeRequest(.joinGroup, parameters: ["group_id": String(groupId)], isSuccessful: isSuccessful)
     }
     
     
     func leaveGroup(groupId: Int, isSuccessful: @escaping (Bool) -> Void) {
-        makeRequest(.leaveGroup, parameters: ["group_id": String(groupId)], completed: isSuccessful)
-    }
-    
-    
-    func downloadPhoto(url: String?, photo: @escaping (UIImage?) -> Void) {
-        guard let url = url else { return }
-        
-        AF.request(url).responseData {
-            guard let data = $0.data else {
-                photo(nil)
-                return
-            }
-            photo(UIImage(data: data))
-        }
+        makeRequest(.leaveGroup, parameters: ["group_id": String(groupId)], isSuccessful: isSuccessful)
     }
 }
 
@@ -121,10 +84,9 @@ final class NetworkManager {
 // MARK: - Response -
 //
 fileprivate struct Response<I: Decodable>: Decodable {
-    var response: Items<I>
+    let response: Items<I>
     
     struct Items<I: Decodable>: Decodable {
-        var count: Int
-        var items: [I]
+        let items: [I]
     }
 }
