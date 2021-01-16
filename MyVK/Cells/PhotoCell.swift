@@ -10,23 +10,8 @@ import UIKit
 final class PhotoCell: UICollectionViewCell {
     static let reuseId = String(describing: PhotoCell.self)
     
-    var photoImageView: MyImageView!
+    @IBOutlet weak var photoImageView: MyImageView!
     
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        layoutUI()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        layoutUI()
-    }
-    
-    private func layoutUI() {
-        photoImageView = MyImageView(frame: contentView.bounds)
-        addSubview(photoImageView)
-    }
     
     func set(with photo: Photo) {
         photoImageView.contentMode = .scaleAspectFit

@@ -29,7 +29,6 @@ extension Group: Decodable {
         case id, name, isClosed, isMember
     }
     
-    
     convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)

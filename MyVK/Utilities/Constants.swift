@@ -7,6 +7,16 @@
 
 import UIKit
 
+enum C { // Constants
+    static let APP_ID = "7715455"
+    /*
+     7715455
+     7707492
+     7704322
+     */
+}
+
+
 enum JSON {
     
     static let decoder: JSONDecoder = {

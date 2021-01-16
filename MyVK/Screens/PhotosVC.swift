@@ -6,11 +6,12 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class PhotosVC: UICollectionViewController {
     
     var photos: [Photo] = []
-    var userId: Int?
+    var user: User!
     
     private var currentPage = 0 { didSet { updateUI() }}
     
@@ -25,25 +26,10 @@ final class PhotosVC: UICollectionViewController {
     override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
     
     
-    init(_ photos: [Photo] = []) {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-        self.photos = photos
-    }
-
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        NetworkManager.shared.getPhotos(for: userId!) { [weak self] photos in
-            self?.photos = photos
-            self?.updateUI()
-            self?.collectionView.reloadData()
-        }
+        getPhotos()
     }
     
     
@@ -73,7 +59,6 @@ final class PhotosVC: UICollectionViewController {
     private func configureCollectionView() {
         collectionView.backgroundColor                = .black
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseId)
         collectionView.addGestureRecognizer(swipeGesture)
         
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -81,6 +66,15 @@ final class PhotosVC: UICollectionViewController {
             layout.scrollDirection          = .horizontal
             layout.minimumLineSpacing       = 0
             layout.minimumInteritemSpacing  = 0
+        }
+    }
+    
+    
+    func getPhotos() {
+        NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
+            self?.photos = photos
+            self?.updateUI()
+            self?.collectionView.reloadData()
         }
     }
     

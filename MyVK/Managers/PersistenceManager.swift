@@ -23,10 +23,11 @@ enum PersistenceManager {
     
     static func save(_ objects: [Object]) {
         do {
-            let realm = try Realm()
+            let realm = try Realm(configuration: Realm.Configuration(deleteRealmIfMigrationNeeded: true))
             realm.beginWrite()
-            realm.add(objects, update: .modified)
+            realm.add(objects, update: .all)
             try realm.commitWrite()
+            print(realm.configuration.fileURL)
         } catch {
             print(error)
         }

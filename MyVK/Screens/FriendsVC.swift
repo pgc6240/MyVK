@@ -56,13 +56,8 @@ final class FriendsVC: UITableViewController {
     func getFriends() {
         friends = [[User]](repeating: [], count: collation.sectionTitles.count)
         
-        if let storedFriends = PersistenceManager.load(User.self) {
-            updateFriends(with: storedFriends)
-        }
-        
         NetworkManager.shared.getFriends { [weak self] friends in
             self?.updateFriends(with: friends)
-            PersistenceManager.save(friends)
         }
     }
     
@@ -120,7 +115,7 @@ final class FriendsVC: UITableViewController {
            let photosVC = segue.destination as? PhotosVC {
             
             let friend = friends[indexPath.section][indexPath.row]
-            photosVC.userId = friend.id
+            photosVC.user = friend
         }
         
         navigationItem.searchController?.searchBar.isHidden = true /* animation-related */

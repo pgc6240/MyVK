@@ -39,13 +39,8 @@ final class GroupsVC: UITableViewController {
     
     
     func loadGroups() {
-        if let storedGroups = PersistenceManager.load(Group.self) {
-            updateGroups(with: storedGroups)
-        }
-        
         NetworkManager.shared.getGroups { [weak self] groups in
             self?.updateGroups(with: groups)
-            PersistenceManager.save(groups)
         }
     }
     

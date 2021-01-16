@@ -14,19 +14,20 @@ final class NetworkManager {
     private init() {}
     
     
-    private func makeRequest<I: Decodable>(_ apiMethod: VKApiMethod,
+    // MARK: - Internal methods -
+    private func makeRequest<I: Decodable>(_ vkApiMethod: VKApiMethod,
                                            parameters: [String: String?],
                                            responseItem: I.Type,
                                            completion: @escaping ([I]) -> Void)
     {
-        guard let url = URLBuilder.buildURL(apiMethod, with: parameters) else {
+        guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else {
             return
         }
         
         AF.request(url).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             switch $0.result {
-            case .success(let data):
-                completion(data.response.items)
+            case .success(let response):
+                completion(response.response.items)
             case .failure(let error):
                 print(error)
             }
@@ -34,20 +35,20 @@ final class NetworkManager {
     }
     
     
-    private func makeRequest(_ apiMethod: VKApiMethod,
+    private func makeRequest(_ vkApiMethod: VKApiMethod,
                              parameters: [String: String?],
                              isSuccessful: @escaping (Bool) -> Void)
     {
-        guard let url = URLBuilder.buildURL(apiMethod, with: parameters) else {
-            return
-        }
+        guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else { return }
         
         AF.request(url).responseJSON {
+            /* Sample response JSON: { "response": 1 } */
             isSuccessful(($0.value as? [String: Int])?["response"] == 1)
         }
     }
     
     
+    // MARK: - External methods -
     func getFriends(friends: @escaping ([User]) -> Void) {
         makeRequest(.getFriends, parameters: ["fields": "photo_max"], responseItem: User.self) { friends($0) }
     }
