@@ -9,6 +9,10 @@ import UIKit
 
 final class MyImageView: UIImageView {
     
+    @IBInspectable var cornerRadius: CGFloat = 0 {
+        willSet { layer.cornerRadius = newValue }
+    }
+    
     private weak var task: URLSessionDataTask?
     
     

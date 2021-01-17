@@ -382,22 +382,25 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.3.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Vpt-fR-CSw" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="60" height="60"/>
+                                            <rect key="frame" x="16" y="11" width="60" height="57"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" secondItem="Vpt-fR-CSw" secondAttribute="height" multiplier="20:21" id="K5n-Md-IVn"/>
                                                 <constraint firstAttribute="width" constant="60" id="Moq-CD-Rq0"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="PM0-Gt-heU"/>
-                                                <constraint firstAttribute="width" secondItem="Vpt-fR-CSw" secondAttribute="height" multiplier="20:21" id="Rxi-ed-Sc7"/>
+                                                <constraint firstAttribute="width" secondItem="Vpt-fR-CSw" secondAttribute="height" id="Rxi-ed-Sc7"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="30"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Открытое сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qf4-8P-hLl">
-                                            <rect key="frame" x="84" y="43.5" width="239" height="19.5"/>
+                                            <rect key="frame" x="84" y="42" width="239" height="19.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ac-d8-frF">
-                                            <rect key="frame" x="84" y="18.5" width="239" height="21"/>
+                                            <rect key="frame" x="84" y="17" width="239" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -472,22 +475,25 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.3.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5MA-TC-DWb" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="11" width="60" height="60"/>
+                                            <rect key="frame" x="16" y="11" width="60" height="57"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="XKU-Tw-SCs"/>
-                                                <constraint firstAttribute="width" secondItem="5MA-TC-DWb" secondAttribute="height" multiplier="20:21" id="aIo-zI-3XF"/>
-                                                <constraint firstAttribute="width" secondItem="5MA-TC-DWb" secondAttribute="height" multiplier="20:21" id="hiC-3i-jkn"/>
-                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="60" id="lXS-yq-Flo"/>
+                                                <constraint firstAttribute="width" secondItem="5MA-TC-DWb" secondAttribute="height" id="aIo-zI-3XF"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="30"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Открытое сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eb3-ZI-lXK">
-                                            <rect key="frame" x="84" y="43.5" width="239" height="19.5"/>
+                                            <rect key="frame" x="84" y="42" width="239" height="19.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jtv-rT-fP7">
-                                            <rect key="frame" x="84" y="18.5" width="239" height="21"/>
+                                            <rect key="frame" x="84" y="17" width="239" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
