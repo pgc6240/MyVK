@@ -72,10 +72,16 @@ final class PhotosVC: UICollectionViewController {
     
     func getPhotos() {
         NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
-            self?.photos = photos
-            self?.updateUI()
-            self?.collectionView.reloadData()
+            self?.updatePhotos(with: photos)
         }
+    }
+    
+    
+    private func updatePhotos(with newPhotos: [Photo]) {
+        photos = newPhotos
+        updateUI()
+        photos.forEach { $0.owner = user }
+        PersistenceManager.save(photos)
     }
     
     
@@ -85,6 +91,7 @@ final class PhotosVC: UICollectionViewController {
         } else {
             title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)
         }
+        collectionView.reloadData()
     }
 }
 
