@@ -39,8 +39,13 @@ final class GroupsVC: UITableViewController {
     
     
     func loadGroups() {
+        if let storedGroups = PersistenceManager.load(Group.self) {
+            updateGroups(with: storedGroups)
+        }
+        
         NetworkManager.shared.getGroups { [weak self] groups in
             self?.updateGroups(with: groups)
+            PersistenceManager.save(groups)
         }
     }
     
@@ -88,16 +93,17 @@ extension GroupsVC {
         
         showLoadingView()
         NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
-            self?.dismissLoadingView()
+            guard let self = self else { return }
+            self.dismissLoadingView()
             
             if isSuccessful {
-                let removedGroup = self?.groups.remove(at: indexPath.row)
+                let removedGroup = self.groups.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 tableView.reloadSections([0], with: .automatic)
-                self?.presentAlert(message: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
+                self.presentAlert(message: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
                 PersistenceManager.delete([removedGroup])
             } else {
-                self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
+                self.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
             }
         }
     }

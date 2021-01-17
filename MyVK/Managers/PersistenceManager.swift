@@ -55,10 +55,9 @@ enum PersistenceManager {
     }
     
     
-    static func delete(_ objects: [Object?]) {
+    static func delete(_ objects: [Object]) {
         do {
             let realm = try Realm(configuration: realmConfiguration)
-            let objects = objects.compactMap { $0 }
             realm.beginWrite()
             realm.delete(objects)
             try realm.commitWrite()
