@@ -9,10 +9,10 @@ import UIKit
 
 final class PhotosVC: UICollectionViewController {
     
-    var photos: [Photo] = []
     var user: User!
+    var photos: [Photo] = []
     
-    private var currentPage = 0 { didSet { updateUI() }}
+    private var currentPage = 0 { didSet { updateTitle() }}
     
     private var interactiveTransition = _InteractiveTransition()
     
@@ -22,12 +22,10 @@ final class PhotosVC: UICollectionViewController {
         return recognizer
     }()
     
-    override var preferredStatusBarStyle: UIStatusBarStyle { .darkContent }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateUI()
+        updateTitle()
         configureCollectionView()
         getPhotos()
     }
@@ -49,6 +47,7 @@ final class PhotosVC: UICollectionViewController {
     
     
     private func configureViewController() {
+        title                                         = ""
         view.backgroundColor                          = .black
         overrideUserInterfaceStyle                    = .dark
         navigationController?.navigationBar.barStyle  = .black
@@ -73,6 +72,11 @@ final class PhotosVC: UICollectionViewController {
     
     func getPhotos() {
         NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
+            if photos.isEmpty {
+                self?.title = "Нет фотографий".localized
+                return
+            }
+            
             self?.updatePhotos(with: photos)
         }
     }
@@ -80,19 +84,16 @@ final class PhotosVC: UICollectionViewController {
     
     private func updatePhotos(with newPhotos: [Photo]) {
         photos = newPhotos
-        updateUI()
+        collectionView.reloadData()
+        updateTitle()
         photos.forEach { $0.owner = user }
         PersistenceManager.save(photos)
     }
     
     
-    private func updateUI() {
-        if photos.isEmpty {
-            title = "Нет фотографий".localized
-        } else {
-            title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)
-        }
-        collectionView.reloadData()
+    private func updateTitle() {
+        guard !photos.isEmpty else { return }
+        title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)
     }
 }
 
