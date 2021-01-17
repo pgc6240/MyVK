@@ -56,8 +56,13 @@ final class FriendsVC: UITableViewController {
     func getFriends() {
         friends = [[User]](repeating: [], count: collation.sectionTitles.count)
         
+        if let storedFriends = PersistenceManager.load(User.self) {
+            updateFriends(with: storedFriends)
+        }
+        
         NetworkManager.shared.getFriends { [weak self] friends in
             self?.updateFriends(with: friends)
+            PersistenceManager.save(friends)
         }
     }
     
