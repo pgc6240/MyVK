@@ -13,8 +13,8 @@ final class User: Object {
     @objc dynamic var id = 0
     @objc dynamic var firstName = ""
     @objc dynamic var lastName = ""
-    @objc dynamic var photoMax = ""
-    let photos = List<Photo>()
+    @objc dynamic var maxSizePhotoUrl = ""
+    let photos = LinkingObjects(fromType: Photo.self, property: "owner")
     
     
     override class func primaryKey() -> String? { "id" }
@@ -26,7 +26,7 @@ final class User: Object {
 //
 extension User: Decodable {
     
-    private enum CodingKeys: CodingKey {
-        case id, firstName, lastName, photoMax
+    private enum CodingKeys: String, CodingKey {
+        case id, firstName, lastName, maxSizePhotoUrl = "photoMax"
     }
 }

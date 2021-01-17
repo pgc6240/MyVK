@@ -8,6 +8,7 @@
 import UIKit
 
 final class PostCell: UITableViewCell {
+    
     static let reuseId = String(describing: PostCell.self)
     
     

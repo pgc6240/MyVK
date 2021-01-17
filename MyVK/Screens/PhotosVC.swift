@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class PhotosVC: UICollectionViewController {
     
@@ -28,6 +27,7 @@ final class PhotosVC: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateUI()
         configureCollectionView()
         getPhotos()
     }

@@ -115,12 +115,13 @@ final class FriendsVC: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? UITableViewCell,
+        if let cell      = sender as? UITableViewCell,
            let indexPath = tableView.indexPath(for: cell),
-           let photosVC = segue.destination as? PhotosVC {
-            
-            let friend = friends[indexPath.section][indexPath.row]
-            photosVC.user = friend
+           let photosVC  = segue.destination as? PhotosVC
+        {
+            let friend      = friends[indexPath.section][indexPath.row]
+            photosVC.user   = friend
+            photosVC.photos = friend.photos.map { $0 }
         }
         
         navigationItem.searchController?.searchBar.isHidden = true /* animation-related */

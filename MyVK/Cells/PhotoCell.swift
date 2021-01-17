@@ -8,6 +8,7 @@
 import UIKit
 
 final class PhotoCell: UICollectionViewCell {
+    
     static let reuseId = String(describing: PhotoCell.self)
     
     @IBOutlet weak var photoImageView: MyImageView!
@@ -15,6 +16,6 @@ final class PhotoCell: UICollectionViewCell {
     
     func set(with photo: Photo) {
         photoImageView.contentMode = .scaleAspectFit
-        photoImageView.downloadImage(url: photo.maxSizeUrl ?? "")
+        photoImageView.downloadImage(with: photo.maxSizeUrl)
     }
 }

@@ -8,6 +8,7 @@
 import UIKit
 
 final class GroupCell: UITableViewCell {
+    
     static let reuseId = String(describing: GroupCell.self)
     
     
