@@ -44,6 +44,7 @@ final class PhotosVC: UICollectionViewController {
         overrideUserInterfaceStyle                    = .unspecified
         navigationController?.navigationBar.barStyle  = .default
         tabBarController?.overrideUserInterfaceStyle  = .unspecified
+        (parent as? UINavigationController)?.setNavigationBarHidden(true, animated: false)
     }
     
     

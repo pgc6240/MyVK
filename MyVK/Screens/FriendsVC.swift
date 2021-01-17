@@ -32,6 +32,11 @@ final class FriendsVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.searchController?.searchBar.isHidden = false /* animation-related */
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            UIView.transition(with: self.view, duration: 0.6, options: []) {
+                self.navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+        }
     }
     
     

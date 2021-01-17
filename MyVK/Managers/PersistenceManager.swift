@@ -36,7 +36,6 @@ enum PersistenceManager {
             realm.beginWrite()
             realm.add(objects, update: .modified)
             try realm.commitWrite()
-            print(realm.configuration.fileURL ?? "")
         } catch {
             print(error)
         }
