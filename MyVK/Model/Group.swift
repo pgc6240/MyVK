@@ -14,6 +14,7 @@ final class Group: Object {
     @objc dynamic var name = ""
     @objc dynamic var isOpen = false
     @objc dynamic var isMember = false
+    @objc dynamic var photoUrl = ""
     
 
     override class func primaryKey() -> String? { "id" }
@@ -25,8 +26,8 @@ final class Group: Object {
 //
 extension Group: Decodable {
     
-    private enum CodingKeys: CodingKey {
-        case id, name, isClosed, isMember
+    private enum CodingKeys: String, CodingKey {
+        case id, name, isClosed, isMember, photoUrl = "photo200"
     }
     
     convenience init(from decoder: Decoder) throws {
@@ -38,5 +39,6 @@ extension Group: Decodable {
         self.isOpen = isClosed == 0
         let isMember = try container.decode(Int.self, forKey: .isMember)
         self.isMember = isMember == 1
+        self.photoUrl = try container.decode(String.self, forKey: .photoUrl)
     }
 }

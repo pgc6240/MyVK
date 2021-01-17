@@ -11,8 +11,14 @@ final class GroupCell: UITableViewCell {
     
     static let reuseId = String(describing: GroupCell.self)
     
+    @IBOutlet weak var avatarImageView: MyImageView!
+    @IBOutlet weak var groupNameLabel: UILabel!
+    @IBOutlet weak var groupIsPublicLabel: UILabel!
+    
     
     func set(with group: Group) {
-        textLabel?.text = group.name
+        avatarImageView.downloadImage(with: group.photoUrl)
+        groupNameLabel.text = group.name
+        groupIsPublicLabel.text = (group.isOpen ? "Открытое".localized : "Закрытое".localized) + " сообщество".localized
     }
 }
