@@ -47,7 +47,7 @@ final class PhotosVC: UICollectionViewController {
     
     
     private func configureViewController() {
-        title                                         = ""
+        title                                         = "..."
         view.backgroundColor                          = .black
         overrideUserInterfaceStyle                    = .dark
         navigationController?.navigationBar.barStyle  = .black

@@ -12,8 +12,8 @@ final class LoginVC: UIViewController {
     
     private var webView: WKWebView!
     
-    @UserDefault(key: "appId", defaultValue: C.appIds.first)
-    private var appId: String?
+    @UserDefault(key: "appId", defaultValue: C.appIds[0])
+    private var appId: String
     
     
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ final class LoginVC: UIViewController {
     
     private func loadAuthPage() {
         var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize")
-        let parameters    = [
+        let parameters = [
             "client_id"     : appId,
             "redirect_uri"  : "https://oauth.vk.com/blank.html",
             "display"       : "mobile",
@@ -61,9 +61,13 @@ extension LoginVC: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         
         guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment else {
-            decisionHandler(.cancel)
-            appId = C.appIds.randomElement()
-            loadAuthPage()
+            if navigationResponse.response.url?.path == "/error" {
+                appId = C.appIds.randomElement() ?? C.appIds[0]
+                loadAuthPage()
+                decisionHandler(.cancel)
+                return
+            }
+            decisionHandler(.allow)
             return
         }
         
