@@ -16,6 +16,7 @@ final class User: Object {
     @objc dynamic var maxSizePhotoUrl = ""
     let photos = LinkingObjects(fromType: Photo.self, property: "owner")
     let groups = List<Group>()
+    let posts = List<Post>()
     
     
     //MARK: - Current user

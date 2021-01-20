@@ -41,6 +41,9 @@ enum PersistenceManager {
     static func save<T: Object>(_ objects: [T], in list: List<T>) {
         guard let realm = try? Realm(configuration: realmConfiguration) else { return }
         try? realm.write {
+            if list.count > objects.count {
+                list.removeAll()
+            }
             for object in objects {
                 let object = realm.create(T.self, value: object, update: .modified)
                 guard !list.contains(object) else { continue }

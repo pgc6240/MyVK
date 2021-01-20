@@ -6,27 +6,51 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class NewsVC: UIViewController {
-
-    var posts: [Post] = []
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    var posts: List<Post> = User.current.posts
+    private var notificationToken: NotificationToken?
+    
+    private weak var timer: Timer?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureViewContoller()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getPosts()
+    }
+    
+    
+    private func configureViewContoller() {
+        PersistenceManager.pair(posts, with: tableView, token: &notificationToken)
+        timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in self?.getPosts() }
     }
     
     
     func getPosts() {
         NetworkManager.shared.getPosts { posts in
-            print(posts.count)
+            PersistenceManager.save(posts, in: User.current.posts)
         }
     }
     
     
     @IBAction func logoutButtonTapped() {
         SessionManager.logout()
+    }
+    
+    
+    deinit {
+        notificationToken?.invalidate()
+        timer?.invalidate()
     }
 }
 

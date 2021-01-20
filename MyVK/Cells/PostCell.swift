@@ -13,6 +13,6 @@ final class PostCell: UITableViewCell {
     
     
     func set(with post: Post) {
-        
+        textLabel?.text = post.text
     }
 }
