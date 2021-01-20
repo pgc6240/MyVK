@@ -42,6 +42,20 @@ enum PersistenceManager {
     }
     
     
+    static func save<T: Object>(_ objects: [T], in list: List<T>) {
+        do {
+            let realm = try Realm(configuration: realmConfiguration)
+            try realm.write {
+                list.removeAll()
+                list.append(objectsIn: objects)
+                realm.add(User.current, update: .modified)
+            }
+        } catch {
+            print(error)
+        }
+    }
+    
+    
     static func load<T: Object>(_ type: T.Type) -> [T]? {
         do {
             let realm = try Realm(configuration: realmConfiguration)
@@ -65,4 +79,3 @@ enum PersistenceManager {
         }
     }
 }
-

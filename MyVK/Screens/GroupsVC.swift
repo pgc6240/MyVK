@@ -45,7 +45,9 @@ final class GroupsVC: UITableViewController {
         
         NetworkManager.shared.getGroups { [weak self] groups in
             self?.updateGroups(with: groups)
-            PersistenceManager.save(groups)
+            //PersistenceManager.save(groups)
+            PersistenceManager.save(groups, in: User.current.groups)
+            
         }
     }
     

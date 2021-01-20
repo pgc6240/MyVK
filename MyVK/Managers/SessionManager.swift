@@ -17,6 +17,8 @@ enum SessionManager {
         SessionManager.token  = token
         SessionManager.userId = Int(usedId)
         
+        User.current = User(id: Int(usedId)!)
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         UIApplication.shared.windows.first?.rootViewController = storyboard.instantiateInitialViewController()
     }

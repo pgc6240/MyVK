@@ -15,8 +15,19 @@ final class User: Object {
     @objc dynamic var lastName = ""
     @objc dynamic var maxSizePhotoUrl = ""
     let photos = LinkingObjects(fromType: Photo.self, property: "owner")
+    let groups = List<Group>()
     
     
+    //MARK: - Current user
+    static var current: User!
+    
+    convenience init(id: Int) {
+        self.init()
+        self.id = id
+    }
+    
+    
+    //MARK: - Realm Object's methods
     override class func primaryKey() -> String? { "id" }
 }
 
