@@ -14,10 +14,12 @@ enum SessionManager {
     
     
     static func login(token: String?, usedId: String?) {
-        SessionManager.token  = token
-        SessionManager.userId = Int(usedId)
+        guard let id = Int(usedId) else { fatalError() }
         
-        User.current = User(id: Int(usedId)!)
+        SessionManager.token  = token
+        SessionManager.userId = id
+        
+        User.setCurrentUser(id: id)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         UIApplication.shared.windows.first?.rootViewController = storyboard.instantiateInitialViewController()

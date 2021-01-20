@@ -6,16 +6,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class GroupsVC: UITableViewController {
     
-    var groups: [Group] = []
-    private lazy var backingStore: [Group] = []
+    var groups: List<Group> = User.current.groups
+    private var notificationToken: NotificationToken?
+    private var backingStore: List<Group> { User.current.groups }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = editButtonItem
+        configureTableViewController()
         configureSearchController()
     }
     
@@ -26,38 +28,21 @@ final class GroupsVC: UITableViewController {
     }
     
     
-    private func configureSearchController() {
-        let searchController                                  = UISearchController()
-        searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск в моих сообществах".localized
-        searchController.searchBar.autocorrectionType         = .no
-        searchController.searchBar.autocapitalizationType     = .sentences
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController                       = searchController
-        navigationItem.hidesSearchBarWhenScrolling            = false
+    private func configureTableViewController() {
+        navigationItem.leftBarButtonItem = editButtonItem
+        PersistenceManager.pair(groups, with: tableView, token: &notificationToken)
     }
     
     
     func loadGroups() {
-        if let storedGroups = PersistenceManager.load(Group.self) {
-            updateGroups(with: storedGroups)
-        }
-        
-        NetworkManager.shared.getGroups { [weak self] groups in
-            self?.updateGroups(with: groups)
-            //PersistenceManager.save(groups)
+        NetworkManager.shared.getGroups { groups in
             PersistenceManager.save(groups, in: User.current.groups)
-            
         }
     }
     
     
-    private func updateGroups(with groups: [Group]) {
-        let groupsUpdated = self.groups.updating(with: groups)
-        if groupsUpdated {
-            backingStore = groups
-            tableView.reloadSections([0], with: .automatic)
-        }
+    deinit {
+        notificationToken?.invalidate()
     }
 }
 
@@ -91,21 +76,17 @@ extension GroupsVC {
     
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let group = groups[indexPath.row]
+        let groupToDelete = groups[indexPath.row]
         
         showLoadingView()
-        NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
-            guard let self = self else { return }
-            self.dismissLoadingView()
+        NetworkManager.shared.leaveGroup(groupId: groupToDelete.id) { [weak self] isSuccessful in
+            self?.dismissLoadingView()
             
             if isSuccessful {
-                let removedGroup = self.groups.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                tableView.reloadSections([0], with: .automatic)
-                self.presentAlert(message: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
-                PersistenceManager.delete([removedGroup])
+                PersistenceManager.delete(groupToDelete)
+                self?.presentAlert(message: "Вы покинули сообщество".localized + "\n\"\(groupToDelete.name)\".".localized)
             } else {
-                self.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
+                self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
             }
         }
     }
@@ -122,26 +103,30 @@ extension GroupsVC {
 //
 extension GroupsVC: UISearchBarDelegate {
     
+    private func configureSearchController() {
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск в моих сообществах".localized
+        searchController.searchBar.autocorrectionType         = .no
+        searchController.searchBar.autocapitalizationType     = .sentences
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
+    }
+    
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             groups = backingStore
         } else {
-            groups = backingStore.filter { group in
-                var match = false
-                let wordsInSearchQuery = searchText.split(separator: " ")
-                for word in wordsInSearchQuery {
-                    guard !match else { break }
-                    match = group.name.lowercased().contains(word.lowercased())
-                }
-                return match
-            }
+            groups = backingStore.filter("name CONTAINS %@", searchText).list
         }
-        tableView.reloadData()
+        tableView.reloadSections([0], with: .automatic)
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         groups = backingStore
-        tableView.reloadData()
+        tableView.reloadSections([0], with: .automatic)
     }
 }

@@ -26,6 +26,15 @@ final class User: Object {
         self.id = id
     }
     
+    static func setCurrentUser(id: Int) {
+        if let userStored = PersistenceManager.load(User.self, with: id) {
+            User.current = userStored
+        } else {
+            User.current = User(id: id)
+            PersistenceManager.save([User.current])
+        }
+    }
+    
     
     //MARK: - Realm Object's methods
     override class func primaryKey() -> String? { "id" }
