@@ -65,6 +65,11 @@ final class NetworkManager {
     }
     
     
+    func getPosts(posts: @escaping ([Post]) -> Void) {
+        makeRequest(.getPosts, parameters: [:], responseItem: Post.self) { posts($0) }
+    }
+    
+    
     func searchGroups(_ searchQuery: String?, searchResults: @escaping ([Group]) -> Void) {
         makeRequest(.searchGroups, parameters: ["q": searchQuery], responseItem: Group.self) { searchResults($0) }
     }

@@ -12,6 +12,19 @@ final class NewsVC: UIViewController {
     var posts: [Post] = []
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        getPosts()
+    }
+    
+    
+    func getPosts() {
+        NetworkManager.shared.getPosts { posts in
+            print(posts.count)
+        }
+    }
+    
+    
     @IBAction func logoutButtonTapped() {
         SessionManager.logout()
     }

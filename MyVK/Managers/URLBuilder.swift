@@ -19,6 +19,7 @@ enum URLBuilder {
         case getFriends         = "friends.get"
         case getGroups          = "groups.get"
         case getPhotos          = "photos.get"
+        case getPosts           = "wall.get"
         case searchGroups       = "groups.search"
         case joinGroup          = "groups.join"
         case leaveGroup         = "groups.leave"
