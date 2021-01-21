@@ -14,6 +14,7 @@ final class User: Object {
     @objc dynamic var firstName = ""
     @objc dynamic var lastName = ""
     @objc dynamic var maxSizePhotoUrl = ""
+    let friends = List<User>()
     let photos = LinkingObjects(fromType: Photo.self, property: "owner")
     let groups = List<Group>()
     let posts = List<Post>()

@@ -60,7 +60,7 @@ enum PersistenceManager {
     
     
     static func load<T: Object>(_ type: T.Type, with primaryKey: Int) -> T? {
-        let realm = try? Realm(configuration: realmConfiguration)
+        let realm = try? Realm(configuration: realmConfiguration); print(realm?.configuration.fileURL ?? "")
         return realm?.object(ofType: T.self, forPrimaryKey: primaryKey)
     }
     
