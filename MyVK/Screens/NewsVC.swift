@@ -13,9 +13,8 @@ final class NewsVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var posts: List<Post> = User.current.posts
-    private var notificationToken: NotificationToken?
-    
-    private weak var timer: Timer?
+    private var token: NotificationToken?
+    private var timer: Timer?
     
     
     override func viewDidLoad() {
@@ -31,7 +30,7 @@ final class NewsVC: UIViewController {
     
     
     private func configureViewContoller() {
-        PersistenceManager.pair(posts, with: tableView, token: &notificationToken)
+        PersistenceManager.pair(posts, with: tableView, token: &token)
         timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in self?.getPosts() }
     }
     
@@ -49,7 +48,7 @@ final class NewsVC: UIViewController {
     
     
     deinit {
-        notificationToken?.invalidate()
+        token?.invalidate()
         timer?.invalidate()
     }
 }
@@ -59,6 +58,11 @@ final class NewsVC: UIViewController {
 // MARK: - UITableViewDataSource & UITableViewDelegate
 //
 extension NewsVC: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        posts.isEmpty ? "Нет записей".localized : nil
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         posts.count
@@ -70,5 +74,10 @@ extension NewsVC: UITableViewDataSource, UITableViewDelegate {
         let post = posts[indexPath.row]
         cell.set(with: post)
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

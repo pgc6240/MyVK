@@ -19,15 +19,11 @@ final class User: Object {
     let posts = List<Post>()
     
     
-    //MARK: - Current user
+    //MARK: - Current user -
     static var current: User!
     
-    convenience init(id: Int) {
-        self.init()
-        self.id = id
-    }
     
-    static func setCurrentUser(id: Int) {
+    static func setCurrentUser(with id: Int) {
         if let userStored = PersistenceManager.load(User.self, with: id) {
             User.current = userStored
         } else {
@@ -37,7 +33,13 @@ final class User: Object {
     }
     
     
-    //MARK: - Realm Object's methods
+    convenience init(id: Int) {
+        self.init()
+        self.id = id
+    }
+    
+    
+    //MARK: - Realm Object's methods -
     override class func primaryKey() -> String? { "id" }
 }
 

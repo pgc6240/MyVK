@@ -119,7 +119,7 @@ extension GroupsVC: UISearchBarDelegate {
         if searchText == "" {
             groups = backingStore
         } else {
-            groups = backingStore.filter("name CONTAINS %@", searchText).list
+            groups = backingStore.filter("name CONTAINS[cd] %@", searchText).list
         }
         tableView.reloadSections([0], with: .automatic)
     }

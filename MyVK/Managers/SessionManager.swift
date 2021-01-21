@@ -19,7 +19,7 @@ enum SessionManager {
         SessionManager.token  = token
         SessionManager.userId = id
         
-        User.setCurrentUser(id: id)
+        User.setCurrentUser(with: id)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         UIApplication.shared.windows.first?.rootViewController = storyboard.instantiateInitialViewController()
@@ -29,6 +29,8 @@ enum SessionManager {
     static func logout() {
         SessionManager.token  = "loggingOut"
         SessionManager.userId = nil
+        
+        User.current = nil
         
         UIApplication.shared.windows.first?.rootViewController = LoginVC()
     }

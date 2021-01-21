@@ -76,15 +76,20 @@ enum PersistenceManager {
     
     
     static func pair<T: Object>(_ objects: List<T>, with tableView: UITableView?, token: inout NotificationToken?) {
-        token = objects.observe { [weak tableView] in
-            switch $0 {
+        token = objects.observe { [weak tableView] changes in
+            switch changes {
             case .initial(_):
                 tableView?.reloadData()
-            case .update(_, let deletions, let insertions, let modifications):
+            case .update(let updatedObjects, let deletions, let insertions, let modifications):
                 tableView?.beginUpdates()
-                tableView?.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-                tableView?.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
-                tableView?.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+                if updatedObjects.isEmpty || updatedObjects.count == insertions.count {
+                    /* Change section header for empty state and vice versa */
+                    tableView?.reloadSections([0], with: .automatic)
+                } else {
+                    tableView?.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .left)
+                    tableView?.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+                    tableView?.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+                }
                 tableView?.endUpdates()
             case .error(let error):
                 fatalError("\(error)")

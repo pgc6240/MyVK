@@ -75,7 +75,9 @@ final class FriendsVC: UITableViewController {
     private func updateFriends(with friends: [User]) {
         var friendsUpdated = false
         
-        friends.forEach { friend in
+        for friend in friends {
+            guard friend.firstName != "" else { continue }
+            
             if Locale.current.languageCode == "en" {
                 localize(friend)
             }
