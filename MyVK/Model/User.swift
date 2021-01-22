@@ -8,12 +8,20 @@
 import Foundation
 import RealmSwift
 
-final class User: Object {
+protocol CanPost {
+    var id: Int { get }
+    var name: String { get }
+    var photoUrl: String { get }
+    var posts: List<Post> { get }
+}
+
+final class User: Object, CanPost {
     
+    var name: String { firstName + " " + lastName }
     @objc dynamic var id = 0
     @objc dynamic var firstName = ""
     @objc dynamic var lastName = ""
-    @objc dynamic var maxSizePhotoUrl = ""
+    @objc dynamic var photoUrl = ""
     let friends = List<User>()
     let photos = List<Photo>()
     let groups = List<Group>()
@@ -23,7 +31,6 @@ final class User: Object {
     //MARK: - Current user -
     static var current: User!
     
-    
     static func setCurrentUser(with id: Int) {
         if let userStored = PersistenceManager.load(User.self, with: id) {
             User.current = userStored
@@ -32,7 +39,6 @@ final class User: Object {
             PersistenceManager.save(User.current)
         }
     }
-    
     
     convenience init(id: Int) {
         self.init()
@@ -51,6 +57,6 @@ final class User: Object {
 extension User: Decodable {
     
     private enum CodingKeys: String, CodingKey {
-        case id, firstName, lastName, maxSizePhotoUrl = "photoMax"
+        case id, firstName, lastName, photoUrl = "photoMax"
     }
 }

@@ -11,7 +11,7 @@ import RealmSwift
 final class PostListVC: UITableViewController {
     
     var posts = User.current.posts
-    var ownerId = User.current.id
+    var owner: CanPost = User.current
     private var token: NotificationToken?
     private var timer: Timer?
     
@@ -31,14 +31,15 @@ final class PostListVC: UITableViewController {
     }
     
     
-    func set(with posts: List<Post>, and ownerId: Int) {
-        self.posts = posts
-        self.ownerId = ownerId
+    func set(with owner: CanPost) {
+        self.posts = owner.posts
+        self.owner = owner
         getPosts()
     }
     
     
     func getPosts() {
+        let ownerId = owner is User ? owner.id : -owner.id
         NetworkManager.shared.getPosts(ownerId: ownerId) { [weak self] posts in
             guard let self = self else { return }
             PersistenceManager.save(posts, in: self.posts)
@@ -65,7 +66,7 @@ extension PostListVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
-        cell.set(with: post)
+        cell.set(with: post, ownerPhotoUrl: owner.photoUrl, and: owner.name)
         return cell
     }
     

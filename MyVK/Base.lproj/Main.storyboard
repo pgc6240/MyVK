@@ -6,6 +6,7 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -86,21 +87,91 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="466"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UlX-ex-h5v">
-                                            <rect key="frame" x="20" y="11" width="374" height="435"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="n43-nN-r0D">
+                                            <rect key="frame" x="20" y="11" width="374" height="444"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Qj3-bS-ga8">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="60"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RgU-Ls-4AK" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="-1" width="60" height="62.5"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="RgU-Ls-4AK" secondAttribute="height" multiplier="1:1" id="bYg-9t-ajq"/>
+                                                                <constraint firstAttribute="width" constant="60" id="kwd-36-dvY"/>
+                                                            </constraints>
+                                                            <imageReference key="image" image="person.fill" catalog="system" symbolScale="large"/>
+                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                            </preferredSymbolConfiguration>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="30"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </imageView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7d6-TL-lfb">
+                                                            <rect key="frame" x="68" y="0.0" width="306" height="60"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygl-aH-wJD">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="111" height="30"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 янв. 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtz-3v-ffz">
+                                                                    <rect key="frame" x="0.0" y="30.5" width="91" height="29.5"/>
+                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1f-CB-Fns">
+                                                    <rect key="frame" x="0.0" y="221.5" width="374" height="20.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c8x-IT-ABe">
+                                                    <rect key="frame" x="0.0" y="423" width="374" height="21"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Hy-Sr-Lmf" customClass="LikeButton" customModule="MyVK" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="183" height="21"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <state key="normal" title="50">
+                                                                <imageReference key="image" image="heart.fill" catalog="system" symbolScale="medium"/>
+                                                            </state>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPR-ne-lXJ">
+                                                            <rect key="frame" x="191" y="0.0" width="183" height="21"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                            <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                                            <state key="normal" title="1,000">
+                                                                <color key="titleColor" systemColor="secondaryLabelColor"/>
+                                                                <imageReference key="image" image="eye" catalog="system" symbolScale="small"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="UlX-ex-h5v" secondAttribute="trailing" constant="20" symbolic="YES" id="0Bu-NC-wM8"/>
-                                        <constraint firstAttribute="bottom" secondItem="UlX-ex-h5v" secondAttribute="bottom" constant="20" symbolic="YES" id="8FV-MI-QrF"/>
-                                        <constraint firstItem="UlX-ex-h5v" firstAttribute="leading" secondItem="ay7-I5-SR5" secondAttribute="leadingMargin" id="cEE-Xs-aBf"/>
-                                        <constraint firstItem="UlX-ex-h5v" firstAttribute="top" secondItem="ay7-I5-SR5" secondAttribute="topMargin" id="cKa-S1-id1"/>
+                                        <constraint firstItem="n43-nN-r0D" firstAttribute="leading" secondItem="ay7-I5-SR5" secondAttribute="leadingMargin" id="40D-yS-duF"/>
+                                        <constraint firstItem="n43-nN-r0D" firstAttribute="top" secondItem="ay7-I5-SR5" secondAttribute="topMargin" id="5eo-2f-cdx"/>
+                                        <constraint firstItem="n43-nN-r0D" firstAttribute="trailing" secondItem="ay7-I5-SR5" secondAttribute="trailingMargin" id="gNI-Hv-abV"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="n43-nN-r0D" secondAttribute="bottom" id="ofh-5G-LJv"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="postTextLabel" destination="UlX-ex-h5v" id="GM9-DQ-UI1"/>
+                                    <outlet property="avatarImageView" destination="RgU-Ls-4AK" id="xjD-SA-bDH"/>
+                                    <outlet property="dateLabel" destination="Vtz-3v-ffz" id="gbs-rd-yIJ"/>
+                                    <outlet property="likeButton" destination="2Hy-Sr-Lmf" id="Ule-6t-Jx3"/>
+                                    <outlet property="nameLabel" destination="ygl-aH-wJD" id="bUK-Vi-Pam"/>
+                                    <outlet property="postTextLabel" destination="S1f-CB-Fns" id="cOg-kF-fIB"/>
+                                    <outlet property="viewCountLabel" destination="fPR-ne-lXJ" id="0I1-wm-r9O"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -495,13 +566,15 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="hXO-dq-EmV"/>
+        <segue reference="3OJ-gn-lhX"/>
         <segue reference="glO-nZ-9WD"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="vk-color"/>
     <resources>
         <image name="a.square" catalog="system" width="128" height="114"/>
         <image name="arrow.right.square" catalog="system" width="128" height="114"/>
+        <image name="eye" catalog="system" width="128" height="81"/>
+        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="menubar.rectangle" catalog="system" width="128" height="93"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>

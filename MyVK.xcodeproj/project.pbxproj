@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3107828C25BB716300FFBD7F /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3107828B25BB716300FFBD7F /* Formatters.swift */; };
 		310E853225603BB20014C5EF /* NewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310E853125603BB20014C5EF /* NewsVC.swift */; };
 		3122CDC12556DE8C00253485 /* RootTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC02556DE8C00253485 /* RootTabBarController.swift */; };
 		3122CDCA2556E14B00253485 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC92556E14B00253485 /* PersistenceManager.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3107828B25BB716300FFBD7F /* Formatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		310E853125603BB20014C5EF /* NewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVC.swift; sourceTree = "<group>"; };
 		3122CDC02556DE8C00253485 /* RootTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootTabBarController.swift; sourceTree = "<group>"; };
 		3122CDC92556E14B00253485 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
@@ -178,10 +180,10 @@
 				310E853125603BB20014C5EF /* NewsVC.swift */,
 				312AE5552550CF4F00B97164 /* FriendsVC.swift */,
 				31AA53BD2567F01000C9FB27 /* PhotosVC.swift */,
-				31E8188C25BAF1B6008B03A1 /* PostListVC.swift */,
 				315FF5A22548B9DE0054C539 /* GroupListVC.swift */,
 				31E8188F25BAF7DE008B03A1 /* GroupDetailVC.swift */,
 				315FF5A52548B9F90054C539 /* GroupSearchVC.swift */,
+				31E8188C25BAF1B6008B03A1 /* PostListVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				3166577525B20259006D7E53 /* Constants.swift */,
+				3107828B25BB716300FFBD7F /* Formatters.swift */,
 				31B7A1F825587A30007F4465 /* UserDefault.swift */,
 			);
 			path = Utilities;
@@ -382,6 +385,7 @@
 				31CBF0C2256ACBD00041CC26 /* _PushAnimator.swift in Sources */,
 				31B2D72525B851BF0059D1DF /* RealmSwift+Ext.swift in Sources */,
 				31A72DEC2554199C006B664D /* AlphabetPicker.swift in Sources */,
+				3107828C25BB716300FFBD7F /* Formatters.swift in Sources */,
 				3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */,
 				310E853225603BB20014C5EF /* NewsVC.swift in Sources */,
 				31B7A1F925587A30007F4465 /* UserDefault.swift in Sources */,
