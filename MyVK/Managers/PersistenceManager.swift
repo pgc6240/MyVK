@@ -30,7 +30,7 @@ enum PersistenceManager {
     }()
     
     
-    static func save(_ objects: [Object]) {
+    static func save(_ objects: Object...) {
         let realm = try? Realm(configuration: realmConfiguration)
         try? realm?.write {
             realm?.add(objects, update: .modified)
@@ -42,20 +42,33 @@ enum PersistenceManager {
         guard let realm = try? Realm(configuration: realmConfiguration) else { return }
         try? realm.write {
             if list.count > objects.count {
+                /* Update list after object deletion */
                 list.removeAll()
             }
-            for object in objects {
-                let object = realm.create(T.self, value: object, update: .modified)
-                guard !list.contains(object) else { continue }
-                list.append(object)
+            for newObject in objects {
+                if let newUser = newObject as? User,
+                   let oldUser = realm.object(ofType: User.self, forPrimaryKey: newUser.id)
+                {
+                    /* Prevent overriding persisted lists by empty lists of newly decoded objects */
+                    newUser.friends.append(objectsIn: oldUser.friends)
+                    newUser.groups.append(objectsIn: oldUser.groups)
+                    newUser.photos.append(objectsIn: oldUser.photos)
+                    newUser.posts.append(objectsIn: oldUser.posts)
+                    realm.add(newUser, update: .modified)
+                    
+                } else if let newGroup = newObject as? Group,
+                          let oldGroup = realm.object(ofType: Group.self, forPrimaryKey: newGroup.id)
+                {
+                    newGroup.posts.append(objectsIn: oldGroup.posts)
+                    realm.add(newGroup, update: .modified)
+                    
+                } else {
+                    let newObject = realm.create(T.self, value: newObject, update: .modified)
+                    guard !list.contains(newObject) else { return }
+                    list.append(newObject)
+                }
             }
         }
-    }
-    
-    
-    static func load<T: Object>(_ type: T.Type) -> [T]? {
-        let realm = try? Realm(configuration: realmConfiguration)
-        return realm?.objects(type).map { $0 }
     }
     
     

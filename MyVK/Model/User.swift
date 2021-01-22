@@ -15,7 +15,7 @@ final class User: Object {
     @objc dynamic var lastName = ""
     @objc dynamic var maxSizePhotoUrl = ""
     let friends = List<User>()
-    let photos = LinkingObjects(fromType: Photo.self, property: "owner")
+    let photos = List<Photo>()
     let groups = List<Group>()
     let posts = List<Post>()
     
@@ -29,7 +29,7 @@ final class User: Object {
             User.current = userStored
         } else {
             User.current = User(id: id)
-            PersistenceManager.save([User.current])
+            PersistenceManager.save(User.current)
         }
     }
     

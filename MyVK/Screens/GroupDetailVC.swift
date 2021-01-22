@@ -14,8 +14,13 @@ final class GroupDetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureViewController()
+    }
+    
+    
+    private func configureViewController() {
         title = group.name
-        let postListVC = children.first as? PostListVC
+        let postListVC = children.first as? PostsListVC
         postListVC?.set(with: group.posts, and: -group.id)
     }
 }

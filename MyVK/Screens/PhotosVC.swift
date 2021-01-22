@@ -87,7 +87,7 @@ final class PhotosVC: UICollectionViewController {
         collectionView.reloadData()
         updateTitle()
         photos.forEach { $0.owner = user }
-        PersistenceManager.save(photos)
+        PersistenceManager.save(photos, in: user.photos)
     }
     
     
@@ -109,7 +109,7 @@ extension PhotosVC {
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
         let photo = photos[indexPath.row]
         cell.set(with: photo)
         return cell
