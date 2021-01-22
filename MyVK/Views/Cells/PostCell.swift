@@ -9,7 +9,10 @@ import UIKit
 
 final class PostCell: UITableViewCell {
     
+    @IBOutlet weak var postTextLabel: UILabel!
+    
+    
     func set(with post: Post) {
-        textLabel?.text = post.text
+        postTextLabel.text = post.text
     }
 }
