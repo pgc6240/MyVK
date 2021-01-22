@@ -65,8 +65,8 @@ final class NetworkManager {
     }
     
     
-    func getPosts(posts: @escaping ([Post]) -> Void) {
-        makeRequest(.getPosts, parameters: [:], responseItem: Post.self) { posts($0) }
+    func getPosts(ownerId: Int, posts: @escaping ([Post]) -> Void) {
+        makeRequest(.getPosts, parameters: ["owner_id": String(ownerId)], responseItem: Post.self) { posts($0) }
     }
     
     

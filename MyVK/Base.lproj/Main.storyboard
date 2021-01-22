@@ -39,32 +39,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5cF-4Y-gnu">
-                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PostCell" id="JFf-dm-LM7" customClass="PostCell" customModule="MyVK" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="375" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="JFf-dm-LM7" id="Gu6-ds-H10">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c3v-a2-JhO">
+                                <rect key="frame" x="0.0" y="96" width="375" height="522"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="eN6-S5-HpU" id="vRl-lE-DT1"/>
-                                    <outlet property="delegate" destination="eN6-S5-HpU" id="Nxe-x8-mdq"/>
+                                    <segue destination="1Lm-4l-zDq" kind="embed" id="J1n-j1-G3m"/>
                                 </connections>
-                            </tableView>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5fB-cG-Dsu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5cF-4Y-gnu" firstAttribute="leading" secondItem="5fB-cG-Dsu" secondAttribute="leading" id="aSA-Uu-S0S"/>
-                            <constraint firstItem="5fB-cG-Dsu" firstAttribute="bottom" secondItem="5cF-4Y-gnu" secondAttribute="bottom" id="g4P-ZJ-a3j"/>
-                            <constraint firstItem="5fB-cG-Dsu" firstAttribute="trailing" secondItem="5cF-4Y-gnu" secondAttribute="trailing" id="ygH-hN-DEL"/>
-                            <constraint firstItem="5cF-4Y-gnu" firstAttribute="top" secondItem="5fB-cG-Dsu" secondAttribute="top" id="zNo-uc-dM9"/>
+                            <constraint firstItem="c3v-a2-JhO" firstAttribute="leading" secondItem="5fB-cG-Dsu" secondAttribute="leading" id="Qi0-i2-qCG"/>
+                            <constraint firstItem="5fB-cG-Dsu" firstAttribute="bottom" secondItem="c3v-a2-JhO" secondAttribute="bottom" id="bN0-Sb-WCq"/>
+                            <constraint firstItem="c3v-a2-JhO" firstAttribute="top" secondItem="5fB-cG-Dsu" secondAttribute="top" id="cG0-Cn-eUb"/>
+                            <constraint firstItem="5fB-cG-Dsu" firstAttribute="trailing" secondItem="c3v-a2-JhO" secondAttribute="trailing" id="uu5-qp-P3e"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Новости" id="8Wm-F1-L5F">
@@ -77,13 +65,38 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="tableView" destination="5cF-4Y-gnu" id="D81-9M-pbC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNZ-GW-shA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2792.8000000000002" y="-1030.4347826086957"/>
+        </scene>
+        <!--Post ListVC-->
+        <scene sceneID="lsT-dd-zf6">
+            <objects>
+                <tableViewController id="1Lm-4l-zDq" customClass="PostListVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lNI-MZ-WrI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="522"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="X4w-dK-Q4e" customClass="PostCell" customModule="MyVK" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X4w-dK-Q4e" id="ay7-I5-SR5">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="1Lm-4l-zDq" id="d6U-gY-vjy"/>
+                            <outlet property="delegate" destination="1Lm-4l-zDq" id="9GS-hO-zTH"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OrK-jA-wjB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3721" y="-1030"/>
         </scene>
         <!--Друзья-->
         <scene sceneID="H0D-QG-ly9">
