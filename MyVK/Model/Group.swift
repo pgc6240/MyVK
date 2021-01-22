@@ -15,6 +15,7 @@ final class Group: Object {
     @objc dynamic var isOpen = false
     @objc dynamic var isMember = false
     @objc dynamic var photoUrl = ""
+    let posts = List<Post>()
     
 
     override class func primaryKey() -> String? { "id" }

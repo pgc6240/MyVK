@@ -20,6 +20,7 @@ final class PostListVC: UITableViewController {
         super.viewWillAppear(animated)
         PersistenceManager.pair(posts, with: tableView, token: &token)
         timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in self?.getPosts() }
+        timer?.fire()
     }
     
     
