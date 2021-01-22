@@ -9,8 +9,6 @@ import UIKit
 
 final class GroupCell: UITableViewCell {
     
-    static let reuseId = String(describing: GroupCell.self)
-    
     @IBOutlet weak var avatarImageView: MyImageView!
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var groupIsPublicLabel: UILabel!

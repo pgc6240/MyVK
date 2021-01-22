@@ -49,3 +49,13 @@ extension UIColor {
         UIColor(named: "AccentColor")
     }
 }
+
+
+extension UITableViewCell {
+    static var reuseId: String { String(describing: self) }
+}
+
+
+extension UICollectionViewCell {
+    static var reuseId: String { String(describing: self) }
+}
