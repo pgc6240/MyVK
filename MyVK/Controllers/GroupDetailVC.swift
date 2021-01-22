@@ -20,7 +20,7 @@ final class GroupDetailVC: UIViewController {
     
     private func configureViewController() {
         title = group.name
-        let postListVC = children.first as? PostsListVC
+        let postListVC = children.first as? PostListVC
         postListVC?.set(with: group.posts, and: -group.id)
     }
 }

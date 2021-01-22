@@ -12,7 +12,6 @@ final class Photo: Object {
     
     @objc dynamic var id = 0
     @objc dynamic var maxSizeUrl: String? = nil
-    @objc dynamic var owner: User?
     
     
     override class func primaryKey() -> String? { "id" }

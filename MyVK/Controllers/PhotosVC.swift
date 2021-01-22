@@ -6,94 +6,54 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class PhotosVC: UICollectionViewController {
     
     var user: User!
-    var photos: [Photo] = []
+    lazy var photos: [Photo] = user.photos.array {
+        didSet {
+            updateTitle()
+            collectionView.reloadData()
+        }
+    }
     
     private var currentPage = 0 { didSet { updateTitle() }}
-    
     private var interactiveTransition = _InteractiveTransition()
-    
-    lazy private var swipeGesture: UIPanGestureRecognizer = {
-        let recognizer      = UIPanGestureRecognizer(target: self, action: #selector(swipeRightToPop(_:)))
-        recognizer.delegate = self
-        return recognizer
-    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateTitle()
         configureCollectionView()
-        getPhotos()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureViewController()
-    }
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        overrideUserInterfaceStyle                    = .unspecified
-        navigationController?.navigationBar.barStyle  = .default
-        tabBarController?.overrideUserInterfaceStyle  = .unspecified
-        (parent as? UINavigationController)?.setNavigationBarHidden(true, animated: false)
-    }
-    
-    
-    private func configureViewController() {
-        title                                         = "..."
-        view.backgroundColor                          = .black
-        overrideUserInterfaceStyle                    = .dark
-        navigationController?.navigationBar.barStyle  = .black
-        tabBarController?.overrideUserInterfaceStyle  = .dark
-        setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    
-    private func configureCollectionView() {
-        collectionView.backgroundColor                = .black
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.addGestureRecognizer(swipeGesture)
-        
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.itemSize                 = CGSize(width: Screen.width, height: Screen.height)
-            layout.scrollDirection          = .horizontal
-            layout.minimumLineSpacing       = 0
-            layout.minimumInteritemSpacing  = 0
-        }
+        getPhotos()
     }
     
     
     func getPhotos() {
         NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
-            if photos.isEmpty {
-                self?.title = "Нет фотографий".localized
-                return
-            }
-            
             self?.updatePhotos(with: photos)
         }
     }
     
     
-    private func updatePhotos(with newPhotos: [Photo]) {
-        photos = newPhotos
-        collectionView.reloadData()
-        updateTitle()
-        photos.forEach { $0.owner = user }
+    private func updatePhotos(with photos: [Photo]) {
+        self.photos = photos
         PersistenceManager.save(photos, in: user.photos)
     }
     
     
-    private func updateTitle() {
-        guard !photos.isEmpty else { return }
-        title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)
+    private func updateTitle(newTitle: String? = nil) {
+        if photos.isEmpty {
+            title = "Нет фотографий".localized
+        } else {
+            title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)
+        }
     }
 }
 
@@ -118,7 +78,7 @@ extension PhotosVC {
 
 
 //
-// MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate (swipe photos functionality)
 //
 extension PhotosVC {
     
@@ -145,7 +105,7 @@ extension PhotosVC {
 
 
 //
-// MARK: - UIGestureRecognizerDelegate
+// MARK: - UIGestureRecognizerDelegate (swipe to left gesture & interactive pop)
 //
 extension PhotosVC: UIGestureRecognizerDelegate {
     
@@ -159,7 +119,7 @@ extension PhotosVC: UIGestureRecognizerDelegate {
     }
     
     
-    @objc func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
+    @IBAction func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
         let translationX         = recognizer.translation(in: view).x
         let navigationController = self.navigationController as? _NavigationController
         
@@ -186,6 +146,42 @@ extension PhotosVC: UIGestureRecognizerDelegate {
         
         default:
             return
+        }
+    }
+}
+
+
+// MARK: - Animation-related stuff (going to dark mode on appear and vice versa)
+extension PhotosVC {
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        overrideUserInterfaceStyle                    = .unspecified
+        navigationController?.navigationBar.barStyle  = .default
+        tabBarController?.overrideUserInterfaceStyle  = .unspecified
+        (parent as? UINavigationController)?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    
+    private func configureViewController() {
+        title                                         = ""
+        view.backgroundColor                          = .black
+        overrideUserInterfaceStyle                    = .dark
+        navigationController?.navigationBar.barStyle  = .black
+        tabBarController?.overrideUserInterfaceStyle  = .dark
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    
+    
+    private func configureCollectionView() {
+        collectionView.backgroundColor                = .black
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize                 = CGSize(width: Screen.width, height: Screen.height)
+            layout.scrollDirection          = .horizontal
+            layout.minimumLineSpacing       = 0
+            layout.minimumInteritemSpacing  = 0
         }
     }
 }

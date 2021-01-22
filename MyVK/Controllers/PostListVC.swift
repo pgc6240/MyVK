@@ -1,5 +1,5 @@
 //
-//  PostsListVC.swift
+//  PostListVC.swift
 //  MyVK
 //
 //  Created by pgc6240 on 22.01.2021.
@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-final class PostsListVC: UITableViewController {
+final class PostListVC: UITableViewController {
     
     var posts = User.current.posts
     var ownerId = User.current.id
@@ -50,7 +50,7 @@ final class PostsListVC: UITableViewController {
 //
 // MARK: - UITableViewDataSource & UITableViewDelegate
 //
-extension PostsListVC {
+extension PostListVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         posts.isEmpty ? "Нет записей".localized : nil

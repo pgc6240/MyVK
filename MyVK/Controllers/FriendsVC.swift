@@ -46,16 +46,6 @@ final class FriendsVC: UITableViewController {
     }
     
     
-    private func configureSearchController() {
-        let searchController                                  = UISearchController()
-        searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск среди моих друзей".localized
-        searchController.searchBar.autocorrectionType         = .no
-        searchController.searchBar.autocapitalizationType     = .words
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController                       = searchController
-        navigationItem.hidesSearchBarWhenScrolling            = false
-    }
     
     
     func getFriends() {
@@ -118,16 +108,13 @@ final class FriendsVC: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell      = sender as? UITableViewCell,
-           let indexPath = tableView.indexPath(for: cell),
+        if let indexPath = tableView.indexPathForSelectedRow,
            let photosVC  = segue.destination as? PhotosVC
         {
-            let friend      = friends[indexPath.section][indexPath.row]
-            photosVC.user   = friend
-            photosVC.photos = friend.photos.map { $0 }
+            let friend    = friends[indexPath.section][indexPath.row]
+            photosVC.user = friend
         }
-        
-        navigationItem.searchController?.searchBar.isHidden = true /* animation-related */
+        navigationItem.searchController?.searchBar.isHidden = true /* interactive transition animation-related */
     }
 }
 
@@ -211,6 +198,18 @@ extension FriendsVC: AlphabetPickerDelegate {
 // MARK: - UISearchBarDelegate
 //
 extension FriendsVC: UISearchBarDelegate {
+    
+    private func configureSearchController() {
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск среди моих друзей".localized
+        searchController.searchBar.autocorrectionType         = .no
+        searchController.searchBar.autocapitalizationType     = .words
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
+    }
+
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {

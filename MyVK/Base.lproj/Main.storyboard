@@ -69,20 +69,20 @@
             </objects>
             <point key="canvasLocation" x="2792.8000000000002" y="-1030.4347826086957"/>
         </scene>
-        <!--Posts ListVC-->
+        <!--Post ListVC-->
         <scene sceneID="lsT-dd-zf6">
             <objects>
-                <tableViewController id="1Lm-4l-zDq" customClass="PostsListVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="1Lm-4l-zDq" customClass="PostListVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="lNI-MZ-WrI">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="574"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" id="X4w-dK-Q4e" customClass="PostCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.5" width="375" height="43.5"/>
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="X4w-dK-Q4e" id="ay7-I5-SR5">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -193,6 +193,7 @@
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-zP-9Hs" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
+                                            <gestureRecognizers/>
                                         </imageView>
                                     </subviews>
                                     <constraints>
@@ -211,18 +212,25 @@
                         <connections>
                             <outlet property="dataSource" destination="iqM-VL-A8R" id="ALX-1D-PSm"/>
                             <outlet property="delegate" destination="iqM-VL-A8R" id="v1f-QY-PDt"/>
+                            <outletCollection property="gestureRecognizers" destination="BI9-Tf-tDt" appends="YES" id="W2t-Kc-Pv5"/>
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Фотографии" largeTitleDisplayMode="never" id="RvG-g5-Dfv"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2k0-Yf-q9v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="BI9-Tf-tDt">
+                    <connections>
+                        <action selector="swipeRightToPop:" destination="iqM-VL-A8R" id="7k6-Dr-Xbx"/>
+                        <outlet property="delegate" destination="iqM-VL-A8R" id="qdN-lN-fCT"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3720.8000000000002" y="-297.30134932533736"/>
         </scene>
         <!--Поиск-->
         <scene sceneID="jKx-02-fkZ">
             <objects>
-                <tableViewController storyboardIdentifier="SearchVC" title="Поиск" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="mF9-cf-Rto" customClass="SearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SearchVC" title="Поиск" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="mF9-cf-Rto" customClass="GroupSearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="82" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bfx-TB-ldl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -301,7 +309,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Z78-qI-sma">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -316,7 +324,7 @@
         <!--Сообщества-->
         <scene sceneID="G5g-UA-lB9">
             <objects>
-                <tableViewController storyboardIdentifier="GroupsVC" title="Сообщества" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gag-xF-JEA" customClass="GroupsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="GroupsVC" title="Сообщества" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="gag-xF-JEA" customClass="GroupListVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="82" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ShW-2W-Agd">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -430,7 +438,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nsa-vp-02P">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -453,7 +461,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="lqi-CY-lAX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

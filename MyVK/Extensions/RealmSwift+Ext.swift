@@ -17,3 +17,11 @@ extension Results where Element == Group {
         return list
     }
 }
+
+
+extension List where Element == Photo {
+    
+    var array: Array<Photo> {
+        self.map { $0 }
+    }
+}
