@@ -35,7 +35,7 @@ final class LoginVC: UIViewController {
             "client_id"     : C.APP_IDS[0],
             "redirect_uri"  : "https://oauth.vk.com/blank.html",
             "display"       : "mobile",
-            "scope"         : "262150",
+            "scope"         : "wall,friends,photos,groups,likes",
             "response_type" : "token",
             "state"         : "pgc6240",
             "revoke"        : SessionManager.token == "loggingOut" ? "1" : "0",

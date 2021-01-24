@@ -48,6 +48,20 @@ final class NetworkManager {
     }
     
     
+    private func makeRequest(_ vkApiMethod: VKApiMethod,
+                             parameters: [String: String?],
+                             likes: @escaping (Int?) -> Void)
+    {
+        guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else { return }
+        
+        AF.request(url).responseJSON {
+            /* Sample response JSON: { "response": { "likes": 12} } */
+            let response = ($0.value as? [String: Any])?["response"] as? [String: Int]
+            likes(response?["likes"])
+        }
+    }
+    
+    
     // MARK: - External methods -
     func getUsers(userIds: [Int], users: @escaping ([User]) -> Void) {
         let userIds = userIds.map { String($0) }.joined(separator: ",")
@@ -89,6 +103,11 @@ final class NetworkManager {
     
     func leaveGroup(groupId: Int, isSuccessful: @escaping (Bool) -> Void) {
         makeRequest(.leaveGroup, parameters: ["group_id": String(groupId)], isSuccessful: isSuccessful)
+    }
+    
+    
+    func like(like: Bool = true, type: String, itemId: Int, likeCount: @escaping (Int?) -> Void) {
+        makeRequest(like ? .like : .dislike, parameters: ["type": type, "item_id": String(itemId)]) { likeCount($0) }
     }
 }
 

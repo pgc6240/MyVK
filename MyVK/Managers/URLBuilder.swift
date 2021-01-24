@@ -24,6 +24,8 @@ enum URLBuilder {
         case searchGroups       = "groups.search"
         case joinGroup          = "groups.join"
         case leaveGroup         = "groups.leave"
+        case like               = "likes.add"
+        case dislike            = "likes.delete"
     }
     
     

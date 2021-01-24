@@ -23,7 +23,7 @@ final class PostCell: UITableViewCell {
         nameLabel.text = ownerName
         dateLabel.text = F.fd(post.date)
         postTextLabel.text = post.text
-        likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser)
+        likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser, postId: post.id)
         viewCountLabel.setTitle(post.viewCount, for: .normal)
         if post.viewCount == nil {
             viewCountLabel.isHidden = true

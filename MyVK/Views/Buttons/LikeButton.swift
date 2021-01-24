@@ -11,16 +11,18 @@ final class LikeButton: UIButton {
     
     var likeCount = 0
     var liked     = false
+    var postId    = 0
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         addTarget(self, action: #selector(like), for: .touchUpInside)
     }
     
-    func set(likeCount: Int, liked: Bool) {
+    func set(likeCount: Int, liked: Bool, postId: Int, animated: Bool = false) {
         self.likeCount = likeCount
         self.liked     = liked
-        updateUI()
+        self.postId    = postId
+        updateUI(animated: animated)
     }
     
     private func updateUI(animated: Bool = false) {
@@ -31,13 +33,15 @@ final class LikeButton: UIButton {
             
             self.setImage(UIImage(systemName: liked ? "heart.fill" : "heart"), for: .normal)
             self.setTitle(String(likeCount), for: .normal)
-            self.setTitleColor(liked ? .vkColor : .secondaryLabel, for: .normal)
-            self.tintColor = liked ? .vkColor : .secondaryLabel
+            self.setTitleColor(liked ? .systemRed : .secondaryLabel, for: .normal)
+            self.tintColor = liked ? .systemRed : .secondaryLabel
         }
     }
     
     @objc func like() {
-        liked.toggle()
-        updateUI(animated: true)
+        NetworkManager.shared.like(like: liked ? false : true, type: "post", itemId: postId) { [weak self, liked, postId] in
+            guard let likeCount = $0 else { return }
+            self?.set(likeCount: likeCount, liked: !liked, postId: postId, animated: true)
+        }
     }
 }
