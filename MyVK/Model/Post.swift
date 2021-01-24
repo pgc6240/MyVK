@@ -14,8 +14,8 @@ final class Post: Object {
     @objc dynamic var date = 0 // unixtime
     @objc dynamic var text = ""
     @objc dynamic var likeCount = 0
+    @objc dynamic var likedByCurrentUser = false
     @objc dynamic var viewCount: String? = nil
-    var likedByCurrentUser = false
     
     
     override class func primaryKey() -> String? { "id" }
@@ -44,6 +44,6 @@ extension Post: Decodable {
         self.likedByCurrentUser = userLikes == 1
         let viewsContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .views)
         let viewCount = try? viewsContainer?.decode(Int.self, forKey: .count)
-        self.viewCount = String(viewCount ?? 0)
+        self.viewCount = F.fn(viewCount)
     }
 }

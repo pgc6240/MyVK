@@ -9,32 +9,35 @@ import UIKit
 
 final class LikeButton: UIButton {
     
-    var liked     = false { didSet { updateUI() }}
-    var likeCount = 0     { didSet { updateUI() }}
-    
+    var likeCount = 0
+    var liked     = false
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        addTarget(self, action: #selector(likeTapped), for: .touchUpInside)
+        addTarget(self, action: #selector(like), for: .touchUpInside)
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        tintColor = liked ? .vkColor : .secondaryLabel
+    func set(likeCount: Int, liked: Bool) {
+        self.likeCount = likeCount
+        self.liked     = liked
         updateUI()
     }
     
-    private func updateUI() {
-        UIView.transition(with: self, duration: 0.5, options: [.allowUserInteraction, .transitionFlipFromBottom]) {
-            [liked, likeCount] in
+    private func updateUI(animated: Bool = false) {
+        UIView.transition(with: self,
+                          duration: animated ? 0.5 : 0,
+                          options: [.allowUserInteraction, .transitionFlipFromBottom])
+        { [likeCount, liked] in
             
             self.setImage(UIImage(systemName: liked ? "heart.fill" : "heart"), for: .normal)
-            self.setTitle(liked ? "\(likeCount + 1)" : "\(likeCount)", for: .normal)
-            self.setTitleColor(self.tintColor, for: .normal)
+            self.setTitle(String(likeCount), for: .normal)
+            self.setTitleColor(liked ? .vkColor : .secondaryLabel, for: .normal)
+            self.tintColor = liked ? .vkColor : .secondaryLabel
         }
     }
     
-    @objc func likeTapped() {
+    @objc func like() {
         liked.toggle()
+        updateUI(animated: true)
     }
 }

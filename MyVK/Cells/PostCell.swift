@@ -23,8 +23,16 @@ final class PostCell: UITableViewCell {
         nameLabel.text = ownerName
         dateLabel.text = F.fd(post.date)
         postTextLabel.text = post.text
-        likeButton.likeCount = post.likeCount
-        likeButton.liked = post.likedByCurrentUser
+        likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser)
         viewCountLabel.setTitle(post.viewCount, for: .normal)
+        if post.viewCount == nil {
+            viewCountLabel.isHidden = true
+        }
+    }
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        viewCountLabel.isHidden = false
     }
 }

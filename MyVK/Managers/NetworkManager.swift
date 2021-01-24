@@ -49,6 +49,13 @@ final class NetworkManager {
     
     
     // MARK: - External methods -
+    func getUsers(userIds: [Int], users: @escaping ([User]) -> Void) {
+        let userIds = userIds.map { String($0) }.joined(separator: ",")
+        let parameters = ["user_ids": userIds, "fields": "photo_max"]
+        makeRequest(.getUsers, parameters: parameters, responseItem: User.self) { users($0) }
+    }
+    
+    
     func getFriends(friends: @escaping ([User]) -> Void) {
         makeRequest(.getFriends, parameters: ["fields": "photo_max"], responseItem: User.self) { friends($0) }
     }
@@ -94,5 +101,24 @@ fileprivate struct Response<I: Decodable>: Decodable {
     
     struct Items<I: Decodable>: Decodable {
         let items: [I]
+    }
+    
+    private enum CodingKeys: CodingKey {
+        case response
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        do {
+            self.response = try container.decode(Items<I>.self, forKey: .response)
+        } catch {
+            var responseContainer = try container.nestedUnkeyedContainer(forKey: .response)
+            var items: [I] = []
+            while !responseContainer.isAtEnd {
+                let item = try responseContainer.decode(I.self)
+                items.append(item)
+            }
+            self.response = Items(items: items)
+        }
     }
 }

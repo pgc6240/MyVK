@@ -37,6 +37,12 @@ final class User: Object, CanPost {
         } else {
             User.current = User(id: id)
             PersistenceManager.save(User.current)
+            
+            NetworkManager.shared.getUsers(userIds: [id]) { users in
+                guard let currentUser = users.first else { return }
+                User.current = currentUser
+                PersistenceManager.save(currentUser)
+            }
         }
     }
     

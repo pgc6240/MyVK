@@ -87,19 +87,18 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="466"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="n43-nN-r0D">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="n43-nN-r0D">
                                             <rect key="frame" x="20" y="11" width="374" height="444"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Qj3-bS-ga8">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="60"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RgU-Ls-4AK" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="-1" width="60" height="62.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="RgU-Ls-4AK" secondAttribute="height" multiplier="1:1" id="bYg-9t-ajq"/>
                                                                 <constraint firstAttribute="width" constant="60" id="kwd-36-dvY"/>
                                                             </constraints>
-                                                            <imageReference key="image" image="person.fill" catalog="system" symbolScale="large"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                             </preferredSymbolConfiguration>
@@ -109,16 +108,16 @@
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacingType="standard" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7d6-TL-lfb">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7d6-TL-lfb">
                                                             <rect key="frame" x="68" y="0.0" width="306" height="60"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygl-aH-wJD">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="111" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="111" height="36"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 янв. 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vtz-3v-ffz">
-                                                                    <rect key="frame" x="0.0" y="30.5" width="91" height="29.5"/>
+                                                                    <rect key="frame" x="0.0" y="24.5" width="91" height="35.5"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -128,15 +127,15 @@
                                                     </subviews>
                                                 </stackView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1f-CB-Fns">
-                                                    <rect key="frame" x="0.0" y="221.5" width="374" height="20.5"/>
+                                                    <rect key="frame" x="0.0" y="68" width="374" height="20.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="c8x-IT-ABe">
-                                                    <rect key="frame" x="0.0" y="423" width="374" height="21"/>
+                                                    <rect key="frame" x="0.0" y="96.5" width="374" height="347.5"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Hy-Sr-Lmf" customClass="LikeButton" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="183" height="21"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="183" height="347.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                             <state key="normal" title="50">
@@ -144,7 +143,7 @@
                                                             </state>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPR-ne-lXJ">
-                                                            <rect key="frame" x="191" y="0.0" width="183" height="21"/>
+                                                            <rect key="frame" x="191" y="0.0" width="183" height="347.5"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                             <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>

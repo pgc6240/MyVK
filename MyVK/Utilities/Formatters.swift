@@ -16,10 +16,22 @@ enum F { // Formatters
         return df
     }()
     
+    static let nf: NumberFormatter = {
+       let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.groupingSeparator = ","
+        return nf
+    }()
+    
     
     static func fd(_ date: Int) -> String { // format date: 237667436432 -> 15 Jan 2015
         let ti = TimeInterval(date)
         let date = Date(timeIntervalSince1970: ti)
         return F.df.string(from: date)
+    }
+    
+    static func fn(_ int: Int?) -> String? { // format number: 1000 -> 1,000
+        guard let int = int else { return nil }
+        return F.nf.string(from: NSNumber(value: int))
     }
 }

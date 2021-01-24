@@ -16,6 +16,7 @@ enum URLBuilder {
     enum VKApiMethod: String {
         var path: String        { "/method/" + rawValue }
         
+        case getUsers           = "users.get"
         case getFriends         = "friends.get"
         case getGroups          = "groups.get"
         case getPhotos          = "photos.get"
