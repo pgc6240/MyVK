@@ -91,6 +91,11 @@ final class NetworkManager {
     }
     
     
+    func getNewsfeed(posts: @escaping ([Post]) -> Void) {
+        makeRequest(.getNewsfeed, parameters: ["filters": "post"], responseItem: Post.self) { posts($0) }
+    }
+    
+    
     func searchGroups(_ searchQuery: String?, searchResults: @escaping ([Group]) -> Void) {
         makeRequest(.searchGroups, parameters: ["q": searchQuery], responseItem: Group.self) { searchResults($0) }
     }

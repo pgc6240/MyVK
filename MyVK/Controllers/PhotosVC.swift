@@ -36,7 +36,9 @@ final class PhotosVC: UICollectionViewController {
     
     
     func getPhotos() {
+        showLoadingView()
         NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
+            self?.dismissLoadingView()
             self?.updatePhotos(with: photos)
         }
     }
@@ -48,8 +50,10 @@ final class PhotosVC: UICollectionViewController {
     }
     
     
-    private func updateTitle(newTitle: String? = nil) {
-        if photos.isEmpty {
+    private func updateTitle() {
+        if isLoading && photos.isEmpty {
+            title = "..."
+        } else if photos.isEmpty {
             title = "Нет фотографий".localized
         } else {
             title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)

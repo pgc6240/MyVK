@@ -27,7 +27,7 @@ final class Post: Object {
 extension Post: Decodable {
     
     private enum CodingKeys: CodingKey {
-        case id, date, text
+        case id, sourceId, date, text
         case likes, count, userLikes
         case views
         case attachments, type, photo
@@ -36,7 +36,11 @@ extension Post: Decodable {
     convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(Int.self, forKey: .id)
+        do {
+            self.id = try container.decode(Int.self, forKey: .id)
+        } catch {
+            self.id = try container.decode(Int.self, forKey: .sourceId)
+        }
         self.date = try container.decode(Int.self, forKey: .date)
         self.text = try container.decode(String.self, forKey: .text)
         let likesContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .likes)
