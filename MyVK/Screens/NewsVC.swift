@@ -15,10 +15,30 @@ final class NewsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTitle()
+    }
+    
+    
+    private func setTitle() {
         navigationItem.title = User.current.name
         token = User.current.observe { [weak self] _ in
             self?.navigationItem.title = User.current.name
         }
+    }
+    
+    
+    @IBAction func postButtonTapped() {
+        let alert = UIAlertController(title: "Новая запись на стене:".localized, message: nil, preferredStyle: .alert)
+        alert.addTextField { $0.placeholder = "Текст новой записи".localized }
+        alert.addAction(UIAlertAction(title: "Закрыть".localized, style: .cancel))
+        alert.addAction(UIAlertAction(title: "Отправить".localized, style: .destructive) { _ in
+            guard let message = alert.textFields?.first?.text, !message.isEmpty else { return }
+            NetworkManager.shared.wallPost(message: message) { [weak self] postId in
+                guard postId != nil else { return }
+                (self?.children.first as? PostsVC)?.getPosts()
+            }
+        })
+        present(alert, animated: true)
     }
     
     

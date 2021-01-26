@@ -40,7 +40,7 @@ final class NetworkManager {
                              isSuccessful: @escaping (Bool) -> Void)
     {
         guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else { return }
-        
+        print(url)
         AF.request(url).responseJSON {
             /* Sample response JSON: { "response": 1 } */
             isSuccessful(($0.value as? [String: Int])?["response"] == 1)
@@ -50,14 +50,15 @@ final class NetworkManager {
     
     private func makeRequest(_ vkApiMethod: VKApiMethod,
                              parameters: [String: String?],
-                             likes: @escaping (Int?) -> Void)
+                             expecting: String,
+                             number: @escaping (Int?) -> Void)
     {
         guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else { return }
         
         AF.request(url).responseJSON {
             /* Sample response JSON: { "response": { "likes": 12} } */
             let response = ($0.value as? [String: Any])?["response"] as? [String: Int]
-            likes(response?["likes"])
+            number(response?[expecting])
         }
     }
     
@@ -96,6 +97,11 @@ final class NetworkManager {
     }
     
     
+    func wallPost(message: String, postId: @escaping (Int?) -> Void) {
+        makeRequest(.wallPost, parameters: ["message": message], expecting: "post_id") { postId($0) }
+    }
+    
+    
     func searchGroups(_ searchQuery: String?, searchResults: @escaping ([Group]) -> Void) {
         makeRequest(.searchGroups, parameters: ["q": searchQuery], responseItem: Group.self) { searchResults($0) }
     }
@@ -112,7 +118,8 @@ final class NetworkManager {
     
     
     func like(like: Bool = true, type: String, itemId: Int, likeCount: @escaping (Int?) -> Void) {
-        makeRequest(like ? .like : .dislike, parameters: ["type": type, "item_id": String(itemId)]) { likeCount($0) }
+        let parameters = ["type": type, "item_id": String(itemId)]
+        makeRequest(like ? .like : .dislike, parameters: parameters, expecting: "likes") { likeCount($0) }
     }
 }
 

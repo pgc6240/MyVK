@@ -26,8 +26,8 @@ final class PostCell: UITableViewCell {
         likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser, postId: post.id)
         viewCountLabel.setTitle(post.viewCount, for: .normal)
         if post.viewCount == nil { viewCountLabel.isHidden = true }
-        let attachments = "\n[\(post.attachments.map { $0.type }.joined(separator: ", "))]".uppercased()
-        postTextLabel.text = post.text + attachments
+        let attachments = "[\(post.attachments.map { $0.type }.joined(separator: ", "))]".uppercased()
+        postTextLabel.text = (post.text.isEmpty ? "" : "\(post.text)") + (!post.text.isEmpty && !post.attachments.isEmpty ? "\n" : "") + (post.attachments.isEmpty ? "" : attachments)
     }
     
     

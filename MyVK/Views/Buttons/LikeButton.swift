@@ -33,7 +33,6 @@ final class LikeButton: UIButton {
             
             self.setImage(UIImage(systemName: liked ? "heart.fill" : "heart"), for: .normal)
             self.setTitle(String(likeCount), for: .normal)
-            self.setTitleColor(liked ? .systemRed : .secondaryLabel, for: .normal)
             self.tintColor = liked ? .systemRed : .secondaryLabel
         }
     }
