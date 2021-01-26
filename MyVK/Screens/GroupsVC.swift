@@ -1,5 +1,5 @@
 //
-//  GroupListVC.swift
+//  GroupsVC.swift
 //  MyVK
 //
 //  Created by pgc6240 on 27.10.2020.
@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-final class GroupListVC: UITableViewController {
+final class GroupsVC: UITableViewController {
     
     var groups: List<Group> = User.current.groups
     private var notificationToken: NotificationToken?
@@ -43,7 +43,7 @@ final class GroupListVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let groupDetailVC = segue.destination as? GroupDetailVC {
+           let groupDetailVC = segue.destination as? GroupVC {
             let group = groups[indexPath.row]
             groupDetailVC.group = group
         }
@@ -59,7 +59,7 @@ final class GroupListVC: UITableViewController {
 //
 // MARK: - UITableViewDelegate & UITableViewDataSource
 //
-extension GroupListVC {
+extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         groups.isEmpty ? "Нет сообществ".localized : "Мои сообщества".localized
@@ -110,7 +110,7 @@ extension GroupListVC {
 //
 // MARK: - UISearchBarDelegate
 //
-extension GroupListVC: UISearchBarDelegate {
+extension GroupsVC: UISearchBarDelegate {
     
     private func configureSearchController() {
         let searchController                                  = UISearchController()

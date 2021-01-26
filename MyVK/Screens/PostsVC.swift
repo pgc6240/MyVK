@@ -1,5 +1,5 @@
 //
-//  PostListVC.swift
+//  PostsVC.swift
 //  MyVK
 //
 //  Created by pgc6240 on 22.01.2021.
@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-final class PostListVC: UIViewController {
+final class PostsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -60,7 +60,7 @@ final class PostListVC: UIViewController {
 //
 // MARK: - UITableViewDataSource & UITableViewDelegate
 //
-extension PostListVC: UITableViewDataSource, UITableViewDelegate {
+extension PostsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         posts.isEmpty ? "Нет записей".localized : nil

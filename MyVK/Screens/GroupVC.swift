@@ -1,5 +1,5 @@
 //
-//  GroupDetailVC.swift
+//  GroupVC.swift
 //  MyVK
 //
 //  Created by pgc6240 on 22.01.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GroupDetailVC: UIViewController {
+final class GroupVC: UIViewController {
     
     var group: Group!
     
@@ -20,7 +20,6 @@ final class GroupDetailVC: UIViewController {
     
     private func configureViewController() {
         title = group.name
-        let postListVC = children.first as? PostListVC
-        postListVC?.set(with: group)
+        (children.first as? PostsVC)?.set(with: group)
     }
 }

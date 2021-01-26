@@ -1,5 +1,5 @@
 //
-//  GroupSearchVC.swift
+//  SearchVC.swift
 //  MyVK
 //
 //  Created by pgc6240 on 27.10.2020.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GroupSearchVC: UITableViewController {
+final class SearchVC: UITableViewController {
 
     var searchResults: [Group] = []
     
@@ -35,7 +35,7 @@ final class GroupSearchVC: UITableViewController {
 //
 // MARK: - UITableViewDelegate & UITableViewDataSource
 //
-extension GroupSearchVC {
+extension SearchVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         "Результаты поиска".localized
@@ -116,7 +116,7 @@ extension GroupSearchVC {
 //
 // MARK: - UISearchBarDelegate
 //
-extension GroupSearchVC: UISearchBarDelegate {
+extension SearchVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchQuery = searchBar.text, searchQuery != "" else { return }

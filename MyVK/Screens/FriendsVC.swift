@@ -152,6 +152,11 @@ extension FriendsVC {
     }
     
     
+    override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
+        friends.firstIndex { $0.first?.lastName.first == Character(title) } ?? 0
+    }
+    
+    
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         friends[section].isEmpty ? 0 : UITableView.automaticDimension
     }
