@@ -98,7 +98,7 @@ extension GroupSearchVC {
                 if isSuccessful {
                     group.isMember = false
                     self?.tableView.reloadRows(at: [indexPath], with: .left)
-                    self?.presentAlert(message: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
+                    self?.presentAlert(title: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
                 } else {
                     self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
                 }

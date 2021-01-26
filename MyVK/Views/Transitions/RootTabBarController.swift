@@ -31,7 +31,11 @@ final class RootTabBarController: UITabBarController {
     
     func networkReachabilityStatusChanged(_ status: NetworkReachabilityManager.NetworkReachabilityStatus) {
         if status == .notReachable {
-            presentAlert(message: "Отсутствует соединение с интернетом.")
+            let goToSettings = UIAlertAction(title: "Настройки", style: .default) { _ in
+                guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+                UIApplication.shared.open(settingsURL)
+            }
+            presentAlert(title: "Отсутствует соединение с интернетом.", action: goToSettings, cancelTitle: "Закрыть")
         }
     }
 }

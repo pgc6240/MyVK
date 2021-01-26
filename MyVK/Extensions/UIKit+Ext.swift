@@ -13,9 +13,10 @@ extension UIViewController {
     var loadingViewTag: Int { 1000 }
     
     
-    func presentAlert(title: String? = nil, message: String?, actionTitle: String = "Хорошо") {
+    func presentAlert(title: String?, message: String? = nil, action: UIAlertAction? = nil, cancelTitle: String = "Хорошо") {
         let alert = UIAlertController(title: title?.localized, message: message?.localized, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle.localized, style: .cancel))
+        alert.addAction(UIAlertAction(title: cancelTitle.localized, style: .cancel))
+        if let action = action { alert.addAction(action) }
         present(alert, animated: true)
     }
     

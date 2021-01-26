@@ -93,7 +93,7 @@ extension GroupListVC {
             
             if isSuccessful {
                 PersistenceManager.delete(groupToDelete)
-                self?.presentAlert(message: "Вы покинули сообщество".localized + "\n\"\(groupToDelete.name)\".".localized)
+                self?.presentAlert(title: "Вы покинули сообщество".localized + "\n\"\(groupToDelete.name)\".".localized)
             } else {
                 self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
             }

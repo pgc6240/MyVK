@@ -16,10 +16,10 @@ final class Post: Object {
     @objc dynamic var likeCount = 0
     @objc dynamic var likedByCurrentUser = false
     @objc dynamic var viewCount: String? = nil
+    let attachments = List<Attachment>()
     
     
     override class func primaryKey() -> String? { "id" }
-    override class func ignoredProperties() -> [String] { ["likedByMe", "owner"] }
 }
 
 
@@ -30,6 +30,7 @@ extension Post: Decodable {
         case id, date, text
         case likes, count, userLikes
         case views
+        case attachments, type, photo
     }
     
     convenience init(from decoder: Decoder) throws {
@@ -45,5 +46,30 @@ extension Post: Decodable {
         let viewsContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .views)
         let viewCount = try? viewsContainer?.decode(Int.self, forKey: .count)
         self.viewCount = F.fn(viewCount)
+        if var attachmentsContainer = try? container.nestedUnkeyedContainer(forKey: .attachments) {
+            while !attachmentsContainer.isAtEnd {
+                let attachmentContainer = try attachmentsContainer.nestedContainer(keyedBy: CodingKeys.self)
+                let type = try attachmentContainer.decode(String.self, forKey: .type)
+                let photo = try? attachmentContainer.decode(Photo.self, forKey: .photo)
+                self.attachments.append(Attachment(type: type, photo: photo))
+            }
+        }
+    }
+}
+
+
+//
+// MARK: - Attachment -
+//
+final class Attachment: Object, Decodable {
+    
+    @objc dynamic var type = ""
+    @objc dynamic var photo: Photo?
+    
+    
+    convenience init(type: String, photo: Photo?) {
+        self.init()
+        self.type = type
+        self.photo = photo
     }
 }

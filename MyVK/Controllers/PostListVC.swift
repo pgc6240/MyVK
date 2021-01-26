@@ -8,7 +8,15 @@
 import UIKit
 import RealmSwift
 
-final class PostListVC: UITableViewController {
+final class PostListVC: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    private var postsPicker: UISegmentedControl = {
+        let postsPicker = UISegmentedControl(items: ["Мои записи", "Записи друзей"])
+        postsPicker.selectedSegmentIndex = 0
+        return postsPicker
+    }()
     
     var posts = User.current.posts
     var owner: CanPost = User.current
@@ -21,6 +29,7 @@ final class PostListVC: UITableViewController {
         PersistenceManager.pair(posts, with: tableView, token: &token)
         timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in self?.getPosts() }
         timer?.fire()
+        tableView.tableHeaderView = postsPicker
     }
     
     
@@ -51,19 +60,19 @@ final class PostListVC: UITableViewController {
 //
 // MARK: - UITableViewDataSource & UITableViewDelegate
 //
-extension PostListVC {
+extension PostListVC: UITableViewDataSource, UITableViewDelegate {
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         posts.isEmpty ? "Нет записей".localized : nil
     }
     
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         posts.count
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
         cell.set(with: post, ownerPhotoUrl: owner.photoUrl, and: owner.name)
@@ -71,7 +80,7 @@ extension PostListVC {
     }
     
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

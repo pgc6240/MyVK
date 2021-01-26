@@ -25,14 +25,15 @@ final class PostCell: UITableViewCell {
         postTextLabel.text = post.text
         likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser, postId: post.id)
         viewCountLabel.setTitle(post.viewCount, for: .normal)
-        if post.viewCount == nil {
-            viewCountLabel.isHidden = true
-        }
+        if post.viewCount == nil { viewCountLabel.isHidden = true }
+        let attachments = "\n[\(post.attachments.map { $0.type }.joined(separator: ", "))]".uppercased()
+        postTextLabel.text = post.text + attachments
     }
     
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        avatarImageView.prepareForReuse()
         viewCountLabel.isHidden = false
     }
 }
