@@ -13,14 +13,31 @@ final class MyImageView: UIImageView {
         willSet { layer.cornerRadius = newValue }
     }
     
-    private weak var task: URLSessionDataTask?
     
+    // MARK: - Initialization -
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(zoom)))
+    }
+    
+    
+    // MARK: - Spring in zoom animation -
+    @objc private func zoom() {
+        let zoomAnimation = CASpringAnimation(keyPath: "transform.scale")
+        zoomAnimation.toValue = 2
+        zoomAnimation.autoreverses = true
+        
+        layer.add(zoomAnimation, forKey: nil)
+    }
+    
+    
+    // MARK: - Downloading-related stuff -
+    private weak var task: URLSessionDataTask?
     
     func prepareForReuse() {
         image = nil
         task?.cancel()
     }
-    
     
     func downloadImage(with urlString: String?) {
         guard

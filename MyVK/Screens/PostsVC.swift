@@ -12,12 +12,6 @@ final class PostsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private var postsPicker: UISegmentedControl = {
-        let postsPicker = UISegmentedControl(items: ["Мои записи", "Записи друзей"])
-        postsPicker.selectedSegmentIndex = 0
-        return postsPicker
-    }()
-    
     var posts = User.current.posts
     var owner: CanPost = User.current
     private var token: NotificationToken?
@@ -29,7 +23,6 @@ final class PostsVC: UIViewController {
         PersistenceManager.pair(posts, with: tableView, token: &token)
         timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in self?.getPosts() }
         timer?.fire()
-        tableView.tableHeaderView = postsPicker
     }
     
     
@@ -63,7 +56,13 @@ final class PostsVC: UIViewController {
 extension PostsVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        posts.isEmpty ? "Нет записей".localized : nil
+        if posts.isEmpty {
+            return "Нет записей".localized
+        } else if owner as? User == User.current {
+            return "Мои записи".localized
+        } else {
+            return "Записи".localized + " \(owner.name)"
+        }
     }
     
     
