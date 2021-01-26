@@ -12,6 +12,9 @@ final class LoginVC: UIViewController {
     
     private var webView: WKWebView!
     
+    @UserDefault(key: "appId", defaultValue: C.appIds.first)
+    var appId: String?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +35,7 @@ final class LoginVC: UIViewController {
     private func loadAuthPage() {
         var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize")
         let parameters    = [
-            "client_id"     : C.APP_IDS[1],
+            "client_id"     : appId,
             "redirect_uri"  : "https://oauth.vk.com/blank.html",
             "display"       : "mobile",
             "scope"         : "wall,friends,photos,groups,likes",
@@ -57,22 +60,31 @@ extension LoginVC: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
         
-        guard let url = navigationResponse.response.url, url.path == "/blank.html", let fragment = url.fragment else {
+        guard let url = navigationResponse.response.url else {
             decisionHandler(.allow)
             return
         }
         
-        let parameters = fragment
-            .components(separatedBy: "&")
-            .map { $0.components(separatedBy: "=") }
-            .reduce([String: String]()) {
-                var parameters    = $0
-                parameters[$1[0]] = $1[1]
-                return parameters
-            }
-        
-        SessionManager.login(token: parameters["access_token"], usedId: parameters["user_id"])
-        
-        decisionHandler(.cancel)
+        if url.path == "/blank.html", let fragment = url.fragment {
+            
+            let parameters = fragment
+                .components(separatedBy: "&")
+                .map { $0.components(separatedBy: "=") }
+                .reduce([String: String]()) {
+                    var parameters    = $0
+                    parameters[$1[0]] = $1[1]
+                    return parameters
+                }
+            
+            SessionManager.login(token: parameters["access_token"], usedId: parameters["user_id"])
+            
+            decisionHandler(.cancel)
+            
+        } else {
+            appId = C.appIds.randomElement()
+            loadAuthPage()
+            
+            decisionHandler(.allow)
+        }
     }
 }

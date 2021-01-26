@@ -8,7 +8,7 @@
 import UIKit
 
 enum C { // Constants
-    static let APP_IDS = ["7715455", "7707492" ,"7704322", "7732001", "7732004"]
+    static let appIds = ["7715455", "7707492" ,"7704322", "7732001", "7732004"]
 }
 
 
