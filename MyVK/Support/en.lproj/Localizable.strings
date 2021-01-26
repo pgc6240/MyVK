@@ -6,22 +6,23 @@
   
 */
 
-"Поиск среди моих друзей"           = "Search for a friend";
-"Поиск в моих сообществах"          = "Search in my communities";
-"Мои сообщества"                    = "My communities";
-"Поиск сообществ"                   = "Search for communitie";
-"Результаты поиска"                 = "Search results";
-"Нет сообществ"                     = "No communities";
-"Выйти из сообщества"               = "Leave communitie";
-"Нет фотографий"                    = "No photos";
-"Фотография "                       = "Photo ";
-" из "                              = " of ";
-"Хорошо"                            = "OK";
-"Вы покинули сообщество"            = "You've leaved communitie";
-"Что-то пошло не так..."            = "Something went wrong";
-"Мы работаем над этим."             = "We're working on it.";
-"\nВы теперь состоите в сообществе" = "Now you're member of";
-"Открытое"                          = "Open";
-"Закрытое"                          = "Closed";
-" сообщество"                       = " communitie";
-"Нет записей"                       = "No wall posts";
+"Поиск среди моих друзей"              = "Search for a friend";
+"Поиск в моих сообществах"             = "Search in my communities";
+"Мои сообщества"                       = "My communities";
+"Поиск сообществ"                      = "Search for communitie";
+"Результаты поиска"                    = "Search results";
+"Нет сообществ"                        = "No communities";
+"Выйти из сообщества"                  = "Leave communitie";
+"Нет фотографий"                       = "No photos";
+"Фотография "                          = "Photo ";
+" из "                                 = " of ";
+"Хорошо"                               = "OK";
+"Вы покинули сообщество"               = "You've leaved communitie";
+"Что-то пошло не так..."               = "Something went wrong";
+"Мы работаем над этим."                = "We're working on it.";
+"\nВы теперь состоите в сообществе"    = "Now you're member of";
+"Открытое"                             = "Open";
+"Закрытое"                             = "Closed";
+" сообщество"                          = " communitie";
+"Нет записей"                          = "No wall posts";
+"Отсутствует соединение с интернетом." = "The Internet connection appears to be offline.";

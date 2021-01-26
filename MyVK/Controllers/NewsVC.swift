@@ -9,10 +9,9 @@ import UIKit
 
 final class NewsVC: UIViewController {
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = User.current.name
+        navigationItem.title = User.current.name
     }
     
     
