@@ -9,41 +9,71 @@ import UIKit
 
 final class LoadingView: UIView {
     
-    let circleLayer = CAShapeLayer()
+    // MARK: - External properties -
+    var color: UIColor?
     
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        backgroundColor     = UIColor.vkColor?.withAlphaComponent(0.75)
-        layer.cornerRadius  = 8
-        
-        let circlePath          = UIBezierPath(roundedRect: bounds.insetBy(dx: 12, dy: 12), cornerRadius: bounds.width / 2)
-        circleLayer.path        = circlePath.cgPath
-        circleLayer.fillColor   = UIColor.clear.cgColor
-        circleLayer.strokeColor = UIColor.white.cgColor
-        circleLayer.lineWidth   = 5
-        
-        layer.addSublayer(circleLayer)
-        
-        startAnimating()
+    // MARK: - Internal properties -
+    private let circleLayer  = CAShapeLayer()
+    private let animationKey = "loadingViewAnimation"
+    
+    
+    // MARK: - Initialization -
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layoutUI()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    convenience init(width: CGFloat = 60,
+                     in bounds: CGRect,
+                     color: UIColor? = UIColor(named: "AccentColor"),
+                     backgroundColor: UIColor? = .black)
+    {
+        let frame = CGRect(x: bounds.midX - width / 2, y: bounds.midY - width / 2, width: width, height: width)
+        self.init(frame: frame)
+        self.color = color
+        self.layoutUI()
+        self.backgroundColor = backgroundColor?.withAlphaComponent(0.7)
     }
     
     
-    func startAnimating() {
-        let strokeStartAnimation        = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeStart))
-        strokeStartAnimation.fromValue  = 0
-        strokeStartAnimation.toValue    = 1
+    // MARK: - UI -
+    private func layoutUI() {
+        let width = bounds.width
+        let circlePath = UIBezierPath(roundedRect: bounds.insetBy(dx: width / 5, dy: width / 5), cornerRadius: width / 2)
+        circleLayer.path = circlePath.cgPath
+        circleLayer.fillColor = UIColor.clear.cgColor
+        circleLayer.strokeColor = color?.cgColor
+        circleLayer.lineWidth = width / 10
+        layer.addSublayer(circleLayer)
+        layer.cornerRadius = 8
+    }
+    
+    
+    // MARK: - Loading animation -
+    func startLoading() {
+        let strokeStartAnimation       = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeStart))
+        strokeStartAnimation.fromValue = 0
+        strokeStartAnimation.toValue   = 1
         
-        let strokeEndAnimation          = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeEnd))
-        strokeEndAnimation.fromValue    = 0
-        strokeEndAnimation.toValue      = 2
+        let strokeEndAnimation         = CABasicAnimation(keyPath: #keyPath(CAShapeLayer.strokeEnd))
+        strokeEndAnimation.fromValue   = 0
+        strokeEndAnimation.toValue     = 2
         
-        let animationGroup              = CAAnimationGroup()
-        animationGroup.duration         = 2
-        animationGroup.animations       = [strokeStartAnimation, strokeEndAnimation]
-        animationGroup.repeatCount      = .infinity
+        let animationGroup             = CAAnimationGroup()
+        animationGroup.duration        = 1.5
+        animationGroup.animations      = [strokeStartAnimation, strokeEndAnimation]
+        animationGroup.repeatCount     = .infinity
         
-        circleLayer.add(animationGroup, forKey: nil)
+        circleLayer.add(animationGroup, forKey: animationKey)
+    }
+    
+    
+    func stopLoading() {
+        circleLayer.removeAnimation(forKey: animationKey)
     }
 }

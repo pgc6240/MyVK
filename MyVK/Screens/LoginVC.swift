@@ -7,35 +7,46 @@
 
 import UIKit
 import WebKit
+import Alamofire
 
 final class LoginVC: UIViewController {
     
     private var webView: WKWebView!
-    
-    @UserDefault(key: "appId", defaultValue: C.appIds.first)
-    private var appId: String?
+    private let networkReachabilityManager = NetworkReachabilityManager(host: "yandex.ru")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureWebView()
+        startObservingNetworkStatus()
+    }
+    
+    
+    private func startObservingNetworkStatus() {
+        networkReachabilityManager?.startListening { [weak self] status in
+            switch status {
+            case .reachable(_):
+                self?.loadAuthPage()
+            case .notReachable:
+                self?.presentNetworkUnavailableAlert()
+            default: break
+            }
+        }
     }
     
     
     private func configureWebView() {
-        webView                     = WKWebView(frame: UIScreen.main.bounds)
+        webView                     = WKWebView(frame: Screen.bounds)
         webView.autoresizingMask    = [.flexibleWidth, .flexibleHeight]
         webView.navigationDelegate  = self
         view.addSubview(webView)
-        
-        loadAuthPage()
     }
     
     
     private func loadAuthPage() {
         var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize")
         let parameters    = [
-            "client_id"     : appId ?? C.appIds[0],
+            "client_id"     : PersistenceManager.appId,
             "redirect_uri"  : "https://oauth.vk.com/blank.html",
             "display"       : "mobile",
             "scope"         : "wall,friends,photos,groups,likes",
@@ -84,9 +95,9 @@ extension LoginVC: WKNavigationDelegate {
             
             responsePolicy = .cancel
             
-        } else if url.path == "/error" {
+        } else if url.path == "/error", let newAppId = C.APP_IDS.randomElement() {
 
-            appId = C.appIds.randomElement()
+            PersistenceManager.appId = newAppId
             loadAuthPage()
         }
     }

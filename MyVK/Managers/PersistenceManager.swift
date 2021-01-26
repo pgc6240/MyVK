@@ -12,11 +12,15 @@ enum PersistenceManager {
     
     // MARK: - UserDefaults -
     enum Keys {
+        static let appId       = "appId"
         static let appVersion  = "CFBundleVersion"
         static let selectedTab = "selectedTab"
     }
     
     static let appVersion = Bundle.main.infoDictionary?[Keys.appVersion] as? String
+    
+    @UserDefault(key: Keys.appId, defaultValue: C.APP_IDS[0])
+    static var appId: String
     
     @UserDefault(key: Keys.selectedTab, defaultValue: 0)
     static var selectedTab

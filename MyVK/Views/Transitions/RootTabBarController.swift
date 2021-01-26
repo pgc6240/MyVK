@@ -22,20 +22,18 @@ final class RootTabBarController: UITabBarController {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         selectedIndex = PersistenceManager.selectedTab
-        networkReachabilityManager?.startListening(onUpdatePerforming: networkReachabilityStatusChanged)
+        startObservingNetworkStatus()
     }
     
     
-    // MARK: - Network reachability -
+    // MARK: - Network reachability status -
     let networkReachabilityManager = NetworkReachabilityManager(host: "yandex.ru")
     
-    func networkReachabilityStatusChanged(_ status: NetworkReachabilityManager.NetworkReachabilityStatus) {
-        if status == .notReachable {
-            let goToSettings = UIAlertAction(title: "Настройки", style: .default) { _ in
-                guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-                UIApplication.shared.open(settingsURL)
+    func startObservingNetworkStatus() {
+        networkReachabilityManager?.startListening { [weak self] status in
+            if status == .notReachable {
+                self?.presentNetworkUnavailableAlert()
             }
-            presentAlert(title: "Отсутствует соединение с интернетом.", action: goToSettings, cancelTitle: "Закрыть")
         }
     }
 }

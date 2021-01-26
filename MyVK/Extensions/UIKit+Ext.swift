@@ -6,31 +6,33 @@
 //
 
 import UIKit
+import Alamofire
 
 extension UIViewController {
     
-    var isLoading: Bool { view.viewWithTag(loadingViewTag) != nil }
-    var loadingViewTag: Int { 1000 }
-    
-    
-    func presentAlert(title: String?, message: String? = nil, action: UIAlertAction? = nil, cancelTitle: String = "Хорошо") {
+
+    func presentAlert(title: String?, message: String? = nil, actionTitle: String = "Хорошо") {
         let alert = UIAlertController(title: title?.localized, message: message?.localized, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: cancelTitle.localized, style: .cancel))
-        if let action = action { alert.addAction(action) }
+        alert.addAction(UIAlertAction(title: actionTitle.localized, style: .cancel))
         present(alert, animated: true)
     }
+    
+    
+    // MARK: - Loading state -
+    var loadingViewTag: Int { 1000 }
+    var loadingView: LoadingView? { view.viewWithTag(loadingViewTag) as? LoadingView }
+    var isLoading: Bool { view.viewWithTag(loadingViewTag) != nil }
     
     
     func showLoadingView() {
         guard !isLoading else { return }
         
-        let width: CGFloat = 60
-        let frame = CGRect(x: view.bounds.midX - width / 2, y: view.bounds.midY, width: width, height: width)
-        let loadingView = LoadingView(frame: frame)
+        let loadingView = LoadingView(width: 60, in: view.bounds, color: .white, backgroundColor: .vkColor)
         loadingView.tag = loadingViewTag
-        loadingView.layer.opacity = 0
         view.addSubview(loadingView)
         
+        loadingView.startLoading()
+        loadingView.layer.opacity = 0
         UIView.transition(with: loadingView, duration: 2, options: .transitionCrossDissolve) {
             loadingView.layer.opacity = 1
         }
@@ -38,17 +40,29 @@ extension UIViewController {
     
     
     func dismissLoadingView() {
-        let loadingView = view.viewWithTag(loadingViewTag)
+        loadingView?.stopLoading()
         loadingView?.removeFromSuperview()
+    }
+    
+    
+    // MARK: - Network reachability status -
+    func presentNetworkUnavailableAlert() {
+        let alertTitle = "Отсутствует соединение с интернетом.".localized
+        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+        let cancel = UIAlertAction(title: "Закрыть".localized, style: .cancel)
+        let goToSettings = UIAlertAction(title: "Настройки".localized, style: .default) { _ in
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(settingsURL)
+        }
+        alert.addAction(cancel)
+        alert.addAction(goToSettings)
+        present(alert, animated: true)
     }
 }
 
 
 extension UIColor {
-    
-    static var vkColor: UIColor? {
-        UIColor(named: "AccentColor")
-    }
+    static var vkColor: UIColor? { UIColor(named: "AccentColor") }
 }
 
 
