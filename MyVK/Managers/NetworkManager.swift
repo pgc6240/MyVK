@@ -40,7 +40,7 @@ final class NetworkManager {
                              isSuccessful: @escaping (Bool) -> Void)
     {
         guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else { return }
-        print(url)
+        
         AF.request(url).responseJSON {
             /* Sample response JSON: { "response": 1 } */
             isSuccessful(($0.value as? [String: Int])?["response"] == 1)
@@ -99,6 +99,11 @@ final class NetworkManager {
     
     func wallPost(message: String, postId: @escaping (Int?) -> Void) {
         makeRequest(.wallPost, parameters: ["message": message], expecting: "post_id") { postId($0) }
+    }
+    
+    
+    func deletePost(postId: Int?, isSuccessful: @escaping (Bool) -> Void) {
+        makeRequest(.deletePost, parameters: ["post_id": String(postId)], isSuccessful: isSuccessful)
     }
     
     

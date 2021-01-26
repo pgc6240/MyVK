@@ -9,6 +9,9 @@ import UIKit
 
 final class PostCell: UITableViewCell {
     
+    var postId: Int!
+    weak var postsVC: PostsVC!
+    
     @IBOutlet weak var avatarImageView: MyImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -18,6 +21,7 @@ final class PostCell: UITableViewCell {
     
     
     func set(with post: Post, ownerPhotoUrl: String?, and ownerName: String) {
+        postId = post.id
         avatarImageView.downloadImage(with: ownerPhotoUrl)
         avatarImageView.contentMode = ownerPhotoUrl == "" ? .center : .scaleAspectFit
         nameLabel.text = ownerName
@@ -35,5 +39,10 @@ final class PostCell: UITableViewCell {
         super.prepareForReuse()
         avatarImageView.prepareForReuse()
         viewCountLabel.isHidden = false
+    }
+    
+    
+    @IBAction func deletePost() {
+        postsVC.deletePost(with: postId)
     }
 }

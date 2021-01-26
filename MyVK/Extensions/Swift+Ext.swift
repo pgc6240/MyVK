@@ -19,6 +19,12 @@ extension Int {
 
 extension String {
     
+    init?(_ optionalInt: Int?) {
+        guard let int = optionalInt else { return nil }
+        self.init(int)
+    }
+    
+    
     var localized: String {
         NSLocalizedString(self, comment: "")
     }

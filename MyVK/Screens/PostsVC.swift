@@ -47,6 +47,21 @@ final class PostsVC: UIViewController {
             PersistenceManager.save(posts, in: self.posts)
         }
     }
+    
+    
+    func deletePost(with postId: Int) {
+        let alertTitle = "Вы точно хотите удалить запись?".localized
+        let alertMessage = "Это действие будет невозможно отменить.".localized
+        let alert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "Нет".localized, style: .default))
+        alert.addAction(UIAlertAction(title: "Да".localized, style: .destructive) { [postId] _ in
+            NetworkManager.shared.deletePost(postId: postId) { [weak self] isSuccessful in
+                guard isSuccessful else { return }
+                self?.getPosts()
+            }
+        })
+        present(alert, animated: true)
+    }
 }
 
 
@@ -75,6 +90,7 @@ extension PostsVC: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
         cell.set(with: post, ownerPhotoUrl: owner.photoUrl, and: owner.name)
+        cell.postsVC = self
         return cell
     }
     
