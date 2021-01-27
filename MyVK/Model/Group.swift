@@ -23,7 +23,7 @@ final class Group: Object, CanPost {
 
 
 //
-// MARK: - Decodable
+// MARK: - Decodable -
 //
 extension Group: Decodable {
     

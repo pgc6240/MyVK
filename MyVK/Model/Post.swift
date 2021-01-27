@@ -11,7 +11,7 @@ import RealmSwift
 final class Post: Object {
 
     @objc dynamic var id = 0
-    @objc dynamic var date = 0 // unixtime
+    @objc dynamic var date = 0 /* unixtime */
     @objc dynamic var text = ""
     @objc dynamic var likeCount = 0
     @objc dynamic var likedByCurrentUser = false
@@ -23,7 +23,9 @@ final class Post: Object {
 }
 
 
+//
 // MARK: - Decodable -
+//
 extension Post: Decodable {
     
     private enum CodingKeys: CodingKey {

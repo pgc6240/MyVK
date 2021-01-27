@@ -19,7 +19,7 @@ final class Photo: Object {
 
 
 //
-// MARK: - Photo sizes
+// MARK: - Photo sizes -
 //
 fileprivate struct Size: Decodable, Comparable {
     let url: String
@@ -39,7 +39,7 @@ fileprivate struct Size: Decodable, Comparable {
 
 
 //
-// MARK: - Decodable
+// MARK: - Decodable -
 //
 extension Photo: Decodable {
     

@@ -28,9 +28,8 @@ final class NewsVC: UIViewController {
     
     
     @IBAction func postButtonTapped() {
-        let alert = UIAlertController(title: "Новая запись на стене:".localized, message: nil, preferredStyle: .alert)
+        let alert = makeAlert(title: "Новая запись на стене:", cancelTitle: "Закрыть")
         alert.addTextField { $0.placeholder = "Текст новой записи".localized }
-        alert.addAction(UIAlertAction(title: "Закрыть".localized, style: .cancel))
         alert.addAction(UIAlertAction(title: "Отправить".localized, style: .destructive) { _ in
             guard let message = alert.textFields?.first?.text, !message.isEmpty else { return }
             NetworkManager.shared.wallPost(message: message) { [weak self] postId in
@@ -38,6 +37,7 @@ final class NewsVC: UIViewController {
                 (self?.children.first as? PostsVC)?.getPosts()
             }
         })
+        alert.view.tintColor = UIColor.vkColor
         present(alert, animated: true)
     }
     

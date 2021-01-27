@@ -10,10 +10,16 @@ import Alamofire
 
 extension UIViewController {
     
-
-    func presentAlert(title: String?, message: String? = nil, actionTitle: String = "Хорошо") {
+    // MARK: - Alerts -
+    func makeAlert(title: String?, message: String? = nil, cancelTitle: String = "Хорошо") -> UIAlertController {
         let alert = UIAlertController(title: title?.localized, message: message?.localized, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: actionTitle.localized, style: .cancel))
+        alert.addAction(UIAlertAction(title: cancelTitle.localized, style: .cancel))
+        alert.view.tintColor = UIColor.vkColor
+        return alert
+    }
+
+    func presentAlert(title: String?, message: String? = nil, cancelTitle: String = "Хорошо") {
+        let alert = makeAlert(title: title, message: message, cancelTitle: cancelTitle)
         present(alert, animated: true)
     }
     
@@ -47,14 +53,11 @@ extension UIViewController {
     
     // MARK: - Network reachability status -
     func presentNetworkUnavailableAlert() {
-        let alertTitle = "Отсутствует соединение с интернетом.".localized
-        let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "Закрыть".localized, style: .cancel)
+        let alert = makeAlert(title: "Отсутствует соединение с интернетом.", cancelTitle: "Закрыть")
         let goToSettings = UIAlertAction(title: "Настройки".localized, style: .default) { _ in
             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
             UIApplication.shared.open(settingsURL)
         }
-        alert.addAction(cancel)
         alert.addAction(goToSettings)
         present(alert, animated: true)
     }

@@ -9,6 +9,7 @@ import Alamofire
 
 final class NetworkManager {
     
+    // MARK: - Singleton -
     static let shared = NetworkManager()
     
     private init() {}
@@ -29,6 +30,7 @@ final class NetworkManager {
             case .success(let response):
                 completion(response.response.items)
             case .failure(let error):
+                print(url)
                 print(error)
             }
         }
@@ -56,9 +58,8 @@ final class NetworkManager {
         guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else { return }
         
         AF.request(url).responseJSON {
-            /* Sample response JSON: { "response": { "likes": 12} } */
-            let response = ($0.value as? [String: Any])?["response"] as? [String: Int]
-            number(response?[expecting])
+            /* Sample response JSON: { "response": { "likes": 12 } } */
+            number((($0.value as? [String: Any])?["response"] as? [String: Int])?[expecting])
         }
     }
     
@@ -89,11 +90,6 @@ final class NetworkManager {
     
     func getPosts(ownerId: Int, posts: @escaping ([Post]) -> Void) {
         makeRequest(.getPosts, parameters: ["owner_id": String(ownerId)], responseItem: Post.self) { posts($0) }
-    }
-    
-    
-    func getNewsfeed(posts: @escaping ([Post]) -> Void) {
-        makeRequest(.getNewsfeed, parameters: ["filters": "post"], responseItem: Post.self) { posts($0) }
     }
     
     
@@ -133,6 +129,7 @@ final class NetworkManager {
 // MARK: - Response -
 //
 fileprivate struct Response<I: Decodable>: Decodable {
+    
     let response: Items<I>
     
     struct Items<I: Decodable>: Decodable {
@@ -148,13 +145,7 @@ fileprivate struct Response<I: Decodable>: Decodable {
         do {
             self.response = try container.decode(Items<I>.self, forKey: .response)
         } catch {
-            var responseContainer = try container.nestedUnkeyedContainer(forKey: .response)
-            var items: [I] = []
-            while !responseContainer.isAtEnd {
-                let item = try responseContainer.decode(I.self)
-                items.append(item)
-            }
-            self.response = Items(items: items)
+            self.response = Items(items: try container.decode([I].self, forKey: .response))
         }
     }
 }

@@ -60,6 +60,7 @@ final class PostsVC: UIViewController {
                 self?.getPosts()
             }
         })
+        alert.view.tintColor = UIColor.vkColor
         present(alert, animated: true)
     }
 }
@@ -78,6 +79,11 @@ extension PostsVC: UITableViewDataSource, UITableViewDelegate {
         } else {
             return "Записи".localized + " \(owner.name)"
         }
+    }
+    
+    
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        posts.isEmpty ? nil : String(posts.count) + " записей".localized
     }
     
     

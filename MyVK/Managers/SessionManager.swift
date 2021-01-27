@@ -9,17 +9,16 @@ import UIKit
 
 enum SessionManager {
     
+    static var loggingOut = false
     static var token: String?
-    static var userId: Int?
     
     
-    static func login(token: String?, usedId: String?) {
-        guard let id = Int(usedId) else { fatalError() }
+    static func login(token: String?, userId: String?) {
+        self.token = token
         
-        SessionManager.token  = token
-        SessionManager.userId = id
-        
-        User.setCurrentUser(with: id)
+        if let userId = Int(userId) {
+            User.setCurrentUser(with: userId)
+        }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         UIApplication.shared.windows.first?.rootViewController = storyboard.instantiateInitialViewController()
@@ -27,9 +26,8 @@ enum SessionManager {
     
     
     static func logout() {
-        SessionManager.token  = "loggingOut"
-        SessionManager.userId = nil
-        
+        SessionManager.loggingOut = true
+        SessionManager.token = nil
         User.current = nil
         
         UIApplication.shared.windows.first?.rootViewController = LoginVC()

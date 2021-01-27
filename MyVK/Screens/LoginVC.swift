@@ -52,7 +52,7 @@ final class LoginVC: UIViewController {
             "scope"         : "wall,friends,photos,groups,likes",
             "response_type" : "token",
             "state"         : "pgc6240",
-            "revoke"        : SessionManager.token == "loggingOut" ? "1" : "0",
+            "revoke"        : SessionManager.loggingOut ? "1" : "0",
             "lang"          : Locale.current.identifier
         ]
         urlComponents?.queryItems = parameters.map { URLQueryItem(name: $0, value: $1) }
@@ -91,7 +91,7 @@ extension LoginVC: WKNavigationDelegate {
                     return parameters
                 }
             
-            SessionManager.login(token: parameters["access_token"], usedId: parameters["user_id"])
+            SessionManager.login(token: parameters["access_token"], userId: parameters["user_id"])
             
             responsePolicy = .cancel
             

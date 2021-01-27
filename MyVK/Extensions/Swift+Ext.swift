@@ -29,7 +29,6 @@ extension String {
         NSLocalizedString(self, comment: "")
     }
     
-    
     var toLatin: String {
         let latinString = self.applyingTransform(StringTransform.toLatin, reverse: false) ?? self
         return latinString.applyingTransform(StringTransform.stripDiacritics, reverse: false) ?? self
