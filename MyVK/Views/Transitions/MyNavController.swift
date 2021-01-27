@@ -1,5 +1,5 @@
 //
-//  _NavigationController.swift
+//  MyNavController.swift
 //  MyVK
 //
 //  Created by pgc6240 on 22.11.2020.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-final class _NavigationController: UINavigationController, UINavigationControllerDelegate {
+final class MyNavigationController: UINavigationController, UINavigationControllerDelegate {
 
-    weak var interactiveTransition: _InteractiveTransition?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
     }
     
+    
+    // MARK: - UINavigationControllerDelegate -
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         switch operation {
@@ -26,9 +26,5 @@ final class _NavigationController: UINavigationController, UINavigationControlle
         default:
             return nil
         }
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        interactiveTransition?.hasBegan ?? false ? interactiveTransition : nil
     }
 }

@@ -9,7 +9,7 @@ import UIKit
 
 final class MyImageView: UIImageView {
     
-    // MARK: - Storyboard-editable propeties
+    // MARK: - Storyboard-editable propeties -
     @IBInspectable var cornerRadius: CGFloat = 0 {
         willSet { layer.cornerRadius = newValue }
     }

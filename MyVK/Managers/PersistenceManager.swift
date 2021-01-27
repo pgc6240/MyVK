@@ -35,6 +35,16 @@ enum PersistenceManager {
     }()
     
     
+    static func create<T: Object>(_ object: T) -> T? {
+        let realm = try? Realm(configuration: realmConfiguration)
+        var createdObject: T?
+        try? realm?.write {
+            createdObject = realm?.create(T.self, value: object, update: .modified)
+        }
+        return createdObject
+    }
+    
+    
     static func save(_ objects: Object...) {
         let realm = try? Realm(configuration: realmConfiguration)
         try? realm?.write {
@@ -65,7 +75,9 @@ enum PersistenceManager {
                           let oldGroup = realm.object(ofType: Group.self, forPrimaryKey: newGroup.id)
                 {
                     newGroup.posts.append(objectsIn: oldGroup.posts)
-                    realm.add(newGroup, update: .modified)
+                    let newGroup = realm.create(T.self, value: newGroup, update: .modified)
+                    guard list.index(of: newGroup) == nil else { continue }
+                    list.append(newGroup)
                     
                 } else {
                     let newObject = realm.create(T.self, value: newObject, update: .modified)

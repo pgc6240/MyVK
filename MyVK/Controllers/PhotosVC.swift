@@ -19,7 +19,6 @@ final class PhotosVC: UICollectionViewController {
     }
     
     private var currentPage = 0 { didSet { updateTitle() }}
-    private var interactiveTransition = _InteractiveTransition()
     
     
     override func viewDidLoad() {
@@ -63,7 +62,7 @@ final class PhotosVC: UICollectionViewController {
 
 
 //
-// MARK: - UICollectionViewDataSource & UICollectionViewDelegate
+// MARK: - UICollectionViewDataSource & UICollectionViewDelegate -
 //
 extension PhotosVC {
     
@@ -82,7 +81,7 @@ extension PhotosVC {
 
 
 //
-// MARK: - UIScrollViewDelegate (swipe photos functionality)
+// MARK: - UIScrollViewDelegate (swipe photos functionality) -
 //
 extension PhotosVC {
     
@@ -109,53 +108,8 @@ extension PhotosVC {
 
 
 //
-// MARK: - UIGestureRecognizerDelegate (swipe to left gesture & interactive pop)
+// MARK: - Animation-related stuff (going to dark mode on appear and vice versa) -
 //
-extension PhotosVC: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        currentPage == 0
-    }
-    
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        true
-    }
-    
-    
-    @IBAction func swipeRightToPop(_ recognizer: UIPanGestureRecognizer) {
-        let translationX         = recognizer.translation(in: view).x
-        let navigationController = self.navigationController as? _NavigationController
-        
-        guard translationX > 0 else { return }
-        
-        switch recognizer.state {
-        case .began:
-            interactiveTransition.hasBegan = true
-            navigationController?.interactiveTransition = interactiveTransition
-            navigationController?.popViewController(animated: true)
-        
-        case .changed:
-            let relativeTranslation = translationX / Screen.width
-            interactiveTransition.shouldFinishTransition = relativeTranslation > 0.33
-            interactiveTransition.update(relativeTranslation)
-            
-        case .ended:
-            interactiveTransition.hasBegan = false
-            interactiveTransition.shouldFinishTransition ? interactiveTransition.finish() : interactiveTransition.cancel()
-            
-        case .cancelled:
-            interactiveTransition.hasBegan = false
-            interactiveTransition.cancel()
-        
-        default:
-            return
-        }
-    }
-}
-
-
-// MARK: - Animation-related stuff (going to dark mode on appear and vice versa)
 extension PhotosVC {
     
     override func viewWillDisappear(_ animated: Bool) {

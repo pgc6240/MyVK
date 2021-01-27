@@ -18,7 +18,7 @@ final class GradientView: UIView {
     @IBInspectable var startLocation: CGFloat  = 0      { didSet  { updateLocations() }}
     @IBInspectable var endLocation: CGFloat    = 1      { didSet  { updateLocations() }}
     @IBInspectable var startPoint: CGPoint     = .zero  { willSet { gradientLayer.startPoint = newValue }}
-    @IBInspectable var endPoint: CGPoint       = .zero  { willSet { gradientLayer.startPoint = newValue }}
+    @IBInspectable var endPoint: CGPoint       = .zero  { willSet { gradientLayer.endPoint = newValue }}
     
     
     private func updateColors() {

@@ -38,7 +38,7 @@ final class LikeButton: UIButton {
     }
     
     @objc func like() {
-        NetworkManager.shared.like(like: liked ? false : true, type: "post", itemId: postId) { [weak self, liked, postId] in
+        NetworkManager.shared.like(like: !liked, type: "post", itemId: postId) { [weak self, liked, postId] in
             guard let likeCount = $0 else { return }
             self?.set(likeCount: likeCount, liked: !liked, postId: postId, animated: true)
         }

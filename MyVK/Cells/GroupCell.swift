@@ -17,6 +17,12 @@ final class GroupCell: UITableViewCell {
     func set(with group: Group) {
         avatarImageView.downloadImage(with: group.photoUrl)
         groupNameLabel.text = group.name
-        groupIsPublicLabel.text = (group.isOpen ? "Открытое".localized : "Закрытое".localized) + " сообщество".localized
+        groupIsPublicLabel.text = (group.isOpen ? "Открытое" : "Закрытое").localized + " сообщество".localized
+    }
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        avatarImageView.prepareForReuse()
     }
 }

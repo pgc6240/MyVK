@@ -13,7 +13,12 @@ final class PhotoCell: UICollectionViewCell {
     
     
     func set(with photo: Photo) {
-        photoImageView.contentMode = .scaleAspectFit
         photoImageView.downloadImage(with: photo.maxSizeUrl)
+    }
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        photoImageView.prepareForReuse()
     }
 }

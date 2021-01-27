@@ -28,6 +28,10 @@ final class User: Object, CanPost {
     let posts = List<Post>()
     
     
+    //MARK: - Realm Object's methods -
+    override class func primaryKey() -> String? { "id" }
+    
+    
     //MARK: - Current user -
     static var current: User!
     
@@ -35,12 +39,9 @@ final class User: Object, CanPost {
         if let userStored = PersistenceManager.load(User.self, with: id) {
             User.current = userStored
         } else {
-            User.current = User(id: id)
-            PersistenceManager.save(User.current)
-            
+            User.current = PersistenceManager.create(User(id: id))
             NetworkManager.shared.getUsers(userIds: [id]) { users in
                 guard let currentUser = users.first else { return }
-                User.current = currentUser
                 PersistenceManager.save(currentUser)
             }
         }
@@ -50,15 +51,11 @@ final class User: Object, CanPost {
         self.init()
         self.id = id
     }
-    
-    
-    //MARK: - Realm Object's methods -
-    override class func primaryKey() -> String? { "id" }
 }
 
 
 //
-// MARK: - Decodable
+// MARK: - Decodable -
 //
 extension User: Decodable {
     

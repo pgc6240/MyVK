@@ -9,8 +9,8 @@ import UIKit
 
 final class PostCell: UITableViewCell {
     
-    var postId: Int!
-    weak var postsVC: PostsVC!
+    private var postId: Int!
+    weak var postsVC: PostsVC?
     
     @IBOutlet weak var avatarImageView: MyImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -26,12 +26,11 @@ final class PostCell: UITableViewCell {
         avatarImageView.contentMode = ownerPhotoUrl == "" ? .center : .scaleAspectFit
         nameLabel.text = ownerName
         dateLabel.text = F.fd(post.date)
-        postTextLabel.text = post.text
         likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser, postId: post.id)
         viewCountLabel.setTitle(post.viewCount, for: .normal)
         if post.viewCount == nil { viewCountLabel.isHidden = true }
-        let attachments = "[\(post.attachments.map { $0.type }.joined(separator: ", "))]".uppercased()
-        postTextLabel.text = (post.text.isEmpty ? "" : "\(post.text)") + (!post.text.isEmpty && !post.attachments.isEmpty ? "\n" : "") + (post.attachments.isEmpty ? "" : attachments)
+        let attachmentsString = "[\(post.attachments.map { $0.type }.joined(separator: ", "))]".uppercased()
+        postTextLabel.text = (post.text.isEmpty ? "" : "\(post.text)") + (!post.text.isEmpty && !post.attachments.isEmpty ? "\n" : "") + (post.attachments.isEmpty ? "" : attachmentsString)
     }
     
     
@@ -43,6 +42,6 @@ final class PostCell: UITableViewCell {
     
     
     @IBAction func deletePost() {
-        postsVC.deletePost(with: postId)
+        postsVC?.deletePost(with: postId)
     }
 }
