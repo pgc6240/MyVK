@@ -43,7 +43,7 @@ final class GroupsVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let groupDetailVC = segue.destination as? GroupVC {
+           let groupDetailVC = segue.destination as? GroupDetailVC {
             let group = groups[indexPath.row]
             groupDetailVC.group = group
         }

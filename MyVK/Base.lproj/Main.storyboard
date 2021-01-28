@@ -516,7 +516,7 @@
         <!--Сообщество-->
         <scene sceneID="PEd-en-5Ng">
             <objects>
-                <viewController title="Сообщество" id="3Uz-h0-VTz" customClass="GroupVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Сообщество" id="3Uz-h0-VTz" customClass="GroupDetailVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bxL-EI-z6u">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

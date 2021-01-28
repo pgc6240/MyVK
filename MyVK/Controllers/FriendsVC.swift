@@ -112,7 +112,7 @@ final class FriendsVC: UITableViewController {
            let photosVC  = segue.destination as? PhotosVC
         {
             let friend    = friends[indexPath.section][indexPath.row]
-            photosVC.user = friend
+            photosVC.user = PersistenceManager.load(User.self, with: friend.id)
         }
         navigationItem.searchController?.searchBar.isHidden = true /* interactive transition animation-related */
     }

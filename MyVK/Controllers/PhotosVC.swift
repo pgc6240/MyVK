@@ -11,12 +11,9 @@ import RealmSwift
 final class PhotosVC: UICollectionViewController {
     
     var user: User!
-    lazy var photos: [Photo] = user.photos.array {
-        didSet {
-            updateTitle()
-            collectionView.reloadData()
-        }
-    }
+    lazy var photos = user.photos
+    
+    private var token: NotificationToken?
     
     private var currentPage = 0 { didSet { updateTitle() }}
     
@@ -24,6 +21,7 @@ final class PhotosVC: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
+        startObservingPhotos()
     }
     
     
@@ -34,18 +32,35 @@ final class PhotosVC: UICollectionViewController {
     }
     
     
-    func getPhotos() {
-        showLoadingView()
-        NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
-            self?.dismissLoadingView()
-            self?.updatePhotos(with: photos)
+    private func configureCollectionView() {
+        collectionView.backgroundColor                = .black
+        collectionView.showsHorizontalScrollIndicator = false
+        
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.itemSize                 = CGSize(width: Screen.width, height: Screen.height)
+            layout.scrollDirection          = .horizontal
+            layout.minimumLineSpacing       = 0
+            layout.minimumInteritemSpacing  = 0
         }
     }
     
     
-    private func updatePhotos(with photos: [Photo]) {
-        self.photos = photos
-        PersistenceManager.save(photos, in: user.photos)
+    private func startObservingPhotos() {
+        token = photos.observe { [weak self] changes in
+            self?.updateTitle()
+            self?.collectionView.reloadData()
+        }
+    }
+    
+    
+    func getPhotos() {
+        showLoadingView()
+        NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            self.updateTitle()
+            PersistenceManager.save(photos, in: self.user.photos)
+        }
     }
     
     
@@ -112,15 +127,6 @@ extension PhotosVC {
 //
 extension PhotosVC {
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        overrideUserInterfaceStyle                    = .unspecified
-        navigationController?.navigationBar.barStyle  = .default
-        tabBarController?.overrideUserInterfaceStyle  = .unspecified
-        (parent as? UINavigationController)?.setNavigationBarHidden(true, animated: false)
-    }
-    
-    
     private func configureViewController() {
         title                                         = ""
         view.backgroundColor                          = .black
@@ -131,15 +137,11 @@ extension PhotosVC {
     }
     
     
-    private func configureCollectionView() {
-        collectionView.backgroundColor                = .black
-        collectionView.showsHorizontalScrollIndicator = false
-        
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.itemSize                 = CGSize(width: Screen.width, height: Screen.height)
-            layout.scrollDirection          = .horizontal
-            layout.minimumLineSpacing       = 0
-            layout.minimumInteritemSpacing  = 0
-        }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        overrideUserInterfaceStyle                    = .unspecified
+        navigationController?.navigationBar.barStyle  = .default
+        tabBarController?.overrideUserInterfaceStyle  = .unspecified
+        (parent as? UINavigationController)?.setNavigationBarHidden(true, animated: false)
     }
 }
