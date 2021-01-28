@@ -12,8 +12,8 @@ final class PostsVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    var posts = User.current.posts
     var owner: CanPost = User.current
+    lazy var posts = owner.posts
     private var token: NotificationToken?
     private var timer: Timer?
     
@@ -43,8 +43,7 @@ final class PostsVC: UIViewController {
     func getPosts() {
         let ownerId = owner is User ? owner.id : -owner.id
         NetworkManager.shared.getPosts(ownerId: ownerId) { [weak self] posts in
-            guard let self = self else { return }
-            PersistenceManager.save(posts, in: self.posts)
+            PersistenceManager.save(posts, in: self?.owner.posts)
         }
     }
     
@@ -95,7 +94,7 @@ extension PostsVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
-        cell.set(with: post, ownerPhotoUrl: owner.photoUrl, and: owner.name)
+        cell.set(with: post, and: owner)
         cell.postsVC = self
         return cell
     }

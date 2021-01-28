@@ -20,11 +20,11 @@ final class PostCell: UITableViewCell {
     @IBOutlet weak var viewCountLabel: UIButton!
     
     
-    func set(with post: Post, ownerPhotoUrl: String?, and ownerName: String) {
+    func set(with post: Post, and owner: CanPost) {
         postId = post.id
-        avatarImageView.downloadImage(with: ownerPhotoUrl)
-        avatarImageView.contentMode = ownerPhotoUrl == "" ? .center : .scaleAspectFit
-        nameLabel.text = ownerName
+        avatarImageView.downloadImage(with: owner.photoUrl)
+        avatarImageView.contentMode = owner.photoUrl == "" ? .center : .scaleAspectFit
+        nameLabel.text = owner.name
         dateLabel.text = F.fd(post.date)
         likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser, postId: post.id)
         viewCountLabel.setTitle(post.viewCount, for: .normal)

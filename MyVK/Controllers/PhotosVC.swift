@@ -56,10 +56,9 @@ final class PhotosVC: UICollectionViewController {
     func getPhotos() {
         showLoadingView()
         NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
-            guard let self = self else { return }
-            self.dismissLoadingView()
-            self.updateTitle()
-            PersistenceManager.save(photos, in: self.user.photos)
+            self?.dismissLoadingView()
+            self?.updateTitle()
+            PersistenceManager.save(photos, in: self?.user.photos)
         }
     }
     
