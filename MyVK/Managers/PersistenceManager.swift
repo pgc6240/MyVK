@@ -27,6 +27,8 @@ enum PersistenceManager {
     
     
     // MARK: - Realm -
+    private static let realm = try? Realm(configuration: realmConfiguration)
+    
     private static let realmConfiguration: Realm.Configuration = {
         var configuration = Realm.Configuration.defaultConfiguration
         configuration.deleteRealmIfMigrationNeeded = true
@@ -36,7 +38,6 @@ enum PersistenceManager {
     
     
     static func create<T: Object>(_ object: T) -> T? {
-        let realm = try? Realm(configuration: realmConfiguration)
         var createdObject: T?
         try? realm?.write {
             createdObject = realm?.create(T.self, value: object, update: .modified)
@@ -46,7 +47,6 @@ enum PersistenceManager {
     
     
     static func save(_ objects: Object...) {
-        let realm = try? Realm(configuration: realmConfiguration)
         try? realm?.write {
             realm?.add(objects, update: .modified)
         }
@@ -54,7 +54,7 @@ enum PersistenceManager {
     
     
     static func save<T: Object>(_ objects: [T], in list: List<T>?) {
-        guard let realm = try? Realm(configuration: realmConfiguration), let list = list else { return }
+        guard let list = list, let realm = try? Realm(configuration: realmConfiguration) else { return }
         try? realm.write {
             if list.count != objects.count {
                 /* Update list after object deletion */
@@ -90,14 +90,12 @@ enum PersistenceManager {
     
     
     static func load<T: Object>(_ type: T.Type, with primaryKey: Int) -> T? {
-        let realm = try? Realm(configuration: realmConfiguration); print(realm?.configuration.fileURL ?? "")
-        return realm?.object(ofType: T.self, forPrimaryKey: primaryKey)
+        realm?.object(ofType: T.self, forPrimaryKey: primaryKey)
     }
     
     
     static func delete(_ objects: Object...) {
         DispatchQueue.main.async {
-            let realm = try? Realm(configuration: realmConfiguration)
             try? realm?.write {
                 realm?.delete(objects)
             }
