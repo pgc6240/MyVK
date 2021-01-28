@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class Post: Object {
+final class Post: Object, Identifiable {
 
     @objc dynamic var id = 0
     @objc dynamic var date = 0 /* unixtime */

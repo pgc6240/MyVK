@@ -37,10 +37,14 @@ enum PersistenceManager {
     }()
     
     
-    static func create<T: Object>(_ object: T) -> T? {
+    static func create<T: Object & Identifiable>(_ object: T) -> T? {
         var createdObject: T?
         try? realm?.write {
-            createdObject = realm?.create(T.self, value: object, update: .modified)
+            if let oldObject = realm?.object(ofType: T.self, forPrimaryKey: object.id) {
+                createdObject = oldObject
+            } else {
+                createdObject = realm?.create(T.self, value: object, update: .modified)
+            }
         }
         return createdObject
     }

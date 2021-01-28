@@ -348,7 +348,7 @@
         <scene sceneID="jKx-02-fkZ">
             <objects>
                 <tableViewController storyboardIdentifier="SearchVC" title="Поиск групп" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" id="mF9-cf-Rto" customClass="SearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="82" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bfx-TB-ldl">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="82" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bfx-TB-ldl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>

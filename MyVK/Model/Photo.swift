@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-final class Photo: Object {
+final class Photo: Object, Identifiable {
     
     @objc dynamic var id = 0
     @objc dynamic var maxSizeUrl: String? = nil

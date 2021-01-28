@@ -29,6 +29,15 @@ final class SearchVC: UITableViewController {
         navigationItem.searchController                       = searchController
         navigationItem.hidesSearchBarWhenScrolling            = false
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView.indexPathForSelectedRow,
+           let groupDetailVC = segue.destination as? GroupVC {
+            let group = searchResults[indexPath.row]
+            groupDetailVC.group = PersistenceManager.create(group)
+        }
+    }
 }
 
 
