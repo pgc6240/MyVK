@@ -23,6 +23,10 @@ extension UIViewController {
         present(alert, animated: true)
     }
     
+    func presentFailureAlert() {
+        presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
+    }
+    
     
     // MARK: - Loading state -
     var loadingViewTag: Int { 1000 }

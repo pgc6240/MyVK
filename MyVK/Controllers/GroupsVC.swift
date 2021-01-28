@@ -42,6 +42,37 @@ final class GroupsVC: UITableViewController {
     }
     
     
+    func joinGroup(_ group: Group, onSuccess: @escaping () -> Void = {}) {
+        showLoadingView()
+        NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
+            self?.dismissLoadingView()
+            
+            if isSuccessful {
+                self?.presentAlert(title: "\nВы теперь состоите в сообществе".localized + "\n\"\(group.name)\".".localized)
+                onSuccess()
+            } else {
+                self?.presentFailureAlert()
+            }
+        }
+    }
+    
+    
+    func leaveGroup(_ group: Group, onSuccess: @escaping () -> Void = {}) {
+        showLoadingView()
+        NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
+            self?.dismissLoadingView()
+            
+            if isSuccessful {
+                self?.presentAlert(title: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
+                PersistenceManager.delete(group)
+                onSuccess()
+            } else {
+                self?.presentFailureAlert()
+            }
+        }
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
            let groupDetailVC = segue.destination as? GroupVC {
@@ -81,19 +112,8 @@ extension GroupsVC {
     
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let groupToDelete = groups[indexPath.row]
-        
-        showLoadingView()
-        NetworkManager.shared.leaveGroup(groupId: groupToDelete.id) { [weak self] isSuccessful in
-            self?.dismissLoadingView()
-            
-            if isSuccessful {
-                PersistenceManager.delete(groupToDelete)
-                self?.presentAlert(title: "Вы покинули сообщество".localized + "\n\"\(groupToDelete.name)\".".localized)
-            } else {
-                self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
-            }
-        }
+        let groupToLeave = groups[indexPath.row]
+        leaveGroup(groupToLeave)
     }
     
     

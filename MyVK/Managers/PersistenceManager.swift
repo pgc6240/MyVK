@@ -27,7 +27,7 @@ enum PersistenceManager {
     
     
     // MARK: - Realm -
-    private static let realm = try? Realm(configuration: realmConfiguration)
+    private static let realm = try? Realm(configuration: realmConfiguration, queue: .main)
     
     private static let realmConfiguration: Realm.Configuration = {
         var configuration = Realm.Configuration.defaultConfiguration
@@ -98,10 +98,12 @@ enum PersistenceManager {
     }
     
     
-    static func delete(_ objects: Object...) {
-        DispatchQueue.main.async {
-            try? realm?.write {
-                realm?.delete(objects)
+    static func delete<T: Object & Identifiable>(_ objects: T...) {
+        try? realm?.write {
+            for object in objects {
+                if let object = realm?.object(ofType: T.self, forPrimaryKey: object.id) {
+                    realm?.delete(object)
+                }
             }
         }
     }
