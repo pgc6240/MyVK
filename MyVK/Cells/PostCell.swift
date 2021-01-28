@@ -9,7 +9,7 @@ import UIKit
 
 final class PostCell: UITableViewCell {
     
-    private var postId: Int!
+    var postId: Int!
     weak var postsVC: PostsVC?
     
     @IBOutlet weak var avatarImageView: MyImageView!
@@ -18,6 +18,7 @@ final class PostCell: UITableViewCell {
     @IBOutlet weak var postTextLabel: UILabel!
     @IBOutlet weak var likeButton: LikeButton!
     @IBOutlet weak var viewCountLabel: UIButton!
+    @IBOutlet weak var deletePostButton: UIButton!
     
     
     func set(with post: Post, and owner: CanPost) {
@@ -28,9 +29,10 @@ final class PostCell: UITableViewCell {
         dateLabel.text = F.fd(post.date)
         likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser, postId: post.id)
         viewCountLabel.setTitle(post.viewCount, for: .normal)
-        if post.viewCount == nil { viewCountLabel.isHidden = true }
         let attachmentsString = "[\(post.attachments.map { $0.type }.joined(separator: ", "))]".uppercased()
         postTextLabel.text = (post.text.isEmpty ? "" : "\(post.text)") + (!post.text.isEmpty && !post.attachments.isEmpty ? "\n" : "") + (post.attachments.isEmpty ? "" : attachmentsString)
+        if post.viewCount == nil { viewCountLabel.isHidden = true }
+        if owner !== User.current { deletePostButton.isHidden = true }
     }
     
     
