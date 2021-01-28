@@ -77,8 +77,9 @@ final class NetworkManager {
     }
     
     
-    func getGroups(groups: @escaping ([Group]) -> Void) {
-        makeRequest(.getGroups, parameters: ["extended": "1"], responseItem: Group.self) { groups($0) }
+    func getGroups(userId: Int, groups: @escaping ([Group]) -> Void) {
+        let parameters = ["user_id": String(userId), "extended": "1"]
+        makeRequest(.getGroups, parameters: parameters, responseItem: Group.self) { groups($0) }
     }
     
     

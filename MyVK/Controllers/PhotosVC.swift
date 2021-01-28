@@ -133,6 +133,7 @@ extension PhotosVC {
         overrideUserInterfaceStyle                    = .dark
         navigationController?.navigationBar.barStyle  = .black
         tabBarController?.overrideUserInterfaceStyle  = .dark
+        navigationController?.setNavigationBarHidden(false, animated: false)
         setNeedsStatusBarAppearanceUpdate()
     }
     

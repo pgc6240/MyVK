@@ -10,9 +10,10 @@ import RealmSwift
 
 final class GroupsVC: UITableViewController {
     
-    var groups: List<Group> = User.current.groups
+    var user: User! = User.current
+    lazy var groups = user.groups
     private var notificationToken: NotificationToken?
-    private var backingStore: List<Group> { User.current.groups }
+    private var backingStore: List<Group> { user.groups }
     
     
     override func viewDidLoad() {
@@ -35,29 +36,25 @@ final class GroupsVC: UITableViewController {
     
     
     func loadGroups() {
-        NetworkManager.shared.getGroups { groups in
-            PersistenceManager.save(groups, in: User.current.groups)
+        NetworkManager.shared.getGroups(userId: user.id) { [weak self] groups in
+            guard let self = self else { return }
+            PersistenceManager.save(groups, in: self.user.groups)
         }
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let groupDetailVC = segue.destination as? GroupDetailVC {
+           let groupDetailVC = segue.destination as? GroupVC {
             let group = groups[indexPath.row]
-            groupDetailVC.group = group
+            groupDetailVC.group = PersistenceManager.load(Group.self, with: group.id)
         }
-    }
-    
-    
-    deinit {
-        notificationToken?.invalidate()
     }
 }
 
 
 //
-// MARK: - UITableViewDelegate & UITableViewDataSource
+// MARK: - UITableViewDelegate & UITableViewDataSource -
 //
 extension GroupsVC {
     
@@ -108,7 +105,7 @@ extension GroupsVC {
 
 
 //
-// MARK: - UISearchBarDelegate
+// MARK: - UISearchBarDelegate -
 //
 extension GroupsVC: UISearchBarDelegate {
     

@@ -1,5 +1,5 @@
 //
-//  GroupDetailVC.swift
+//  GroupVC.swift
 //  MyVK
 //
 //  Created by pgc6240 on 22.01.2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class GroupDetailVC: UIViewController {
+final class GroupVC: UIViewController {
     
     var group: Group!
     
