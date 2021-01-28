@@ -15,7 +15,7 @@ protocol CanPost: class {
     var posts: List<Post> { get }
 }
 
-final class User: Object, CanPost {
+final class User: Object, CanPost, Identifiable {
     
     var name: String { firstName + " " + lastName }
     @objc dynamic var id = 0
