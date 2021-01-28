@@ -9,6 +9,7 @@ import UIKit
 
 final class SearchVC: UITableViewController {
 
+    var searchQuery: String?
     var searchResults: [Group] = []
     
     
@@ -19,15 +20,15 @@ final class SearchVC: UITableViewController {
     }
     
     
-    private func configureSearchController() {
-        let searchController                                  = UISearchController()
-        searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск сообществ".localized
-        searchController.searchBar.autocorrectionType         = .no
-        searchController.searchBar.autocapitalizationType     = .sentences
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController                       = searchController
-        navigationItem.hidesSearchBarWhenScrolling            = false
+    func searchGroups(with searchQuery: String?) {
+        guard let searchQuery = searchQuery, !searchQuery.isEmpty else { return }
+        
+        showLoadingView()
+        NetworkManager.shared.searchGroups(searchQuery) { [weak self] searchResults in
+            self?.dismissLoadingView()
+            self?.searchResults = searchResults
+            self?.tableView.reloadSections([0], with: .automatic)
+        }
     }
     
     
@@ -69,6 +70,11 @@ extension SearchVC {
     }
     
     
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return !isLoading
+    }
+    
+    
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         let group = searchResults[indexPath.row]
         if group.isMember {
@@ -80,38 +86,18 @@ extension SearchVC {
     }
     
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return !isLoading
-    }
-    
-    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         let group = searchResults[indexPath.row]
+        let groupsVC = navigationController?.viewControllers.first { $0 is GroupsVC } as? GroupsVC
         
-        showLoadingView()
         if editingStyle == .insert {
-            NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
-                self?.dismissLoadingView()
-                if isSuccessful {
-                    group.isMember = true
-                    self?.tableView.reloadRows(at: [indexPath], with: .right)
-                    let message = "\nВы теперь состоите в сообществе".localized + "\n\"\(group.name)\".".localized
-                    self?.presentAlert(title: "Hooray! 🎉", message: message)
-                } else {
-                    self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
-                }
-            }
+            groupsVC?.joinGroup(group, onSuccess: { [weak self] in
+                self?.searchGroups(with: self?.searchQuery)
+            })
         } else if editingStyle == .delete {
-            NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
-                self?.dismissLoadingView()
-                if isSuccessful {
-                    group.isMember = false
-                    self?.tableView.reloadRows(at: [indexPath], with: .left)
-                    self?.presentAlert(title: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
-                } else {
-                    self?.presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
-                }
-            }
+            groupsVC?.leaveGroup(group, onSuccess: { [weak self] in
+                self?.searchGroups(with: self?.searchQuery)
+            })
         }
     }
     
@@ -127,15 +113,21 @@ extension SearchVC {
 //
 extension SearchVC: UISearchBarDelegate {
     
+    private func configureSearchController() {
+        let searchController                                  = UISearchController()
+        searchController.searchBar.delegate                   = self
+        searchController.searchBar.placeholder                = "Поиск сообществ".localized
+        searchController.searchBar.autocorrectionType         = .no
+        searchController.searchBar.autocapitalizationType     = .sentences
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController                       = searchController
+        navigationItem.hidesSearchBarWhenScrolling            = false
+    }
+    
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchQuery = searchBar.text, searchQuery != "" else { return }
-        
-        showLoadingView()
-        NetworkManager.shared.searchGroups(searchQuery) { [weak self] searchResults in
-            self?.dismissLoadingView()
-            self?.searchResults = searchResults
-            self?.tableView.reloadSections([0], with: .automatic)
-        }
+        searchQuery = searchBar.text
+        searchGroups(with: searchQuery)
     }
     
     
