@@ -33,6 +33,10 @@ extension String {
         let latinString = self.applyingTransform(StringTransform.toLatin, reverse: false) ?? self
         return latinString.applyingTransform(StringTransform.stripDiacritics, reverse: false) ?? self
     }
+    
+    var toUrl: URL? {
+        URL(string: self)
+    }
 }
 
 
@@ -71,5 +75,20 @@ extension Dictionary {
     
     static func + (lhs: Dictionary, rhs: Dictionary) -> Dictionary {
         return lhs.merging(rhs) { _, new in new }
+    }
+}
+
+
+extension Optional where Wrapped == URL {
+    
+    var parameters: [String: String]? {
+        self?.query?
+            .components(separatedBy: "&")
+            .map { $0.components(separatedBy: "=") }
+            .reduce([String: String]()) {
+                var parameters    = $0
+                parameters[$1[0]] = $1[1]
+                return parameters
+            }
     }
 }

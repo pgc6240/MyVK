@@ -21,6 +21,7 @@ final class PostCell: UITableViewCell {
     @IBOutlet weak var viewCountLabel: UIButton!
     @IBOutlet weak var deletePostButton: UIButton!
     @IBOutlet weak var photoImageView: MyImageView!
+    @IBOutlet weak var photoImageViewHeightConstraint: NSLayoutConstraint?
     
     
     func set(with post: Post, and owner: CanPost) {
@@ -45,8 +46,13 @@ final class PostCell: UITableViewCell {
             photoImageView.isHidden = true
             return
         }
-        let firstPhoto = photos.first
-        photoImageView.downloadImage(with: firstPhoto?.maxSizeUrl)
+
+        guard let firstPhoto = photos.first else { return }
+        let standardPadding: CGFloat = 20
+        let photoWidth = Screen.width - standardPadding * 2
+        let aspectRatio = firstPhoto.height / firstPhoto.width
+        photoImageViewHeightConstraint?.constant = photoWidth * aspectRatio
+        photoImageView.downloadImage(with: firstPhoto.maxSizeUrl)
     }
     
     
