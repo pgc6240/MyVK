@@ -26,6 +26,7 @@ final class LoginVC: UIViewController {
         networkReachabilityManager?.startListening { [weak self] status in
             switch status {
             case .reachable(_):
+                self?.showLoadingView()
                 self?.loadAuthPage()
             case .notReachable:
                 self?.presentNetworkUnavailableAlert()
@@ -73,6 +74,7 @@ extension LoginVC: WKNavigationDelegate {
         
         var responsePolicy: WKNavigationResponsePolicy?
         defer {
+            dismissLoadingView()
             decisionHandler(responsePolicy ?? .allow)
         }
         

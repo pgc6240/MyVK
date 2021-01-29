@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 final class PostCell: UITableViewCell {
     
@@ -19,6 +20,7 @@ final class PostCell: UITableViewCell {
     @IBOutlet weak var likeButton: LikeButton!
     @IBOutlet weak var viewCountLabel: UIButton!
     @IBOutlet weak var deletePostButton: UIButton!
+    @IBOutlet weak var photoImageView: MyImageView!
     
     
     func set(with post: Post, and owner: CanPost) {
@@ -33,13 +35,27 @@ final class PostCell: UITableViewCell {
         postTextLabel.text = (post.text.isEmpty ? "" : "\(post.text)") + (!post.text.isEmpty && !post.attachments.isEmpty ? "\n" : "") + (post.attachments.isEmpty ? "" : attachmentsString)
         if post.viewCount == nil { viewCountLabel.isHidden = true }
         if owner !== User.current { deletePostButton.isHidden = true }
+        let photos: [Photo] = post.attachments.compactMap { $0.photo }
+        layoutPhotos(photos)
+    }
+    
+    
+    private func layoutPhotos(_ photos: [Photo]) {
+        if photos.isEmpty {
+            photoImageView.isHidden = true
+            return
+        }
+        let firstPhoto = photos.first
+        photoImageView.downloadImage(with: firstPhoto?.maxSizeUrl)
     }
     
     
     override func prepareForReuse() {
         super.prepareForReuse()
         avatarImageView.prepareForReuse()
+        photoImageView.prepareForReuse()
         viewCountLabel.isHidden = false
+        photoImageView.isHidden = false
     }
     
     

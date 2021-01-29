@@ -273,15 +273,21 @@
                                                             </subviews>
                                                         </stackView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAk-0R-RPR">
-                                                            <rect key="frame" x="0.0" y="68" width="374" height="20.5"/>
+                                                            <rect key="frame" x="0.0" y="68" width="374" height="4"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fC6-cs-tVJ" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="80" width="374" height="335"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="335" id="uFw-FH-vn1"/>
+                                                            </constraints>
+                                                        </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="M4X-mH-Bdd">
-                                                            <rect key="frame" x="0.0" y="96.5" width="374" height="347.5"/>
+                                                            <rect key="frame" x="0.0" y="423" width="374" height="21"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6Y-Tq-vlp" customClass="LikeButton" customModule="MyVK" customModuleProvider="target">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="183" height="347.5"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="183" height="21"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                                     <state key="normal" title="50">
@@ -289,7 +295,7 @@
                                                                     </state>
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBZ-fl-jWd">
-                                                                    <rect key="frame" x="191" y="0.0" width="183" height="347.5"/>
+                                                                    <rect key="frame" x="191" y="0.0" width="183" height="21"/>
                                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                     <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                                     <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
@@ -316,6 +322,7 @@
                                             <outlet property="deletePostButton" destination="RG0-0w-tyT" id="Tsd-Tf-i2H"/>
                                             <outlet property="likeButton" destination="b6Y-Tq-vlp" id="1GX-Jx-DDz"/>
                                             <outlet property="nameLabel" destination="N2j-nE-Nzi" id="XEc-hv-FE3"/>
+                                            <outlet property="photoImageView" destination="fC6-cs-tVJ" id="4EU-TF-vbs"/>
                                             <outlet property="postTextLabel" destination="SAk-0R-RPR" id="0yV-7f-XKO"/>
                                             <outlet property="viewCountLabel" destination="kBZ-fl-jWd" id="5vJ-08-8y3"/>
                                         </connections>
