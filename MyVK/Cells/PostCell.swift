@@ -11,7 +11,7 @@ import RealmSwift
 final class PostCell: UITableViewCell {
     
     var postId: Int!
-    weak var postsVC: PostsVC?
+    weak var parent: UIViewController?
     
     @IBOutlet weak var avatarImageView: MyImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -66,6 +66,6 @@ final class PostCell: UITableViewCell {
     
     
     @IBAction func deletePost() {
-        postsVC?.deletePost(with: postId)
+        (parent as? ProfileVC)?.deletePost(with: postId)
     }
 }

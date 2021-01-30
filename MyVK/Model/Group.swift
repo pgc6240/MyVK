@@ -15,7 +15,9 @@ final class Group: Object, CanPost, Identifiable {
     @objc dynamic var isOpen = false
     @objc dynamic var isMember = false
     @objc dynamic var photoUrl = ""
+    @objc dynamic var city: String? = nil
     let posts = List<Post>()
+    let photos = List<Photo>()
     
 
     override class func primaryKey() -> String? { "id" }
@@ -28,7 +30,7 @@ final class Group: Object, CanPost, Identifiable {
 extension Group: Decodable {
     
     private enum CodingKeys: String, CodingKey {
-        case id, name, isClosed, isMember, photoUrl = "photo200"
+        case id, name, isClosed, isMember, photoUrl = "photo200", city, title
     }
     
     convenience init(from decoder: Decoder) throws {
@@ -41,5 +43,8 @@ extension Group: Decodable {
         let isMember = try container.decode(Int.self, forKey: .isMember)
         self.isMember = isMember == 1
         self.photoUrl = try container.decode(String.self, forKey: .photoUrl)
+        if let cityContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .city) {
+            self.city = try? cityContainer.decode(String.self, forKey: .title)
+        }
     }
 }

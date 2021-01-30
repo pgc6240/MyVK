@@ -20,6 +20,6 @@ final class GroupVC: UIViewController {
     
     private func configureViewController() {
         title = group.name
-        (children.first as? PostsVC)?.set(with: group)
+        (children.first as? ProfileVC)?.set(with: group)
     }
 }

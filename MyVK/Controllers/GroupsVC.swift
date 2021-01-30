@@ -30,8 +30,12 @@ final class GroupsVC: UITableViewController {
     
     
     private func configureTableViewController() {
-        navigationItem.leftBarButtonItem = editButtonItem
         PersistenceManager.pair(groups, with: tableView, token: &notificationToken)
+        if user == User.current {
+            navigationItem.leftBarButtonItem = editButtonItem
+        } else {
+            title = user.name
+        }
     }
     
     
@@ -89,7 +93,15 @@ final class GroupsVC: UITableViewController {
 extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        groups.isEmpty ? "Нет сообществ".localized : "Мои сообщества".localized
+        if groups.isEmpty {
+            return "Нет сообществ".localized
+        } else if user == User.current {
+            return "Мои сообщества".localized
+        } else if Locale.isEnglishLocale {
+            return "Communities"
+        } else {
+            return "Cообщества ".localized + user.nameGen
+        }
     }
     
     
@@ -131,7 +143,7 @@ extension GroupsVC: UISearchBarDelegate {
     private func configureSearchController() {
         let searchController                                  = UISearchController()
         searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск в моих сообществах".localized
+        searchController.searchBar.placeholder                = "Искать в сообществах пользователя".localized
         searchController.searchBar.autocorrectionType         = .no
         searchController.searchBar.autocapitalizationType     = .sentences
         searchController.obscuresBackgroundDuringPresentation = false

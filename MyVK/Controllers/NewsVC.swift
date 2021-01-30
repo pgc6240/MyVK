@@ -34,7 +34,7 @@ final class NewsVC: UIViewController {
             guard let message = alert.textFields?.first?.text, !message.isEmpty else { return }
             NetworkManager.shared.wallPost(message: message) { [weak self] postId in
                 guard postId != nil else { return }
-                (self?.children.first as? PostsVC)?.getPosts()
+                (self?.children.first as? ProfileVC)?.getPosts()
             }
         })
         alert.view.tintColor = UIColor.vkColor

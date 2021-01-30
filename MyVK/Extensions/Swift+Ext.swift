@@ -92,3 +92,8 @@ extension Optional where Wrapped == URL {
             }
     }
 }
+
+
+extension Locale {
+    static var isEnglishLocale: Bool { Locale.current.identifier == "en" }
+}

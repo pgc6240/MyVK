@@ -13,19 +13,36 @@ protocol CanPost: class {
     var name: String { get }
     var photoUrl: String { get }
     var posts: List<Post> { get }
+    var photos: List<Photo> { get }
 }
 
 final class User: Object, CanPost, Identifiable {
     
-    var name: String { firstName + " " + lastName }
+    // MARK: - Realm persisted properties -
     @objc dynamic var id = 0
     @objc dynamic var firstName = ""
     @objc dynamic var lastName = ""
+    @objc dynamic var firstNameGen = "" /* Gen - genetivus */
+    @objc dynamic var lastNameGen = ""
     @objc dynamic var photoUrl = ""
+    @objc dynamic var homeTown: String? = nil
+    @objc dynamic var bdate: String? = nil
     let friends = List<User>()
     let photos = List<Photo>()
     let groups = List<Group>()
     let posts = List<Post>()
+    
+    
+    // MARK: - Computed properties -
+    var name: String { firstName + " " + lastName }
+    var nameGen: String { firstNameGen + " " + lastNameGen }
+    @objc var lastNameLatin: String { lastName.toLatin }
+    var age: String? {
+        guard let bdate = bdate else { return nil }
+        guard let byear = Int(bdate.components(separatedBy: ".").first { $0.count == 4 }) else { return nil }
+        let currentYear = Calendar.current.component(.year, from: Date())
+        return "\(currentYear - byear) \("лет".localized)"
+    }
     
     
     //MARK: - Realm Object's methods -
@@ -60,6 +77,6 @@ final class User: Object, CanPost, Identifiable {
 extension User: Decodable {
     
     private enum CodingKeys: String, CodingKey {
-        case id, firstName, lastName, photoUrl = "photoMax"
+        case id, firstName, lastName, photoUrl = "photoMax", firstNameGen, lastNameGen, homeTown, bdate
     }
 }

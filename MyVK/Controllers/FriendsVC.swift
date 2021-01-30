@@ -10,6 +10,7 @@ import RealmSwift
 
 final class FriendsVC: UITableViewController {
     
+    var user: User! = User.current
     var friends: [[User]] = []
     private lazy var backingStore: [[User]] = []
     
@@ -51,11 +52,12 @@ final class FriendsVC: UITableViewController {
     func getFriends() {
         friends = [[User]](repeating: [], count: collation.sectionTitles.count)
         
-        updateFriends(with: Array(User.current.friends))
+        updateFriends(with: Array(user.friends))
         
-        NetworkManager.shared.getFriends { [weak self] friends in
-            self?.updateFriends(with: friends)
-            PersistenceManager.save(friends, in: User.current.friends)
+        NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
+            guard let self = self else { return }
+            self.updateFriends(with: friends)
+            PersistenceManager.save(friends, in: self.user.friends)
         }
     }
     
@@ -64,12 +66,8 @@ final class FriendsVC: UITableViewController {
         var friendsUpdated = false
         
         for friend in friends {
-            if Locale.current.languageCode == "en" {
-                localize(friend)
-            }
-            
-            let sectionIndex = self.collation.section(for: friend,
-                                                      collationStringSelector: #selector(getter:User.lastName))
+            let selector = Locale.isEnglishLocale ? #selector(getter: User.lastNameLatin) : #selector(getter: User.lastName)
+            let sectionIndex = self.collation.section(for: friend, collationStringSelector: selector)
             if self.friends[sectionIndex].updating(with: friend) {
                 friendsUpdated = true
             }
@@ -82,37 +80,29 @@ final class FriendsVC: UITableViewController {
     }
     
     
-    private func localize(_ friend: User) {
-        do {
-            let realm = try Realm()
-            try realm.write {
-                friend.firstName = friend.firstName.toLatin
-                friend.lastName = friend.lastName.toLatin
-            }
-        } catch {
-            print(error)
-        }
-    }
-    
-    
     private func updateUI() {
         updateAvaliableLetters()
         tableView.reloadData()
+        navigationItem.title = user == User.current ? "Друзья".localized : user.name
     }
     
     
     private func updateAvaliableLetters() {
         avaliableLetters = []
-        friends.forEach { $0.forEach { avaliableLetters.insert(String($0.lastName.first ?? " ")) }}
+        friends.forEach { $0.forEach {
+            let letter = Locale.isEnglishLocale ? ($0.lastNameLatin.first ?? " ") : ($0.lastName.first ?? " ")
+            avaliableLetters.insert(String(letter))
+        }}
     }
     
     
+    // MARK: - Segues -
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let photosVC  = segue.destination as? PhotosVC
+           let profileVC = segue.destination as? ProfileVC
         {
-            let friend    = friends[indexPath.section][indexPath.row]
-            photosVC.user = PersistenceManager.load(User.self, with: friend.id)
+            let friend      = friends[indexPath.section][indexPath.row]
+            profileVC.owner = PersistenceManager.load(User.self, with: friend.id)!
         }
         navigationItem.searchController?.searchBar.isHidden = true /* interactive transition animation-related */
     }
@@ -153,7 +143,10 @@ extension FriendsVC {
     
     
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
-        friends.firstIndex { $0.first?.lastName.first == Character(title) } ?? 0
+        friends.firstIndex {
+            let letter = Locale.isEnglishLocale ? $0.first?.lastNameLatin.first : $0.first?.lastName.first
+            return letter == Character(title)
+        } ?? 0
     }
     
     

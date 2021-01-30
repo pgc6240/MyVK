@@ -30,8 +30,7 @@ final class NetworkManager {
             case .success(let response):
                 completion(response.response.items)
             case .failure(let error):
-                print(url)
-                print(error)
+                print(url, error, separator: "\n")
             }
         }
     }
@@ -67,18 +66,19 @@ final class NetworkManager {
     // MARK: - External methods -
     func getUsers(userIds: [Int], users: @escaping ([User]) -> Void) {
         let userIds = userIds.map { String($0) }.joined(separator: ",")
-        let parameters = ["user_ids": userIds, "fields": "photo_max"]
+        let parameters = ["user_ids": userIds, "fields": "photo_max,first_name_gen,last_name_gen"]
         makeRequest(.getUsers, parameters: parameters, responseItem: User.self) { users($0) }
     }
     
     
-    func getFriends(friends: @escaping ([User]) -> Void) {
-        makeRequest(.getFriends, parameters: ["fields": "photo_max"], responseItem: User.self) { friends($0) }
+    func getFriends(userId: Int, friends: @escaping ([User]) -> Void) {
+        let parameters = ["user_id": String(userId), "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate"]
+        makeRequest(.getFriends, parameters: parameters, responseItem: User.self) { friends($0) }
     }
     
     
     func getGroups(userId: Int, groups: @escaping ([Group]) -> Void) {
-        let parameters = ["user_id": String(userId), "extended": "1"]
+        let parameters = ["user_id": String(userId), "extended": "1", "fields": "city"]
         makeRequest(.getGroups, parameters: parameters, responseItem: Group.self) { groups($0) }
     }
     

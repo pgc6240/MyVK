@@ -33,11 +33,17 @@ extension Post: Decodable {
         case likes, count, userLikes
         case views
         case attachments, type, photo
+        case copyHistory
     }
     
     convenience init(from decoder: Decoder) throws {
         self.init()
-        let container = try decoder.container(keyedBy: CodingKeys.self)
+        var container = try decoder.container(keyedBy: CodingKeys.self)
+        if var copyHistoryContainer = try? container.nestedUnkeyedContainer(forKey: .copyHistory) {
+            while !copyHistoryContainer.isAtEnd {
+                container = try copyHistoryContainer.nestedContainer(keyedBy: CodingKeys.self)
+            }
+        }
         do {
             self.id = try container.decode(Int.self, forKey: .id)
         } catch {
@@ -45,10 +51,11 @@ extension Post: Decodable {
         }
         self.date = try container.decode(Int.self, forKey: .date)
         self.text = try container.decode(String.self, forKey: .text)
-        let likesContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .likes)
-        self.likeCount = try likesContainer.decode(Int.self, forKey: .count)
-        let userLikes = try likesContainer.decode(Int.self, forKey: .userLikes)
-        self.likedByCurrentUser = userLikes == 1
+        if let likesContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .likes) {
+            self.likeCount = try likesContainer.decode(Int.self, forKey: .count)
+            let userLikes = try likesContainer.decode(Int.self, forKey: .userLikes)
+            self.likedByCurrentUser = userLikes == 1
+        }
         let viewsContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .views)
         let viewCount = try? viewsContainer?.decode(Int.self, forKey: .count)
         self.viewCount = F.fn(viewCount)

@@ -73,7 +73,9 @@ enum PersistenceManager {
                     newUser.groups.append(objectsIn: oldUser.groups)
                     newUser.photos.append(objectsIn: oldUser.photos)
                     newUser.posts.append(objectsIn: oldUser.posts)
-                    realm.add(newUser, update: .modified)
+                    let newObject = realm.create(T.self, value: newObject, update: .modified)
+                    guard list.index(of: newObject) == nil else { continue }
+                    list.append(newObject)
                     
                 } else if let newGroup = newObject as? Group,
                           let oldGroup = realm.object(ofType: Group.self, forPrimaryKey: newGroup.id)
