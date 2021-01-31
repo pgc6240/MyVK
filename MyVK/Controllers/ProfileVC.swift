@@ -55,23 +55,17 @@ final class ProfileVC: UITableViewController {
     
     func getPosts() {
         let ownerId = owner is User ? owner.id : -owner.id
-        NetworkManager.shared.getPosts(ownerId: ownerId) { [weak self] posts in
-            PersistenceManager.save(posts, in: self?.owner.posts)
-            self?.updateUI()
-        }
-        NetworkManager.shared.getPhotos(for: ownerId) { [weak self] photos in
-            PersistenceManager.save(photos, in: self?.owner.photos)
-            self?.updateUI()
-        }
-        if let user = owner as? User {
-            NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
+        NetworkManager.shared.getFriendsGroupsPhotosAndPosts(for: ownerId) { [weak self] (friends, groups, photos, posts) in
+            if let user = self?.owner as? User {
                 PersistenceManager.save(friends, in: user.friends)
-                self?.updateUI()
-            }
-            NetworkManager.shared.getGroups(userId: user.id) { [weak self] groups in
                 PersistenceManager.save(groups, in: user.groups)
-                self?.updateUI()
+                PersistenceManager.save(photos, in: user.photos)
+                PersistenceManager.save(posts, in: user.posts)
+            } else if let group = self?.owner as? Group {
+                PersistenceManager.save(photos, in: group.photos)
+                PersistenceManager.save(posts, in: group.posts)
             }
+            self?.updateUI()
         }
     }
     

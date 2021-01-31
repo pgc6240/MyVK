@@ -6,6 +6,7 @@
 //
 
 import Alamofire
+import Combine
 
 final class NetworkManager {
     
@@ -24,7 +25,7 @@ final class NetworkManager {
         guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else {
             return
         }
-        print(url)
+        
         AF.request(url).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             switch $0.result {
             case .success(let response):
@@ -64,6 +65,17 @@ final class NetworkManager {
             /* Sample response JSON: { "response": { "likes": 12 } } */
             number((($0.value as? [String: Any])?["response"] as? [String: Int])?[expecting])
         }
+    }
+    
+    
+    private func makeRequest<I: Decodable>(_ vkApiMethod: VKApiMethod,
+                             parameters: [String: String?],
+                             responseItem: I.Type) -> AnyPublisher<[I], AFError>
+    {
+        guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else { fatalError() }
+        return AF.request(url).publishDecodable(type: Response<I>.self, decoder: JSON.decoder).value()
+            .map { $0.response.items }
+            .eraseToAnyPublisher()
     }
     
     
@@ -127,6 +139,35 @@ final class NetworkManager {
         let parameters = ["type": type, "item_id": String(itemId)]
         makeRequest(like ? .like : .dislike, parameters: parameters, expecting: "likes") { likeCount($0) }
     }
+    
+    
+    // MARK: - Combine -
+    private var cancellables: Set<AnyCancellable> = []
+    
+    
+    func getFriendsGroupsPhotosAndPosts(for userId: Int, result: @escaping ([User]?, [Group]?, [Photo]?, [Post]?) -> Void) {
+        let friendsParameters = ["user_id": String(userId), "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate"]
+        let friendsPublisher = makeRequest(.getFriends, parameters: friendsParameters, responseItem: User.self)
+        
+        let groupsParameters = ["user_id": String(userId), "extended": "1", "fields": "city"]
+        let groupsPublisher = makeRequest(.getGroups, parameters: groupsParameters, responseItem: Group.self)
+        
+        let photosParameters = ["owner_id": String(userId), "album_id": "profile"]
+        let photosPublisher = makeRequest(.getPhotos, parameters: photosParameters, responseItem: Photo.self)
+        
+        let postsPublisher = makeRequest(.getPosts, parameters: ["owner_id": String(userId)], responseItem: Post.self)
+        
+        Publishers.Zip4(friendsPublisher, groupsPublisher, photosPublisher, postsPublisher)
+            .sink {
+                switch $0 {
+                case .failure(let error): print(error)
+                case .finished: break
+                }
+            } receiveValue: {
+                result($0.0, $0.1, $0.2, $0.3)
+            }
+            .store(in: &cancellables)
+    }
 }
 
 
@@ -142,7 +183,7 @@ fileprivate struct Response<I: Decodable>: Decodable {
     }
     
     private enum CodingKeys: CodingKey {
-        case response
+        case response, items
     }
     
     init(from decoder: Decoder) throws {
@@ -150,6 +191,7 @@ fileprivate struct Response<I: Decodable>: Decodable {
         do {
             self.response = try container.decode(Items<I>.self, forKey: .response)
         } catch {
+            print(error)
             self.response = Items(items: try container.decode([I].self, forKey: .response))
         }
     }
