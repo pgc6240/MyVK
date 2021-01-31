@@ -40,7 +40,7 @@ extension Group: Decodable {
         self.name = try container.decode(String.self, forKey: .name)
         let isClosed = try container.decode(Int.self, forKey: .isClosed)
         self.isOpen = isClosed == 0
-        let isMember = try container.decode(Int.self, forKey: .isMember)
+        let isMember = try? container.decode(Int.self, forKey: .isMember)
         self.isMember = isMember == 1
         self.photoUrl = try container.decode(String.self, forKey: .photoUrl)
         if let cityContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .city) {

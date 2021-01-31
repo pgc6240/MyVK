@@ -22,6 +22,7 @@ final class ProfileVC: UITableViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         configureTableViewController()
+        updateUI()
     }
     
     
@@ -35,7 +36,6 @@ final class ProfileVC: UITableViewController {
     private func configureTableViewController() {
         PersistenceManager.pair(posts, with: tableView, token: &token)
         timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in self?.getPosts() }
-        timer?.fire()
         set(with: owner)
     }
     
@@ -55,7 +55,11 @@ final class ProfileVC: UITableViewController {
     
     func getPosts() {
         let ownerId = owner is User ? owner.id : -owner.id
+        if owner.posts.isEmpty {
+            parent?.showLoadingView()
+        }
         NetworkManager.shared.getFriendsGroupsPhotosAndPosts(for: ownerId) { [weak self] (friends, groups, photos, posts) in
+            self?.parent?.dismissLoadingView()
             if let user = self?.owner as? User {
                 PersistenceManager.save(friends, in: user.friends)
                 PersistenceManager.save(groups, in: user.groups)
@@ -116,7 +120,9 @@ final class ProfileVC: UITableViewController {
 extension ProfileVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if posts.isEmpty {
+        if parent?.isLoading == true {
+            return "Загрузка...".localized
+        } else if posts.isEmpty {
             return "Нет записей".localized
         } else if owner as? User == User.current {
             return "Мои записи".localized

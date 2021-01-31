@@ -1,35 +1,47 @@
 
-/* Class = "UILabel"; text = "Санкт-Петербург"; ObjectID = "33l-MC-2ls"; */
-"33l-MC-2ls.text" = "Saint-Petersburg";
-
-/* Class = "UIViewController"; title = "Сообщество"; ObjectID = "3Uz-h0-VTz"; */
+/* Class = "UIViewController"; title = "Communitie"; ObjectID = "3Uz-h0-VTz"; */
 "3Uz-h0-VTz.title" = "Communitie";
 
-/* Class = "UILabel"; text = "Сообщество"; ObjectID = "7ac-d8-frF"; */
+/* Class = "UILabel"; text = "Имя Фамилия"; ObjectID = "3W8-kR-X7W"; */
+"3W8-kR-X7W.text" = "Full Name";
+
+/* Class = "UILabel"; text = "Communitie"; ObjectID = "7ac-d8-frF"; */
 "7ac-d8-frF.text" = "Communitie";
+
+/* Class = "UILabel"; text = "Имя Фамилия"; ObjectID = "86Y-SL-dk0"; */
+"86Y-SL-dk0.text" = "Full Name";
 
 /* Class = "UINavigationItem"; title = "Новости"; ObjectID = "8Wm-F1-L5F"; */
 "8Wm-F1-L5F.title" = "News";
 
-/* Class = "UILabel"; text = "Открытое сообщество"; ObjectID = "Eb3-ZI-lXK"; */
+/* Class = "UILabel"; text = "Открытое Communitie"; ObjectID = "Eb3-ZI-lXK"; */
 "Eb3-ZI-lXK.text" = "Open communitie";
 
-/* Class = "UILabel"; text = "Имя Фамилия"; ObjectID = "HIY-Ri-1iQ"; */
-"HIY-Ri-1iQ.text" = "Full name";
+/* Class = "UILabel"; text = "Friends"; ObjectID = "Gg2-gG-1Z3"; */
+"Gg2-gG-1Z3.text" = "Friends";
 
-/* Class = "UILabel"; text = "Сообщество"; ObjectID = "Jtv-rT-fP7"; */
+/* Class = "UILabel"; text = "25 лет"; ObjectID = "HCp-3o-qBf"; */
+"HCp-3o-qBf.text" = "25 years";
+
+/* Class = "UILabel"; text = "Закрытый профиль"; ObjectID = "INs-O1-Anm"; */
+"INs-O1-Anm.text" = "Closed profile";
+
+/* Class = "UILabel"; text = "Communitie"; ObjectID = "Jtv-rT-fP7"; */
 "Jtv-rT-fP7.text" = "Communitie";
 
-/* Class = "UILabel"; text = "Записи"; ObjectID = "K5R-ie-6Ff"; */
-"K5R-ie-6Ff.text" = "Posts";
+/* Class = "UIButton"; normalTitle = "1,000"; ObjectID = "LVh-vg-GC2"; */
+"LVh-vg-GC2.normalTitle" = "1,000";
 
-/* Class = "UILabel"; text = "Имя Фамилия"; ObjectID = "N2j-nE-Nzi"; */
-"N2j-nE-Nzi.text" = "Full name";
+/* Class = "UITableViewController"; title = "Профиль"; ObjectID = "Nqu-Yb-IdH"; */
+"Nqu-Yb-IdH.title" = "Profile";
 
-/* Class = "UILabel"; text = "Открытое сообщество"; ObjectID = "Qf4-8P-hLl"; */
+/* Class = "UIButton"; normalTitle = "50"; ObjectID = "OjO-fi-a7L"; */
+"OjO-fi-a7L.normalTitle" = "50";
+
+/* Class = "UILabel"; text = "Открытое Communitie"; ObjectID = "Qf4-8P-hLl"; */
 "Qf4-8P-hLl.text" = "Open communitie";
 
-/* Class = "UITabBarItem"; title = "Сообщества"; ObjectID = "Qka-zD-b41"; */
+/* Class = "UITabBarItem"; title = "Communities"; ObjectID = "Qka-zD-b41"; */
 "Qka-zD-b41.title" = "Communities";
 
 /* Class = "UINavigationController"; title = "FriendsNC"; ObjectID = "R1N-Pm-zQg"; */
@@ -38,35 +50,32 @@
 /* Class = "UINavigationItem"; title = "Фотографии"; ObjectID = "RvG-g5-Dfv"; */
 "RvG-g5-Dfv.title" = "Photos";
 
-/* Class = "UIButton"; normalTitle = "17"; ObjectID = "Ryc-df-6eA"; */
-"Ryc-df-6eA.normalTitle" = "17";
+/* Class = "UILabel"; text = "Фотографии"; ObjectID = "TVG-dn-bxk"; */
+"TVG-dn-bxk.text" = "Photos";
 
-/* Class = "UILabel"; text = "Label"; ObjectID = "SAk-0R-RPR"; */
-"SAk-0R-RPR.text" = "Label";
-
-/* Class = "UIButton"; normalTitle = "7"; ObjectID = "Ty2-Y0-ZgL"; */
-"Ty2-Y0-ZgL.normalTitle" = "7";
-
-/* Class = "UITabBarItem"; title = "Друзья"; ObjectID = "UCP-3E-Tdw"; */
+/* Class = "UITabBarItem"; title = "Friends"; ObjectID = "UCP-3E-Tdw"; */
 "UCP-3E-Tdw.title" = "Friends";
 
 /* Class = "UITabBarItem"; title = "Новости"; ObjectID = "UxT-YE-jyv"; */
 "UxT-YE-jyv.title" = "News";
 
-/* Class = "UIButton"; normalTitle = "39"; ObjectID = "a1k-m2-Ume"; */
-"a1k-m2-Ume.normalTitle" = "39";
+/* Class = "UILabel"; text = "15 янв. 2015"; ObjectID = "Wx2-n6-vda"; */
+"Wx2-n6-vda.text" = "15 Jan 2015";
 
-/* Class = "UIButton"; normalTitle = "50"; ObjectID = "b6Y-Tq-vlp"; */
-"b6Y-Tq-vlp.normalTitle" = "50";
+/* Class = "UILabel"; text = "Санкт-Петербург"; ObjectID = "YEf-eG-tTf"; */
+"YEf-eG-tTf.text" = "Saint-Petersburg";
 
-/* Class = "UILabel"; text = "25 лет"; ObjectID = "bJm-ez-2V2"; */
-"bJm-ez-2V2.text" = "age: 25";
+/* Class = "UILabel"; text = "Группы"; ObjectID = "dY6-ah-ot5"; */
+"dY6-ah-ot5.text" = "Groups";
 
-/* Class = "UINavigationItem"; title = "Сообщества"; ObjectID = "dfK-79-1B0"; */
+/* Class = "UINavigationItem"; title = "Communities"; ObjectID = "dfK-79-1B0"; */
 "dfK-79-1B0.title" = "Communities";
 
 /* Class = "UIViewController"; title = "Новости"; ObjectID = "eN6-S5-HpU"; */
 "eN6-S5-HpU.title" = "News";
+
+/* Class = "UIButton"; normalTitle = "7"; ObjectID = "eYt-B3-e9M"; */
+"eYt-B3-e9M.normalTitle" = "7";
 
 /* Class = "UINavigationController"; title = "NewsNC"; ObjectID = "fIT-ue-kvp"; */
 "fIT-ue-kvp.title" = "NewsNC";
@@ -74,44 +83,38 @@
 /* Class = "UINavigationController"; title = "GroupsNC"; ObjectID = "fgi-XJ-5Ml"; */
 "fgi-XJ-5Ml.title" = "GroupsNC";
 
-/* Class = "UITableViewController"; title = "Сообщества"; ObjectID = "gag-xF-JEA"; */
+/* Class = "UITableViewController"; title = "Communities"; ObjectID = "gag-xF-JEA"; */
 "gag-xF-JEA.title" = "Communities";
 
-/* Class = "UILabel"; text = "Имя Фамилия"; ObjectID = "h8d-aF-HQR"; */
-"h8d-aF-HQR.text" = "Full name";
+/* Class = "UIButton"; normalTitle = "39"; ObjectID = "gyo-Eu-9E7"; */
+"gyo-Eu-9E7.normalTitle" = "39";
+
+/* Class = "UILabel"; text = "Записи"; ObjectID = "i9v-tf-HnD"; */
+"i9v-tf-HnD.text" = "Wall posts";
 
 /* Class = "UICollectionViewController"; title = "Фотографии"; ObjectID = "iqM-VL-A8R"; */
 "iqM-VL-A8R.title" = "Photos";
 
-/* Class = "UILabel"; text = "Фотографии"; ObjectID = "jOh-Yx-qZJ"; */
-"jOh-Yx-qZJ.text" = "Photos";
-
-/* Class = "UIButton"; normalTitle = "1,000"; ObjectID = "kBZ-fl-jWd"; */
-"kBZ-fl-jWd.normalTitle" = "1,000";
-
 /* Class = "UINavigationItem"; title = "Поиск"; ObjectID = "kgv-O1-d6f"; */
 "kgv-O1-d6f.title" = "Search";
 
-/* Class = "UIButton"; normalTitle = "11"; ObjectID = "l5f-mU-ueR"; */
-"l5f-mU-ueR.normalTitle" = "11";
-
 /* Class = "UITableViewController"; title = "Поиск групп"; ObjectID = "mF9-cf-Rto"; */
-"mF9-cf-Rto.title" = "Group search";
+"mF9-cf-Rto.title" = "Search groups";
 
-/* Class = "UILabel"; text = "15 янв. 2015"; ObjectID = "srv-ts-3Vc"; */
-"srv-ts-3Vc.text" = "15 Jan 2015";
-
-/* Class = "UINavigationItem"; title = "Друзья"; ObjectID = "swY-ae-BsR"; */
+/* Class = "UINavigationItem"; title = "Friends"; ObjectID = "swY-ae-BsR"; */
 "swY-ae-BsR.title" = "Friends";
 
-/* Class = "UILabel"; text = "Группы"; ObjectID = "ubw-Zn-gLO"; */
-"ubw-Zn-gLO.text" = "Groups";
+/* Class = "UILabel"; text = "Имя Фамилия"; ObjectID = "uga-JI-Nks"; */
+"uga-JI-Nks.text" = "Full Name";
 
-/* Class = "UILabel"; text = "Друзья"; ObjectID = "x3E-Ja-e99"; */
-"x3E-Ja-e99.text" = "Friends";
+/* Class = "UIButton"; normalTitle = "17"; ObjectID = "x9s-4J-djJ"; */
+"x9s-4J-djJ.normalTitle" = "17";
 
-/* Class = "UITableViewController"; title = "Друзья"; ObjectID = "yWS-54-f4Z"; */
+/* Class = "UIButton"; normalTitle = "11"; ObjectID = "xxX-Oa-N4b"; */
+"xxX-Oa-N4b.normalTitle" = "11";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "ySU-ao-ecI"; */
+"ySU-ao-ecI.text" = "Label";
+
+/* Class = "UITableViewController"; title = "Friends"; ObjectID = "yWS-54-f4Z"; */
 "yWS-54-f4Z.title" = "Friends";
-
-/* Class = "UIViewController"; title = "Записи на стене"; ObjectID = "znm-Zx-gHu"; */
-"znm-Zx-gHu.title" = "Wall posts";

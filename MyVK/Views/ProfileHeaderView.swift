@@ -22,6 +22,8 @@ final class ProfileHeaderView: UIView {
     @IBOutlet weak var photosCountLabel: UIButton!
     @IBOutlet weak var wallPostsCountLabel: UIButton!
     
+    @IBOutlet var countLabels: [UIButton]!
+    
     
     func set(with owner: CanPost) {
         avatarImageView.downloadImage(with: owner.photoUrl)
@@ -42,6 +44,12 @@ final class ProfileHeaderView: UIView {
             groupsStackView.isHidden = true
             //photosCountLabel.setTitle(String(group.photos.count), for: .normal)
             wallPostsCountLabel.setTitle(String(group.posts.count), for: .normal)
+        }
+        for countLabel in countLabels {
+            if countLabel.titleLabel?.text != "" {
+                countLabel.setTitleColor(.vkColor, for: .normal)
+                countLabel.backgroundColor = .clear
+            }
         }
     }
 }
