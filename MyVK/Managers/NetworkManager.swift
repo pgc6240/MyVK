@@ -88,7 +88,7 @@ final class NetworkManager {
     
     
     func getFriends(userId: Int, friends: @escaping ([User]) -> Void) {
-        let parameters = ["user_id": String(userId), "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate"]
+        let parameters = ["user_id": String(userId), "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed"]
         makeRequest(.getFriends, parameters: parameters, responseItem: User.self) { friends($0) }
     }
     
@@ -146,7 +146,7 @@ final class NetworkManager {
     
     
     func getFriendsGroupsPhotosAndPosts(for userId: Int, result: @escaping ([User]?, [Group]?, [Photo]?, [Post]?) -> Void) {
-        let friendsParameters = ["user_id": String(userId), "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate"]
+        let friendsParameters = ["user_id": String(userId), "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed"]
         let friendsPublisher = makeRequest(.getFriends, parameters: friendsParameters, responseItem: User.self)
         
         let groupsParameters = ["user_id": String(userId), "extended": "1", "fields": "city"]

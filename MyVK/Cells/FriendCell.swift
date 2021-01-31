@@ -10,12 +10,20 @@ import UIKit
 final class FriendCell: UITableViewCell {
     
     @IBOutlet weak var avatarImageView: MyImageView!
-    @IBOutlet weak var friendNameLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var secondaryLabel: UILabel!
     
     
     func set(with friend: User) {
         avatarImageView.downloadImage(with: friend.photoUrl)
-        friendNameLabel.text = friend.name
+        nameLabel.text = friend.name
+        secondaryLabel.text = {
+            if friend.canAccessClosed {
+                return friend.homeTown ?? friend.age
+            } else {
+                return "Закрытый профиль".localized
+            }
+        }()
     }
     
     

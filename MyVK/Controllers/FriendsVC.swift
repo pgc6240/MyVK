@@ -97,6 +97,15 @@ final class FriendsVC: UITableViewController {
     
     
     // MARK: - Segues -
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let user = friends[indexPath.section][indexPath.row]
+            return user.canAccessClosed
+        }
+        return false
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
            let profileVC = segue.destination as? ProfileVC
@@ -162,6 +171,11 @@ extension FriendsVC {
         sectionHeader?.backgroundView = BlurView()
         sectionHeader?.textLabel?.text = collation.sectionTitles[section]
         return sectionHeader
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        friends[indexPath.section][indexPath.row].canAccessClosed ? indexPath : nil
     }
 }
 

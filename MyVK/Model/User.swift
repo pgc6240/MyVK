@@ -27,6 +27,7 @@ final class User: Object, CanPost, Identifiable {
     @objc dynamic var photoUrl = ""
     @objc dynamic var homeTown: String? = nil
     @objc dynamic var bdate: String? = nil
+    @objc dynamic var canAccessClosed = false
     let friends = List<User>()
     let photos = List<Photo>()
     let groups = List<Group>()
@@ -77,6 +78,20 @@ final class User: Object, CanPost, Identifiable {
 extension User: Decodable {
     
     private enum CodingKeys: String, CodingKey {
-        case id, firstName, lastName, photoUrl = "photoMax", firstNameGen, lastNameGen, homeTown, bdate
+        case id, firstName, lastName, photoUrl = "photoMax", firstNameGen, lastNameGen, homeTown, bdate, canAccessClosed
+    }
+    
+    convenience init(from decoder: Decoder) throws {
+        self.init()
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(Int.self, forKey: .id)
+        self.firstName = try container.decode(String.self, forKey: .firstName)
+        self.lastName = try container.decode(String.self, forKey: .lastName)
+        self.photoUrl = try container.decode(String.self, forKey: .photoUrl)
+        self.firstNameGen = try container.decode(String.self, forKey: .firstNameGen)
+        self.lastNameGen = try container.decode(String.self, forKey: .lastNameGen)
+        self.homeTown = try? container.decode(String.self, forKey: .homeTown)
+        self.bdate = try? container.decode(String.self, forKey: .bdate)
+        self.canAccessClosed = (try? container.decode(Bool.self, forKey: .canAccessClosed)) ?? false
     }
 }
