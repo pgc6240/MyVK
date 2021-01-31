@@ -24,13 +24,17 @@ final class NetworkManager {
         guard let url = URLBuilder.buildURL(vkApiMethod, with: parameters) else {
             return
         }
-        
+        print(url)
         AF.request(url).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             switch $0.result {
             case .success(let response):
                 completion(response.response.items)
             case .failure(let error):
-                print(url, error, separator: "\n")
+                if let data = $0.data, let responseError = try? JSON.decoder.decode(ResponseError.self, from: data) {
+                    print(responseError.code, responseError.message)
+                } else {
+                    print(url, error, separator: "\n")
+                }
             }
         }
     }
@@ -148,5 +152,25 @@ fileprivate struct Response<I: Decodable>: Decodable {
         } catch {
             self.response = Items(items: try container.decode([I].self, forKey: .response))
         }
+    }
+}
+
+
+//
+// MARK: - ResponseError
+//
+struct ResponseError: Decodable {
+    let code: Int
+    let message: String
+    
+    private enum CodingKeys: CodingKey {
+        case error, errorCode, errorMsg
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let errorContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .error)
+        self.code = try errorContainer.decode(Int.self, forKey: .errorCode)
+        self.message = try errorContainer.decode(String.self, forKey: .errorMsg)
     }
 }
