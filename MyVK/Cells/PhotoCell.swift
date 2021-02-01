@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class PhotoCell: UICollectionViewCell {
+final class PhotoCell: UICollectionViewCell, UIScrollViewDelegate {
     
     @IBOutlet weak var photoImageView: MyImageView!
     
@@ -16,9 +16,13 @@ final class PhotoCell: UICollectionViewCell {
         photoImageView.downloadImage(with: photo.maxSizeUrl)
     }
     
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         photoImageView.prepareForReuse()
+    }
+    
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        photoImageView
     }
 }
