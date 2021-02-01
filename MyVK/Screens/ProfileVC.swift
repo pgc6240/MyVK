@@ -6,43 +6,39 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class ProfileVC: UIViewController {
     
-    var token: NotificationToken?
+    private lazy var postsVC = children.first as? PostsVC
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setTitle()
-    }
-    
-    
-    private func setTitle() {
-        navigationItem.title = User.current.name
-        token = User.current.observe { [weak self] _ in
-            self?.navigationItem.title = User.current.name
+    // MARK: - External methods -
+    func wallPost(message: String?) {
+        guard let message = message else { return }
+        
+        showLoadingView()
+        NetworkManager.shared.wallPost(message: message) { [weak self] postId in
+            self?.dismissLoadingView()
+            
+            if postId != nil {
+                self?.postsVC?.getPosts()
+            }
         }
     }
     
     
-    @IBAction func postButtonTapped() {
+    // MARK: - Navigation bar button methods -
+    @IBAction private func postButtonTapped() {
         let alert = makeAlert(title: "Новая запись на стене:", cancelTitle: "Закрыть")
+        let wallPost = UIAlertAction(title: "Отправить".localized, style: .destructive) { [weak self] _ in
+            self?.wallPost(message: alert.textFields?.first?.text)
+        }
         alert.addTextField { $0.placeholder = "Текст новой записи".localized }
-        alert.addAction(UIAlertAction(title: "Отправить".localized, style: .destructive) { _ in
-            guard let message = alert.textFields?.first?.text, !message.isEmpty else { return }
-            NetworkManager.shared.wallPost(message: message) { [weak self] postId in
-                guard postId != nil else { return }
-                (self?.children.first as? PostsVC)?.getPosts()
-            }
-        })
-        alert.view.tintColor = UIColor.vkColor
+        alert.addAction(wallPost)
         present(alert, animated: true)
     }
     
-    
-    @IBAction func logoutButtonTapped() {
+    @IBAction private func logoutButtonTapped() {
         SessionManager.logout()
     }
 }

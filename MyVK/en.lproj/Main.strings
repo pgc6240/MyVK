@@ -12,7 +12,7 @@
 "86Y-SL-dk0.text" = "Full Name";
 
 /* Class = "UINavigationItem"; title = "Новости"; ObjectID = "8Wm-F1-L5F"; */
-"8Wm-F1-L5F.title" = "News";
+"8Wm-F1-L5F.title" = "Profile";
 
 /* Class = "UILabel"; text = "Открытое Communitie"; ObjectID = "Eb3-ZI-lXK"; */
 "Eb3-ZI-lXK.text" = "Open communitie";
@@ -57,7 +57,7 @@
 "UCP-3E-Tdw.title" = "Friends";
 
 /* Class = "UITabBarItem"; title = "Новости"; ObjectID = "UxT-YE-jyv"; */
-"UxT-YE-jyv.title" = "News";
+"UxT-YE-jyv.title" = "Profile";
 
 /* Class = "UILabel"; text = "15 янв. 2015"; ObjectID = "Wx2-n6-vda"; */
 "Wx2-n6-vda.text" = "15 Jan 2015";
@@ -72,13 +72,13 @@
 "dfK-79-1B0.title" = "Communities";
 
 /* Class = "UIViewController"; title = "Новости"; ObjectID = "eN6-S5-HpU"; */
-"eN6-S5-HpU.title" = "News";
+"eN6-S5-HpU.title" = "Profile";
 
 /* Class = "UIButton"; normalTitle = "7"; ObjectID = "eYt-B3-e9M"; */
 "eYt-B3-e9M.normalTitle" = "7";
 
-/* Class = "UINavigationController"; title = "NewsNC"; ObjectID = "fIT-ue-kvp"; */
-"fIT-ue-kvp.title" = "NewsNC";
+/* Class = "UINavigationController"; title = "ProfileNC"; ObjectID = "fIT-ue-kvp"; */
+"fIT-ue-kvp.title" = "ProfileNC";
 
 /* Class = "UINavigationController"; title = "GroupsNC"; ObjectID = "fgi-XJ-5Ml"; */
 "fgi-XJ-5Ml.title" = "GroupsNC";

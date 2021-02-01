@@ -14,7 +14,7 @@ extension UIViewController {
     func makeAlert(title: String?, message: String? = nil, cancelTitle: String = "Хорошо") -> UIAlertController {
         let alert = UIAlertController(title: title?.localized, message: message?.localized, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: cancelTitle.localized, style: .cancel))
-        alert.view.tintColor = UIColor.vkColor
+        alert.view.tintColor = .vkColor
         return alert
     }
 

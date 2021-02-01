@@ -131,6 +131,8 @@ extension PostsVC {
             return "Нет записей".localized
         } else if owner as? User == User.current {
             return "Мои записи".localized
+        } else if let user = owner as? User {
+            return "Записи".localized + " \(user.nameGen)"
         } else {
             return "Записи".localized + " \(owner.name)"
         }
