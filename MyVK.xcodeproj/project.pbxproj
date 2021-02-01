@@ -30,6 +30,7 @@
 		31610D3A259D0A55002A82B6 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 31610D39259D0A55002A82B6 /* Realm */; };
 		31610D3C259D0A55002A82B6 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31610D3B259D0A55002A82B6 /* RealmSwift */; };
 		3166577625B20259006D7E53 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3166577525B20259006D7E53 /* Constants.swift */; };
+		316D017925C84A8000B219B5 /* SecondaryPlaceholderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316D017825C84A8000B219B5 /* SecondaryPlaceholderLabel.swift */; };
 		317EF764258B555200BF786D /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317EF763258B555200BF786D /* SessionManager.swift */; };
 		3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3182B37B25438B1000E3E710 /* AppDelegate.swift */; };
 		3182B38325438B1000E3E710 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3182B38125438B1000E3E710 /* Main.storyboard */; };
@@ -77,6 +78,7 @@
 		315FF5A22548B9DE0054C539 /* GroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsVC.swift; sourceTree = "<group>"; };
 		315FF5A52548B9F90054C539 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		3166577525B20259006D7E53 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		316D017825C84A8000B219B5 /* SecondaryPlaceholderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryPlaceholderLabel.swift; sourceTree = "<group>"; };
 		317EF763258B555200BF786D /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		31825DE825C82E0D007CA104 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		3182B37825438B1000E3E710 /* MyVK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyVK.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				3158898C25C831B70033E70E /* PlaceholderLabel.swift */,
+				316D017825C84A8000B219B5 /* SecondaryPlaceholderLabel.swift */,
 			);
 			path = Labels;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				31CBF0C9256AD18F0041CC26 /* _NavigationController.swift in Sources */,
 				31AA53BE2567F01000C9FB27 /* PhotosVC.swift in Sources */,
 				31E87842254C90220014430E /* GroupCell.swift in Sources */,
+				316D017925C84A8000B219B5 /* SecondaryPlaceholderLabel.swift in Sources */,
 				3149C005255AE3E400212299 /* GradientView.swift in Sources */,
 				3133EFB625540C9400B85844 /* LikeButton.swift in Sources */,
 				315FF5A32548B9DE0054C539 /* GroupsVC.swift in Sources */,

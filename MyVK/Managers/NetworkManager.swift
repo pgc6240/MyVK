@@ -53,7 +53,7 @@ final class NetworkManager {
     {
         AF.request(vkApiMethod, parameters: parameters).responseJSON {
             /* Sample response JSON: { "response": { "likes": 12 } } */
-            number((($0.value as? [String: Any])?["response"] as? [String: Int])?[expecting])
+            number((($0.value as? [String: Any])?["response"] as? [String: Any])?[expecting] as? Int)
         }
     }
     
@@ -69,6 +69,16 @@ final class NetworkManager {
                 }
                 return $0.value?.response.items
             }
+            .eraseToAnyPublisher()
+    }
+    
+    
+    private func makeRequest(_ vkApiMethod: VKApiMethod,
+                             parameters: Parameters?,
+                             expecting: String) -> AnyPublisher<Int?, Never>
+    {
+        AF.request(vkApiMethod, parameters: parameters).publishResponse(using: JSONResponseSerializer())
+            .map { (($0.value as? [String: Any])?["response"] as? [String: Any])?[expecting] as? Int }
             .eraseToAnyPublisher()
     }
     
@@ -155,6 +165,20 @@ final class NetworkManager {
         Publishers.Zip4(friendsPublisher, groupsPublisher, photosPublisher, postsPublisher)
             .sink {
                 result($0.0, $0.1, $0.2, $0.3)
+            }
+            .store(in: &cancellables)
+    }
+    
+    
+    func getMembersPhotosAndPostsCount(for groupId: Int, result: @escaping (Int?, Int?, Int?) -> Void) {
+        
+        let memberPublisher = makeRequest(.getMembers, parameters: ["group_id": groupId], expecting: "count")
+        let photosPublisher = makeRequest(.getPhotos, parameters: ["owner_id": -groupId], expecting: "count")
+        let postsPublisher = makeRequest(.getPosts, parameters: ["owner_id": -groupId], expecting: "count")
+            
+        Publishers.Zip3(memberPublisher, photosPublisher, postsPublisher)
+            .sink {
+                result($0.0, $0.1, $0.2)
             }
             .store(in: &cancellables)
     }

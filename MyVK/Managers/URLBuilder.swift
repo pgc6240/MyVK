@@ -11,7 +11,6 @@ import Foundation
 enum VKApiMethod: String, URLConvertible {
     
     var baseURL: String     { "https://api.vk.com" }
-    
     var path: String        { "/method/" + rawValue }
     
     case getUsers           = "users.get"
@@ -24,6 +23,7 @@ enum VKApiMethod: String, URLConvertible {
     case searchGroups       = "groups.search"
     case joinGroup          = "groups.join"
     case leaveGroup         = "groups.leave"
+    case getMembers         = "groups.getMembers"
     case like               = "likes.add"
     case dislike            = "likes.delete"
     

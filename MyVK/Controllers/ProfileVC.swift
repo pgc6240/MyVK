@@ -54,22 +54,29 @@ final class ProfileVC: UITableViewController {
     
     
     func getPosts() {
-        let ownerId = owner is User ? owner.id : -owner.id
         if owner.posts.isEmpty {
             parent?.showLoadingView()
         }
-        NetworkManager.shared.getFriendsGroupsPhotosAndPosts(for: ownerId) { [weak self] (friends, groups, photos, posts) in
-            self?.parent?.dismissLoadingView()
-            if let user = self?.owner as? User {
-                PersistenceManager.save(friends, in: user.friends)
-                PersistenceManager.save(groups, in: user.groups)
-                PersistenceManager.save(photos, in: user.photos)
-                PersistenceManager.save(posts, in: user.posts)
-            } else if let group = self?.owner as? Group {
-                PersistenceManager.save(photos, in: group.photos)
+        if let user = owner as? User {
+            NetworkManager.shared.getFriendsGroupsPhotosAndPosts(for: user.id) { [weak self] (friends, groups, photos, posts) in
+                self?.parent?.dismissLoadingView()
+                if let user = self?.owner as? User {
+                    PersistenceManager.save(friends, in: user.friends)
+                    PersistenceManager.save(groups, in: user.groups)
+                    PersistenceManager.save(photos, in: user.photos)
+                    PersistenceManager.save(posts, in: user.posts)
+                }
+                self?.updateUI()
+            }
+        } else if let group = owner as? Group {
+            NetworkManager.shared.getPosts(ownerId: -group.id) { [weak self] posts in
+                self?.parent?.dismissLoadingView()
                 PersistenceManager.save(posts, in: group.posts)
             }
-            self?.updateUI()
+            NetworkManager.shared.getMembersPhotosAndPostsCount(for: group.id) {
+                [weak self] (memberCount, photosCount, postsCount) in
+                self?.profileHeaderView.set(memberCount, photosCount, postsCount)
+            }
         }
     }
     
@@ -120,9 +127,7 @@ final class ProfileVC: UITableViewController {
 extension ProfileVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if parent?.isLoading == true {
-            return "Загрузка...".localized
-        } else if posts.isEmpty {
+        if posts.isEmpty {
             return "Нет записей".localized
         } else if owner as? User == User.current {
             return "Мои записи".localized

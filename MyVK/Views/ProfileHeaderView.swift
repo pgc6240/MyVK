@@ -52,4 +52,11 @@ final class ProfileHeaderView: UIView {
             }
         }
     }
+    
+    
+    func set(_ memberCount: Int?, _ photosCount: Int?, _ postsCount: Int?) {
+        friendsOrMembersCountLabel.setTitle(String(memberCount), for: .normal)
+        photosCountLabel.setTitle(String(photosCount), for: .normal)
+        wallPostsCountLabel.setTitle(String(postsCount), for: .normal)
+    }
 }
