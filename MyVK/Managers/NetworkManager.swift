@@ -27,7 +27,7 @@ final class NetworkManager {
             [weak self] in
             switch $0.result {
             case .success(let response):
-                completion(response.response.items)
+                completion(response.items)
             case .failure(let error):
                 self?.handleError(error, data: $0.data)
             }
@@ -67,7 +67,7 @@ final class NetworkManager {
                 if let error = $0.error {
                     self?.handleError(error, data: $0.data)
                 }
-                return $0.value?.response.items
+                return $0.value?.items
             }
             .eraseToAnyPublisher()
     }
@@ -190,11 +190,7 @@ final class NetworkManager {
 //
 fileprivate struct Response<I: Decodable>: Decodable {
     
-    let response: Items<I>
-    
-    struct Items<I: Decodable>: Decodable {
-        let items: [I]
-    }
+    let items: [I]
     
     private enum CodingKeys: CodingKey {
         case response, items
@@ -202,11 +198,17 @@ fileprivate struct Response<I: Decodable>: Decodable {
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
         do {
-            self.response = try container.decode(Items<I>.self, forKey: .response)
-        } catch {
-            print(error)
-            self.response = Items(items: try container.decode([I].self, forKey: .response))
+            let responseContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .response)
+            self.items = try responseContainer.decode([I].self, forKey: .items)
+        } catch let error1 {
+            do {
+                self.items = try container.decode([I].self, forKey: .response)
+            } catch let error2 {
+                print(error1, error2)
+                self.items = []
+            }
         }
     }
 }
