@@ -34,9 +34,10 @@ final class SearchVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let groupDetailVC = segue.destination as? GroupVC {
-            let group = searchResults[indexPath.row]
-            groupDetailVC.group = PersistenceManager.create(group)
+           let profileVC = segue.destination as? PostsVC,
+           let group = PersistenceManager.create(searchResults[indexPath.row]) {
+            
+            profileVC.owner = group
         }
     }
 }

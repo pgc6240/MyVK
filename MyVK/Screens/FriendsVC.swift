@@ -108,7 +108,7 @@ final class FriendsVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let profileVC = segue.destination as? ProfileVC
+           let profileVC = segue.destination as? PostsVC
         {
             let friend      = friends[indexPath.section][indexPath.row]
             profileVC.owner = PersistenceManager.load(User.self, with: friend.id)!

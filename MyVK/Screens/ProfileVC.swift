@@ -1,5 +1,5 @@
 //
-//  NewsVC.swift
+//  ProfileVC.swift
 //  MyVK
 //
 //  Created by pgc6240 on 14.11.2020.
@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-final class NewsVC: UIViewController {
+final class ProfileVC: UIViewController {
     
     var token: NotificationToken?
     
@@ -34,7 +34,7 @@ final class NewsVC: UIViewController {
             guard let message = alert.textFields?.first?.text, !message.isEmpty else { return }
             NetworkManager.shared.wallPost(message: message) { [weak self] postId in
                 guard postId != nil else { return }
-                (self?.children.first as? ProfileVC)?.getPosts()
+                (self?.children.first as? PostsVC)?.getPosts()
             }
         })
         alert.view.tintColor = UIColor.vkColor

@@ -9,6 +9,12 @@ import UIKit
 
 final class MyImageView: UIImageView {
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        backgroundColor = .secondarySystemBackground
+    }
+    
+    
     // MARK: - Storyboard-editable propeties -
     @IBInspectable var cornerRadius: CGFloat = 0 {
         willSet { layer.cornerRadius = newValue }
@@ -54,6 +60,7 @@ final class MyImageView: UIImageView {
             guard let data = data else { return }
             DispatchQueue.main.async {
                 self?.image = UIImage(data: data)
+                self?.backgroundColor = .clear
             }
         }
         task?.resume()

@@ -1,5 +1,5 @@
 //
-//  RootTabBarC.swift
+//  RootTabBarController.swift
 //  MyVK
 //
 //  Created by pgc6240 on 07.11.2020.

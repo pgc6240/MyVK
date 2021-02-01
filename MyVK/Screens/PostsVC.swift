@@ -1,5 +1,5 @@
 //
-//  ProfileVC.swift
+//  PostsVC.swift
 //  MyVK
 //
 //  Created by pgc6240 on 30.01.2021.
@@ -8,7 +8,7 @@
 import UIKit
 import RealmSwift
 
-final class ProfileVC: UITableViewController {
+final class PostsVC: UITableViewController {
     
     var owner: CanPost = User.current
     lazy var posts = owner.posts
@@ -124,7 +124,7 @@ final class ProfileVC: UITableViewController {
 //
 // MARK: - UITableViewDataSource & UITableViewDelegate
 //
-extension ProfileVC {
+extension PostsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if posts.isEmpty {

@@ -61,6 +61,6 @@ final class PostCell: UITableViewCell {
     
     
     @IBAction func deletePost() {
-        (parent as? ProfileVC)?.deletePost(with: postId)
+        (parent as? PostsVC)?.deletePost(with: postId)
     }
 }
