@@ -180,7 +180,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="kLl-dB-cJf" customClass="PhotoCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="175" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="owW-Wh-iMG">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
@@ -533,7 +533,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="bn4-ZC-AhR"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="profileHeaderView" destination="DTc-Kr-Dpm" id="h1w-Ei-yFc"/>
                     </connections>
@@ -597,6 +597,7 @@
                                     <outlet property="avatarImageView" destination="Vpt-fR-CSw" id="0qb-9X-b5D"/>
                                     <outlet property="groupIsPublicLabel" destination="Qf4-8P-hLl" id="rBq-KA-BKZ"/>
                                     <outlet property="groupNameLabel" destination="7ac-d8-frF" id="xaj-Uh-S8v"/>
+                                    <segue destination="Nqu-Yb-IdH" kind="show" id="Woy-2W-5O6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -606,6 +607,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Поиск" largeTitleDisplayMode="never" id="kgv-O1-d6f"/>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTT-r1-MJ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -690,6 +692,7 @@
                                     <outlet property="avatarImageView" destination="5MA-TC-DWb" id="0eF-Wd-Acj"/>
                                     <outlet property="groupIsPublicLabel" destination="Eb3-ZI-lXK" id="P7V-5B-6Cs"/>
                                     <outlet property="groupNameLabel" destination="Jtv-rT-fP7" id="EEM-WR-IPv"/>
+                                    <segue destination="Nqu-Yb-IdH" kind="show" id="Ngl-hp-lcz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -705,6 +708,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsQ-lu-zG8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -761,9 +765,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="YBQ-b2-xWp"/>
-        <segue reference="WLA-sB-N50"/>
-        <segue reference="6tR-pR-6lS"/>
+        <segue reference="4e2-ub-F2X"/>
+        <segue reference="Woy-2W-5O6"/>
+        <segue reference="UwU-LT-97t"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="vk-color"/>
     <resources>
