@@ -395,6 +395,7 @@
                                 <outlet property="avatarImageView" destination="HXp-C8-RGS" id="SP5-bY-JXo"/>
                                 <outlet property="friendsOrMembersCountLabel" destination="gyo-Eu-9E7" id="ooZ-ZA-7DJ"/>
                                 <outlet property="friendsOrMembersLabel" destination="Gg2-gG-1Z3" id="0Ff-Bt-pSu"/>
+                                <outlet property="friendsOrMembersStackView" destination="L9a-ze-3x6" id="qgB-ai-gpI"/>
                                 <outlet property="groupsCountLabel" destination="eYt-B3-e9M" id="G0w-rI-960"/>
                                 <outlet property="groupsStackView" destination="fCd-zx-TUn" id="ZP5-GY-NyV"/>
                                 <outlet property="nameLabel" destination="uga-JI-Nks" id="3LI-aq-yge"/>

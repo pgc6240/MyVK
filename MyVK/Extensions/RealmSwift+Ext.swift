@@ -25,3 +25,11 @@ extension List where Element == Photo {
         self.map { $0 }
     }
 }
+
+
+extension List where Element == User {
+    
+    var results: Results<User> {
+        self.filter("TRUEPREDICATE")
+    }
+}

@@ -116,7 +116,7 @@ final class PostsVC: UITableViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        owner is User
+        owner is User && (sender as? UIButton)?.currentTitle != "0"
     }
 }
 
