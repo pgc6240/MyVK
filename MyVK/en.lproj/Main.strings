@@ -12,7 +12,7 @@
 "86Y-SL-dk0.text" = "Full Name";
 
 /* Class = "UINavigationItem"; title = "Новости"; ObjectID = "8Wm-F1-L5F"; */
-"8Wm-F1-L5F.title" = "Profile";
+"8Wm-F1-L5F.title" = "My profile";
 
 /* Class = "UILabel"; text = "Открытое Communitie"; ObjectID = "Eb3-ZI-lXK"; */
 "Eb3-ZI-lXK.text" = "Open communitie";
@@ -33,7 +33,7 @@
 "LVh-vg-GC2.normalTitle" = "1,000";
 
 /* Class = "UITableViewController"; title = "Профиль"; ObjectID = "Nqu-Yb-IdH"; */
-"Nqu-Yb-IdH.title" = "Profile";
+"Nqu-Yb-IdH.title" = "My profile";
 
 /* Class = "UIButton"; normalTitle = "50"; ObjectID = "OjO-fi-a7L"; */
 "OjO-fi-a7L.normalTitle" = "50";
@@ -69,10 +69,10 @@
 "dY6-ah-ot5.text" = "Groups";
 
 /* Class = "UINavigationItem"; title = "Communities"; ObjectID = "dfK-79-1B0"; */
-"dfK-79-1B0.title" = "Communities";
+"dfK-79-1B0.title" = "My communities";
 
 /* Class = "UIViewController"; title = "Новости"; ObjectID = "eN6-S5-HpU"; */
-"eN6-S5-HpU.title" = "Profile";
+"eN6-S5-HpU.title" = "My profile";
 
 /* Class = "UIButton"; normalTitle = "7"; ObjectID = "eYt-B3-e9M"; */
 "eYt-B3-e9M.normalTitle" = "7";
@@ -102,7 +102,7 @@
 "mF9-cf-Rto.title" = "Search groups";
 
 /* Class = "UINavigationItem"; title = "Friends"; ObjectID = "swY-ae-BsR"; */
-"swY-ae-BsR.title" = "Friends";
+"swY-ae-BsR.title" = "My friends";
 
 /* Class = "UILabel"; text = "Имя Фамилия"; ObjectID = "uga-JI-Nks"; */
 "uga-JI-Nks.text" = "Full Name";

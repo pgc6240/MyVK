@@ -45,6 +45,12 @@ final class PostsVC: UITableViewController {
     }
     
     
+    @IBAction private func postsButtonTapped() {
+        guard !posts.isEmpty else { return }
+        tableView.scrollToRow(at: [0,0], at: .top, animated: true)
+    }
+    
+    
     // MARK: - External methods
     func set(with owner: CanPost) {
         self.owner = owner

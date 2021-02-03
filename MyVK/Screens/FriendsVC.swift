@@ -40,7 +40,7 @@ final class FriendsVC: UITableViewController {
     
     
     private func configureViewController() {
-        navigationItem.title = user == User.current ? "Друзья".localized : user.name
+        navigationItem.title = user == User.current ? "Мои друзья".localized : user.name
         navigationItem.searchController?.searchBar.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             UIView.transition(with: self.view, duration: 0.6, options: []) {
@@ -208,12 +208,19 @@ extension FriendsVC: UISearchBarDelegate {
     private func configureSearchController() {
         let searchController                                  = UISearchController()
         searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск среди моих друзей".localized
         searchController.searchBar.autocorrectionType         = .no
         searchController.searchBar.autocapitalizationType     = .words
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController                       = searchController
         navigationItem.hidesSearchBarWhenScrolling            = false
+
+        if user == User.current {
+            searchController.searchBar.placeholder = "Поиск среди моих друзей".localized
+        } else if Locale.isEnglishLocale {
+            searchController.searchBar.placeholder = "Search in user's friends"
+        } else {
+            searchController.searchBar.placeholder = "Поиск среди друзей \(user.nameGen)"
+        }
     }
 
     

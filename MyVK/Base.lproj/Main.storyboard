@@ -56,7 +56,7 @@
                             <constraint firstItem="5fB-cG-Dsu" firstAttribute="trailing" secondItem="c3v-a2-JhO" secondAttribute="trailing" id="uu5-qp-P3e"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Профиль" largeTitleDisplayMode="never" id="8Wm-F1-L5F">
+                    <navigationItem key="navigationItem" title="Мой профиль" largeTitleDisplayMode="never" id="8Wm-F1-L5F">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="compose" id="7Oe-I4-jzr">
                             <color key="tintColor" name="AccentColor"/>
                             <connections>
@@ -148,7 +148,7 @@
                             <outlet property="delegate" destination="yWS-54-f4Z" id="M0z-09-bUW"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Друзья" id="swY-ae-BsR">
+                    <navigationItem key="navigationItem" title="Мои друзья" largeTitleDisplayMode="never" id="swY-ae-BsR">
                         <barButtonItem key="rightBarButtonItem" style="done" id="xUu-uB-8je">
                             <imageReference key="image" image="a.square" catalog="system" symbolScale="large"/>
                             <imageReference key="landscapeImage" image="a.square" catalog="system" symbolScale="small"/>
@@ -186,7 +186,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="5" translatesAutoresizingMaskIntoConstraints="NO" id="2nh-5f-53m">
+                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="2nh-5f-53m">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zp7-zP-9Hs" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
@@ -263,25 +263,25 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="52Q-Y0-yEo">
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="52Q-Y0-yEo">
                                                     <rect key="frame" x="108" y="0.0" width="266" height="138"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uga-JI-Nks" customClass="PlaceholderLabel" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="266" height="22"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="266" height="41.5"/>
                                                             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                                             <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YEf-eG-tTf" customClass="SecondaryPlaceholderLabel" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="30" width="266" height="50"/>
+                                                            <rect key="frame" x="0.0" y="49.5" width="266" height="41.5"/>
                                                             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HCp-3o-qBf" customClass="SecondaryPlaceholderLabel" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="88" width="266" height="50"/>
+                                                            <rect key="frame" x="0.0" y="99" width="266" height="39"/>
                                                             <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                             <color key="textColor" systemColor="secondarySystemBackgroundColor"/>
@@ -376,6 +376,9 @@
                                                             <state key="normal">
                                                                 <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="postsButtonTapped" destination="Nqu-Yb-IdH" eventType="touchUpInside" id="CEN-Qq-Kyw"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                 </stackView>
@@ -625,8 +628,8 @@
                         <color key="badgeColor" name="vk-color"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Z78-qI-sma">
-                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z78-qI-sma">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -702,7 +705,7 @@
                             <outlet property="delegate" destination="gag-xF-JEA" id="3na-OQ-94i"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Сообщества" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="dfK-79-1B0">
+                    <navigationItem key="navigationItem" title="Мои сообщества" leftItemsSupplementBackButton="YES" largeTitleDisplayMode="never" id="dfK-79-1B0">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="search" id="wTC-QQ-L3x">
                             <connections>
                                 <segue destination="mF9-cf-Rto" kind="show" identifier="toSearch" id="tWE-8P-Es1"/>
@@ -738,10 +741,10 @@
             </objects>
             <point key="canvasLocation" x="1852" y="446"/>
         </scene>
-        <!--NewsNC-->
+        <!--ProfileNC-->
         <scene sceneID="wtx-6m-dNb">
             <objects>
-                <navigationController storyboardIdentifier="ProfileNC" title="NewsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fIT-ue-kvp" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNC" title="ProfileNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fIT-ue-kvp" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" id="UxT-YE-jyv">
                         <imageReference key="image" image="menubar.rectangle" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="menubar.rectangle" catalog="system" symbolScale="small"/>
@@ -767,8 +770,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="4e2-ub-F2X"/>
-        <segue reference="Woy-2W-5O6"/>
-        <segue reference="UwU-LT-97t"/>
+        <segue reference="Ngl-hp-lcz"/>
+        <segue reference="6tR-pR-6lS"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="vk-color"/>
     <resources>
