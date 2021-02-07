@@ -12,7 +12,7 @@ final class Post: Object, Identifiable {
 
     @objc dynamic var id = 0
     @objc dynamic var date = 0 /* unixtime */
-    @objc dynamic var text = ""
+    @objc dynamic var text: String? = nil
     @objc dynamic var likeCount = 0
     @objc dynamic var likedByCurrentUser = false
     @objc dynamic var viewCount: String? = nil
@@ -50,7 +50,7 @@ extension Post: Decodable {
             self.id = try container.decode(Int.self, forKey: .sourceId)
         }
         self.date = try container.decode(Int.self, forKey: .date)
-        self.text = try container.decode(String.self, forKey: .text)
+        self.text = try? container.decode(String.self, forKey: .text)
         if let likesContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .likes) {
             self.likeCount = try likesContainer.decode(Int.self, forKey: .count)
             let userLikes = try likesContainer.decode(Int.self, forKey: .userLikes)
@@ -84,5 +84,18 @@ final class Attachment: Object, Decodable {
         self.init()
         self.type = type
         self.photo = photo
+    }
+}
+
+
+//
+// MARK: - Newsfeed -
+//
+struct Newsfeed: Decodable {
+    let response: Response
+    struct Response: Decodable {
+        let items: [Post]
+        let groups: [Group]
+        let profiles: [User]
     }
 }

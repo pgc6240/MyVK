@@ -30,7 +30,7 @@ final class Group: Object, CanPost, Identifiable {
 extension Group: Decodable {
     
     private enum CodingKeys: String, CodingKey {
-        case id, name, isClosed, isMember, photoUrl = "photo200", city, title
+        case id, name, isClosed, isMember, photoUrl = "photo200", city, title, photoMax
     }
     
     convenience init(from decoder: Decoder) throws {
@@ -42,7 +42,11 @@ extension Group: Decodable {
         self.isOpen = isClosed == 0
         let isMember = try? container.decode(Int.self, forKey: .isMember)
         self.isMember = isMember == 1
-        self.photoUrl = try container.decode(String.self, forKey: .photoUrl)
+        do {
+            self.photoUrl = try container.decode(String.self, forKey: .photoUrl)
+        } catch {
+            self.photoUrl = try container.decode(String.self, forKey: .photoMax)
+        }
         if let cityContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .city) {
             self.city = try? cityContainer.decode(String.self, forKey: .title)
         }

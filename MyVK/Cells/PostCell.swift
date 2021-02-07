@@ -32,7 +32,7 @@ final class PostCell: UITableViewCell {
         likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser, postId: post.id)
         viewCountLabel.setTitle(post.viewCount, for: .normal)
         let attachmentsString = "[\(post.attachments.map { $0.type }.joined(separator: ", "))]".uppercased()
-        postTextLabel.text = (post.text.isEmpty ? "" : "\(post.text)") + (!post.text.isEmpty && !post.attachments.isEmpty ? "\n" : "") + (post.attachments.isEmpty ? "" : attachmentsString)
+        postTextLabel.text = (post.text ?? "") + (post.text == "" ? attachmentsString : "\n\(attachmentsString)")
         if post.viewCount == nil { viewCountLabel.isHidden = true }
         if owner !== User.current { deletePostButton.isHidden = true }
         let photos: [Photo] = post.attachments.compactMap { $0.photo }

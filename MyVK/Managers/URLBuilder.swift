@@ -18,6 +18,7 @@ enum VKApiMethod: String, URLConvertible {
     case getGroups          = "groups.get"
     case getPhotos          = "photos.getAll"
     case getPosts           = "wall.get"
+    case getNewsfeed        = "newsfeed.getRecommended"
     case wallPost           = "wall.post"
     case deletePost         = "wall.delete"
     case searchGroups       = "groups.search"
@@ -33,6 +34,8 @@ enum VKApiMethod: String, URLConvertible {
         case .getFriends:   return ["fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed"]
         case .getGroups:    return ["extended": "1", "fields": "city"]
         case .getPhotos:    return ["album_id": "profile"]
+        case .getNewsfeed:  return ["filters": "post,photo,wall_photo",
+                                    "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed,city"]
         default:            return [:]
         }
     }
