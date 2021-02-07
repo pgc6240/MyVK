@@ -111,8 +111,8 @@ enum PersistenceManager {
     }
     
     
-    static func pair<T: Object>(_ objects: List<T>, with tableView: UITableView?, token: inout NotificationToken?) {
-        token = objects.observe { [weak tableView] changes in
+    static func pair<T: Object>(_ objects: List<T>?, with tableView: UITableView?, token: inout NotificationToken?) {
+        token = objects?.observe { [weak tableView] changes in
             switch changes {
             case .initial(_):
                 tableView?.reloadData()

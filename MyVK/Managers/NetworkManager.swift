@@ -14,7 +14,7 @@ final class NetworkManager {
     // MARK: - Singleton -
     static let shared = NetworkManager()
     
-    private init() { getNewsfeed() }
+    private init() {}
     
     
     // MARK: - Internal methods -
@@ -185,11 +185,11 @@ final class NetworkManager {
     
     
     // MARK: - Newsfeed -
-    func getNewsfeed() {
+    func getNewsfeed(posts: @escaping ([Post]) -> Void) {
         AF.request(VKApiMethod.getNewsfeed).responseDecodable(of: Newsfeed.self, decoder: JSON.decoder) { [weak self] in
             switch $0.result {
             case .success(let newsfeed):
-                print(newsfeed.response.items.count)
+                posts(newsfeed.parse())
             case .failure(let error):
                 self?.handleError(error, data: $0.data)
             }

@@ -11,11 +11,14 @@ import RealmSwift
 final class Post: Object, Identifiable {
 
     @objc dynamic var id = 0
+    @objc dynamic var sourceId = 0
     @objc dynamic var date = 0 /* unixtime */
     @objc dynamic var text: String? = nil
     @objc dynamic var likeCount = 0
     @objc dynamic var likedByCurrentUser = false
     @objc dynamic var viewCount: String? = nil
+    @objc dynamic var userOwner: User?
+    @objc dynamic var groupOwner: Group?
     let attachments = List<Attachment>()
     
     
@@ -29,7 +32,7 @@ final class Post: Object, Identifiable {
 extension Post: Decodable {
     
     private enum CodingKeys: CodingKey {
-        case id, sourceId, date, text
+        case id, sourceId, postId, date, text
         case likes, count, userLikes
         case views
         case attachments, type, photo
@@ -39,6 +42,7 @@ extension Post: Decodable {
     convenience init(from decoder: Decoder) throws {
         self.init()
         var container = try decoder.container(keyedBy: CodingKeys.self)
+        self.sourceId = (try? container.decode(Int.self, forKey: .sourceId)) ?? 0
         if var copyHistoryContainer = try? container.nestedUnkeyedContainer(forKey: .copyHistory) {
             while !copyHistoryContainer.isAtEnd {
                 container = try copyHistoryContainer.nestedContainer(keyedBy: CodingKeys.self)
@@ -47,7 +51,7 @@ extension Post: Decodable {
         do {
             self.id = try container.decode(Int.self, forKey: .id)
         } catch {
-            self.id = try container.decode(Int.self, forKey: .sourceId)
+            self.id = try container.decode(Int.self, forKey: .postId)
         }
         self.date = try container.decode(Int.self, forKey: .date)
         self.text = try? container.decode(String.self, forKey: .text)
@@ -92,10 +96,24 @@ final class Attachment: Object, Decodable {
 // MARK: - Newsfeed -
 //
 struct Newsfeed: Decodable {
-    let response: Response
-    struct Response: Decodable {
+    
+    private let response: Response
+    
+    private struct Response: Decodable {
         let items: [Post]
         let groups: [Group]
         let profiles: [User]
+    }
+    
+    
+    func parse() -> [Post] {
+        for post in response.items {
+            if let userOwner = response.profiles.first(where: { $0.id == post.sourceId }) {
+                post.userOwner = userOwner
+            } else if let groupOwner = response.groups.first(where: { $0.id == -post.sourceId }) {
+                post.groupOwner = groupOwner
+            }
+        }
+        return response.items
     }
 }

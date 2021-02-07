@@ -16,23 +16,25 @@ final class PostCell: UITableViewCell {
     @IBOutlet weak var avatarImageView: MyImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
-    @IBOutlet weak var postTextLabel: UILabel!
+    @IBOutlet weak var postTextView: UITextView!
     @IBOutlet weak var likeButton: LikeButton!
     @IBOutlet weak var viewCountLabel: UIButton!
     @IBOutlet weak var deletePostButton: UIButton!
     @IBOutlet weak var photoImageView: MyImageView!
     
     
-    func set(with post: Post, and owner: CanPost) {
+    func set(with post: Post, and owner: CanPost? = nil) {
         postId = post.id
-        avatarImageView.downloadImage(with: owner.photoUrl)
-        avatarImageView.contentMode = owner.photoUrl == "" ? .center : .scaleAspectFit
-        nameLabel.text = owner.name
+        avatarImageView.downloadImage(with: post.userOwner?.photoUrl ?? post.groupOwner?.photoUrl ?? owner?.photoUrl)
+        avatarImageView.contentMode = owner?.photoUrl == "" ? .center : .scaleAspectFit
+        nameLabel.text = post.userOwner?.name ?? post.groupOwner?.name ?? owner?.name
         dateLabel.text = F.fd(post.date)
         likeButton.set(likeCount: post.likeCount, liked: post.likedByCurrentUser, postId: post.id)
         viewCountLabel.setTitle(post.viewCount, for: .normal)
         let attachmentsString = "[\(post.attachments.map { $0.type }.joined(separator: ", "))]".uppercased()
-        postTextLabel.text = (post.text ?? "") + (post.text == "" ? attachmentsString : "\n\(attachmentsString)")
+        postTextView.text = (post.text ?? "") + (post.text == "" ? attachmentsString : "\n\(attachmentsString)")
+        let padding = postTextView.textContainer.lineFragmentPadding
+        postTextView.textContainerInset = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
         if post.viewCount == nil { viewCountLabel.isHidden = true }
         if owner !== User.current { deletePostButton.isHidden = true }
         let photos: [Photo] = post.attachments.compactMap { $0.photo }

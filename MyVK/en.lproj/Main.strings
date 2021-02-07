@@ -1,4 +1,16 @@
 
+/* Class = "UINavigationController"; title = "NewsNC"; ObjectID = "BUZ-jL-ikA"; */
+"BUZ-jL-ikA.title" = "NewsNC";
+
+/* Class = "UINavigationItem"; title = "Новости"; ObjectID = "Zyv-Js-dIM"; */
+"Zyv-Js-dIM.title" = "News";
+
+/* Class = "UITabBarItem"; title = "Новости"; ObjectID = "pmV-83-RD8"; */
+"pmV-83-RD8.title" = "News";
+
+/* Class = "UITableViewController"; title = "Новости"; ObjectID = "wfD-Ve-Ti7"; */
+"wfD-Ve-Ti7.title" = "News";
+
 /* Class = "UIViewController"; title = "Communitie"; ObjectID = "3Uz-h0-VTz"; */
 "3Uz-h0-VTz.title" = "Communitie";
 
