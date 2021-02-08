@@ -10,8 +10,8 @@ import RealmSwift
 
 final class PhotosVC: UICollectionViewController {
     
-    var user: User!
-    lazy var photos = user.photos
+    var owner: CanPost!
+    lazy var photos = owner.photos
     
     private var token: NotificationToken?
     
@@ -55,10 +55,11 @@ final class PhotosVC: UICollectionViewController {
     
     func getPhotos() {
         showLoadingView()
-        NetworkManager.shared.getPhotos(for: user.id) { [weak self] photos in
+        let ownerId = owner is Group ? -owner.id : owner.id
+        NetworkManager.shared.getPhotos(for: ownerId) { [weak self] photos in
             self?.dismissLoadingView()
             self?.updateTitle()
-            PersistenceManager.save(photos, in: self?.user.photos)
+            PersistenceManager.save(photos, in: self?.owner.photos)
         }
     }
     

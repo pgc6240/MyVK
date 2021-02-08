@@ -13,8 +13,10 @@ final class FriendsVC: UITableViewController {
     var user: User! = User.current
     lazy var friends = user.friends.results
     
+    var avaliableLetters = [String]()
     private var alphabetPicker = AlphabetPicker()
-    private var avaliableLetters: Set<String> = []
+    
+    var numberOfRowsInSection: [Int: Int] = [:]
     
     
     // MARK: - View controller lifecycle -
@@ -29,6 +31,13 @@ final class FriendsVC: UITableViewController {
         super.viewWillAppear(animated)
         configureViewController()
         getFriends()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        guard navigationController?.visibleViewController is PostsVC else { return }
+        NotificationCenter.default.post(Notification(name: Notification.Name("FriendsVC.viewDidDisappear")))
     }
     
     
@@ -52,6 +61,9 @@ final class FriendsVC: UITableViewController {
     
     // MARK: - External methods -
     func getFriends() {
+        if avaliableLetters.isEmpty {
+            parent?.showLoadingView()
+        }
         NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
             PersistenceManager.save(friends, in: self?.user.friends)
             self?.updateUI()
@@ -63,15 +75,17 @@ final class FriendsVC: UITableViewController {
     private func updateUI() {
         updateAvaliableLetters()
         tableView.reloadData()
+        parent?.dismissLoadingView()
     }
     
     
     private func updateAvaliableLetters() {
-        avaliableLetters = []
+        var avaliableLetters: Set<String> = []
         for friend in friends {
-            guard let letter = friend.lastName.first.toString else { continue }
+            guard let letter = friend.lastNameFirstLetter else { continue }
             avaliableLetters.insert(letter)
         }
+        self.avaliableLetters = avaliableLetters.sorted(by: <)
     }
     
     
@@ -88,12 +102,12 @@ final class FriendsVC: UITableViewController {
     
     
     private func sectionForLetter(_ letter: String) -> Int? {
-        avaliableLetters.sorted(by: <).firstIndex(of: letter)
+        avaliableLetters.firstIndex(of: letter)
     }
     
     
     private func letterForSection(_ section: Int) -> String {
-        avaliableLetters.sorted(by: <)[section]
+        avaliableLetters[section]
     }
     
 
@@ -107,9 +121,9 @@ final class FriendsVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let postsVC = segue.destination as? PostsVC
+           let userDetailVC = segue.destination as? UserDetailVC
         {
-            postsVC.owner = friendForIndexPath(indexPath)
+            userDetailVC.user = friendForIndexPath(indexPath)
         }
         navigationItem.searchController?.searchBar.isHidden = true
     }
@@ -127,6 +141,10 @@ extension FriendsVC {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !numberOfRowsInSection.isEmpty {
+            return numberOfRowsInSection[section] ?? 0
+        }
+        
         let letter = letterForSection(section)
         return friendsForLetter(letter).count
     }
@@ -146,7 +164,7 @@ extension FriendsVC {
     
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        avaliableLetters.sorted(by: <).map { String($0) }
+        avaliableLetters
     }
     
     
@@ -157,7 +175,7 @@ extension FriendsVC {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "headerReuseId")
-        sectionHeader?.backgroundView = BlurView()
+        sectionHeader?.backgroundView  = BlurView()
         sectionHeader?.textLabel?.text = letterForSection(section)
         return sectionHeader
     }

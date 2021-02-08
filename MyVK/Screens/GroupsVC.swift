@@ -6,14 +6,11 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class GroupsVC: UITableViewController {
     
     var user: User! = User.current
     lazy var groups = user.groups
-    private var notificationToken: NotificationToken?
-    private var backingStore: List<Group> { user.groups }
     
     
     override func viewDidLoad() {
@@ -30,7 +27,7 @@ final class GroupsVC: UITableViewController {
     
     
     private func configureTableViewController() {
-        PersistenceManager.pair(groups, with: tableView, token: &notificationToken)
+        PersistenceManager.pair(groups, with: tableView)
         if user == User.current {
             if navigationController?.title != "ProfileNC" {
                 navigationItem.leftBarButtonItem = editButtonItem
@@ -81,10 +78,13 @@ final class GroupsVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let profileVC = segue.destination as? PostsVC,
+           let postsVC = segue.destination as? PostsVC,
            let group = PersistenceManager.create(groups[indexPath.row]) {
             
-            profileVC.owner = group
+            postsVC.owner = group
+            NetworkManager.shared.getMembersPhotosAndPostsCount(for: group.id) {
+                postsVC.profileHeaderView.set($0, $1, $2)
+            }
         }
     }
 }
@@ -164,16 +164,16 @@ extension GroupsVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            groups = backingStore
+            groups = user.groups
         } else {
-            groups = backingStore.filter("name CONTAINS[cd] %@", searchText).list
+            groups = user.groups.filter("name CONTAINS[cd] %@", searchText).list
         }
         tableView.reloadSections([0], with: .automatic)
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        groups = backingStore
+        groups = user.groups
         tableView.reloadSections([0], with: .automatic)
     }
 }

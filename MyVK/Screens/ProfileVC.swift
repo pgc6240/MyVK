@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProfileVC: UIViewController {
+final class ProfileVC: UIViewController, PostCellDelegate {
     
     private lazy var postsVC = children.first as? PostsVC
     
@@ -24,6 +24,24 @@ final class ProfileVC: UIViewController {
                 self?.postsVC?.getPosts()
             }
         }
+    }
+    
+    
+    func deletePost(postId: Int) {
+        let alertTitle   = "Вы точно хотите удалить запись?".localized
+        let alertMessage = "Это действие будет невозможно отменить.".localized
+        let alertSheet   = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .actionSheet)
+        let cancel       = UIAlertAction(title: "Нет".localized, style: .default)
+        let deletePost   = UIAlertAction(title: "Да".localized, style: .destructive) { [postId] _ in
+            NetworkManager.shared.deletePost(postId: postId) { [weak self] isSuccessful in
+                guard isSuccessful else { return }
+                self?.postsVC?.getPosts()
+            }
+        }
+        alertSheet.addAction(cancel)
+        alertSheet.addAction(deletePost)
+        alertSheet.view.tintColor = UIColor.vkColor
+        present(alertSheet, animated: true)
     }
     
     

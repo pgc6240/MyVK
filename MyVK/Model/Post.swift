@@ -10,6 +10,7 @@ import RealmSwift
 
 final class Post: Object, Identifiable {
 
+    // MARK: - Realm stored properties -
     @objc dynamic var id = 0
     @objc dynamic var sourceId = 0
     @objc dynamic var date = 0 /* unixtime */
@@ -19,9 +20,18 @@ final class Post: Object, Identifiable {
     @objc dynamic var viewCount: String? = nil
     @objc dynamic var userOwner: User?
     @objc dynamic var groupOwner: Group?
-    let attachments = List<Attachment>()
+    let attachments = List<String>()
+    let photos = List<Photo>()
     
     
+    // MARK: - Computed properties -
+    var attachmentsString: String? {
+        guard !attachments.isEmpty else { return nil }
+        return "[" + attachments.joined(separator: ", ").uppercased() + "]"
+    }
+    
+    
+    // MARK: - Realm Object's methods -
     override class func primaryKey() -> String? { "id" }
 }
 
@@ -32,11 +42,7 @@ final class Post: Object, Identifiable {
 extension Post: Decodable {
     
     private enum CodingKeys: CodingKey {
-        case id, sourceId, postId, date, text
-        case likes, count, userLikes
-        case views
-        case attachments, type, photo
-        case copyHistory
+        case id, sourceId, postId, date, text, likes, count, userLikes, views, attachments, type, photo, copyHistory
     }
     
     convenience init(from decoder: Decoder) throws {
@@ -67,27 +73,12 @@ extension Post: Decodable {
             while !attachmentsContainer.isAtEnd {
                 let attachmentContainer = try attachmentsContainer.nestedContainer(keyedBy: CodingKeys.self)
                 let type = try attachmentContainer.decode(String.self, forKey: .type)
-                let photo = try? attachmentContainer.decode(Photo.self, forKey: .photo)
-                self.attachments.append(Attachment(type: type, photo: photo))
+                self.attachments.append(type)
+                if let photo = try? attachmentContainer.decode(Photo.self, forKey: .photo) {
+                    self.photos.append(photo)
+                }
             }
         }
-    }
-}
-
-
-//
-// MARK: - Attachment -
-//
-final class Attachment: Object, Decodable {
-    
-    @objc dynamic var type = ""
-    @objc dynamic var photo: Photo?
-    
-    
-    convenience init(type: String, photo: Photo?) {
-        self.init()
-        self.type = type
-        self.photo = photo
     }
 }
 

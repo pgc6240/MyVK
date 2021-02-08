@@ -14,6 +14,12 @@ final class FriendCell: UITableViewCell {
     @IBOutlet weak var secondaryLabel: UILabel!
     
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(prepareForReuse), name: NSNotification.Name("FriendsVC.viewDidDisappear"), object: nil)
+    }
+    
+    
     func set(with friend: User) {
         avatarImageView.downloadImage(with: friend.photoUrl)
         nameLabel.text = friend.name

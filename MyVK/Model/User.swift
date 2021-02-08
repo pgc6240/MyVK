@@ -28,6 +28,7 @@ final class User: Object, CanPost, Identifiable {
     @objc dynamic var homeTown: String? = nil
     @objc dynamic var bdate: String? = nil
     @objc dynamic var canAccessClosed = false
+    @objc dynamic var lastNameFirstLetter: String? = nil
     let friends = List<User>()
     let photos = List<Photo>()
     let groups = List<Group>()
@@ -38,7 +39,6 @@ final class User: Object, CanPost, Identifiable {
     // MARK: - Computed properties -
     var name: String { firstName + " " + lastName }
     var nameGen: String { firstNameGen + " " + lastNameGen }
-    @objc var lastNameLatin: String { lastName.toLatin }
     var age: String? {
         guard let bdate = bdate else { return nil }
         guard let byear = Int(bdate.components(separatedBy: ".").first { $0.count == 4 }) else { return nil }
@@ -94,5 +94,6 @@ extension User: Decodable {
         self.homeTown = try? container.decode(String.self, forKey: .homeTown)
         self.bdate = try? container.decode(String.self, forKey: .bdate)
         self.canAccessClosed = (try? container.decode(Bool.self, forKey: .canAccessClosed)) ?? false
+        self.lastNameFirstLetter = self.lastName.first.toString
     }
 }

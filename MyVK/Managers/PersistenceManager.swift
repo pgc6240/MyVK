@@ -32,9 +32,11 @@ enum PersistenceManager {
     private static let realmConfiguration: Realm.Configuration = {
         var configuration = Realm.Configuration.defaultConfiguration
         configuration.deleteRealmIfMigrationNeeded = true
-        configuration.objectTypes = [User.self, Group.self, Photo.self, Post.self, Attachment.self]
+        configuration.objectTypes = [User.self, Group.self, Photo.self, Post.self]
         return configuration
     }()
+    
+    private static var notificationTokens: Set<NotificationToken?> = []
     
     
     static func create<T: Object & Identifiable>(_ object: T) -> T? {
@@ -73,6 +75,7 @@ enum PersistenceManager {
                     newUser.groups.append(objectsIn: oldUser.groups)
                     newUser.photos.append(objectsIn: oldUser.photos)
                     newUser.posts.append(objectsIn: oldUser.posts)
+                    newUser.newsfeed.append(objectsIn: oldUser.newsfeed)
                     let newObject = realm.create(T.self, value: newObject, update: .modified)
                     guard list.index(of: newObject) == nil else { continue }
                     list.append(newObject)
@@ -80,6 +83,7 @@ enum PersistenceManager {
                 } else if let newGroup = newObject as? Group,
                           let oldGroup = realm.object(ofType: Group.self, forPrimaryKey: newGroup.id)
                 {
+                    newGroup.photos.append(objectsIn: oldGroup.photos)
                     newGroup.posts.append(objectsIn: oldGroup.posts)
                     let newGroup = realm.create(T.self, value: newGroup, update: .modified)
                     guard list.index(of: newGroup) == nil else { continue }
@@ -111,12 +115,15 @@ enum PersistenceManager {
     }
     
     
-    static func pair<T: Object>(_ objects: List<T>?, with tableView: UITableView?, token: inout NotificationToken?) {
-        token = objects?.observe { [weak tableView] changes in
+    // MARK: - Realm Notifications -
+    static func pair<T: Object>(_ objects: List<T>?, with tableView: UITableView?, onChange: @escaping () -> Void = {}) {
+        let token = objects?.observe { [weak tableView] changes in
             switch changes {
             case .initial(_):
+                onChange()
                 tableView?.reloadData()
             case .update(let updatedObjects, let deletions, let insertions, let modifications):
+                onChange()
                 tableView?.beginUpdates()
                 if updatedObjects.isEmpty || updatedObjects.count == insertions.count {
                     /* Change section header for empty state and vice versa */
@@ -131,5 +138,6 @@ enum PersistenceManager {
                 fatalError("\(error)")
             }
         }
+        notificationTokens.insert(token)
     }
 }

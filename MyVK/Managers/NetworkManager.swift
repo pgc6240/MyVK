@@ -63,6 +63,7 @@ final class NetworkManager {
                              responseItem: I.Type) -> AnyPublisher<[I]?, Never>
     {
         AF.request(vkApiMethod, parameters: parameters).publishDecodable(type: Response<I>.self, decoder: JSON.decoder)
+            .retry(2)
             .map { [weak self] in
                 if let error = $0.error {
                     self?.handleError(error, data: $0.data)
@@ -78,6 +79,7 @@ final class NetworkManager {
                              expecting: String) -> AnyPublisher<Int?, Never>
     {
         AF.request(vkApiMethod, parameters: parameters).publishResponse(using: JSONResponseSerializer())
+            .retry(2)
             .map { (($0.value as? [String: Any])?["response"] as? [String: Any])?[expecting] as? Int }
             .eraseToAnyPublisher()
     }
@@ -88,6 +90,7 @@ final class NetworkManager {
         if let data = data, let responseError = try? JSON.decoder.decode(ResponseError.self, from: data) {
             print(responseError.code, responseError.message)
         } else {
+            guard !error.isExplicitlyCancelledError else { return }
             print(error)
         }
     }
@@ -155,18 +158,17 @@ final class NetworkManager {
     private var cancellables: Set<AnyCancellable> = []
     
     
-    func getFriendsGroupsPhotosAndPosts(for ownerId: Int, result: @escaping ([User]?, [Group]?, [Photo]?, [Post]?) -> Void) {
+    func getFriendsGroupsPhotosAndPosts(for ownerId: Int, result: @escaping ([User]?, [Group]?, [Photo]?, [Post]?) -> Void) -> AnyCancellable {
         
         let friendsPublisher = makeRequest(.getFriends, parameters: ["user_id": ownerId], responseItem: User.self)
         let groupsPublisher = makeRequest(.getGroups, parameters: ["user_id": ownerId], responseItem: Group.self)
         let photosPublisher = makeRequest(.getPhotos, parameters: ["owner_id": ownerId], responseItem: Photo.self)
         let postsPublisher = makeRequest(.getPosts, parameters: ["owner_id": ownerId], responseItem: Post.self)
         
-        Publishers.Zip4(friendsPublisher, groupsPublisher, photosPublisher, postsPublisher)
+        return Publishers.Zip4(friendsPublisher, groupsPublisher, photosPublisher, postsPublisher)
             .sink {
                 result($0.0, $0.1, $0.2, $0.3)
             }
-            .store(in: &cancellables)
     }
     
     

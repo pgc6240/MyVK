@@ -6,123 +6,122 @@
 //
 
 import UIKit
-import RealmSwift
+import Combine
 
 final class PostsVC: UITableViewController {
     
     var owner: CanPost = User.current
     lazy var posts = owner.posts
-    private var token: NotificationToken?
-    private var timer: Timer?
     
+    // MARK: - Subviews -
     @IBOutlet var profileHeaderView: ProfileHeaderView!
+    
+    
+    // MARK: - View controller lifecycle -
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureViewController()
+    }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-        configureTableViewController()
-        updateUI()
+        getPosts()
     }
     
     
     override func viewDidDisappear(_ animated: Bool) {
-        token?.invalidate()
-        timer?.invalidate()
-        timer = nil
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.post(Notification(name: Notification.Name("PostsVC.viewDidDisappear")))
     }
     
     
-    private func configureTableViewController() {
-        PersistenceManager.pair(posts, with: tableView, token: &token)
-        timer = Timer.scheduledTimer(withTimeInterval: 20, repeats: true) { [weak self] _ in self?.getPosts() }
-        set(with: owner)
+    // MARK: - Basic setup -
+    private func configureViewController() {
+        tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
+        PersistenceManager.pair(posts, with: tableView) { [weak self] in
+            self?.profileHeaderView.set(with: self?.owner)
+        }
     }
     
     
-    private func updateUI() {
-        profileHeaderView.set(with: owner)
-    }
-    
-    
+    // MARK: - Internal methods -
     @IBAction private func postsButtonTapped() {
         guard !posts.isEmpty else { return }
         tableView.scrollToRow(at: [0,0], at: .top, animated: true)
     }
     
     
-    // MARK: - External methods
+    // MARK: - External methods -
     func set(with owner: CanPost) {
         self.owner = owner
         self.posts = owner.posts
-        getPosts()
     }
     
     
     func getPosts() {
-        if owner.posts.isEmpty {
-            parent?.showLoadingView()
+        let ownerId = owner is User ? owner.id : -owner.id
+        NetworkManager.shared.getPosts(ownerId: ownerId) { [weak self] posts in
+            PersistenceManager.save(posts, in: self?.owner.posts)
         }
-        if let user = owner as? User {
-            NetworkManager.shared.getFriendsGroupsPhotosAndPosts(for: user.id) { [weak self] (friends, groups, photos, posts) in
-                self?.parent?.dismissLoadingView()
-                if let user = self?.owner as? User {
-                    PersistenceManager.save(friends, in: user.friends)
-                    PersistenceManager.save(groups, in: user.groups)
-                    PersistenceManager.save(photos, in: user.photos)
-                    PersistenceManager.save(posts, in: user.posts)
-                }
-                self?.updateUI()
-            }
-        } else if let group = owner as? Group {
-            NetworkManager.shared.getPosts(ownerId: -group.id) { [weak self] posts in
-                self?.parent?.dismissLoadingView()
-                PersistenceManager.save(posts, in: group.posts)
-            }
-            NetworkManager.shared.getMembersPhotosAndPostsCount(for: group.id) {
-                [weak self] (memberCount, photosCount, postsCount) in
-                self?.profileHeaderView.set(memberCount, photosCount, postsCount)
-            }
-        }
-    }
-    
-    
-    func deletePost(with postId: Int) {
-        let alertTitle   = "Вы точно хотите удалить запись?".localized
-        let alertMessage = "Это действие будет невозможно отменить.".localized
-        let alertSheet   = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .actionSheet)
-        let cancel       = UIAlertAction(title: "Нет".localized, style: .default)
-        let deletePost   = UIAlertAction(title: "Да".localized, style: .destructive) { [postId] _ in
-            NetworkManager.shared.deletePost(postId: postId) { [weak self] isSuccessful in
-                guard isSuccessful else { return }
-                self?.getPosts()
-            }
-        }
-        alertSheet.addAction(cancel)
-        alertSheet.addAction(deletePost)
-        alertSheet.view.tintColor = UIColor.vkColor
-        present(alertSheet, animated: true)
     }
     
 
-    // MARK: - Segues
+    // MARK: - Segues -
     private enum SegueIdentifier: String {
         case toFriends
         case toGroups
         case toPhotos
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
         switch segueIdentifier {
-        case .toFriends: (segue.destination as? FriendsVC)?.user = owner as? User
+        case .toFriends:
+            let friendsVC                    = (segue.destination as? FriendsVC)
+            friendsVC?.user                  = owner as? User
+            friendsVC?.avaliableLetters      = avaliableLetters
+            friendsVC?.numberOfRowsInSection = numberOfRowsInSection
         case .toGroups: (segue.destination as? GroupsVC)?.user = owner as? User
-        case .toPhotos: (segue.destination as? PhotosVC)?.user = owner as? User
+        case .toPhotos: (segue.destination as? PhotosVC)?.owner = owner
         }
     }
     
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        owner is User && (sender as? UIButton)?.currentTitle != "0"
+        guard (sender as? UIButton)?.currentTitle != "0" else { return false }
+        return identifier == SegueIdentifier.toPhotos.rawValue || owner is User
+    }
+    
+    
+    // MARK: - Prepare for segue to FriendsVC -
+    private var avaliableLetters = [String]()
+    
+    
+    private func updateAvaliableLetters(with friends: [User]?) {
+        guard let friends = friends else { return }
+        var avaliableLetters: Set<String> = []
+        for friend in friends {
+            guard let letter = friend.lastNameFirstLetter else { continue }
+            avaliableLetters.insert(letter)
+        }
+        self.avaliableLetters = avaliableLetters.sorted(by: <)
+        print("finished 1")
+        calculateNumberOfRowsInSectionForFriendsVC(friends)
+    }
+    
+    
+    private var numberOfRowsInSection: [Int: Int] = [:]
+    
+    
+    private func calculateNumberOfRowsInSectionForFriendsVC(_ friends: [User]) {
+        for (i, letter) in avaliableLetters.enumerated() {
+            let numberOfRows = friends.filter { $0.lastNameFirstLetter == letter }.count
+            numberOfRowsInSection[i] = numberOfRows
+        }
+        print("finished 2")
     }
 }
 
@@ -159,7 +158,7 @@ extension PostsVC {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
         cell.set(with: post, and: owner)
-        cell.parent = self
+        cell.delegate = parent as? ProfileVC
         return cell
     }
     

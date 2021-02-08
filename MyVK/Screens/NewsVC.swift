@@ -6,18 +6,17 @@
 //
 
 import UIKit
-import RealmSwift
 
 final class NewsVC: UITableViewController {
     
     var posts = User.current?.newsfeed
-    private var token: NotificationToken?
     
     
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
-        PersistenceManager.pair(posts, with: tableView, token: &token)
+        tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
+        PersistenceManager.pair(posts, with: tableView)
     }
     
     

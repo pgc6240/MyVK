@@ -84,7 +84,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="FriendsVC" title="Друзья" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yWS-54-f4Z" customClass="FriendsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="TJP-rr-2CL">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -140,7 +140,7 @@
                                     <outlet property="avatarImageView" destination="RsI-2W-hKg" id="VTB-Kr-2qe"/>
                                     <outlet property="nameLabel" destination="86Y-SL-dk0" id="GX1-eT-sGa"/>
                                     <outlet property="secondaryLabel" destination="INs-O1-Anm" id="DFY-qc-X0C"/>
-                                    <segue destination="Nqu-Yb-IdH" kind="show" identifier="fromFriendsToPosts" id="WLA-sB-N50"/>
+                                    <segue destination="5UF-dx-eoe" kind="show" id="hOt-Sk-Jq0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -159,6 +159,7 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QB4-oZ-5Im" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -169,7 +170,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="PhotosVC" title="Фотографии" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="iqM-VL-A8R" customClass="PhotosVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="XDz-gz-cup">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <gestureRecognizers/>
@@ -181,7 +182,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="kLl-dB-cJf" customClass="PhotoCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="175" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="owW-Wh-iMG">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
@@ -239,7 +240,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="PostsVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nqu-Yb-IdH" customClass="PostsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="RyB-Ue-Ues">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="DTc-Kr-Dpm" customClass="ProfileHeaderView" customModule="MyVK" customModuleProvider="target">
@@ -413,128 +414,6 @@
                                 <outletCollection property="countLabels" destination="xxX-Oa-N4b" collectionClass="NSMutableArray" id="eiV-BN-Rzs"/>
                             </connections>
                         </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="466" id="y4y-XL-Eik" customClass="PostCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="253.5" width="414" height="466"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="y4y-XL-Eik" id="Y0j-Es-VvS">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="466"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1he-jv-dv5">
-                                            <rect key="frame" x="20" y="11" width="374" height="444"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Azt-nO-m8M">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
-                                                    <subviews>
-                                                        <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wdg-2k-aFo" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="55"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="60" id="0GM-x7-1yD"/>
-                                                                <constraint firstAttribute="width" secondItem="wdg-2k-aFo" secondAttribute="height" multiplier="1:1" id="jAo-1e-Ibg"/>
-                                                            </constraints>
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                            </preferredSymbolConfiguration>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="30"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </imageView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i5s-LH-tDw">
-                                                            <rect key="frame" x="68" y="0.0" width="283" height="55"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3W8-kR-X7W">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="111" height="33.5"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 янв. 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wx2-n6-vda">
-                                                                    <rect key="frame" x="0.0" y="22" width="91" height="33"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iQN-xf-HKo">
-                                                            <rect key="frame" x="359" y="0.0" width="15" height="55"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="tintColor" systemColor="tertiaryLabelColor"/>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="11" maxX="2" maxY="0.0"/>
-                                                            <state key="normal">
-                                                                <color key="titleColor" systemColor="labelColor"/>
-                                                                <imageReference key="image" image="xmark" catalog="system" symbolScale="small"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="deletePost" destination="y4y-XL-Eik" eventType="touchUpInside" id="F5g-jK-jqv"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                </stackView>
-                                                <textView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dtD-Ss-bCR">
-                                                    <rect key="frame" x="0.0" y="63" width="374" height="0.0"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <color key="textColor" systemColor="labelColor"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                                </textView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AKf-js-0V9" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="71" width="374" height="335"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="335" id="mbt-gq-lqW"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hGs-lG-HXt">
-                                                    <rect key="frame" x="0.0" y="414" width="374" height="30"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjO-fi-a7L" customClass="LikeButton" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="183" height="30"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                            <state key="normal" title="50">
-                                                                <imageReference key="image" image="heart.fill" catalog="system" symbolScale="medium"/>
-                                                            </state>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LVh-vg-GC2">
-                                                            <rect key="frame" x="191" y="0.0" width="183" height="30"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                                            <state key="normal" title="1,000">
-                                                                <color key="titleColor" systemColor="secondaryLabelColor"/>
-                                                                <imageReference key="image" image="eye" catalog="system" symbolScale="small"/>
-                                                            </state>
-                                                        </button>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="OKZ-Mj-QcG"/>
-                                                    </constraints>
-                                                </stackView>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="1he-jv-dv5" firstAttribute="top" secondItem="Y0j-Es-VvS" secondAttribute="topMargin" id="2rT-HE-gpR"/>
-                                        <constraint firstItem="1he-jv-dv5" firstAttribute="leading" secondItem="Y0j-Es-VvS" secondAttribute="leadingMargin" id="3Vw-MK-RuA"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="1he-jv-dv5" secondAttribute="bottom" id="XNM-rN-48m"/>
-                                        <constraint firstItem="1he-jv-dv5" firstAttribute="trailing" secondItem="Y0j-Es-VvS" secondAttribute="trailingMargin" id="wwS-J4-sc1"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="avatarImageView" destination="wdg-2k-aFo" id="PQs-9p-6CB"/>
-                                    <outlet property="dateLabel" destination="Wx2-n6-vda" id="j9z-RJ-Oav"/>
-                                    <outlet property="deletePostButton" destination="iQN-xf-HKo" id="juh-xn-W0i"/>
-                                    <outlet property="likeButton" destination="OjO-fi-a7L" id="kd6-pM-HW8"/>
-                                    <outlet property="nameLabel" destination="3W8-kR-X7W" id="WoD-ia-OPo"/>
-                                    <outlet property="photoImageView" destination="AKf-js-0V9" id="ux3-BK-Dk0"/>
-                                    <outlet property="postTextView" destination="dtD-Ss-bCR" id="8gH-Do-CyV"/>
-                                    <outlet property="viewCountLabel" destination="LVh-vg-GC2" id="vGN-zI-9vf"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Nqu-Yb-IdH" id="i7y-jE-vQf"/>
                             <outlet property="delegate" destination="Nqu-Yb-IdH" id="Kqd-AV-Jmd"/>
@@ -548,14 +427,14 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lle-Ld-QHT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6340.579710144928" y="-1031.25"/>
+            <point key="canvasLocation" x="6401" y="-1031"/>
         </scene>
         <!--Поиск-->
         <scene sceneID="jKx-02-fkZ">
             <objects>
                 <tableViewController storyboardIdentifier="SearchVC" title="Поиск" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mF9-cf-Rto" customClass="SearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="82" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bfx-TB-ldl">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="82" id="m83-Gt-k6y" customClass="GroupCell" customModule="MyVK" customModuleProvider="target">
@@ -615,11 +494,42 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Поиск" largeTitleDisplayMode="never" id="kgv-O1-d6f"/>
-                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTT-r1-MJ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3762" y="759"/>
+        </scene>
+        <!--User DetailVC-->
+        <scene sceneID="gib-rO-56K">
+            <objects>
+                <viewController storyboardIdentifier="UserDetailVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5UF-dx-eoe" customClass="UserDetailVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vUK-Tf-aUP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GjI-ui-vzR">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <connections>
+                                    <segue destination="Nqu-Yb-IdH" kind="embed" id="gtx-kt-n3h"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iPV-3O-J7W"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="iPV-3O-J7W" firstAttribute="bottom" secondItem="GjI-ui-vzR" secondAttribute="bottom" id="Lcw-H9-gX6"/>
+                            <constraint firstItem="GjI-ui-vzR" firstAttribute="leading" secondItem="iPV-3O-J7W" secondAttribute="leading" id="T95-jI-7Hg"/>
+                            <constraint firstItem="GjI-ui-vzR" firstAttribute="top" secondItem="iPV-3O-J7W" secondAttribute="top" id="bKk-BW-kBa"/>
+                            <constraint firstItem="iPV-3O-J7W" firstAttribute="trailing" secondItem="GjI-ui-vzR" secondAttribute="trailing" id="oDY-Oq-Hfb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="zz7-M4-Juj"/>
+                    <splitViewDetailSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uli-12-8Es" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5591" y="74"/>
         </scene>
         <!--FriendsNC-->
         <scene sceneID="cwM-BT-l4H">
@@ -650,7 +560,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="GroupsVC" title="Сообщества" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="gag-xF-JEA" customClass="GroupsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="82" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ShW-2W-Agd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="82" id="4lb-mg-77o" customClass="GroupCell" customModule="MyVK" customModuleProvider="target">
@@ -720,7 +630,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsQ-lu-zG8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2792.8000000000002" y="445.72713643178412"/>
+            <point key="canvasLocation" x="2793" y="446"/>
         </scene>
         <!--GroupsNC-->
         <scene sceneID="yJE-mF-7Kp">
@@ -753,128 +663,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="466" id="807-DZ-gnK" customClass="PostCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="466"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="807-DZ-gnK" id="l1o-9e-GCz">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="466"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ZbC-dg-Qjh">
-                                            <rect key="frame" x="20" y="11" width="374" height="444"/>
-                                            <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="KHU-mi-hqh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
-                                                    <subviews>
-                                                        <imageView clipsSubviews="YES" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zjC-0V-Me1" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="55"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="60" id="kg1-Ts-6Rp"/>
-                                                                <constraint firstAttribute="width" secondItem="zjC-0V-Me1" secondAttribute="height" multiplier="1:1" id="vrA-Pp-0AL"/>
-                                                            </constraints>
-                                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                                            </preferredSymbolConfiguration>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                    <real key="value" value="30"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </imageView>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iJM-ad-lHH">
-                                                            <rect key="frame" x="68" y="0.0" width="283" height="55"/>
-                                                            <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGs-4u-O5F">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="111" height="33.5"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15 янв. 2015" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="erg-5z-jCY">
-                                                                    <rect key="frame" x="0.0" y="22" width="91" height="33"/>
-                                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                            </subviews>
-                                                        </stackView>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eqm-L5-Qhf">
-                                                            <rect key="frame" x="359" y="0.0" width="15" height="55"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="tintColor" systemColor="tertiaryLabelColor"/>
-                                                            <inset key="imageEdgeInsets" minX="0.0" minY="11" maxX="2" maxY="0.0"/>
-                                                            <state key="normal">
-                                                                <color key="titleColor" systemColor="labelColor"/>
-                                                                <imageReference key="image" image="xmark" catalog="system" symbolScale="small"/>
-                                                            </state>
-                                                            <connections>
-                                                                <action selector="deletePost" destination="807-DZ-gnK" eventType="touchUpInside" id="vLi-Rn-HwV"/>
-                                                            </connections>
-                                                        </button>
-                                                    </subviews>
-                                                </stackView>
-                                                <textView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Grm-lM-c2Q">
-                                                    <rect key="frame" x="0.0" y="63" width="374" height="0.0"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                                    <color key="textColor" systemColor="labelColor"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                                    <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                                </textView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kwd-lV-iuN" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="71" width="374" height="335"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="335" id="oZR-Fg-YIW"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Dz0-IA-uXR">
-                                                    <rect key="frame" x="0.0" y="414" width="374" height="30"/>
-                                                    <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHM-ZT-Fxc" customClass="LikeButton" customModule="MyVK" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="183" height="30"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                                            <state key="normal" title="50">
-                                                                <imageReference key="image" image="heart.fill" catalog="system" symbolScale="medium"/>
-                                                            </state>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I3j-va-ZmD">
-                                                            <rect key="frame" x="191" y="0.0" width="183" height="30"/>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                            <color key="tintColor" systemColor="secondaryLabelColor"/>
-                                                            <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
-                                                            <state key="normal" title="1,000">
-                                                                <color key="titleColor" systemColor="secondaryLabelColor"/>
-                                                                <imageReference key="image" image="eye" catalog="system" symbolScale="small"/>
-                                                            </state>
-                                                        </button>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="tBD-ho-Ucu"/>
-                                                    </constraints>
-                                                </stackView>
-                                            </subviews>
-                                        </stackView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="ZbC-dg-Qjh" secondAttribute="bottom" id="AeH-c8-zJh"/>
-                                        <constraint firstItem="ZbC-dg-Qjh" firstAttribute="leading" secondItem="l1o-9e-GCz" secondAttribute="leadingMargin" id="Nbf-qS-Y9D"/>
-                                        <constraint firstItem="ZbC-dg-Qjh" firstAttribute="top" secondItem="l1o-9e-GCz" secondAttribute="topMargin" id="PdV-f8-6kc"/>
-                                        <constraint firstItem="ZbC-dg-Qjh" firstAttribute="trailing" secondItem="l1o-9e-GCz" secondAttribute="trailingMargin" id="lzs-PX-fMc"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="avatarImageView" destination="zjC-0V-Me1" id="7K3-BA-C1u"/>
-                                    <outlet property="dateLabel" destination="erg-5z-jCY" id="4jq-pG-zbe"/>
-                                    <outlet property="deletePostButton" destination="eqm-L5-Qhf" id="YSz-bO-ZiC"/>
-                                    <outlet property="likeButton" destination="HHM-ZT-Fxc" id="R0x-GR-ad5"/>
-                                    <outlet property="nameLabel" destination="aGs-4u-O5F" id="Bfz-qm-Kg6"/>
-                                    <outlet property="photoImageView" destination="kwd-lV-iuN" id="TTE-KG-32u"/>
-                                    <outlet property="postTextView" destination="Grm-lM-c2Q" id="QSu-48-Unk"/>
-                                    <outlet property="viewCountLabel" destination="I3j-va-ZmD" id="z56-mJ-fYj"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="wfD-Ve-Ti7" id="myF-D7-FE3"/>
                             <outlet property="delegate" destination="wfD-Ve-Ti7" id="izf-vh-Klb"/>
@@ -891,9 +679,9 @@
             <objects>
                 <navigationController storyboardIdentifier="ProfileNC" title="ProfileNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fIT-ue-kvp" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" id="UxT-YE-jyv">
-                        <imageReference key="image" image="person" catalog="system" symbolScale="large"/>
-                        <imageReference key="landscapeImage" image="person" catalog="system" symbolScale="small"/>
-                        <imageReference key="largeContentSizeImage" image="person" catalog="system" symbolScale="large"/>
+                        <imageReference key="image" image="person.crop.circle" catalog="system" symbolScale="large"/>
+                        <imageReference key="landscapeImage" image="person.crop.circle" catalog="system" symbolScale="small"/>
+                        <imageReference key="largeContentSizeImage" image="person.crop.circle" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="lqi-CY-lAX">
@@ -938,30 +726,24 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="4e2-ub-F2X"/>
-        <segue reference="BIa-7u-19v"/>
+        <segue reference="Ngl-hp-lcz"/>
         <segue reference="UwU-LT-97t"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="vk-color"/>
     <resources>
         <image name="a.square" catalog="system" width="128" height="114"/>
         <image name="arrow.right.square" catalog="system" width="128" height="114"/>
-        <image name="eye" catalog="system" width="128" height="81"/>
-        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="menubar.rectangle" catalog="system" width="128" height="93"/>
-        <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.3" catalog="system" width="128" height="62"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
-        <image name="xmark" catalog="system" width="128" height="113"/>
+        <image name="person.crop.circle" catalog="system" width="128" height="121"/>
         <namedColor name="AccentColor">
             <color red="0.36000001430511475" green="0.50199997425079346" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="vk-color">
             <color red="0.36000001430511475" green="0.50199997425079346" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
@@ -973,9 +755,6 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="tertiaryLabelColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

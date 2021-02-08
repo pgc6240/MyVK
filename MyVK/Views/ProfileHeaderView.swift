@@ -26,9 +26,9 @@ final class ProfileHeaderView: UIView {
     @IBOutlet var countLabels: [UIButton]!
     
     
-    func set(with owner: CanPost) {
-        avatarImageView.downloadImage(with: owner.photoUrl)
-        nameLabel.text = owner.name
+    func set(with owner: CanPost?) {
+        avatarImageView.downloadImage(with: owner?.photoUrl)
+        nameLabel.text = owner?.name
         if let user = owner as? User {
             secondaryLabel.text = user.homeTown
             tertiaryLabel.text  = user.age
