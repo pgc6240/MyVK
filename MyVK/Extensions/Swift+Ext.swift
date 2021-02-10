@@ -118,3 +118,12 @@ extension Optional where Wrapped == Character {
         return String(character)
     }
 }
+
+
+extension URL {
+    
+    init?(string: String?) {
+        guard let string = string else { return nil }
+        self.init(string: string)
+    }
+}

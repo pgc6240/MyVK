@@ -104,6 +104,12 @@ enum PersistenceManager {
     }
     
     
+    static func load<T: ThreadConfined>(with reference: ThreadSafeReference<T>) -> T? {
+        let realm = try? Realm(configuration: realmConfiguration)
+        return realm?.resolve(reference)
+    }
+    
+    
     static func delete<T: Object & Identifiable>(_ objects: T...) {
         try? realm?.write {
             for object in objects {

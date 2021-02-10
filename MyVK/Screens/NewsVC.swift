@@ -17,11 +17,6 @@ final class NewsVC: UITableViewController {
         super.viewDidLoad()
         tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
         PersistenceManager.pair(posts, with: tableView)
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         getNewsfeed()
     }
     

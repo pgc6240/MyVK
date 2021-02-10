@@ -13,7 +13,7 @@ final class FriendsVC: UITableViewController {
     var user: User! = User.current
     lazy var friends = user.friends.results
     
-    var avaliableLetters = [String]()
+    var availableLetters = [String]()
     private var alphabetPicker = AlphabetPicker()
     
     var numberOfRowsInSection: [Int: Int] = [:]
@@ -24,13 +24,13 @@ final class FriendsVC: UITableViewController {
         super.viewDidLoad()
         configureTableView()
         configureSearchController()
+        getFriends()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureViewController()
-        getFriends()
     }
     
     
@@ -61,7 +61,10 @@ final class FriendsVC: UITableViewController {
     
     // MARK: - External methods -
     func getFriends() {
-        if avaliableLetters.isEmpty {
+        if !user.friends.isEmpty {
+            updateUI()
+        }
+        if availableLetters.isEmpty {
             parent?.showLoadingView()
         }
         NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
@@ -73,19 +76,17 @@ final class FriendsVC: UITableViewController {
     
     // MARK: - Internal methods -
     private func updateUI() {
-        updateAvaliableLetters()
-        tableView.reloadData()
-        parent?.dismissLoadingView()
-    }
-    
-    
-    private func updateAvaliableLetters() {
-        var avaliableLetters: Set<String> = []
-        for friend in friends {
-            guard let letter = friend.lastNameFirstLetter else { continue }
-            avaliableLetters.insert(letter)
+        let operation = UpdateAvailableLettersOperation(with: ThreadSafeReference(to: user.friends))
+        let queue = OperationQueue()
+        queue.qualityOfService = .userInitiated
+        queue.addOperation(operation)
+        operation.completionBlock = { [weak self] in
+            self?.availableLetters = operation.availableLetters
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+                self?.parent?.dismissLoadingView()
+            }
         }
-        self.avaliableLetters = avaliableLetters.sorted(by: <)
     }
     
     
@@ -102,12 +103,12 @@ final class FriendsVC: UITableViewController {
     
     
     private func sectionForLetter(_ letter: String) -> Int? {
-        avaliableLetters.firstIndex(of: letter)
+        availableLetters.firstIndex(of: letter)
     }
     
     
     private func letterForSection(_ section: Int) -> String {
-        avaliableLetters[section]
+        availableLetters[section]
     }
     
 
@@ -121,9 +122,9 @@ final class FriendsVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let userDetailVC = segue.destination as? UserDetailVC
+           let profileVC = segue.destination as? ProfileVC
         {
-            userDetailVC.user = friendForIndexPath(indexPath)
+            profileVC.owner = friendForIndexPath(indexPath)
         }
         navigationItem.searchController?.searchBar.isHidden = true
     }
@@ -136,7 +137,7 @@ final class FriendsVC: UITableViewController {
 extension FriendsVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        avaliableLetters.count
+        availableLetters.count
     }
     
     
@@ -164,7 +165,7 @@ extension FriendsVC {
     
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        avaliableLetters
+        availableLetters
     }
     
     
@@ -191,7 +192,7 @@ extension FriendsVC: AlphabetPickerDelegate {
         if view.subviews.contains(alphabetPicker) {
             alphabetPicker.removeFromSuperview()
         } else {
-            let letters = avaliableLetters.map { String($0) }.joined()
+            let letters = availableLetters.map { String($0) }.joined()
             alphabetPicker = AlphabetPicker(with: letters, in: view)
             alphabetPicker.delegate = self
             view.addSubview(alphabetPicker)

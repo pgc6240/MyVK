@@ -42,36 +42,24 @@ final class MyImageView: UIImageView {
     
     
     // MARK: - Downloading-related stuff -
-    private weak var task: URLSessionDataTask?
+    private var downloadImageOperation: DownloadImageOperation?
+    private let operationQueue = OperationQueue()
     
     func prepareForReuse() {
         image = nil
-        task?.cancel()
+        downloadImageOperation?.cancel()
     }
     
     func downloadImage(with urlString: String?) {
-        guard
-            let urlString = urlString,
-            let url = URL(string: urlString) else {
-            return
-        }
-        
-        task = urlSession.dataTask(with: url) { [weak self] data, _, _ in
-            guard let data = data else { return }
-            DispatchQueue.main.async {
-                self?.image = UIImage(data: data)
+        downloadImageOperation?.cancel()
+        downloadImageOperation = DownloadImageOperation(urlString)
+        guard let downloadImageOperation = downloadImageOperation else { return }
+        operationQueue.addOperation(downloadImageOperation)
+        downloadImageOperation.completionBlock = {
+            OperationQueue.main.addOperation { [weak self] in
+                self?.image = downloadImageOperation.downloadedImage
                 self?.backgroundColor = .clear
             }
         }
-        task?.resume()
     }
 }
-
-
-fileprivate let urlSession: URLSession = {
-    let configuration = URLSessionConfiguration.ephemeral
-    let MB = 1024 * 1024
-    configuration.urlCache = URLCache(memoryCapacity: 2 * MB, diskCapacity: 100 * MB, diskPath: "imageCache")
-    configuration.waitsForConnectivity = true
-    return URLSession(configuration: configuration)
-}()

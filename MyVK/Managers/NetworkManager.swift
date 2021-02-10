@@ -63,7 +63,6 @@ final class NetworkManager {
                              responseItem: I.Type) -> AnyPublisher<[I]?, Never>
     {
         AF.request(vkApiMethod, parameters: parameters).publishDecodable(type: Response<I>.self, decoder: JSON.decoder)
-            .retry(2)
             .map { [weak self] in
                 if let error = $0.error {
                     self?.handleError(error, data: $0.data)
@@ -79,7 +78,6 @@ final class NetworkManager {
                              expecting: String) -> AnyPublisher<Int?, Never>
     {
         AF.request(vkApiMethod, parameters: parameters).publishResponse(using: JSONResponseSerializer())
-            .retry(2)
             .map { (($0.value as? [String: Any])?["response"] as? [String: Any])?[expecting] as? Int }
             .eraseToAnyPublisher()
     }
@@ -172,17 +170,16 @@ final class NetworkManager {
     }
     
     
-    func getMembersPhotosAndPostsCount(for groupId: Int, result: @escaping (Int?, Int?, Int?) -> Void) {
+    func getMembersPhotosAndPostsCount(for groupId: Int, result: @escaping (Int?, Int?, Int?) -> Void) -> AnyCancellable {
         
         let memberPublisher = makeRequest(.getMembers, parameters: ["group_id": groupId], expecting: "count")
         let photosPublisher = makeRequest(.getPhotos, parameters: ["owner_id": -groupId], expecting: "count")
         let postsPublisher = makeRequest(.getPosts, parameters: ["owner_id": -groupId], expecting: "count")
             
-        Publishers.Zip3(memberPublisher, photosPublisher, postsPublisher)
+        return Publishers.Zip3(memberPublisher, photosPublisher, postsPublisher)
             .sink {
                 result($0.0, $0.1, $0.2)
             }
-            .store(in: &cancellables)
     }
     
     

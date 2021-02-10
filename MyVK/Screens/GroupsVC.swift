@@ -17,11 +17,6 @@ final class GroupsVC: UITableViewController {
         super.viewDidLoad()
         configureTableViewController()
         configureSearchController()
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         loadGroups()
     }
     
@@ -77,14 +72,12 @@ final class GroupsVC: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == "toProfile" else { return }
         if let indexPath = tableView.indexPathForSelectedRow,
-           let postsVC = segue.destination as? PostsVC,
+           let profileVC = segue.destination as? ProfileVC,
            let group = PersistenceManager.create(groups[indexPath.row]) {
             
-            postsVC.owner = group
-            NetworkManager.shared.getMembersPhotosAndPostsCount(for: group.id) {
-                postsVC.profileHeaderView.set($0, $1, $2)
-            }
+            profileVC.owner = group
         }
     }
 }

@@ -28,10 +28,10 @@ final class PostCell: UITableViewCell {
 
     
     // MARK: - Initialization -
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        NotificationCenter.default.addObserver(self, selector: #selector(removeImages), name: Notification.Name("PostsVC.viewDidDisappear"), object: nil)
-    }
+    //required init?(coder: NSCoder) {
+        //super.init(coder: coder)
+        //NotificationCenter.default.addObserver(self, selector: #selector(removeImages), name: Notification.Name("PostsVC.viewDidDisappear"), object: nil)
+    //}
     
     
     // MARK: - Internal methods -
@@ -51,7 +51,11 @@ final class PostCell: UITableViewCell {
     
     
     private func layoutPhotos(_ photos: [Photo]) {
-        photoImageView.isHidden = photos.isEmpty
+        if photos.isEmpty {
+            photoImageView.prepareForReuse()
+            photoImageView.isHidden = true
+            return
+        }
         photoImageView.downloadImage(with: photos.first?.maxSizeUrl)
     }
     

@@ -82,3 +82,12 @@ extension UITableViewCell {
 extension UICollectionViewCell {
     static var reuseId: String { String(describing: self) }
 }
+
+
+extension UIImage {
+    
+    convenience init?(data: Data?) {
+        guard let data = data else { return nil }
+        self.init(data: data)
+    }
+}
