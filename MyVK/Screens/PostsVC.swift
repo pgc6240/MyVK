@@ -20,7 +20,7 @@ final class PostsVC: UITableViewController {
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
+        tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
     }
     
     
@@ -37,15 +37,6 @@ final class PostsVC: UITableViewController {
     }
     
     
-    // MARK: - Basic setup -
-    private func configureViewController() {
-        tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
-        PersistenceManager.pair(posts, with: tableView) { [weak self] in
-            self?.profileHeaderView.set(with: self?.owner)
-        }
-    }
-    
-    
     // MARK: - Internal methods -
     @IBAction private func postsButtonTapped() {
         guard !posts.isEmpty else { return }
@@ -57,6 +48,9 @@ final class PostsVC: UITableViewController {
     func set(with owner: CanPost) {
         self.owner = owner
         self.posts = owner.posts
+        PersistenceManager.pair(posts, with: tableView) { [weak self] in
+            self?.profileHeaderView.set(with: self?.owner)
+        }
     }
     
     

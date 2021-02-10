@@ -12,8 +12,8 @@ final class UserDetailVC: UIViewController {
     
     var user: User! = User.current
     
-    private var getUserDetailsTask: AnyCancellable?
     private lazy var postsVC = children.first as? PostsVC
+    private var getUserDetailsTask: AnyCancellable?
     
     
     // MARK: - View controller lifecycle -
