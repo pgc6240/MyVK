@@ -9,25 +9,31 @@ import UIKit
 
 final class NewsVC: UITableViewController {
     
-    var posts = User.current?.newsfeed
+    let posts = User.current.newsfeed
     
     
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureTableViewController()
+        getNewsfeed()
+    }
+    
+    
+    // MARK: - Basic setup -
+    private func configureTableViewController() {
         tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
         PersistenceManager.pair(posts, with: tableView)
-        getNewsfeed()
     }
     
     
     // MARK: - External methods -
     func getNewsfeed() {
-        if posts?.count == 0 {
-            parent?.showLoadingView()
+        if posts.isEmpty {
+            showLoadingView()
         }
         NetworkManager.shared.getNewsfeed { [weak self] posts in
-            self?.parent?.dismissLoadingView()
+            self?.dismissLoadingView()
             PersistenceManager.save(posts, in: User.current.newsfeed)
         }
     }
@@ -40,15 +46,14 @@ final class NewsVC: UITableViewController {
 extension NewsVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts?.count ?? 0
+        posts.count
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
-        if let post = posts?[indexPath.row] {
-            cell.set(with: post)
-        }
+        let post = posts[indexPath.row]
+        cell.set(with: post)
         return cell
     }
     

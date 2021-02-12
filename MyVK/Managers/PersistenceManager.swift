@@ -39,6 +39,34 @@ enum PersistenceManager {
     private static var notificationTokens: Set<NotificationToken?> = []
     
     
+    // MARK: - Internal methods -
+    private static func save(_ user: User) {
+        if let oldUser = realm?.object(ofType: User.self, forPrimaryKey: user.id) {
+            user.friends.append(objectsIn: oldUser.friends)
+            user.groups.append(objectsIn: oldUser.groups)
+            user.photos.append(objectsIn: oldUser.photos)
+            user.posts.append(objectsIn: oldUser.posts)
+            user.newsfeed.append(objectsIn: oldUser.newsfeed)
+            realm?.add(user, update: .modified)
+        } else {
+            realm?.add(user)
+        }
+    }
+    
+    
+    private static func save(_ group: Group) {
+        if let oldGroup = realm?.object(ofType: Group.self, forPrimaryKey: group.id) {
+            group.photos.append(objectsIn: oldGroup.photos)
+            group.posts.append(objectsIn: oldGroup.posts)
+            group.photosCount = group.photosCount == 0 ? oldGroup.photosCount : group.photosCount
+            realm?.add(group, update: .modified)
+        } else {
+            realm?.add(group)
+        }
+    }
+    
+    
+    // MARK: - External methods -
     static func create<T: Object & Identifiable>(_ object: T) -> T? {
         var createdObject: T?
         try? realm?.write {
@@ -54,7 +82,13 @@ enum PersistenceManager {
     
     static func save(_ objects: Object...) {
         try? realm?.write {
-            realm?.add(objects, update: .modified)
+            for object in objects {
+                if let user = object as? User {
+                    save(user)
+                } else if let group = object as? Group {
+                    save(group)
+                }
+            }
         }
     }
     
@@ -85,6 +119,7 @@ enum PersistenceManager {
                 {
                     newGroup.photos.append(objectsIn: oldGroup.photos)
                     newGroup.posts.append(objectsIn: oldGroup.posts)
+                    newGroup.photosCount = newGroup.photosCount == 0 ? oldGroup.photosCount : newGroup.photosCount
                     let newGroup = realm.create(T.self, value: newGroup, update: .modified)
                     guard list.index(of: newGroup) == nil else { continue }
                     list.append(newGroup)

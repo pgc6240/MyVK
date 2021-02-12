@@ -10,13 +10,11 @@ import RealmSwift
 
 final class FriendsVC: UITableViewController {
     
-    var user: User! = User.current
-    lazy var friends = user.friends.results
+    var user: User!  = User.current
+    lazy var friends = user.friends.sorted(byKeyPath: "lastNameFirstLetter")
     
-    var availableLetters = [String]()
-    private var alphabetPicker = AlphabetPicker()
-    
-    var numberOfRowsInSection: [Int: Int] = [:]
+    private var availableLetters = [String]()
+    private var alphabetPicker   = AlphabetPicker()
     
     
     // MARK: - View controller lifecycle -
@@ -24,13 +22,13 @@ final class FriendsVC: UITableViewController {
         super.viewDidLoad()
         configureTableView()
         configureSearchController()
-        getFriends()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureViewController()
+        getFriends()
     }
     
     
@@ -61,11 +59,8 @@ final class FriendsVC: UITableViewController {
     
     // MARK: - External methods -
     func getFriends() {
-        if !user.friends.isEmpty {
-            updateUI()
-        }
-        if availableLetters.isEmpty {
-            parent?.showLoadingView()
+        if tableView.visibleCells.count < 1 {
+            showLoadingView()
         }
         NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
             PersistenceManager.save(friends, in: self?.user.friends)
@@ -76,17 +71,19 @@ final class FriendsVC: UITableViewController {
     
     // MARK: - Internal methods -
     private func updateUI() {
-        let operation = UpdateAvailableLettersOperation(with: ThreadSafeReference(to: user.friends))
-        let queue = OperationQueue()
-        queue.qualityOfService = .userInitiated
-        queue.addOperation(operation)
-        operation.completionBlock = { [weak self] in
-            self?.availableLetters = operation.availableLetters
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-                self?.parent?.dismissLoadingView()
-            }
+        updateAvailableLetters()
+        tableView.reloadData()
+        dismissLoadingView()
+    }
+    
+    
+    private func updateAvailableLetters() {
+        var availableLetters: Set<String> = []
+        for friend in friends {
+            guard let letter = friend.lastNameFirstLetter else { continue }
+            availableLetters.insert(letter)
         }
+        self.availableLetters = availableLetters.sorted(by: <)
     }
     
     
@@ -142,10 +139,6 @@ extension FriendsVC {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !numberOfRowsInSection.isEmpty {
-            return numberOfRowsInSection[section] ?? 0
-        }
-        
         let letter = letterForSection(section)
         return friendsForLetter(letter).count
     }

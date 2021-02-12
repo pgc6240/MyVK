@@ -29,9 +29,13 @@ final class User: Object, CanPost, Identifiable {
     @objc dynamic var bdate: String? = nil
     @objc dynamic var canAccessClosed = false
     @objc dynamic var lastNameFirstLetter: String? = nil
+    @objc dynamic var friendsCount = 0
+    @objc dynamic var groupsCount = 0
+    @objc dynamic var photosCount = 0
+    @objc dynamic var postsCount = 0
     let friends = List<User>()
-    let photos = List<Photo>()
     let groups = List<Group>()
+    let photos = List<Photo>()
     let posts = List<Post>()
     let newsfeed = List<Post>()
     
@@ -80,6 +84,7 @@ extension User: Decodable {
     
     private enum CodingKeys: String, CodingKey {
         case id, firstName, lastName, photoUrl = "photoMax", firstNameGen, lastNameGen, homeTown, bdate, canAccessClosed
+        case counters, photos, friends, pages, posts, groups
     }
     
     convenience init(from decoder: Decoder) throws {
@@ -95,5 +100,13 @@ extension User: Decodable {
         self.bdate = try? container.decode(String.self, forKey: .bdate)
         self.canAccessClosed = (try? container.decode(Bool.self, forKey: .canAccessClosed)) ?? false
         self.lastNameFirstLetter = self.lastName.first.toString
+        if let countersContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .counters) {
+            self.friendsCount = (try? countersContainer.decode(Int.self, forKey: .friends)) ?? 0
+            let groups = (try? countersContainer.decode(Int.self, forKey: .groups)) ?? 0
+            let pages = (try? countersContainer.decode(Int.self, forKey: .pages)) ?? 0
+            self.groupsCount = groups + pages
+            self.photosCount = (try? countersContainer.decode(Int.self, forKey: .photos)) ?? 0
+            self.postsCount = (try? countersContainer.decode(Int.self, forKey: .posts)) ?? 0
+        }
     }
 }

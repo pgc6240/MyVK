@@ -25,11 +25,12 @@ final class NetworkManager {
     {
         AF.request(vkApiMethod, parameters: parameters).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             [weak self] in
+            //print($0.request?.url ?? "")
             switch $0.result {
             case .success(let response):
                 completion(response.items)
             case .failure(let error):
-                self?.handleError(error, data: $0.data)
+                self?.handleError(error, data: $0.data, url: $0.request?.url)
             }
         }
     }
@@ -65,7 +66,7 @@ final class NetworkManager {
         AF.request(vkApiMethod, parameters: parameters).publishDecodable(type: Response<I>.self, decoder: JSON.decoder)
             .map { [weak self] in
                 if let error = $0.error {
-                    self?.handleError(error, data: $0.data)
+                    self?.handleError(error, data: $0.data, url: $0.request?.url)
                 }
                 return $0.value?.items
             }
@@ -84,12 +85,12 @@ final class NetworkManager {
     
     
     // MARK: - Error handling -
-    private func handleError(_ error: AFError, data: Data?) {
+    private func handleError(_ error: AFError, data: Data?, url: URL?) {
         if let data = data, let responseError = try? JSON.decoder.decode(ResponseError.self, from: data) {
             print(responseError.code, responseError.message)
         } else {
             guard !error.isExplicitlyCancelledError else { return }
-            print(error)
+            print(url ?? "", error)
         }
     }
     
@@ -146,40 +147,15 @@ final class NetworkManager {
     }
     
     
+    func getGroups(groupIds: [Int], groups: @escaping ([Group]) -> Void) {
+        let groupIds = groupIds.map { String($0) }.joined(separator: ",")
+        makeRequest(.getGroupsById, parameters: ["group_ids": groupIds], responseItem: Group.self) { groups($0) }
+    }
+    
+    
     func like(like: Bool = true, type: String, itemId: Int, likeCount: @escaping (Int?) -> Void) {
         let method: VKApiMethod = like ? .like : .dislike
         makeRequest(method, parameters: ["type": type, "item_id": itemId], expecting: "likes") { likeCount($0) }
-    }
-    
-    
-    // MARK: - Combine -
-    private var cancellables: Set<AnyCancellable> = []
-    
-    
-    func getFriendsGroupsPhotosAndPosts(for ownerId: Int, result: @escaping ([User]?, [Group]?, [Photo]?, [Post]?) -> Void) -> AnyCancellable {
-        
-        let friendsPublisher = makeRequest(.getFriends, parameters: ["user_id": ownerId], responseItem: User.self)
-        let groupsPublisher = makeRequest(.getGroups, parameters: ["user_id": ownerId], responseItem: Group.self)
-        let photosPublisher = makeRequest(.getPhotos, parameters: ["owner_id": ownerId], responseItem: Photo.self)
-        let postsPublisher = makeRequest(.getPosts, parameters: ["owner_id": ownerId], responseItem: Post.self)
-        
-        return Publishers.Zip4(friendsPublisher, groupsPublisher, photosPublisher, postsPublisher)
-            .sink {
-                result($0.0, $0.1, $0.2, $0.3)
-            }
-    }
-    
-    
-    func getMembersPhotosAndPostsCount(for groupId: Int, result: @escaping (Int?, Int?, Int?) -> Void) -> AnyCancellable {
-        
-        let memberPublisher = makeRequest(.getMembers, parameters: ["group_id": groupId], expecting: "count")
-        let photosPublisher = makeRequest(.getPhotos, parameters: ["owner_id": -groupId], expecting: "count")
-        let postsPublisher = makeRequest(.getPosts, parameters: ["owner_id": -groupId], expecting: "count")
-            
-        return Publishers.Zip3(memberPublisher, photosPublisher, postsPublisher)
-            .sink {
-                result($0.0, $0.1, $0.2)
-            }
     }
     
     
@@ -190,7 +166,7 @@ final class NetworkManager {
             case .success(let newsfeed):
                 posts(newsfeed.parse())
             case .failure(let error):
-                self?.handleError(error, data: $0.data)
+                self?.handleError(error, data: $0.data, url: $0.request?.url)
             }
         }
     }

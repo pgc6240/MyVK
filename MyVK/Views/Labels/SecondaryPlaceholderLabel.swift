@@ -9,10 +9,8 @@ import UIKit
 
 final class SecondaryPlaceholderLabel: PlaceholderLabel {
     
-    override var text: String? {
-        didSet {
-            textColor = text == "" ? .secondarySystemBackground : .secondaryLabel
-            backgroundColor = text == "" ? .secondarySystemBackground : .systemBackground
-        }
+    override func configure() {
+        textColor = text == "Placeholder" ? .secondarySystemBackground : .secondaryLabel
+        backgroundColor = text == "Placeholder" ? .secondarySystemBackground : .systemBackground
     }
 }

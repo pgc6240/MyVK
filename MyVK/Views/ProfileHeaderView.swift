@@ -34,31 +34,31 @@ final class ProfileHeaderView: UIView {
             tertiaryLabel.text  = user.age
             friendsOrMembersLabel.text = "Друзья".localized
             groupsStackView.isHidden = false
-            friendsOrMembersCountLabel.setTitle(String(user.friends.count), for: .normal)
-            groupsCountLabel.setTitle(String(user.groups.count), for: .normal)
-            photosCountLabel.setTitle(String(user.photos.count), for: .normal)
+            friendsOrMembersCountLabel.setTitle(String(user.friendsCount), for: .normal)
+            groupsCountLabel.setTitle(String(user.groupsCount), for: .normal)
+            photosCountLabel.setTitle(String(user.photosCount), for: .normal)
             wallPostsCountLabel.setTitle(String(user.posts.count), for: .normal)
         } else if let group = owner as? Group {
             secondaryLabel.text = (group.isOpen ? "Открытое" : "Закрытое").localized + " сообщество".localized
             tertiaryLabel.text = group.city
             friendsOrMembersLabel.text = "Участники".localized
             groupsStackView.isHidden = true
+            if group.membersCount == -1 {
+                friendsOrMembersStackView.isHidden = true
+            }
+            friendsOrMembersCountLabel.isEnabled = false
+            friendsOrMembersCountLabel.setTitle(F.fn(group.membersCount), for: .normal)
+            photosCountLabel.setTitle(F.fn(group.photosCount), for: .normal)
+            wallPostsCountLabel.setTitle(F.fn(group.posts.count), for: .normal)
         }
         for countLabel in countLabels {
             if countLabel.titleLabel?.text != "" {
-                countLabel.setTitleColor(.vkColor, for: .normal)
+                if countLabel != friendsOrMembersCountLabel {
+                    countLabel.isEnabled = countLabel.currentTitle != "0"
+                }
+                countLabel.setTitleColor(countLabel.isEnabled ? .vkColor : .label, for: .normal)
                 countLabel.backgroundColor = .clear
             }
         }
-    }
-    
-    
-    func set(_ memberCount: Int?, _ photosCount: Int?, _ postsCount: Int?) {
-        if memberCount == nil {
-            friendsOrMembersStackView.isHidden = true
-        }
-        friendsOrMembersCountLabel.setTitle(F.fn(memberCount), for: .normal)
-        photosCountLabel.setTitle(F.fn(photosCount), for: .normal)
-        wallPostsCountLabel.setTitle(F.fn(postsCount), for: .normal)
     }
 }

@@ -10,6 +10,13 @@ import Alamofire
 
 extension UIViewController {
     
+    var prevVC: UIViewController? {
+        guard (navigationController?.viewControllers.count ?? 0) > 1 else { return nil }
+        let endIndex = navigationController?.viewControllers.endIndex ?? 2
+        return navigationController?.viewControllers[endIndex - 2]
+    }
+    
+    
     // MARK: - Alerts -
     func makeAlert(title: String?, message: String? = nil, cancelTitle: String = "Хорошо") -> UIAlertController {
         let alert = UIAlertController(title: title?.localized, message: message?.localized, preferredStyle: .alert)
@@ -27,19 +34,28 @@ extension UIViewController {
         presentAlert(title: "Что-то пошло не так...", message: "Мы работаем над этим.")
     }
     
+    func presentActionSheet(title: String?, message: String? = nil, actions: [UIAlertAction] = []) {
+        let actionSheet = UIAlertController(title: title?.localized, message: message?.localized, preferredStyle: .actionSheet)
+        actionSheet.view.tintColor = .vkColor
+        actions.forEach { actionSheet.addAction($0) }
+        present(actionSheet, animated: true)
+    }
+    
     
     // MARK: - Loading state -
+    var viewToAdd: UIView? { parent != nil ? parent?.view : view }
     var loadingViewTag: Int { 1000 }
-    var loadingView: LoadingView? { view.viewWithTag(loadingViewTag) as? LoadingView }
-    var isLoading: Bool { view.viewWithTag(loadingViewTag) != nil }
+    var loadingView: LoadingView? { viewToAdd?.viewWithTag(loadingViewTag) as? LoadingView }
+    var isLoading: Bool { viewToAdd?.viewWithTag(loadingViewTag) != nil }
     
     
     func showLoadingView() {
         guard !isLoading else { return }
+        guard let viewToDisplay = viewToAdd else { return }
         
-        let loadingView = LoadingView(width: 60, in: view.bounds, color: .white, backgroundColor: .vkColor)
+        let loadingView = LoadingView(width: 60, in: viewToDisplay.bounds, color: .white, backgroundColor: .vkColor)
         loadingView.tag = loadingViewTag
-        view.addSubview(loadingView)
+        viewToDisplay.addSubview(loadingView)
         
         loadingView.startLoading()
         loadingView.layer.opacity = 0

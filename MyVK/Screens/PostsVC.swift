@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import Combine
 
 final class PostsVC: UITableViewController {
     
     var owner: CanPost = User.current
-    lazy var posts = owner.posts
+    lazy var posts     = owner.posts
     
     
     // MARK: - View controller lifecycle -
@@ -47,6 +46,7 @@ final class PostsVC: UITableViewController {
         let ownerId = owner is User ? owner.id : -owner.id
         NetworkManager.shared.getPosts(ownerId: ownerId) { [weak self] posts in
             PersistenceManager.save(posts, in: self?.owner.posts)
+            (self?.tableView.tableHeaderView as? ProfileHeaderView)?.set(with: self?.owner)
         }
     }
 }
@@ -82,11 +82,9 @@ extension PostsVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
-        if indexPath.row < posts.endIndex {
-            let post = posts[indexPath.row]
-            cell.set(with: post, and: owner)
-            cell.delegate = parent as? MyProfileVC
-        }
+        let post = posts[indexPath.row]
+        cell.set(with: post, and: owner)
+        cell.delegate = parent as? MyProfileVC
         return cell
     }
     

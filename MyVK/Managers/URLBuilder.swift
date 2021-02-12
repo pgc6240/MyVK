@@ -25,14 +25,15 @@ enum VKApiMethod: String, URLConvertible {
     case joinGroup          = "groups.join"
     case leaveGroup         = "groups.leave"
     case getMembers         = "groups.getMembers"
+    case getGroupsById      = "groups.getById"
     case like               = "likes.add"
     case dislike            = "likes.delete"
     
     var parameters: [String: String?] {
         switch self {
-        case .getUsers:     return ["fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed"]
+        case .getUsers:     return ["fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed,counters"]
         case .getFriends:   return ["fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed"]
-        case .getGroups:    return ["extended": "1", "fields": "city"]
+        case .getGroups, .getGroupsById: return ["extended": "1", "fields": "city,counters,members_count"]
         case .getPhotos:    return ["album_id": "profile"]
         case .getNewsfeed:  return ["filters": "post,photo,wall_photo",
                                     "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed,city"]

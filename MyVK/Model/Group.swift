@@ -16,6 +16,8 @@ final class Group: Object, CanPost, Identifiable {
     @objc dynamic var isMember = false
     @objc dynamic var photoUrl = ""
     @objc dynamic var city: String? = nil
+    @objc dynamic var membersCount = -1
+    @objc dynamic var photosCount = 0
     let posts = List<Post>()
     let photos = List<Photo>()
     
@@ -31,6 +33,7 @@ extension Group: Decodable {
     
     private enum CodingKeys: String, CodingKey {
         case id, name, isClosed, isMember, photoUrl = "photo200", city, title, photoMax
+        case counters, photos, membersCount
     }
     
     convenience init(from decoder: Decoder) throws {
@@ -49,6 +52,10 @@ extension Group: Decodable {
         }
         if let cityContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .city) {
             self.city = try? cityContainer.decode(String.self, forKey: .title)
+        }
+        self.membersCount = (try? container.decode(Int.self, forKey: .membersCount)) ?? -1
+        if let countersContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .counters) {
+            self.photosCount = (try? countersContainer.decode(Int.self, forKey: .photos)) ?? 0
         }
     }
 }

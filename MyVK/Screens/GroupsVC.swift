@@ -13,14 +13,21 @@ final class GroupsVC: UITableViewController {
     lazy var groups = user.groups
     
     
+    // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableViewController()
         configureSearchController()
+    }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadGroups()
     }
     
     
+    // MARK: - Basic setup -
     private func configureTableViewController() {
         PersistenceManager.pair(groups, with: tableView)
         if user == User.current {
@@ -33,9 +40,22 @@ final class GroupsVC: UITableViewController {
     }
     
     
+    // MARK: - Internal methods -
+    private func updateUI() {
+        tableView.reloadSections([0], with: .automatic)
+    }
+    
+    
+    // MARK: - External methods -
     func loadGroups() {
+        if groups.isEmpty {
+            showLoadingView()
+            updateUI()
+        }
         NetworkManager.shared.getGroups(userId: user.id) { [weak self] groups in
             PersistenceManager.save(groups, in: self?.user.groups)
+            self?.dismissLoadingView()
+            self?.updateUI()
         }
     }
     
@@ -44,7 +64,6 @@ final class GroupsVC: UITableViewController {
         showLoadingView()
         NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
             self?.dismissLoadingView()
-            
             if isSuccessful {
                 self?.presentAlert(title: "\nВы теперь состоите в сообществе".localized + "\n\"\(group.name)\".".localized)
                 onSuccess()
@@ -59,7 +78,6 @@ final class GroupsVC: UITableViewController {
         showLoadingView()
         NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
             self?.dismissLoadingView()
-            
             if isSuccessful {
                 self?.presentAlert(title: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
                 PersistenceManager.delete(group)
@@ -71,13 +89,12 @@ final class GroupsVC: UITableViewController {
     }
     
     
+    // MARK: - Prepare for segue to group detail VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "toProfile" else { return }
         if let indexPath = tableView.indexPathForSelectedRow,
-           let profileVC = segue.destination as? ProfileVC,
-           let group = PersistenceManager.create(groups[indexPath.row]) {
+           let profileVC = segue.destination as? ProfileVC {
             
-            profileVC.owner = group
+            profileVC.owner = groups[indexPath.row]
         }
     }
 }
@@ -89,7 +106,9 @@ final class GroupsVC: UITableViewController {
 extension GroupsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if groups.isEmpty {
+        if isLoading {
+            return "Загрузка...".localized
+        } else if groups.isEmpty {
             return "Нет сообществ".localized
         } else if user == User.current {
             return "Мои сообщества".localized
@@ -161,12 +180,12 @@ extension GroupsVC: UISearchBarDelegate {
         } else {
             groups = user.groups.filter("name CONTAINS[cd] %@", searchText).list
         }
-        tableView.reloadSections([0], with: .automatic)
+        updateUI()
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         groups = user.groups
-        tableView.reloadSections([0], with: .automatic)
+        updateUI()
     }
 }
