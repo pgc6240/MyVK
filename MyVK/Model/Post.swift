@@ -81,30 +81,3 @@ extension Post: Decodable {
         }
     }
 }
-
-
-//
-// MARK: - Newsfeed -
-//
-struct Newsfeed: Decodable {
-    
-    private let response: Response
-    
-    private struct Response: Decodable {
-        let items: [Post]
-        let groups: [Group]
-        let profiles: [User]
-    }
-    
-    
-    func parse() -> [Post] {
-        for post in response.items {
-            if let userOwner = response.profiles.first(where: { $0.id == post.sourceId }) {
-                post.userOwner = userOwner
-            } else if let groupOwner = response.groups.first(where: { $0.id == -post.sourceId }) {
-                post.groupOwner = groupOwner
-            }
-        }
-        return response.items
-    }
-}

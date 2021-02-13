@@ -37,7 +37,6 @@ final class User: Object, CanPost, Identifiable {
     let groups = List<Group>()
     let photos = List<Photo>()
     let posts = List<Post>()
-    let newsfeed = List<Post>()
     
     
     // MARK: - Computed properties -

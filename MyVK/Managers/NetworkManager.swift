@@ -25,7 +25,6 @@ final class NetworkManager {
     {
         AF.request(vkApiMethod, parameters: parameters).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             [weak self] in
-            //print($0.request?.url ?? "")
             switch $0.result {
             case .success(let response):
                 completion(response.items)
@@ -157,19 +156,6 @@ final class NetworkManager {
         let method: VKApiMethod = like ? .like : .dislike
         makeRequest(method, parameters: ["type": type, "item_id": itemId], expecting: "likes") { likeCount($0) }
     }
-    
-    
-    // MARK: - Newsfeed -
-    func getNewsfeed(posts: @escaping ([Post]) -> Void) {
-        AF.request(VKApiMethod.getNewsfeed).responseDecodable(of: Newsfeed.self, decoder: JSON.decoder) { [weak self] in
-            switch $0.result {
-            case .success(let newsfeed):
-                posts(newsfeed.parse())
-            case .failure(let error):
-                self?.handleError(error, data: $0.data, url: $0.request?.url)
-            }
-        }
-    }
 }
 
 
@@ -206,6 +192,7 @@ fileprivate struct Response<I: Decodable>: Decodable {
 // MARK: - ResponseError
 //
 fileprivate struct ResponseError: Decodable {
+    
     let code: Int
     let message: String
     

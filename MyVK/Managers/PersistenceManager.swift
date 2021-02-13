@@ -46,7 +46,6 @@ enum PersistenceManager {
             user.groups.append(objectsIn: oldUser.groups)
             user.photos.append(objectsIn: oldUser.photos)
             user.posts.append(objectsIn: oldUser.posts)
-            user.newsfeed.append(objectsIn: oldUser.newsfeed)
             realm?.add(user, update: .modified)
         } else {
             realm?.add(user)
@@ -109,7 +108,6 @@ enum PersistenceManager {
                     newUser.groups.append(objectsIn: oldUser.groups)
                     newUser.photos.append(objectsIn: oldUser.photos)
                     newUser.posts.append(objectsIn: oldUser.posts)
-                    newUser.newsfeed.append(objectsIn: oldUser.newsfeed)
                     let newObject = realm.create(T.self, value: newObject, update: .modified)
                     guard list.index(of: newObject) == nil else { continue }
                     list.append(newObject)

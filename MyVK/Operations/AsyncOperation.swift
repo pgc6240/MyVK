@@ -33,13 +33,14 @@ class AsyncOperation: Operation {
     override func start() {
         if isCancelled {
             state = .finished
-            return
+        } else {
+            state = .executing
+            main()
         }
-        state = .executing
-        main()
     }
     
     override func cancel() {
+        super.cancel()
         state = .finished
     }
 }

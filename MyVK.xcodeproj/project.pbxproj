@@ -14,6 +14,7 @@
 		3122CDCA2556E14B00253485 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3122CDC92556E14B00253485 /* PersistenceManager.swift */; };
 		3129C701258E29320050DEDD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3129C700258E29320050DEDD /* NetworkManager.swift */; };
 		312AE5562550CF4F00B97164 /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312AE5552550CF4F00B97164 /* FriendsVC.swift */; };
+		312CAA2325D7B541009FDB44 /* GetNewsfeedOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312CAA2225D7B541009FDB44 /* GetNewsfeedOp.swift */; };
 		3133EFB625540C9400B85844 /* LikeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3133EFB525540C9400B85844 /* LikeButton.swift */; };
 		314227882595EB8800E4829C /* MyImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314227872595EB8800E4829C /* MyImageView.swift */; };
 		3149C005255AE3E400212299 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3149C004255AE3E400212299 /* GradientView.swift */; };
@@ -70,6 +71,7 @@
 		3122CDC92556E14B00253485 /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		3129C700258E29320050DEDD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		312AE5552550CF4F00B97164 /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
+		312CAA2225D7B541009FDB44 /* GetNewsfeedOp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetNewsfeedOp.swift; sourceTree = "<group>"; };
 		3133EFB525540C9400B85844 /* LikeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeButton.swift; sourceTree = "<group>"; };
 		314227872595EB8800E4829C /* MyImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyImageView.swift; sourceTree = "<group>"; };
 		3149C004255AE3E400212299 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 			children = (
 				3193C85725D3DEE700290223 /* AsyncOperation.swift */,
 				3193C85B25D3E85F00290223 /* ImageLoadOperation.swift */,
+				312CAA2225D7B541009FDB44 /* GetNewsfeedOp.swift */,
 			);
 			path = Operations;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				31CBF0C6256ACF380041CC26 /* _PopAnimator.swift in Sources */,
 				3151A36C254C60C200F9BFAB /* Group.swift in Sources */,
 				31CBF0C2256ACBD00041CC26 /* _PushAnimator.swift in Sources */,
+				312CAA2325D7B541009FDB44 /* GetNewsfeedOp.swift in Sources */,
 				31B2D72525B851BF0059D1DF /* RealmSwift+Ext.swift in Sources */,
 				31A72DEC2554199C006B664D /* AlphabetPicker.swift in Sources */,
 				3107828C25BB716300FFBD7F /* Formatters.swift in Sources */,
@@ -603,7 +607,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.4.3;
+				CURRENT_PROJECT_VERSION = 0.4.4;
 				DEVELOPMENT_TEAM = FWZ425S5UY;
 				INFOPLIST_FILE = MyVK/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -611,7 +615,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.3;
+				MARKETING_VERSION = 0.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pgc6240.MyVK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -625,7 +629,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 0.4.3;
+				CURRENT_PROJECT_VERSION = 0.4.4;
 				DEVELOPMENT_TEAM = FWZ425S5UY;
 				INFOPLIST_FILE = MyVK/Support/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -633,7 +637,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.3;
+				MARKETING_VERSION = 0.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pgc6240.MyVK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

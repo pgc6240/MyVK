@@ -23,6 +23,7 @@ final class DownloadImageOperation: AsyncOperation {
         }
         self.downloadURL = url
         self.dstURL = cachesDirectory.appendingPathComponent(url.lastPathComponent)
+        super.init()
     }
     
     
