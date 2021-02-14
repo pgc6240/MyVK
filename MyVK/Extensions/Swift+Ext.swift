@@ -95,5 +95,26 @@ extension Optional where Wrapped == URL {
 
 
 extension Locale {
-    static var isEnglishLocale: Bool { Locale.current.identifier == "en" }
+    
+    static var isEnglishLocale: Bool { Locale.current.identifier == "en" || Locale.current.identifier == "en_US" }
+    
+    static var identifierShort: String {
+        switch Locale.current.identifier {
+        case "en_US":
+            return "en"
+        case "ru_RU", "ru_US":
+            return "ru"
+        default:
+            return Locale.current.identifier
+        }
+    }
+}
+
+
+extension Optional where Wrapped == Character {
+    
+    var toString: String? {
+        guard let character = self else { return nil }
+        return String(character)
+    }
 }

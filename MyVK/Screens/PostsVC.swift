@@ -45,6 +45,12 @@ final class PostsVC: UITableViewController {
     }
     
     
+    @IBAction private func postsButtonTapped() {
+        guard !posts.isEmpty else { return }
+        tableView.scrollToRow(at: [0,0], at: .top, animated: true)
+    }
+    
+    
     // MARK: - External methods
     func set(with owner: CanPost) {
         self.owner = owner
@@ -116,7 +122,7 @@ final class PostsVC: UITableViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        owner is User
+        owner is User && (sender as? UIButton)?.currentTitle != "0"
     }
 }
 
@@ -131,6 +137,8 @@ extension PostsVC {
             return "Нет записей".localized
         } else if owner as? User == User.current {
             return "Мои записи".localized
+        } else if let user = owner as? User {
+            return "Записи".localized + " \(user.nameGen)"
         } else {
             return "Записи".localized + " \(owner.name)"
         }

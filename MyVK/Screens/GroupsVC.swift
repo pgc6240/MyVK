@@ -32,7 +32,9 @@ final class GroupsVC: UITableViewController {
     private func configureTableViewController() {
         PersistenceManager.pair(groups, with: tableView, token: &notificationToken)
         if user == User.current {
-            navigationItem.leftBarButtonItem = editButtonItem
+            if navigationController?.title != "ProfileNC" {
+                navigationItem.leftBarButtonItem = editButtonItem
+            }
         } else {
             title = user.name
         }
@@ -144,12 +146,19 @@ extension GroupsVC: UISearchBarDelegate {
     private func configureSearchController() {
         let searchController                                  = UISearchController()
         searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Искать в сообществах пользователя".localized
         searchController.searchBar.autocorrectionType         = .no
         searchController.searchBar.autocapitalizationType     = .sentences
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController                       = searchController
         navigationItem.hidesSearchBarWhenScrolling            = false
+        
+        if user == User.current {
+            searchController.searchBar.placeholder = "Искать в моих сообществах".localized
+        } else if Locale.isEnglishLocale {
+            searchController.searchBar.placeholder = "Search in user's commutities"
+        } else {
+            searchController.searchBar.placeholder = "Искать в сообществах \(user.nameGen)"
+        }
     }
     
     

@@ -14,6 +14,7 @@ final class ProfileHeaderView: UIView {
     @IBOutlet weak var secondaryLabel: UILabel!
     @IBOutlet weak var tertiaryLabel: UILabel!
     
+    @IBOutlet weak var friendsOrMembersStackView: UIStackView!
     @IBOutlet weak var friendsOrMembersLabel: UILabel!
     @IBOutlet weak var groupsStackView: UIStackView!
     
@@ -42,8 +43,6 @@ final class ProfileHeaderView: UIView {
             tertiaryLabel.text = group.city
             friendsOrMembersLabel.text = "Участники".localized
             groupsStackView.isHidden = true
-            //photosCountLabel.setTitle(String(group.photos.count), for: .normal)
-            wallPostsCountLabel.setTitle(String(group.posts.count), for: .normal)
         }
         for countLabel in countLabels {
             if countLabel.titleLabel?.text != "" {
@@ -55,8 +54,11 @@ final class ProfileHeaderView: UIView {
     
     
     func set(_ memberCount: Int?, _ photosCount: Int?, _ postsCount: Int?) {
-        friendsOrMembersCountLabel.setTitle(String(memberCount), for: .normal)
-        photosCountLabel.setTitle(String(photosCount), for: .normal)
-        wallPostsCountLabel.setTitle(String(postsCount), for: .normal)
+        if memberCount == nil {
+            friendsOrMembersStackView.isHidden = true
+        }
+        friendsOrMembersCountLabel.setTitle(F.fn(memberCount), for: .normal)
+        photosCountLabel.setTitle(F.fn(photosCount), for: .normal)
+        wallPostsCountLabel.setTitle(F.fn(postsCount), for: .normal)
     }
 }
