@@ -43,4 +43,20 @@ class AsyncOperation: Operation {
         super.cancel()
         state = .finished
     }
+    
+    
+    // MARK: - DEBUG -
+    #if DEBUG
+    private var startTime: Date!
+    #endif
+    
+    func printCurrentState() {
+        #if DEBUG
+        if startTime == nil {
+            startTime = Date()
+        }
+        print(Self.self, state, Date().timeIntervalSince(startTime))
+        //print(Thread.current)
+        #endif
+    }
 }

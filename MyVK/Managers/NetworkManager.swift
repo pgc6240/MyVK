@@ -106,6 +106,13 @@ final class NetworkManager {
     }
     
     
+    func getFriends(for userId: Int, friends: @escaping ([User]?) -> Void) -> AnyCancellable {
+        makeRequest(.getFriends, parameters: ["user_id": userId], responseItem: User.self)
+            .receive(on: DispatchQueue.global(qos: .userInteractive))
+            .sink { friends($0) }
+    }
+    
+    
     func getGroups(userId: Int, groups: @escaping ([Group]) -> Void) {
         makeRequest(.getGroups, parameters: ["user_id": userId], responseItem: Group.self) { groups($0) }
     }

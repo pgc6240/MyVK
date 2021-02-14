@@ -38,6 +38,7 @@ class ProfileVC: UIViewController {
     func getProfileDetails() {
         if let user = owner as? User {
             getProfileDetailsForUser(user)
+            prepareFriendsVC(for: user)
         } else if let group = owner as? Group {
             getProfileDetailsForGroup(group)
         }
@@ -78,6 +79,9 @@ class ProfileVC: UIViewController {
 
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if numberOfRowsInSection.isEmpty {
+            preparationQueue.cancelAllOperations()
+        }
         guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
         switch segueIdentifier {
         case .toFriends: (segue.destination as? FriendsVC)?.user = owner as? User
@@ -90,5 +94,23 @@ class ProfileVC: UIViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         guard (sender as? UIButton)?.currentTitle != "0" else { return false }
         return !profileHeaderView.groupsStackView.isHidden || identifier == "toPhotos"
+    }
+    
+    
+    // MARK: - Prepare FriendsVC operation -
+    var availableLetters = [String]()
+    var numberOfRowsInSection = [Int: Int]()
+    private let preparationQueue = OperationQueue()
+    
+    
+    private func prepareFriendsVC(for user: User) {
+        guard numberOfRowsInSection.isEmpty else { return }
+        let prepareFriendsVCOperation = PrepareFriendsVCOperation(for: user)
+        prepareFriendsVCOperation.completionBlock = { [weak self] in
+            self?.availableLetters      = prepareFriendsVCOperation.availableLetters
+            self?.numberOfRowsInSection = prepareFriendsVCOperation.numberOfRowsInSection
+        }
+        preparationQueue.qualityOfService = .userInteractive
+        preparationQueue.addOperation(prepareFriendsVCOperation)
     }
 }

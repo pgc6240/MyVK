@@ -10,11 +10,14 @@ import RealmSwift
 
 final class FriendsVC: UITableViewController {
     
-    var user: User!  = User.current
-    lazy var friends = user.friends.sorted(byKeyPath: "lastNameFirstLetter")
+    var user: User! = User.current
+    lazy var friends = user.friends
     
-    private var availableLetters = [String]()
-    private var alphabetPicker   = AlphabetPicker()
+    var availableLetters = [String]()
+    private var alphabetPicker = AlphabetPicker()
+    
+    var numberOfRowsInSection = [Int: Int]()
+    private lazy var profileVC = prevVC as? ProfileVC
     
     
     // MARK: - View controller lifecycle -
@@ -28,11 +31,24 @@ final class FriendsVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureViewController()
-        getFriends()
+        if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty {
+            showLoadingView()
+        } else {
+            getFriends()
+        }
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty {
+            loadPreparedData()
+        }
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
+        dismissLoadingView()
         super.viewWillDisappear(animated)
         guard navigationController?.visibleViewController is PostsVC else { return }
         NotificationCenter.default.post(Notification(name: Notification.Name("FriendsVC.viewDidDisappear")))
@@ -52,6 +68,19 @@ final class FriendsVC: UITableViewController {
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             UIView.transition(with: self.view, duration: 0.6, options: []) {
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
+            }
+        }
+    }
+    
+    
+    private func loadPreparedData() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self, let profileVC = self.profileVC else { return }
+            self.availableLetters      = profileVC.availableLetters
+            self.numberOfRowsInSection = profileVC.numberOfRowsInSection
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.dismissLoadingView()
             }
         }
     }
@@ -89,7 +118,7 @@ final class FriendsVC: UITableViewController {
     
     // MARK: - Utility methods -
     private func friendsForLetter(_ letter: String) -> Results<User> {
-        friends.filter("lastName BEGINSWITH %@", letter)
+        friends.filter("lastNameFirstLetter = %@", letter)
     }
     
     
@@ -139,6 +168,10 @@ extension FriendsVC {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if !numberOfRowsInSection.isEmpty {
+            return numberOfRowsInSection[section] ?? 0
+        }
+        
         let letter = letterForSection(section)
         return friendsForLetter(letter).count
     }
@@ -238,16 +271,16 @@ extension FriendsVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            friends = user.friends.results
+            friends = user.friends
         } else {
-            friends = user.friends.filter("firstName BEGINSWITH %@ || lastName BEGINSWITH %@", searchText, searchText)
+            //friends = user.friends.filter("firstName BEGINSWITH %@ || lastName BEGINSWITH %@", searchText, searchText)
         }
         updateUI()
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        friends = user.friends.results
+        friends = user.friends
         updateUI()
     }
 }
