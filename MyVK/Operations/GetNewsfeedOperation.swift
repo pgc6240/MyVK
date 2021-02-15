@@ -1,5 +1,5 @@
 //
-//  GetNewsfeedOp.swift
+//  GetNewsfeedOperation.swift
 //  MyVK
 //
 //  Created by pgc6240 on 13.02.2021.

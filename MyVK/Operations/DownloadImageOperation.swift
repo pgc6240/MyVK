@@ -22,15 +22,15 @@ final class DownloadImageOperation: AsyncOperation {
             return nil
         }
         self.downloadURL = url
-        self.dstURL = cachesDirectory.appendingPathComponent(url.lastPathComponent)
+        self.dstURL      = cachesDirectory.appendingPathComponent(url.lastPathComponent)
         super.init()
     }
     
     
     override func main() {
-        if let imageCached = UIImage(contentsOfFile: dstURL.path) {
+        if let imageCached  = UIImage(contentsOfFile: dstURL.path) {
             downloadedImage = imageCached
-            state = .finished
+            state           = .finished
             return
         }
         

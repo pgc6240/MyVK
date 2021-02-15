@@ -1,11 +1,10 @@
 //
-//  PrepareFriendsVCOp.swift
+//  PrepareFriendsVCOperation.swift
 //  MyVK
 //
 //  Created by pgc6240 on 14.02.2021.
 //
 
-import Foundation
 import RealmSwift
 import Combine
 
@@ -30,7 +29,10 @@ final class PrepareFriendsVCOperation: AsyncOperation {
         printCurrentState()
         request = NetworkManager.shared.getFriends(for: userId) { [weak self] friends in
             guard let self = self, !self.isCancelled else { return }
-            defer { self.state = .finished }
+            defer {
+                self.state = .finished
+                self.printCurrentState()
+            }
             self.printCurrentState()
             guard let userFriends = PersistenceManager.load(with: self.userFriendsReference) else { return }
             PersistenceManager.save(friends, in: userFriends)
@@ -42,6 +44,7 @@ final class PrepareFriendsVCOperation: AsyncOperation {
     private func updateAvailableLetters(for friends: List<User>) {
         var availableLetters: Set<String> = []
         for friend in friends {
+            guard !isCancelled else { return }
             guard let letter = friend.lastNameFirstLetter else { continue }
             availableLetters.insert(letter)
         }
@@ -51,10 +54,6 @@ final class PrepareFriendsVCOperation: AsyncOperation {
     
     
     private func calculateNumberOfRowsInSection(for friends: List<User>) {
-        defer {
-            state = .finished
-            printCurrentState()
-        }
         for (section, letter) in availableLetters.enumerated() {
             guard !isCancelled else { return }
             let numberOfRows = friends.filter("lastNameFirstLetter = %@", letter).count
