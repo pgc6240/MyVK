@@ -10,8 +10,8 @@ import RealmSwift
 
 final class PhotosVC: UICollectionViewController {
     
-    var owner: CanPost!
-    lazy var photos = owner.photos
+    var owner: CanPost = User.current
+    lazy var photos    = owner.photos
     
     private var token: NotificationToken?
     

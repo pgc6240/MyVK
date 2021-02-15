@@ -26,22 +26,17 @@ final class PrepareFriendsVCOperation: AsyncOperation {
     
     
     override func main() {
-        printCurrentState()
         request = NetworkManager.shared.getFriends(for: userId) { [weak self] friends in
-            guard let self = self, !self.isCancelled else { return }
-            defer {
-                self.state = .finished
-                self.printCurrentState()
-            }
-            self.printCurrentState()
+            guard let self = self, !self.isCancelled, let friends = friends else { return }
+            defer { self.state = .finished }
+            self.updateAvailableLetters(for: friends)
             guard let userFriends = PersistenceManager.load(with: self.userFriendsReference) else { return }
             PersistenceManager.save(friends, in: userFriends)
-            self.updateAvailableLetters(for: userFriends)
         }
     }
     
     
-    private func updateAvailableLetters(for friends: List<User>) {
+    private func updateAvailableLetters(for friends: [User]) {
         var availableLetters: Set<String> = []
         for friend in friends {
             guard !isCancelled else { return }
@@ -53,19 +48,16 @@ final class PrepareFriendsVCOperation: AsyncOperation {
     }
     
     
-    private func calculateNumberOfRowsInSection(for friends: List<User>) {
+    private func calculateNumberOfRowsInSection(for friends: [User]) {
         for (section, letter) in availableLetters.enumerated() {
             guard !isCancelled else { return }
-            let numberOfRows = friends.filter("lastNameFirstLetter = %@", letter).count
+            let numberOfRows = friends.filter { $0.lastNameFirstLetter == letter }.count
             numberOfRowsInSection[section] = numberOfRows
         }
     }
     
     
     override func cancel() {
-        #if DEBUG
-        print(Self.self, #function)
-        #endif
         request?.cancel()
         super.cancel()
     }

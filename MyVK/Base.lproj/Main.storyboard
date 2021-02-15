@@ -24,9 +24,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="BUZ-jL-ikA" kind="relationship" relationship="viewControllers" id="XhE-bD-16v"/>
-                        <segue destination="fIT-ue-kvp" kind="relationship" relationship="viewControllers" id="kVo-kg-wkr"/>
                         <segue destination="R1N-Pm-zQg" kind="relationship" relationship="viewControllers" id="n9o-Zr-dx7"/>
                         <segue destination="fgi-XJ-5Ml" kind="relationship" relationship="viewControllers" id="eHK-x1-h51"/>
+                        <segue destination="fIT-ue-kvp" kind="relationship" relationship="viewControllers" id="kVo-kg-wkr"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="arR-nQ-0EP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -109,7 +109,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxw-VW-Zel">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pxw-VW-Zel" customClass="MyButton" customModule="MyVK" customModuleProvider="target">
                                                                 <rect key="frame" x="24" y="19" width="30" height="26"/>
                                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -131,7 +131,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oli-cx-Nq3">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oli-cx-Nq3" customClass="MyButton" customModule="MyVK" customModuleProvider="target">
                                                                 <rect key="frame" x="25.5" y="19" width="30" height="26"/>
                                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -153,7 +153,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESU-R5-UuL">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ESU-R5-UuL" customClass="MyButton" customModule="MyVK" customModuleProvider="target">
                                                                 <rect key="frame" x="53" y="19" width="30" height="26"/>
                                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -175,7 +175,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCi-6A-ywW">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gCi-6A-ywW" customClass="MyButton" customModule="MyVK" customModuleProvider="target">
                                                                 <rect key="frame" x="24.5" y="19" width="30" height="26"/>
                                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -252,7 +252,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GNZ-GW-shA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2792.8000000000002" y="-1030.4347826086957"/>
+            <point key="canvasLocation" x="2793" y="446"/>
         </scene>
         <!--Друзья-->
         <scene sceneID="H0D-QG-ly9">
@@ -315,7 +315,7 @@
                                     <outlet property="avatarImageView" destination="RsI-2W-hKg" id="VTB-Kr-2qe"/>
                                     <outlet property="nameLabel" destination="86Y-SL-dk0" id="GX1-eT-sGa"/>
                                     <outlet property="secondaryLabel" destination="INs-O1-Anm" id="DFY-qc-X0C"/>
-                                    <segue destination="5UF-dx-eoe" kind="show" id="hOt-Sk-Jq0"/>
+                                    <segue destination="5UF-dx-eoe" kind="show" identifier="toProfile" id="hOt-Sk-Jq0"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -325,6 +325,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Мои друзья" largeTitleDisplayMode="never" id="swY-ae-BsR">
+                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="FBO-Ye-RPB">
+                            <connections>
+                                <segue destination="mF9-cf-Rto" kind="show" identifier="toSearch" id="FhS-qX-XZ6"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" id="xUu-uB-8je">
                             <imageReference key="image" image="a.square" catalog="system" symbolScale="large"/>
                             <imageReference key="landscapeImage" image="a.square" catalog="system" symbolScale="small"/>
@@ -335,10 +340,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="searchButton" destination="FBO-Ye-RPB" id="hvJ-dc-NXd"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QB4-oZ-5Im" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2793" y="-297"/>
+            <point key="canvasLocation" x="2793" y="-1031"/>
         </scene>
         <!--Фотографии-->
         <scene sceneID="jY0-xv-MPy">
@@ -357,7 +365,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="kLl-dB-cJf" customClass="PhotoCell" customModule="MyVK" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="175" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="owW-Wh-iMG">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
@@ -408,14 +416,14 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2k0-Yf-q9v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6304" y="-297"/>
+            <point key="canvasLocation" x="7467" y="-318"/>
         </scene>
-        <!--PostsVC-->
+        <!--Записи на стене-->
         <scene sceneID="Blg-gd-FAc">
             <objects>
-                <tableViewController storyboardIdentifier="PostsVC" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nqu-Yb-IdH" customClass="PostsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="PostsVC" title="Записи на стене" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Nqu-Yb-IdH" customClass="PostsVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="RyB-Ue-Ues">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="774"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
@@ -428,28 +436,28 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Lle-Ld-QHT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6304" y="-1031"/>
+            <point key="canvasLocation" x="6529" y="446"/>
         </scene>
-        <!--Поиск групп-->
+        <!--Поиск-->
         <scene sceneID="jKx-02-fkZ">
             <objects>
-                <tableViewController storyboardIdentifier="SearchVC" title="Поиск групп" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mF9-cf-Rto" customClass="SearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SearchVC" title="Поиск" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mF9-cf-Rto" customClass="SearchVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="82" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="bfx-TB-ldl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="GroupCell" rowHeight="82" id="m83-Gt-k6y" customClass="GroupCell" customModule="MyVK" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CanPostCell" id="sbu-Oc-0a4" customClass="CanPostCell" customModule="MyVK" customModuleProvider="target">
                                 <rect key="frame" x="20" y="55.5" width="374" height="82"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="m83-Gt-k6y" id="bIE-wL-1QM">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sbu-Oc-0a4" id="FbC-8l-J3D">
                                     <rect key="frame" x="0.0" y="0.0" width="374" height="82"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Vpt-fR-CSw" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
-                                            <rect key="frame" x="16" y="9.5" width="60" height="60"/>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7iH-WK-bUL" customClass="MyImageView" customModule="MyVK" customModuleProvider="target">
+                                            <rect key="frame" x="20" y="11" width="60" height="60"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="Moq-CD-Rq0"/>
-                                                <constraint firstAttribute="width" secondItem="Vpt-fR-CSw" secondAttribute="height" id="Rxi-ed-Sc7"/>
+                                                <constraint firstAttribute="width" secondItem="7iH-WK-bUL" secondAttribute="height" multiplier="1:1" id="nNV-fM-ClR"/>
+                                                <constraint firstAttribute="width" constant="60" id="svP-7T-JcB"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -457,35 +465,36 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Открытое сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qf4-8P-hLl">
-                                            <rect key="frame" x="84" y="42" width="270" height="19.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                            <color key="textColor" systemColor="secondaryLabelColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ac-d8-frF">
-                                            <rect key="frame" x="84" y="17" width="270" height="21"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="b5J-3J-ltd">
+                                            <rect key="frame" x="88" y="17" width="41.5" height="48"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ib-bY-F0E" customClass="PlaceholderLabel" customModule="MyVK" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zW7-hR-ftG" customClass="SecondaryPlaceholderLabel" customModule="MyVK" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="28.5" width="41.5" height="19.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="7ac-d8-frF" firstAttribute="leading" secondItem="Vpt-fR-CSw" secondAttribute="trailing" constant="8" symbolic="YES" id="4Mq-eq-4bG"/>
-                                        <constraint firstItem="7ac-d8-frF" firstAttribute="centerY" secondItem="Vpt-fR-CSw" secondAttribute="centerY" constant="-12" id="9A2-qT-2mr"/>
-                                        <constraint firstItem="Qf4-8P-hLl" firstAttribute="leading" secondItem="7ac-d8-frF" secondAttribute="leading" id="Ik6-KR-p3Z"/>
-                                        <constraint firstItem="Qf4-8P-hLl" firstAttribute="centerY" secondItem="Vpt-fR-CSw" secondAttribute="centerY" constant="12" id="TYR-HA-m5U"/>
-                                        <constraint firstAttribute="trailing" secondItem="7ac-d8-frF" secondAttribute="trailing" constant="20" symbolic="YES" id="TjH-as-OLX"/>
-                                        <constraint firstItem="Qf4-8P-hLl" firstAttribute="trailing" secondItem="7ac-d8-frF" secondAttribute="trailing" id="UMW-kM-rF4"/>
-                                        <constraint firstItem="Vpt-fR-CSw" firstAttribute="leading" secondItem="bIE-wL-1QM" secondAttribute="leading" constant="16" id="W5g-tc-b9n"/>
-                                        <constraint firstItem="Vpt-fR-CSw" firstAttribute="top" secondItem="bIE-wL-1QM" secondAttribute="top" constant="9.5" id="bmu-bx-4Ox"/>
+                                        <constraint firstItem="b5J-3J-ltd" firstAttribute="leading" secondItem="7iH-WK-bUL" secondAttribute="trailing" constant="8" symbolic="YES" id="fcW-MD-nIw"/>
+                                        <constraint firstItem="7iH-WK-bUL" firstAttribute="leading" secondItem="FbC-8l-J3D" secondAttribute="leading" constant="20" symbolic="YES" id="lFG-g5-ZOX"/>
+                                        <constraint firstItem="b5J-3J-ltd" firstAttribute="centerY" secondItem="7iH-WK-bUL" secondAttribute="centerY" id="lam-Q0-BqQ"/>
+                                        <constraint firstItem="7iH-WK-bUL" firstAttribute="top" secondItem="FbC-8l-J3D" secondAttribute="top" constant="11" id="zWl-Gh-VcS"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="avatarImageView" destination="Vpt-fR-CSw" id="0qb-9X-b5D"/>
-                                    <outlet property="groupIsPublicLabel" destination="Qf4-8P-hLl" id="rBq-KA-BKZ"/>
-                                    <outlet property="groupNameLabel" destination="7ac-d8-frF" id="xaj-Uh-S8v"/>
-                                    <segue destination="5UF-dx-eoe" kind="show" id="zoE-0q-dH1"/>
+                                    <outlet property="avatarImageView" destination="7iH-WK-bUL" id="VEf-xN-8Mt"/>
+                                    <outlet property="nameLabel" destination="0Ib-bY-F0E" id="QiC-5L-j3p"/>
+                                    <outlet property="secondaryLabel" destination="zW7-hR-ftG" id="ywS-fo-DDM"/>
+                                    <segue destination="5UF-dx-eoe" kind="show" id="g5b-7t-YD6"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -499,12 +508,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTT-r1-MJ4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3761" y="836"/>
+            <point key="canvasLocation" x="4830" y="-535"/>
         </scene>
-        <!--ProfileVC-->
+        <!--Профиль-->
         <scene sceneID="gib-rO-56K">
             <objects>
-                <viewController storyboardIdentifier="ProfileVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5UF-dx-eoe" customClass="ProfileVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileVC" title="Профиль" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5UF-dx-eoe" customClass="ProfileVC" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vUK-Tf-aUP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -577,7 +586,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvd-CY-vBY">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cvd-CY-vBY" customClass="MyButton" customModule="MyVK" customModuleProvider="target">
                                                                 <rect key="frame" x="24" y="19" width="30" height="26"/>
                                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -599,7 +608,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yg2-I4-Yc3">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yg2-I4-Yc3" customClass="MyButton" customModule="MyVK" customModuleProvider="target">
                                                                 <rect key="frame" x="25.5" y="19" width="30" height="26"/>
                                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -621,7 +630,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4O-kk-OpJ">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4O-kk-OpJ" customClass="MyButton" customModule="MyVK" customModuleProvider="target">
                                                                 <rect key="frame" x="53" y="19" width="30" height="26"/>
                                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -643,7 +652,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GvE-zM-xFr">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GvE-zM-xFr" customClass="MyButton" customModule="MyVK" customModuleProvider="target">
                                                                 <rect key="frame" x="24.5" y="19" width="30" height="26"/>
                                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
@@ -705,7 +714,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uli-12-8Es" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5172" y="-297"/>
+            <point key="canvasLocation" x="6409" y="-1757"/>
         </scene>
         <!--FriendsNC-->
         <scene sceneID="cwM-BT-l4H">
@@ -729,7 +738,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rdj-Vu-mDf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852" y="-297"/>
+            <point key="canvasLocation" x="1851" y="-1031"/>
         </scene>
         <!--Сообщества-->
         <scene sceneID="G5g-UA-lB9">
@@ -806,7 +815,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rsQ-lu-zG8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2793" y="446"/>
+            <point key="canvasLocation" x="2793" y="-297"/>
         </scene>
         <!--GroupsNC-->
         <scene sceneID="yJE-mF-7Kp">
@@ -829,7 +838,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aTb-z9-fVC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852" y="446"/>
+            <point key="canvasLocation" x="1851" y="-297"/>
         </scene>
         <!--Новости-->
         <scene sceneID="OPR-7L-F5v">
@@ -874,7 +883,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="whb-Pk-YaE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1852" y="-1030"/>
+            <point key="canvasLocation" x="1851" y="446"/>
         </scene>
         <!--NewsNC-->
         <scene sceneID="PSw-UZ-zhb">
@@ -902,9 +911,10 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="1Zc-1r-nBT"/>
-        <segue reference="zoE-0q-dH1"/>
-        <segue reference="BIa-7u-19v"/>
-        <segue reference="v5R-k8-Kqs"/>
+        <segue reference="hOt-Sk-Jq0"/>
+        <segue reference="FhS-qX-XZ6"/>
+        <segue reference="gtx-kt-n3h"/>
+        <segue reference="fiz-T2-uB4"/>
         <segue reference="i3Y-kZ-UAT"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" name="vk-color"/>

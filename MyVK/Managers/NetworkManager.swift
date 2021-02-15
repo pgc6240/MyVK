@@ -163,6 +163,11 @@ final class NetworkManager {
         let method: VKApiMethod = like ? .like : .dislike
         makeRequest(method, parameters: ["type": type, "item_id": itemId], expecting: "likes") { likeCount($0) }
     }
+    
+    
+    func searchUsers(_ q: String, users: @escaping ([User]) -> Void) {
+        makeRequest(.searchUsers, parameters: ["q": q], responseItem: User.self) { users($0) }
+    }
 }
 
 

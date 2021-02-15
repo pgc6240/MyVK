@@ -103,7 +103,7 @@ class ProfileVC: UIViewController {
     private let preparationQueue = OperationQueue()
     
     
-    private func prepareFriendsVC(for user: User) {
+    func prepareFriendsVC(for user: User) {
         guard numberOfRowsInSection.isEmpty else { return }
         let prepareFriendsVCOperation = PrepareFriendsVCOperation(for: user)
         prepareFriendsVCOperation.completionBlock = { [weak self] in

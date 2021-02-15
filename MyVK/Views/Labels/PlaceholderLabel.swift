@@ -21,6 +21,6 @@ class PlaceholderLabel: UILabel {
     
     func configure() {
         textColor = text == "Placeholder" ? .secondarySystemBackground : .label
-        backgroundColor = text == "Placeholder" ? .secondarySystemBackground : .systemBackground
+        backgroundColor = text == "Placeholder" ? .secondarySystemBackground : .clear
     }
 }

@@ -19,6 +19,8 @@ final class FriendsVC: UITableViewController {
     var numberOfRowsInSection = [Int: Int]()
     private lazy var profileVC = prevVC as? ProfileVC
     
+    @IBOutlet weak var searchButton: UIBarButtonItem!
+    
     
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
@@ -31,7 +33,7 @@ final class FriendsVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureViewController()
-        if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty {
+        if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty, !friends.isEmpty {
             showLoadingView()
         } else {
             getFriends()
@@ -41,7 +43,7 @@ final class FriendsVC: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty {
+        if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty, !friends.isEmpty {
             loadPreparedData()
         }
     }
@@ -64,6 +66,7 @@ final class FriendsVC: UITableViewController {
     
     private func configureViewController() {
         navigationItem.title = user == User.current ? "Мои друзья".localized : user.name
+        navigationItem.leftBarButtonItem = user == User.current ? searchButton : nil
         navigationItem.searchController?.searchBar.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             UIView.transition(with: self.view, duration: 0.6, options: []) {
@@ -92,8 +95,9 @@ final class FriendsVC: UITableViewController {
             showLoadingView()
         }
         NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
-            PersistenceManager.save(friends, in: self?.user.friends)
-            self?.updateUI()
+            PersistenceManager.save(friends, in: self?.user.friends) {
+                self?.updateUI()
+            }
         }
     }
     
@@ -139,20 +143,36 @@ final class FriendsVC: UITableViewController {
     
 
     // MARK: - Segues -
+    private enum SegueIdentifier: String {
+        case toProfile
+        case toSearch
+    }
+    
+    
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        guard let indexPath = tableView.indexPathForSelectedRow else { return false }
-        let user = friendForIndexPath(indexPath)
-        return user.canAccessClosed
+        guard let segueIdentifier = SegueIdentifier(rawValue: identifier) else { return false }
+        switch segueIdentifier {
+        case .toProfile:
+            guard let indexPath = tableView.indexPathForSelectedRow else { return false }
+            let user = friendForIndexPath(indexPath)
+            return user.canAccessClosed
+        case .toSearch: return true
+        }
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView.indexPathForSelectedRow,
-           let profileVC = segue.destination as? ProfileVC
-        {
-            profileVC.owner = friendForIndexPath(indexPath)
-        }
         navigationItem.searchController?.searchBar.isHidden = true
+        guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
+        switch segueIdentifier {
+        case .toProfile:
+            guard let indexPath = tableView.indexPathForSelectedRow,
+                  let profileVC = segue.destination as? ProfileVC else { return }
+                profileVC.owner = friendForIndexPath(indexPath)
+        case .toSearch:
+            guard let searchVC = segue.destination as? SearchVC else { return }
+            searchVC.searchFor = .user
+        }
     }
 }
 

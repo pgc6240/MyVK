@@ -56,12 +56,12 @@ final class MyProfileVC: ProfileVC, PostCellDelegate {
     
     // MARK: - Profile header buttons methods -
     @IBAction private func friendsButtonTapped() {
-        tabBarController?.selectedIndex = 2
+        tabBarController?.selectedIndex = 1
     }
     
     
     @IBAction private func groupsButtonTapped() {
-        tabBarController?.selectedIndex = 3
+        tabBarController?.selectedIndex = 2
     }
     
     
@@ -69,4 +69,7 @@ final class MyProfileVC: ProfileVC, PostCellDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         (segue.destination as? PhotosVC)?.owner = User.current
     }
+    
+    
+    override func prepareFriendsVC(for user: User) {}
 }

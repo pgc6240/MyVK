@@ -27,6 +27,12 @@ final class GroupsVC: UITableViewController {
     }
     
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        dismissLoadingView()
+    }
+    
+    
     // MARK: - Basic setup -
     private func configureTableViewController() {
         PersistenceManager.pair(groups, with: tableView)
@@ -91,7 +97,11 @@ final class GroupsVC: UITableViewController {
     
     // MARK: - Prepare for segue to group detail VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView.indexPathForSelectedRow,
+        if segue.identifier == "toSearch", let searchVC = segue.destination as? SearchVC {
+            
+            searchVC.searchFor = .group
+            
+        } else if let indexPath = tableView.indexPathForSelectedRow,
            let profileVC = segue.destination as? ProfileVC {
             
             profileVC.owner = groups[indexPath.row]

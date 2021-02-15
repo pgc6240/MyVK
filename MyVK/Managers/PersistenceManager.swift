@@ -27,8 +27,6 @@ enum PersistenceManager {
     
     
     // MARK: - Realm -
-    private static let realm = try? Realm(configuration: realmConfiguration, queue: .main)
-    
     private static let realmConfiguration: Realm.Configuration = {
         var configuration = Realm.Configuration.defaultConfiguration
         configuration.deleteRealmIfMigrationNeeded = true
@@ -36,16 +34,31 @@ enum PersistenceManager {
         return configuration
     }()
     
-    private static var notificationTokens: Set<NotificationToken?> = []
+    private static let realmQueue = DispatchQueue(label: "com.pgc6240.MyVK.realmQueue")
+    
+    private static var notificationTokens = Set<NotificationToken?>()
     
     
     // MARK: - Internal methods -
-    private static func save(_ user: User) {
-        if let oldUser = realm?.object(ofType: User.self, forPrimaryKey: user.id) {
-            user.friends.append(objectsIn: oldUser.friends)
-            user.groups.append(objectsIn: oldUser.groups)
-            user.photos.append(objectsIn: oldUser.photos)
-            user.posts.append(objectsIn: oldUser.posts)
+    private static func save(_ objects: [Object], in realm: Realm?) {
+        for object in objects {
+            if let user = object as? User {
+                save(user, in: realm)
+            } else if let group = object as? Group {
+                save(group, in: realm)
+            } else {
+                realm?.add(object, update: .modified)
+            }
+        }
+    }
+    
+    
+    private static func save(_ user: User, in realm: Realm?) {
+        if let storedUser = realm?.object(ofType: User.self, forPrimaryKey: user.id) {
+            user.friends.append(objectsIn: storedUser.friends)
+            user.groups.append(objectsIn: storedUser.groups)
+            user.photos.append(objectsIn: storedUser.photos)
+            user.posts.append(objectsIn: storedUser.posts)
             realm?.add(user, update: .modified)
         } else {
             realm?.add(user)
@@ -53,11 +66,11 @@ enum PersistenceManager {
     }
     
     
-    private static func save(_ group: Group) {
-        if let oldGroup = realm?.object(ofType: Group.self, forPrimaryKey: group.id) {
-            group.photos.append(objectsIn: oldGroup.photos)
-            group.posts.append(objectsIn: oldGroup.posts)
-            group.photosCount = group.photosCount == 0 ? oldGroup.photosCount : group.photosCount
+    private static func save(_ group: Group, in realm: Realm?) {
+        if let storedGroup = realm?.object(ofType: Group.self, forPrimaryKey: group.id) {
+            group.photos.append(objectsIn: storedGroup.photos)
+            group.posts.append(objectsIn: storedGroup.posts)
+            group.photosCount = group.photosCount == 0 ? storedGroup.photosCount : group.photosCount
             realm?.add(group, update: .modified)
         } else {
             realm?.add(group)
@@ -66,74 +79,44 @@ enum PersistenceManager {
     
     
     // MARK: - External methods -
-    static func create<T: Object & Identifiable>(_ object: T) -> T? {
-        var createdObject: T?
+    static func save(_ objects: Object?...) {
+        let objects = objects.compactMap { $0 }
+        let realm = try? Realm(configuration: realmConfiguration)
         try? realm?.write {
-            if let oldObject = realm?.object(ofType: T.self, forPrimaryKey: object.id) {
-                createdObject = oldObject
-            } else {
-                createdObject = realm?.create(T.self, value: object, update: .modified)
-            }
+            save(objects, in: realm)
         }
-        return createdObject
     }
     
     
-    static func save(_ objects: Object...) {
-        try? realm?.write {
-            for object in objects {
-                if let user = object as? User {
-                    save(user)
-                } else if let group = object as? Group {
-                    save(group)
+    static func save<T: Object>(_ objects: [T]?, in list: List<T>?, completion: @escaping () -> Void = {}) {
+        guard let objects = objects, let list = list else { return }
+        let listReference = ThreadSafeReference(to: list)
+        realmQueue.async {
+            guard let realm = try? Realm(configuration: realmConfiguration),
+                  let list = realm.resolve(listReference) else { return }
+            try? realm.write {
+                save(objects, in: realm)
+                if list.count != objects.count {
+                    list.removeAll()
+                }
+                for object in objects {
+                    let object = realm.create(T.self, value: object, update: .modified)
+                    guard list.index(of: object) == nil else { continue }
+                    list.append(object)
+                }
+                DispatchQueue.main.async {
+                    let realm = try? Realm(configuration: realmConfiguration)
+                    realm?.refresh()
+                    completion()
                 }
             }
         }
     }
     
     
-    static func save<T: Object>(_ objects: [T]?, in list: List<T>?) {
-        guard let objects = objects, let list = list, let realm = try? Realm(configuration: realmConfiguration) else { return }
-        try? realm.write {
-            if list.count != objects.count {
-                /* Update list after object deletion */
-                list.removeAll()
-            }
-            for newObject in objects {
-                if let newUser = newObject as? User,
-                   let oldUser = realm.object(ofType: User.self, forPrimaryKey: newUser.id)
-                {
-                    /* Prevent overriding persisted lists by empty lists of newly decoded objects */
-                    newUser.friends.append(objectsIn: oldUser.friends)
-                    newUser.groups.append(objectsIn: oldUser.groups)
-                    newUser.photos.append(objectsIn: oldUser.photos)
-                    newUser.posts.append(objectsIn: oldUser.posts)
-                    let newObject = realm.create(T.self, value: newObject, update: .modified)
-                    guard list.index(of: newObject) == nil else { continue }
-                    list.append(newObject)
-                    
-                } else if let newGroup = newObject as? Group,
-                          let oldGroup = realm.object(ofType: Group.self, forPrimaryKey: newGroup.id)
-                {
-                    newGroup.photos.append(objectsIn: oldGroup.photos)
-                    newGroup.posts.append(objectsIn: oldGroup.posts)
-                    newGroup.photosCount = newGroup.photosCount == 0 ? oldGroup.photosCount : newGroup.photosCount
-                    let newGroup = realm.create(T.self, value: newGroup, update: .modified)
-                    guard list.index(of: newGroup) == nil else { continue }
-                    list.append(newGroup)
-                    
-                } else {
-                    let newObject = realm.create(T.self, value: newObject, update: .modified)
-                    guard list.index(of: newObject) == nil else { continue }
-                    list.append(newObject)
-                }
-            }
-        }
-    }
-    
-    
-    static func load<T: Object>(_ type: T.Type, with primaryKey: Int) -> T? {
-        realm?.object(ofType: T.self, forPrimaryKey: primaryKey)
+    static func load<T: Object>(_ type: T.Type, with primaryKey: Int?) -> T? {
+        let realm = try? Realm(configuration: realmConfiguration)
+        return realm?.object(ofType: T.self, forPrimaryKey: primaryKey)
     }
     
     
@@ -144,13 +127,30 @@ enum PersistenceManager {
     
     
     static func delete<T: Object & Identifiable>(_ objects: T...) {
-        try? realm?.write {
-            for object in objects {
-                if let object = realm?.object(ofType: T.self, forPrimaryKey: object.id) {
-                    realm?.delete(object)
+        DispatchQueue.main.async {
+            let realm = try? Realm(configuration: realmConfiguration)
+            try? realm?.write {
+                for object in objects {
+                    if let object = realm?.object(ofType: T.self, forPrimaryKey: object.id) {
+                        realm?.delete(object)
+                    }
                 }
             }
         }
+    }
+    
+    
+    static func create<T: Object & Identifiable>(_ object: T) -> T {
+        var createdObject: T!
+        let realm = try! Realm(configuration: realmConfiguration)
+        try! realm.write {
+            if let oldObject = realm.object(ofType: T.self, forPrimaryKey: object.id) {
+                createdObject = oldObject
+            } else {
+                createdObject = realm.create(T.self, value: object, update: .modified)
+            }
+        }
+        return createdObject
     }
     
     
@@ -165,7 +165,6 @@ enum PersistenceManager {
                 onChange()
                 tableView?.beginUpdates()
                 if updatedObjects.isEmpty || updatedObjects.count == insertions.count {
-                    /* Change section header for empty state and vice versa */
                     tableView?.reloadSections([0], with: .automatic)
                 } else {
                     tableView?.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .left)

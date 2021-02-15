@@ -9,35 +9,60 @@ import UIKit
 
 final class SearchVC: UITableViewController {
 
-    var searchQuery: String?
-    var searchResults: [Group] = []
+    enum SearchType { case user, group }
+    
+    var searchFor: SearchType    = .user
+    var searchResults: [CanPost] = [] { didSet { updateUI() }}
     
     
+    // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.setEditing(true, animated: false)
         configureSearchController()
     }
     
     
-    func searchGroups(with searchQuery: String?) {
+    // MARK: - External methods -
+    func search(with searchQuery: String?) {
         guard let searchQuery = searchQuery, !searchQuery.isEmpty else { return }
-        
         showLoadingView()
-        NetworkManager.shared.searchGroups(searchQuery) { [weak self] searchResults in
-            self?.dismissLoadingView()
-            self?.searchResults = searchResults
-            self?.tableView.reloadSections([0], with: .automatic)
+        switch searchFor {
+        case .user:  searchUsers(with: searchQuery)
+        case .group: searchGroups(with: searchQuery)
         }
     }
     
     
+    func searchUsers(with searchQuery: String) {
+        NetworkManager.shared.searchUsers(searchQuery) { [weak self] users in
+            self?.searchResults = users
+        }
+    }
+    
+    
+    func searchGroups(with searchQuery: String) {
+        NetworkManager.shared.searchGroups(searchQuery) { [weak self] groups in
+            self?.searchResults = groups
+        }
+    }
+    
+    
+    // MARK: - Internal methods -
+    private func updateUI() {
+        dismissLoadingView()
+        tableView.reloadSections([0], with: .automatic)
+    }
+    
+    
+    // MARK: - Segues -
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let indexPath = tableView.indexPathForSelectedRow,
-           let profileVC = segue.destination as? PostsVC,
-           let group = PersistenceManager.create(searchResults[indexPath.row]) {
-            
-            profileVC.owner = group
+           let profileVC = segue.destination as? ProfileVC {
+            if let user = searchResults[indexPath.row] as? User {
+                profileVC.owner = PersistenceManager.create(user)
+            } else if let group = searchResults[indexPath.row] as? Group {
+                profileVC.owner = PersistenceManager.create(group)
+            }
         }
     }
 }
@@ -48,20 +73,15 @@ final class SearchVC: UITableViewController {
 //
 extension SearchVC {
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Результаты поиска".localized
-    }
-    
-    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         searchResults.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
-        let group = searchResults[indexPath.row]
-        cell.set(with: group)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CanPostCell.reuseId) as! CanPostCell
+        let owner = searchResults[indexPath.row]
+        cell.set(with: owner)
         return cell
     }
     
@@ -71,40 +91,14 @@ extension SearchVC {
     }
     
     
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return !isLoading
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        let group = searchResults[indexPath.row]
-        if group.isMember {
-            return .delete
-        } else if group.isOpen {
-            return .insert
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if isLoading {
+            return "Загрузка...".localized
+        } else if searchResults.isEmpty {
+            return "Нет результатов".localized
+        } else {
+            return "Результаты поиска".localized
         }
-        return .none
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let group = searchResults[indexPath.row]
-        let groupsVC = navigationController?.viewControllers.first { $0 is GroupsVC } as? GroupsVC
-        
-        if editingStyle == .insert {
-            groupsVC?.joinGroup(group, onSuccess: { [weak self] in
-                self?.searchGroups(with: self?.searchQuery)
-            })
-        } else if editingStyle == .delete {
-            groupsVC?.leaveGroup(group, onSuccess: { [weak self] in
-                self?.searchGroups(with: self?.searchQuery)
-            })
-        }
-    }
-    
-    
-    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        "Выйти из сообщества".localized
     }
 }
 
@@ -117,23 +111,26 @@ extension SearchVC: UISearchBarDelegate {
     private func configureSearchController() {
         let searchController                                  = UISearchController()
         searchController.searchBar.delegate                   = self
-        searchController.searchBar.placeholder                = "Поиск сообществ".localized
         searchController.searchBar.autocorrectionType         = .no
         searchController.searchBar.autocapitalizationType     = .sentences
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController                       = searchController
         navigationItem.hidesSearchBarWhenScrolling            = false
+        
+        switch searchFor {
+        case .user:    searchController.searchBar.placeholder = "Найти пользователя".localized
+        case .group:   searchController.searchBar.placeholder = "Найти сообщество".localized
+        }
     }
     
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchQuery = searchBar.text
-        searchGroups(with: searchQuery)
+        search(with: searchBar.text)
+        updateUI()
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchResults = []
-        tableView.reloadData()
     }
 }
