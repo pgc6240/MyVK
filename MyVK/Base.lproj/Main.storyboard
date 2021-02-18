@@ -466,16 +466,15 @@
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="b5J-3J-ltd">
-                                            <rect key="frame" x="88" y="17" width="41.5" height="48"/>
+                                            <rect key="frame" x="88" y="17" width="111" height="48"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ib-bY-F0E" customClass="PlaceholderLabel" customModule="MyVK" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="20.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ib-bY-F0E" customClass="PlaceholderLabel" customModule="MyVK" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="111" height="20.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zW7-hR-ftG" customClass="SecondaryPlaceholderLabel" customModule="MyVK" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="28.5" width="41.5" height="19.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Город" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zW7-hR-ftG" customClass="SecondaryPlaceholderLabel" customModule="MyVK" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="28.5" width="111" height="19.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                     <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
@@ -911,7 +910,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="1Zc-1r-nBT"/>
-        <segue reference="hOt-Sk-Jq0"/>
+        <segue reference="g5b-7t-YD6"/>
         <segue reference="FhS-qX-XZ6"/>
         <segue reference="gtx-kt-n3h"/>
         <segue reference="fiz-T2-uB4"/>

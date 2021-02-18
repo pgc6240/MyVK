@@ -141,16 +141,14 @@ enum PersistenceManager {
     
     
     static func create<T: Object & Identifiable>(_ object: T) -> T {
-        var createdObject: T!
         let realm = try! Realm(configuration: realmConfiguration)
-        try! realm.write {
-            if let oldObject = realm.object(ofType: T.self, forPrimaryKey: object.id) {
-                createdObject = oldObject
-            } else {
-                createdObject = realm.create(T.self, value: object, update: .modified)
+        if let storedObject = realm.object(ofType: T.self, forPrimaryKey: object.id) {
+            return storedObject
+        } else {
+            return try! realm.write {
+                return realm.create(T.self, value: object)
             }
         }
-        return createdObject
     }
     
     

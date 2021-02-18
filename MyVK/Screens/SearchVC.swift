@@ -55,14 +55,21 @@ final class SearchVC: UITableViewController {
     
     
     // MARK: - Segues -
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        guard let indexPath = tableView.indexPathForSelectedRow else { return false }
+        switch searchFor {
+        case .user:  return (searchResults[indexPath.row] as? User)?.canAccessClosed ?? false
+        case .group: return (searchResults[indexPath.row] as? Group)?.isOpen ?? false
+        }
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let indexPath = tableView.indexPathForSelectedRow,
-           let profileVC = segue.destination as? ProfileVC {
-            if let user = searchResults[indexPath.row] as? User {
-                profileVC.owner = PersistenceManager.create(user)
-            } else if let group = searchResults[indexPath.row] as? Group {
-                profileVC.owner = PersistenceManager.create(group)
-            }
+        guard let indexPath = tableView.indexPathForSelectedRow, let profileVC = segue.destination as? ProfileVC else { return }
+        if let user = searchResults[indexPath.row] as? User {
+            profileVC.owner = PersistenceManager.create(user)
+        } else if let group = searchResults[indexPath.row] as? Group {
+            profileVC.owner = PersistenceManager.create(group)
         }
     }
 }
@@ -79,7 +86,7 @@ extension SearchVC {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CanPostCell.reuseId) as! CanPostCell
+        let cell  = tableView.dequeueReusableCell(withIdentifier: CanPostCell.reuseId) as! CanPostCell
         let owner = searchResults[indexPath.row]
         cell.set(with: owner)
         return cell
