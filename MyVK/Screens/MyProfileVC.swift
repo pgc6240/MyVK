@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class MyProfileVC: ProfileVC, PostCellDelegate {
+final class MyProfileVC: ProfileVC {
     
     
     // MARK: - External methods -
@@ -65,9 +65,19 @@ final class MyProfileVC: ProfileVC, PostCellDelegate {
     }
     
     
-    // MARK: - Prepare for segue to PhotosVC -
+    // MARK: - Segues -
+    private enum SegueIdentifier: String {
+        case toPhotos
+        case fromPostToPhotos
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        (segue.destination as? PhotosVC)?.owner = User.current
+        guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
+        switch segueIdentifier {
+        case .toPhotos:         (segue.destination as? PhotosVC)?.owner = User.current
+        case .fromPostToPhotos: (segue.destination as? PhotosVC)?.post  = PersistenceManager.create(selectedPost)
+        }
     }
     
     

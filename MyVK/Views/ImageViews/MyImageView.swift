@@ -42,24 +42,28 @@ final class MyImageView: UIImageView {
     
     
     // MARK: - Downloading-related stuff -
-    private var downloadImageOperation: DownloadImageOperation?
     private let operationQueue = OperationQueue()
+    private var downloadURL: String?
     
     func prepareForReuse() {
+        operationQueue.cancelAllOperations()
+        backgroundColor = .secondarySystemBackground
         image = nil
-        downloadImageOperation?.cancel()
     }
     
-    func downloadImage(with urlString: String?) {
-        downloadImageOperation?.cancel()
-        downloadImageOperation = DownloadImageOperation(urlString)
-        guard let downloadImageOperation = downloadImageOperation else { return }
+    func downloadImage(with downloadURL: String?) {
+        guard let downloadImageOperation = DownloadImageOperation(downloadURL) else { return }
+        operationQueue.cancelAllOperations()
         operationQueue.addOperation(downloadImageOperation)
         downloadImageOperation.completionBlock = {
-            OperationQueue.main.addOperation { [weak self] in
-                self?.image = downloadImageOperation.downloadedImage
+            DispatchQueue.main.async { [weak self] in
                 self?.backgroundColor = .clear
+                self?.image = downloadImageOperation.downloadedImage
             }
         }
+    }
+    
+    func reloadImage() {
+        downloadImage(with: downloadURL)
     }
 }

@@ -10,8 +10,9 @@ import RealmSwift
 
 final class PhotosVC: UICollectionViewController {
     
-    var owner: CanPost = User.current
-    lazy var photos    = owner.photos
+    var owner: CanPost?
+    var post: Post?
+    lazy var photos = owner?.photos ?? post?.photos
     
     private var token: NotificationToken?
     
@@ -46,7 +47,7 @@ final class PhotosVC: UICollectionViewController {
     
     
     private func startObservingPhotos() {
-        token = photos.observe { [weak self] changes in
+        token = photos?.observe { [weak self] changes in
             self?.updateTitle()
             self?.collectionView.reloadData()
         }
@@ -54,23 +55,24 @@ final class PhotosVC: UICollectionViewController {
     
     
     func getPhotos() {
+        guard let owner = owner else { return }
         showLoadingView()
         let ownerId = owner is Group ? -owner.id : owner.id
         NetworkManager.shared.getPhotos(for: ownerId) { [weak self] photos in
             self?.dismissLoadingView()
             self?.updateTitle()
-            PersistenceManager.save(photos, in: self?.owner.photos)
+            PersistenceManager.save(photos, in: self?.owner?.photos)
         }
     }
     
     
     private func updateTitle() {
-        if isLoading && photos.isEmpty {
+        if isLoading && photos?.count ?? 0 == 0 {
             title = "..."
-        } else if photos.isEmpty {
+        } else if photos?.count ?? 0 == 0 {
             title = "Нет фотографий".localized
         } else {
-            title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)
+            title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos?.count ?? 0)
         }
     }
 }
@@ -82,14 +84,15 @@ final class PhotosVC: UICollectionViewController {
 extension PhotosVC {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos.count
+        photos?.count ?? 0
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
-        let photo = photos[indexPath.row]
-        cell.set(with: photo)
+        if let photo = photos?[indexPath.row] {
+            cell.set(with: photo)
+        }
         return cell
     }
 }

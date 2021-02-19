@@ -20,6 +20,7 @@ final class NewsVC: UITableViewController {
         queue.maxConcurrentOperationCount = 1
         return queue
     }()
+    private weak var selectedPost: Post!
     
     
     // MARK: - View controller lifecycle -
@@ -31,9 +32,12 @@ final class NewsVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
         if posts.isEmpty {
             showLoadingView()
             getNewsfeed()
+        } else {
+            updateUI()
         }
     }
     
@@ -57,12 +61,39 @@ final class NewsVC: UITableViewController {
     
     
     // MARK: - Internal methods -
+    private func updateUI() {
+        guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
+        tableView.reloadRows(at: indexPaths, with: .fade)
+    }
+    
+    
     private func updateNewsfeed(with newPosts: [Post]?) {
         guard let newPosts = newPosts else { return }
         let indexPaths = (posts.count..<(posts.count + newPosts.count)).map { IndexPath(row: $0, section: 0) }
         posts.append(contentsOf: newPosts)
         DispatchQueue.main.async { [weak self] in
             self?.tableView.insertRows(at: indexPaths, with: .bottom)
+        }
+    }
+    
+    
+    // MARK: - Segues -
+    private enum SegueIdentifier: String {
+        case fromPostToProfile
+        case fromPostToPhotos
+    }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
+        switch segueIdentifier {
+        case .fromPostToPhotos: (segue.destination as? PhotosVC)?.post = PersistenceManager.create(selectedPost)
+        case .fromPostToProfile:
+            if let userOwner = selectedPost.userOwner {
+                (segue.destination as? ProfileVC)?.owner = PersistenceManager.create(userOwner)
+            } else if let groupOwner = selectedPost.groupOwner {
+                (segue.destination as? ProfileVC)?.owner = PersistenceManager.create(groupOwner)
+            }
         }
     }
 }
@@ -82,6 +113,7 @@ extension NewsVC {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
         cell.set(with: post)
+        cell.delegate = self
         return cell
     }
     
@@ -104,5 +136,23 @@ extension NewsVC {
             currentPage = posts.count / 50
             getNewsfeed()
         }
+    }
+}
+
+
+//
+// MARK: - PostCellDelegate
+//
+extension NewsVC: PostCellDelegate {
+    
+    func profileTapped(on post: Post) {
+        selectedPost = post
+        performSegue(withIdentifier: SegueIdentifier.fromPostToProfile.rawValue, sender: nil)
+    }
+    
+    
+    func photoTapped(on post: Post) {
+        selectedPost = post
+        performSegue(withIdentifier: SegueIdentifier.fromPostToPhotos.rawValue, sender: nil)
     }
 }

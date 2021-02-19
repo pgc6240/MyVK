@@ -26,6 +26,17 @@ final class ProfileHeaderView: UIView {
     @IBOutlet var countLabels: [UIButton]!
     
     
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeImages), name: Notification.Name("PostsVC.viewDidDisappear"), object: nil)
+    }
+    
+    
+    @objc private func removeImages() {
+        avatarImageView.prepareForReuse()
+    }
+    
+    
     func set(with owner: CanPost?) {
         avatarImageView.downloadImage(with: owner?.photoUrl)
         nameLabel.text = owner?.name
@@ -34,10 +45,13 @@ final class ProfileHeaderView: UIView {
             tertiaryLabel.text  = user.age
             friendsOrMembersLabel.text = "Друзья".localized
             groupsStackView.isHidden = false
-            friendsOrMembersCountLabel.setTitle(String(user.friendsCount), for: .normal)
-            groupsCountLabel.setTitle(String(user.groupsCount), for: .normal)
-            photosCountLabel.setTitle(String(user.photosCount), for: .normal)
-            wallPostsCountLabel.setTitle(String(user.posts.count), for: .normal)
+            UIView.transition(with: self, duration: 0.6, options: [.allowUserInteraction, .transitionCrossDissolve]) {
+                [weak self] in
+                self?.friendsOrMembersCountLabel.setTitle(String(user.friendsCount), for: .normal)
+                self?.groupsCountLabel.setTitle(String(user.groupsCount), for: .normal)
+                self?.photosCountLabel.setTitle(String(user.photosCount), for: .normal)
+                self?.wallPostsCountLabel.setTitle(String(user.postsCount), for: .normal)
+            }
         } else if let group = owner as? Group {
             secondaryLabel.text = (group.isOpen ? "Открытое" : "Закрытое").localized + " сообщество".localized
             tertiaryLabel.text = group.city
@@ -47,9 +61,12 @@ final class ProfileHeaderView: UIView {
                 friendsOrMembersStackView.isHidden = true
             }
             friendsOrMembersCountLabel.isEnabled = false
-            friendsOrMembersCountLabel.setTitle(F.fn(group.membersCount), for: .normal)
-            photosCountLabel.setTitle(F.fn(group.photosCount), for: .normal)
-            wallPostsCountLabel.setTitle(F.fn(group.posts.count), for: .normal)
+            UIView.transition(with: self, duration: 0.6, options: [.allowUserInteraction, .transitionCrossDissolve]) {
+                [weak self] in
+                self?.friendsOrMembersCountLabel.setTitle(F.fn(group.membersCount), for: .normal)
+                self?.photosCountLabel.setTitle(F.fn(group.photosCount), for: .normal)
+                self?.wallPostsCountLabel.setTitle(F.fn(group.postsCount), for: .normal)
+            }
         }
         for countLabel in countLabels {
             if countLabel.titleLabel?.text != "" {

@@ -11,14 +11,28 @@ import Alamofire
 
 final class LoginVC: UIViewController {
     
-    private var webView: WKWebView!
+    @IBOutlet private weak var webView: WKWebView!
+    
+    @IBOutlet private weak var appLogoImageView: UIImageView!
+    
     private let networkReachabilityManager = NetworkReachabilityManager(host: "yandex.ru")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureWebView()
+        configureViewController()
         startObservingNetworkStatus()
+    }
+    
+    
+    private func configureViewController() {
+        webView.navigationDelegate = self
+        appLogoImageView.image = UIImage(named: "AppIcon60x60")
+        appLogoImageView.layer.cornerRadius = 15
+        appLogoImageView.alpha = 0
+        UIView.transition(with: appLogoImageView, duration: 2, options: [.allowUserInteraction]) {
+            self.appLogoImageView.alpha = 0.75
+        }
     }
     
     
@@ -33,14 +47,6 @@ final class LoginVC: UIViewController {
             default: break
             }
         }
-    }
-    
-    
-    private func configureWebView() {
-        webView                     = WKWebView(frame: Screen.bounds)
-        webView.autoresizingMask    = [.flexibleWidth, .flexibleHeight]
-        webView.navigationDelegate  = self
-        view.addSubview(webView)
     }
     
     
@@ -75,6 +81,7 @@ extension LoginVC: WKNavigationDelegate {
         var responsePolicy: WKNavigationResponsePolicy?
         defer {
             dismissLoadingView()
+            appLogoImageView.alpha = 0
             decisionHandler(responsePolicy ?? .allow)
         }
         
@@ -94,6 +101,7 @@ extension LoginVC: WKNavigationDelegate {
                 }
             
             SessionManager.login(token: parameters["access_token"], userId: parameters["user_id"])
+            performSegue(withIdentifier: "loginSegue", sender: nil)
             
             responsePolicy = .cancel
             

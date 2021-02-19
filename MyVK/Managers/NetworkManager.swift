@@ -60,14 +60,14 @@ final class NetworkManager {
     
     private func makeRequest<I: Decodable>(_ vkApiMethod: VKApiMethod,
                              parameters: Parameters?,
-                             responseItem: I.Type) -> AnyPublisher<[I]?, Never>
+                             responseItem: I.Type) -> AnyPublisher<Response<I>?, Never>
     {
         AF.request(vkApiMethod, parameters: parameters).publishDecodable(type: Response<I>.self, decoder: JSON.decoder)
             .map { [weak self] in
                 if let error = $0.error {
                     self?.handleError(error, data: $0.data, url: $0.request?.url)
                 }
-                return $0.value?.items
+                return $0.value
             }
             .eraseToAnyPublisher()
     }
@@ -109,7 +109,7 @@ final class NetworkManager {
     func getFriends(for userId: Int, friends: @escaping ([User]?) -> Void) -> AnyCancellable {
         makeRequest(.getFriends, parameters: ["user_id": userId], responseItem: User.self)
             .receive(on: DispatchQueue.global(qos: .userInteractive))
-            .sink { friends($0) }
+            .sink { friends($0?.items) }
     }
     
     
@@ -123,8 +123,9 @@ final class NetworkManager {
     }
     
     
-    func getPosts(ownerId: Int, posts: @escaping ([Post]) -> Void) {
-        makeRequest(.getPosts, parameters: ["owner_id": ownerId], responseItem: Post.self) { posts($0) }
+    func getPosts(ownerId: Int, posts: @escaping ([Post]?, Int?) -> Void) -> AnyCancellable {
+        makeRequest(.getPosts, parameters: ["owner_id": ownerId], responseItem: Post.self)
+            .sink { posts($0?.items, $0?.count) }
     }
     
     
@@ -176,25 +177,22 @@ final class NetworkManager {
 //
 fileprivate struct Response<I: Decodable>: Decodable {
     
-    let items: [I]
+    var items: [I]
+    var count: Int?
     
     private enum CodingKeys: CodingKey {
-        case response, items
+        case response, items, count
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        
         do {
             let responseContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .response)
             self.items = try responseContainer.decode([I].self, forKey: .items)
-        } catch let error1 {
-            do {
-                self.items = try container.decode([I].self, forKey: .response)
-            } catch let error2 {
-                print(error1, error2)
-                self.items = []
-            }
+            self.count = try? responseContainer.decode(Int.self, forKey: .count)
+        } catch {
+            self.items = try container.decode([I].self, forKey: .response)
+            self.count = try? container.decode(Int.self, forKey: .count)
         }
     }
 }

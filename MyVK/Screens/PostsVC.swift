@@ -6,11 +6,19 @@
 //
 
 import UIKit
+import Combine
+import RealmSwift
 
 final class PostsVC: UITableViewController {
     
     var owner: CanPost = User.current
     lazy var posts     = owner.posts
+    
+    private var _isLoading = true
+    private var getPostsTask: AnyCancellable?
+    
+    // MARK: - Subviews
+    private lazy var profileHeaderView = tableView.tableHeaderView as? ProfileHeaderView
     
     
     // MARK: - View controller lifecycle -
@@ -22,13 +30,20 @@ final class PostsVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: true)
+        reloadPosts()
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        getPostsTask?.cancel()
     }
     
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.post(Notification(name: Notification.Name("PostsVC.viewDidDisappear")))
+        posts = List<Post>()
     }
     
     
@@ -37,17 +52,32 @@ final class PostsVC: UITableViewController {
         self.owner = owner
         self.posts = owner.posts
         tableView.tableHeaderView = profileHeaderView
-        PersistenceManager.pair(posts, with: tableView)
         getPosts()
     }
     
     
     func getPosts() {
         let ownerId = owner is User ? owner.id : -owner.id
-        NetworkManager.shared.getPosts(ownerId: ownerId) { [weak self] posts in
-            PersistenceManager.save(posts, in: self?.owner.posts)
-            (self?.tableView.tableHeaderView as? ProfileHeaderView)?.set(with: self?.owner)
+        getPostsTask = NetworkManager.shared.getPosts(ownerId: ownerId) { [weak self] posts, postsCount in
+            PersistenceManager.write { self?.owner.postsCount = postsCount ?? 0 }
+            PersistenceManager.save(posts, in: self?.owner.posts) {
+                self?.updateUI()
+            }
         }
+    }
+    
+    
+    // MARK: - Internal methods -
+    private func updateUI() {
+        _isLoading = false
+        profileHeaderView?.set(with: owner)
+        tableView.reloadSections([0], with: .automatic)
+    }
+    
+    
+    private func reloadPosts() {
+        posts = owner.posts
+        tableView.reloadSections([0], with: .fade)
     }
 }
 
@@ -58,7 +88,9 @@ final class PostsVC: UITableViewController {
 extension PostsVC {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if posts.isEmpty {
+        if _isLoading && posts.isEmpty {
+            return "Загрузка...".localized
+        } else if posts.isEmpty {
             return "Нет записей".localized
         } else if owner as? User == User.current {
             return "Мои записи".localized
@@ -84,7 +116,7 @@ extension PostsVC {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
         cell.set(with: post, and: owner)
-        cell.delegate = parent as? MyProfileVC
+        cell.delegate = parent as? PostCellDelegate
         return cell
     }
     

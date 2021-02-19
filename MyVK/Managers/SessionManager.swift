@@ -21,9 +21,6 @@ enum SessionManager {
         }
         self.token  = token
         self.userId = Int(userId)
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        UIApplication.shared.windows.first?.rootViewController = storyboard.instantiateInitialViewController()
     }
     
     
@@ -32,6 +29,7 @@ enum SessionManager {
         token       = nil
         userId      = nil
         
-        UIApplication.shared.windows.first?.rootViewController = LoginVC()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        UIApplication.shared.windows.first?.rootViewController = storyboard.instantiateInitialViewController()
     }
 }

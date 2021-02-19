@@ -9,14 +9,22 @@ import UIKit
 
 protocol PostCellDelegate: class {
     func deletePost(postId: Int)
+    func profileTapped(on post: Post)
+    func photoTapped(on post: Post)
+}
+
+extension PostCellDelegate {
+    func deletePost(postId: Int) {}
+    func profileTapped(on post: Post) {}
 }
 
 final class PostCell: UITableViewCell {
     
-    var postId: Int!
+    var post: Post!
     weak var delegate: PostCellDelegate?
     
     // MARK: - Subviews -
+    @IBOutlet weak var profileStackView: UIStackView!
     @IBOutlet weak var avatarImageView: MyImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
@@ -28,13 +36,20 @@ final class PostCell: UITableViewCell {
 
     
     // MARK: - Initialization -
-    //required init?(coder: NSCoder) {
-        //super.init(coder: coder)
-        //NotificationCenter.default.addObserver(self, selector: #selector(removeImages), name: Notification.Name("PostsVC.viewDidDisappear"), object: nil)
-    //}
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeImages), name: Notification.Name("PostsVC.viewDidDisappear"), object: nil)
+    }
     
     
     // MARK: - Internal methods -
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        profileStackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(profileTapped)))
+        photoImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(photoTapped)))
+    }
+    
+    
     @objc private func removeImages() {
         avatarImageView.prepareForReuse()
         photoImageView.prepareForReuse()
@@ -62,7 +77,7 @@ final class PostCell: UITableViewCell {
     
     // MARK: - External methods -
     func set(with post: Post, and owner: CanPost? = nil) {
-        postId = post.id
+        self.post = post
         avatarImageView.downloadImage(with: post.userOwner?.photoUrl ?? post.groupOwner?.photoUrl ?? owner?.photoUrl)
         nameLabel.text = post.userOwner?.name ?? post.groupOwner?.name ?? owner?.name
         dateLabel.text = F.fd(post.date)
@@ -75,7 +90,25 @@ final class PostCell: UITableViewCell {
     }
     
     
+    func reloadImages() {
+        avatarImageView.reloadImage()
+        photoImageView.reloadImage()
+    }
+    
+    
+    // MARK: - Actions and segues -
     @IBAction func deletePost() {
-        delegate?.deletePost(postId: postId)
+        delegate?.deletePost(postId: post.id)
+    }
+    
+    
+    // MARK: - Gesture recognizers -
+    @objc func photoTapped() {
+        delegate?.photoTapped(on: post)
+    }
+    
+    
+    @objc func profileTapped() {
+        delegate?.profileTapped(on: post)
     }
 }

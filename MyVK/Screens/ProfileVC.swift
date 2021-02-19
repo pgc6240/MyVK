@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ProfileVC: UIViewController {
     
     var owner: CanPost = User.current
     
     lazy var postsVC = children.first as! PostsVC
+    weak var selectedPost: Post!
     
     // MARK: - Subviews
     @IBOutlet weak var profileHeaderView: ProfileHeaderView!
@@ -75,6 +77,7 @@ class ProfileVC: UIViewController {
         case toFriends
         case toGroups
         case toPhotos
+        case fromPostToPhotos
     }
 
 
@@ -87,11 +90,13 @@ class ProfileVC: UIViewController {
         case .toFriends: (segue.destination as? FriendsVC)?.user = owner as? User
         case .toGroups: (segue.destination as? GroupsVC)?.user = owner as? User
         case .toPhotos: (segue.destination as? PhotosVC)?.owner = owner
+        case .fromPostToPhotos: (segue.destination as? PhotosVC)?.post = PersistenceManager.create(selectedPost)
         }
     }
     
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "toPostPhotos" { return true }
         guard (sender as? UIButton)?.currentTitle != "0" else { return false }
         return !profileHeaderView.groupsStackView.isHidden || identifier == "toPhotos"
     }
@@ -112,5 +117,17 @@ class ProfileVC: UIViewController {
         }
         preparationQueue.qualityOfService = .userInteractive
         preparationQueue.addOperation(prepareFriendsVCOperation)
+    }
+}
+
+
+//
+// MARK: - PostCellDelegate -
+//
+extension ProfileVC: PostCellDelegate {
+    
+    func photoTapped(on post: Post) {
+        selectedPost = post
+        performSegue(withIdentifier: SegueIdentifier.fromPostToPhotos.rawValue, sender: nil)
     }
 }

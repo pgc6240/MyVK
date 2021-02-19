@@ -53,27 +53,29 @@ enum PersistenceManager {
     }
     
     
-    private static func save(_ user: User, in realm: Realm?) {
-        if let storedUser = realm?.object(ofType: User.self, forPrimaryKey: user.id) {
-            user.friends.append(objectsIn: storedUser.friends)
-            user.groups.append(objectsIn: storedUser.groups)
-            user.photos.append(objectsIn: storedUser.photos)
-            user.posts.append(objectsIn: storedUser.posts)
-            realm?.add(user, update: .modified)
+    private static func save(_ newUser: User, in realm: Realm?) {
+        if let oldUser = realm?.object(ofType: User.self, forPrimaryKey: newUser.id) {
+            newUser.friends.append(objectsIn: oldUser.friends)
+            newUser.groups.append(objectsIn: oldUser.groups)
+            newUser.photos.append(objectsIn: oldUser.photos)
+            newUser.posts.append(objectsIn: oldUser.posts)
+            newUser.postsCount = newUser.postsCount == 0 ? oldUser.postsCount : newUser.postsCount
+            realm?.add(newUser, update: .modified)
         } else {
-            realm?.add(user)
+            realm?.add(newUser)
         }
     }
     
     
-    private static func save(_ group: Group, in realm: Realm?) {
-        if let storedGroup = realm?.object(ofType: Group.self, forPrimaryKey: group.id) {
-            group.photos.append(objectsIn: storedGroup.photos)
-            group.posts.append(objectsIn: storedGroup.posts)
-            group.photosCount = group.photosCount == 0 ? storedGroup.photosCount : group.photosCount
-            realm?.add(group, update: .modified)
+    private static func save(_ newGroup: Group, in realm: Realm?) {
+        if let oldGroup = realm?.object(ofType: Group.self, forPrimaryKey: newGroup.id) {
+            newGroup.photos.append(objectsIn: oldGroup.photos)
+            newGroup.posts.append(objectsIn: oldGroup.posts)
+            newGroup.photosCount = newGroup.photosCount == 0 ? oldGroup.photosCount : newGroup.photosCount
+            newGroup.postsCount = newGroup.postsCount == 0 ? oldGroup.postsCount : newGroup.postsCount
+            realm?.add(newGroup, update: .modified)
         } else {
-            realm?.add(group)
+            realm?.add(newGroup)
         }
     }
     
@@ -148,6 +150,14 @@ enum PersistenceManager {
             return try! realm.write {
                 return realm.create(T.self, value: object)
             }
+        }
+    }
+    
+    
+    static func write(block: () -> Void) {
+        let realm = try? Realm(configuration: realmConfiguration)
+        try? realm?.write {
+            block()
         }
     }
     

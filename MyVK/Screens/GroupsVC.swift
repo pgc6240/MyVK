@@ -48,6 +48,7 @@ final class GroupsVC: UITableViewController {
     
     // MARK: - Internal methods -
     private func updateUI() {
+        dismissLoadingView()
         tableView.reloadSections([0], with: .automatic)
     }
     
@@ -60,8 +61,6 @@ final class GroupsVC: UITableViewController {
         }
         NetworkManager.shared.getGroups(userId: user.id) { [weak self] groups in
             PersistenceManager.save(groups, in: self?.user.groups)
-            self?.dismissLoadingView()
-            self?.updateUI()
         }
     }
     

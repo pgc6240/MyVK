@@ -10,14 +10,17 @@ import RealmSwift
 
 final class FriendsVC: UITableViewController {
     
-    var user: User! = User.current
+    var user: User!  = User.current
     lazy var friends = user.friends
     
-    var availableLetters = [String]()
+    var availableLetters       = [String]()
     private var alphabetPicker = AlphabetPicker()
     
-    var numberOfRowsInSection = [Int: Int]()
+    var numberOfRowsInSection  = [Int: Int]()
     private lazy var profileVC = prevVC as? ProfileVC
+    
+    private var isFiltering    = false
+    private var filteredFriends: Results<User>!
     
     @IBOutlet weak var searchButton: UIBarButtonItem!
     
@@ -52,7 +55,7 @@ final class FriendsVC: UITableViewController {
     override func viewWillDisappear(_ animated: Bool) {
         dismissLoadingView()
         super.viewWillDisappear(animated)
-        guard navigationController?.visibleViewController is PostsVC else { return }
+        guard navigationController?.visibleViewController is ProfileVC else { return }
         NotificationCenter.default.post(Notification(name: Notification.Name("FriendsVC.viewDidDisappear")))
     }
     
@@ -104,7 +107,9 @@ final class FriendsVC: UITableViewController {
     
     // MARK: - Internal methods -
     private func updateUI() {
-        updateAvailableLetters()
+        if !isFiltering {
+            updateAvailableLetters()
+        }
         tableView.reloadData()
         dismissLoadingView()
     }
@@ -127,6 +132,10 @@ final class FriendsVC: UITableViewController {
     
     
     private func friendForIndexPath(_ indexPath: IndexPath) -> User {
+        if isFiltering {
+            return filteredFriends[indexPath.row]
+        }
+        
         let letter = letterForSection(indexPath.section)
         return friendsForLetter(letter)[indexPath.row]
     }
@@ -152,17 +161,18 @@ final class FriendsVC: UITableViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         guard let segueIdentifier = SegueIdentifier(rawValue: identifier) else { return false }
         switch segueIdentifier {
+        case .toSearch:  return true
         case .toProfile:
             guard let indexPath = tableView.indexPathForSelectedRow else { return false }
             let user = friendForIndexPath(indexPath)
             return user.canAccessClosed
-        case .toSearch: return true
         }
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         navigationItem.searchController?.searchBar.isHidden = true
+        
         guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
         switch segueIdentifier {
         case .toProfile:
@@ -183,17 +193,23 @@ final class FriendsVC: UITableViewController {
 extension FriendsVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        availableLetters.count
+        isFiltering ? 1 : availableLetters.count
     }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !numberOfRowsInSection.isEmpty {
+        if isFiltering {
+            return filteredFriends.count
+        }
+        
+        if numberOfRowsInSection.count == availableLetters.count {
             return numberOfRowsInSection[section] ?? 0
         }
         
         let letter = letterForSection(section)
-        return friendsForLetter(letter).count
+        let numberOfRows = friendsForLetter(letter).count
+        numberOfRowsInSection[section] = numberOfRows
+        return numberOfRows
     }
     
     
@@ -211,7 +227,7 @@ extension FriendsVC {
     
     
     override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        availableLetters
+        isFiltering ? nil : availableLetters
     }
     
     
@@ -221,46 +237,19 @@ extension FriendsVC {
     
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if isFiltering {
+            return nil
+        }
+        
         let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "headerReuseId")
         sectionHeader?.backgroundView  = BlurView()
         sectionHeader?.textLabel?.text = letterForSection(section)
         return sectionHeader
     }
-}
-
-
-//
-// MARK: - AlphabetPickerDelegate -
-//
-extension FriendsVC: AlphabetPickerDelegate {
-
-    @IBAction func sortButtonTapped() {
-        if view.subviews.contains(alphabetPicker) {
-            alphabetPicker.removeFromSuperview()
-        } else {
-            let letters = availableLetters.map { String($0) }.joined()
-            alphabetPicker = AlphabetPicker(with: letters, in: view)
-            alphabetPicker.delegate = self
-            view.addSubview(alphabetPicker)
-        }
-    }
     
     
-    func letterTapped(_ alphabetPicker: AlphabetPicker, letter: String) {
-        guard let section = sectionForLetter(letter) else { return }
-        tableView.scrollToRow(at: [section, 0], at: .top, animated: true)
-        alphabetPicker.removeFromSuperview()
-    }
-}
-
-
-//
-// MARK: - UIScrollViewDelegate -
-//
-extension FriendsVC {
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        alphabetPicker.removeFromSuperview()
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        isFiltering ? 0 : UITableView.automaticDimension
     }
 }
 
@@ -291,16 +280,52 @@ extension FriendsVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            friends = user.friends
+            isFiltering = false
         } else {
-            //friends = user.friends.filter("firstName BEGINSWITH %@ || lastName BEGINSWITH %@", searchText, searchText)
+            filteredFriends = user.friends.filter("firstName BEGINSWITH %@ || lastName BEGINSWITH %@", searchText, searchText)
+            isFiltering = true
         }
         updateUI()
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        friends = user.friends
+        isFiltering = false
         updateUI()
+    }
+}
+
+
+//
+// MARK: - AlphabetPickerDelegate -
+//
+extension FriendsVC: AlphabetPickerDelegate {
+
+    @IBAction func sortButtonTapped() {
+        if view.subviews.contains(alphabetPicker) {
+            alphabetPicker.removeFromSuperview()
+        } else {
+            alphabetPicker = AlphabetPicker(with: availableLetters.joined(), in: view)
+            alphabetPicker.delegate = self
+            view.addSubview(alphabetPicker)
+        }
+    }
+    
+    
+    func letterTapped(_ alphabetPicker: AlphabetPicker, letter: String) {
+        guard let section = sectionForLetter(letter) else { return }
+        tableView.scrollToRow(at: [section, 0], at: .top, animated: true)
+        alphabetPicker.removeFromSuperview()
+    }
+}
+
+
+//
+// MARK: - UIScrollViewDelegate -
+//
+extension FriendsVC {
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        alphabetPicker.removeFromSuperview()
     }
 }
