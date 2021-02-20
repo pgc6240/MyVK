@@ -18,12 +18,14 @@ final class User: Object, CanPost, Identifiable {
     @objc dynamic var lastNameGen = ""
     @objc dynamic var lastNameFirstLetter: String? = nil
     @objc dynamic var canAccessClosed = false
+    @objc dynamic var canSendFriendRequest = false
+    @objc dynamic var isFriend = false
     @objc dynamic var homeTown: String? = nil
     @objc dynamic var bdate: String? = nil
-    @objc dynamic var friendsCount = 0
-    @objc dynamic var groupsCount = 0
-    @objc dynamic var photosCount = 0
-    @objc dynamic var postsCount = 0
+    @objc dynamic var friendsCount = -1
+    @objc dynamic var groupsCount = -1
+    @objc dynamic var photosCount = -1
+    @objc dynamic var postsCount = -1
     let friends = List<User>()
     let groups = List<Group>()
     let photos = List<Photo>()
@@ -51,23 +53,12 @@ extension User {
 // MARK: - Current user -
 extension User {
     
-    static var current: User {
-        get { PersistenceManager.load(User.self, with: SessionManager.userId) ?? createCurrentUser() }
-        set { PersistenceManager.save(newValue) }
-    }
+    static var current: User!
     
     
-    private convenience init(id: Int) {
+    convenience init(id: Int) {
         self.init()
         self.id = id
-    }
-    
-    
-    private static func createCurrentUser() -> User {
-        NetworkManager.shared.getUsers(userIds: [SessionManager.userId]) { users in
-            PersistenceManager.save(users.first)
-        }
-        return PersistenceManager.create(User(id: SessionManager.userId))
     }
 }
 
@@ -78,6 +69,7 @@ extension User: Decodable {
     private enum CodingKeys: String, CodingKey {
         case id, firstName, lastName, photoUrl = "photoMax", firstNameGen, lastNameGen, homeTown, bdate, canAccessClosed
         case counters, photos, friends, pages, groups
+        case canSendFriendRequest, isFriend = "friendStatus"
     }
     
     
@@ -93,6 +85,10 @@ extension User: Decodable {
         self.homeTown = try? container.decode(String.self, forKey: .homeTown)
         self.bdate = try? container.decode(String.self, forKey: .bdate)
         self.canAccessClosed = (try? container.decode(Bool.self, forKey: .canAccessClosed)) ?? false
+        let canSendFriendRequest = (try? container.decode(Int.self, forKey: .canSendFriendRequest)) ?? 0
+        self.canSendFriendRequest = canSendFriendRequest == 1
+        let isFriend = (try? container.decode(Int.self, forKey: .isFriend)) ?? 0
+        self.isFriend = isFriend != 0
         self.lastNameFirstLetter = self.lastName.first.toString
         if let countersContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .counters) {
             self.friendsCount = (try? countersContainer.decode(Int.self, forKey: .friends)) ?? 0

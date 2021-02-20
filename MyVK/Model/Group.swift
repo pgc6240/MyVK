@@ -17,10 +17,10 @@ final class Group: Object, CanPost, Identifiable {
     @objc dynamic var photoUrl = ""
     @objc dynamic var city: String? = nil
     @objc dynamic var membersCount = -1
-    @objc dynamic var photosCount = 0
-    @objc dynamic var postsCount = 0
-    let posts = List<Post>()
+    @objc dynamic var photosCount = -1
+    @objc dynamic var postsCount = -1
     let photos = List<Photo>()
+    let posts = List<Post>()
     
 
     override class func primaryKey() -> String? { "id" }

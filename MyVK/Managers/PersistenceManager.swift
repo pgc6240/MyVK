@@ -27,7 +27,16 @@ enum PersistenceManager {
     
     
     // MARK: - Realm -
-    private static let realmConfiguration: Realm.Configuration = {
+    private static let realm: () -> Realm? = {
+        do {
+            return try Realm(configuration: realmConfiguration)
+        } catch {
+            realmConfiguration.inMemoryIdentifier = "com.pgc6240.MyVK.realm"
+            return try? Realm(configuration: realmConfiguration)
+        }
+    }
+    
+    private static var realmConfiguration: Realm.Configuration = {
         var configuration = Realm.Configuration.defaultConfiguration
         configuration.deleteRealmIfMigrationNeeded = true
         configuration.objectTypes = [User.self, Group.self, Photo.self, Post.self]
@@ -40,42 +49,46 @@ enum PersistenceManager {
     
     
     // MARK: - Internal methods -
-    private static func save(_ objects: [Object], in realm: Realm?) {
-        for object in objects {
-            if let user = object as? User {
-                save(user, in: realm)
-            } else if let group = object as? Group {
-                save(group, in: realm)
-            } else {
-                realm?.add(object, update: .modified)
-            }
+    @discardableResult
+    private static func save<T: Object>(_ object: T, in realm: Realm) -> T {
+        if let user = object as? User {
+            return save(user, in: realm) as! T
+        } else if let group = object as? Group {
+            return save(group, in: realm) as! T
+        } else {
+            return realm.create(T.self, value: object, update: .modified)
         }
     }
     
     
-    private static func save(_ newUser: User, in realm: Realm?) {
-        if let oldUser = realm?.object(ofType: User.self, forPrimaryKey: newUser.id) {
+    @discardableResult
+    private static func save(_ newUser: User, in realm: Realm) -> User {
+        if let oldUser = realm.object(ofType: User.self, forPrimaryKey: newUser.id) {
             newUser.friends.append(objectsIn: oldUser.friends)
             newUser.groups.append(objectsIn: oldUser.groups)
             newUser.photos.append(objectsIn: oldUser.photos)
             newUser.posts.append(objectsIn: oldUser.posts)
-            newUser.postsCount = newUser.postsCount == 0 ? oldUser.postsCount : newUser.postsCount
-            realm?.add(newUser, update: .modified)
+            newUser.friendsCount = newUser.friendsCount == -1 ? oldUser.friendsCount : newUser.friendsCount
+            newUser.groupsCount = newUser.groupsCount == -1 ? oldUser.groupsCount : newUser.groupsCount
+            newUser.photosCount = newUser.photosCount == -1 ? oldUser.photosCount : newUser.photosCount
+            newUser.postsCount = newUser.postsCount == -1 ? oldUser.postsCount : newUser.postsCount
+            return realm.create(User.self, value: newUser, update: .modified)
         } else {
-            realm?.add(newUser)
+            return realm.create(User.self, value: newUser)
         }
     }
     
     
-    private static func save(_ newGroup: Group, in realm: Realm?) {
-        if let oldGroup = realm?.object(ofType: Group.self, forPrimaryKey: newGroup.id) {
+    @discardableResult
+    private static func save(_ newGroup: Group, in realm: Realm) -> Group {
+        if let oldGroup = realm.object(ofType: Group.self, forPrimaryKey: newGroup.id) {
             newGroup.photos.append(objectsIn: oldGroup.photos)
             newGroup.posts.append(objectsIn: oldGroup.posts)
-            newGroup.photosCount = newGroup.photosCount == 0 ? oldGroup.photosCount : newGroup.photosCount
-            newGroup.postsCount = newGroup.postsCount == 0 ? oldGroup.postsCount : newGroup.postsCount
-            realm?.add(newGroup, update: .modified)
+            newGroup.photosCount = newGroup.photosCount == -1 ? oldGroup.photosCount : newGroup.photosCount
+            newGroup.postsCount = newGroup.postsCount == -1 ? oldGroup.postsCount : newGroup.postsCount
+            return realm.create(Group.self, value: newGroup, update: .modified)
         } else {
-            realm?.add(newGroup)
+            return realm.create(Group.self, value: newGroup)
         }
     }
     
@@ -83,9 +96,9 @@ enum PersistenceManager {
     // MARK: - External methods -
     static func save(_ objects: Object?...) {
         let objects = objects.compactMap { $0 }
-        let realm = try? Realm(configuration: realmConfiguration)
-        try? realm?.write {
-            save(objects, in: realm)
+        guard let realm = realm() else { return }
+        try? realm.write {
+            objects.forEach { save($0, in: realm) }
         }
     }
     
@@ -94,21 +107,19 @@ enum PersistenceManager {
         guard let objects = objects, let list = list else { return }
         let listReference = ThreadSafeReference(to: list)
         realmQueue.async {
-            guard let realm = try? Realm(configuration: realmConfiguration),
-                  let list = realm.resolve(listReference) else { return }
+            guard let realm = realm(), let list = realm.resolve(listReference) else { return }
             try? realm.write {
-                save(objects, in: realm)
                 if list.count != objects.count {
                     list.removeAll()
                 }
                 for object in objects {
-                    let object = realm.create(T.self, value: object, update: .modified)
+                    let object = save(object, in: realm)
                     guard list.index(of: object) == nil else { continue }
                     list.append(object)
                 }
                 DispatchQueue.main.async {
-                    let realm = try? Realm(configuration: realmConfiguration)
-                    realm?.refresh()
+                    guard let realm = self.realm() else { return }
+                    realm.refresh()
                     completion()
                 }
             }
@@ -117,46 +128,38 @@ enum PersistenceManager {
     
     
     static func load<T: Object>(_ type: T.Type, with primaryKey: Int?) -> T? {
-        let realm = try? Realm(configuration: realmConfiguration)
-        return realm?.object(ofType: T.self, forPrimaryKey: primaryKey)
+        realm()?.object(ofType: T.self, forPrimaryKey: primaryKey)
     }
     
     
     static func load<T: ThreadConfined>(with reference: ThreadSafeReference<T>) -> T? {
-        let realm = try? Realm(configuration: realmConfiguration)
-        return realm?.resolve(reference)
+        realm()?.resolve(reference)
     }
     
     
     static func delete<T: Object & Identifiable>(_ objects: T...) {
-        DispatchQueue.main.async {
-            let realm = try? Realm(configuration: realmConfiguration)
-            try? realm?.write {
-                for object in objects {
-                    if let object = realm?.object(ofType: T.self, forPrimaryKey: object.id) {
-                        realm?.delete(object)
-                    }
-                }
+        guard let realm = realm() else { return }
+        try? realm.write {
+            for object in objects {
+                guard let object = realm.object(ofType: T.self, forPrimaryKey: object.id) else { continue }
+                realm.delete(object)
             }
         }
     }
     
     
-    static func create<T: Object & Identifiable>(_ object: T) -> T {
-        let realm = try! Realm(configuration: realmConfiguration)
-        if let storedObject = realm.object(ofType: T.self, forPrimaryKey: object.id) {
-            return storedObject
-        } else {
-            return try! realm.write {
+    static func create<T: Object & Identifiable>(_ object: T) -> T? {
+        guard let realm = realm() else { return nil }
+        return realm.object(ofType: T.self, forPrimaryKey: object.id) ?? {
+            return try? realm.write {
                 return realm.create(T.self, value: object)
             }
-        }
+        }()
     }
     
     
     static func write(block: () -> Void) {
-        let realm = try? Realm(configuration: realmConfiguration)
-        try? realm?.write {
+        try? realm()?.write {
             block()
         }
     }

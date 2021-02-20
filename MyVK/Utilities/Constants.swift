@@ -22,6 +22,16 @@ enum JSON {
 }
 
 
+enum Notifications: String {
+    
+    case friendsVCviewWillDisappear
+    case postsVCviewWillDisappear
+    
+    var name: Notification.Name { Notification.Name(rawValue) }
+    var notification: Notification { Notification(name: name) }
+}
+
+
 enum Screen {
     static let bounds = UIScreen.main.bounds
     static let width  = bounds.width

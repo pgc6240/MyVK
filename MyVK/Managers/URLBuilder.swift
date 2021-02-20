@@ -29,18 +29,23 @@ enum VKApiMethod: String, URLConvertible {
     case like               = "likes.add"
     case dislike            = "likes.delete"
     case searchUsers        = "users.search"
+    case addFriend          = "friends.add"
     
     var parameters: [String: String?] {
         switch self {
-        case .getUsers:         return ["fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed,counters"]
-        case .getFriends:       return ["fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed"]
+        case .getUsers:         return ["fields": """
+                                                    photo_max,first_name_gen,last_name_gen,home_town,bdate,
+                                                    is_closed,counters,can_send_friend_request,friend_status
+                                        """]
+        case .getFriends:       return Self.getUsers.parameters
         case .getGroups:        return ["extended": "1", "fields": "city,counters,members_count"]
         case .getGroupsById:    return ["extended": "1", "fields": "city,counters,members_count"]
         case .getPhotos:        return ["album_id": "profile"]
         case .getNewsfeed:      return ["filters": "post,photo,wall_photo",
                                         "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed,city"]
-        case .getPosts:         return ["count": "100"]
-        case .searchUsers:      return ["fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed,counters"]
+        case .getPosts:         return ["count": "50"]
+        case .searchUsers:      return Self.getUsers.parameters  + ["count": "100"]
+        case .searchGroups:     return Self.getGroups.parameters + ["count": "100"]
         default:                return [:]
         }
     }

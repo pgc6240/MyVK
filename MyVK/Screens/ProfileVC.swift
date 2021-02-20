@@ -130,4 +130,7 @@ extension ProfileVC: PostCellDelegate {
         selectedPost = post
         performSegue(withIdentifier: SegueIdentifier.fromPostToPhotos.rawValue, sender: nil)
     }
+    
+    
+    @objc func deletePost(postId: Int) {}
 }

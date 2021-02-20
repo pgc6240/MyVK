@@ -16,7 +16,7 @@ final class FriendCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        NotificationCenter.default.addObserver(self, selector: #selector(prepareForReuse), name: NSNotification.Name("FriendsVC.viewDidDisappear"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(prepareForReuse), name: Notifications.friendsVCviewWillDisappear.name, object: nil)
     }
     
     

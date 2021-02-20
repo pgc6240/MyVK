@@ -14,8 +14,8 @@ final class PostsVC: UITableViewController {
     var owner: CanPost = User.current
     lazy var posts     = owner.posts
     
-    private var _isLoading = true
     private var getPostsTask: AnyCancellable?
+    private var _isLoading = true
     
     // MARK: - Subviews
     private lazy var profileHeaderView = tableView.tableHeaderView as? ProfileHeaderView
@@ -35,15 +35,16 @@ final class PostsVC: UITableViewController {
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
         getPostsTask?.cancel()
+        super.viewWillDisappear(animated)
+        guard !(navigationController?.visibleViewController is NewsVC) else { return }
+        NotificationCenter.default.post(Notifications.postsVCviewWillDisappear.notification)
     }
     
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        NotificationCenter.default.post(Notification(name: Notification.Name("PostsVC.viewDidDisappear")))
-        posts = List<Post>()
+        cleanUp()
     }
     
     
@@ -52,6 +53,9 @@ final class PostsVC: UITableViewController {
         self.owner = owner
         self.posts = owner.posts
         tableView.tableHeaderView = profileHeaderView
+        if owner.postsCount > -1 {
+            profileHeaderView.set(with: owner)
+        }
         getPosts()
     }
     
@@ -75,9 +79,17 @@ final class PostsVC: UITableViewController {
     }
     
     
+    private func cleanUp() {
+        posts = List<Post>()
+        tableView.reloadData()
+    }
+    
+    
     private func reloadPosts() {
-        posts = owner.posts
-        tableView.reloadSections([0], with: .fade)
+        if posts.isEmpty && !_isLoading {
+            posts = owner.posts
+            tableView.reloadSections([0], with: .fade)
+        }
     }
 }
 

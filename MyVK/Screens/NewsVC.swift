@@ -89,10 +89,10 @@ final class NewsVC: UITableViewController {
         switch segueIdentifier {
         case .fromPostToPhotos: (segue.destination as? PhotosVC)?.post = PersistenceManager.create(selectedPost)
         case .fromPostToProfile:
-            if let userOwner = selectedPost.userOwner {
-                (segue.destination as? ProfileVC)?.owner = PersistenceManager.create(userOwner)
-            } else if let groupOwner = selectedPost.groupOwner {
-                (segue.destination as? ProfileVC)?.owner = PersistenceManager.create(groupOwner)
+            if let userOwner = selectedPost.userOwner, let owner = PersistenceManager.create(userOwner) {
+                (segue.destination as? ProfileVC)?.owner = owner
+            } else if let groupOwner = selectedPost.groupOwner, let owner = PersistenceManager.create(groupOwner) {
+                (segue.destination as? ProfileVC)?.owner = owner
             }
         }
     }

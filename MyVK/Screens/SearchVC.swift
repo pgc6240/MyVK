@@ -11,6 +11,7 @@ final class SearchVC: UITableViewController {
 
     enum SearchType { case user, group }
     
+    
     var searchFor: SearchType    = .user
     var searchResults: [CanPost] = [] { didSet { updateUI() }}
     
@@ -18,6 +19,7 @@ final class SearchVC: UITableViewController {
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.setEditing(true, animated: false)
         configureSearchController()
     }
     
@@ -66,10 +68,12 @@ final class SearchVC: UITableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let indexPath = tableView.indexPathForSelectedRow, let profileVC = segue.destination as? ProfileVC else { return }
-        if let user = searchResults[indexPath.row] as? User {
-            profileVC.owner = PersistenceManager.create(user)
-        } else if let group = searchResults[indexPath.row] as? Group {
-            profileVC.owner = PersistenceManager.create(group)
+        if let user  = searchResults[indexPath.row] as? User,
+           let owner = PersistenceManager.create(user) {
+            profileVC.owner = owner
+        } else if let group = searchResults[indexPath.row] as? Group,
+                  let owner = PersistenceManager.create(group) {
+            profileVC.owner = owner
         }
     }
 }
@@ -107,6 +111,74 @@ extension SearchVC {
             return "Результаты поиска".localized
         }
     }
+    
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        switch searchFor {
+        case .user:
+            guard let user = searchResults[indexPath.row] as? User else { return false }
+            return user.canSendFriendRequest || user.isFriend
+        case .group:
+            guard let group = searchResults[indexPath.row] as? Group else { return false }
+            return group.isOpen || group.isMember
+        }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        switch searchFor {
+        case .user:
+            guard let user = searchResults[indexPath.row] as? User else { return .none }
+            if user.isFriend {
+                return .delete
+            } else if user.canSendFriendRequest {
+                return .insert
+            }
+        case .group:
+            guard let group = searchResults[indexPath.row] as? Group else { return .none }
+            if group.isMember {
+                return .delete
+            } else if group.isOpen {
+                return .insert
+            }
+        }
+        return .none
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch searchFor {
+        case .user:
+            guard let user = searchResults[indexPath.row] as? User, let friendsVC = prevVC as? FriendsVC else { return }
+            if editingStyle == .insert {
+                friendsVC.addFriend(with: user.id) { [weak self] in
+                    user.isFriend = true
+                    self?.updateUI()
+                }
+            }
+        case .group:
+            guard let group = searchResults[indexPath.row] as? Group, let groupsVC = prevVC as? GroupsVC else { return }
+            if editingStyle == .insert {
+                groupsVC.joinGroup(group) { [weak self] in
+                    group.isMember = true
+                    self?.updateUI()
+                }
+            } else if editingStyle == .delete {
+                groupsVC.leaveGroup(group) { [weak self] in
+                    group.isMember = false
+                    self?.updateUI()
+                }
+            }
+        }
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        switch searchFor {
+        case .user:  return "Удалить из друзей".localized
+        case .group: return "Выйти из сообщества".localized
+        }
+    }
 }
 
 
@@ -119,14 +191,17 @@ extension SearchVC: UISearchBarDelegate {
         let searchController                                  = UISearchController()
         searchController.searchBar.delegate                   = self
         searchController.searchBar.autocorrectionType         = .no
-        searchController.searchBar.autocapitalizationType     = .sentences
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController                       = searchController
         navigationItem.hidesSearchBarWhenScrolling            = false
         
         switch searchFor {
-        case .user:    searchController.searchBar.placeholder = "Найти пользователя".localized
-        case .group:   searchController.searchBar.placeholder = "Найти сообщество".localized
+        case .user:
+            searchController.searchBar.placeholder            = "Найти пользователя".localized
+            searchController.searchBar.autocapitalizationType = .words
+        case .group:
+            searchController.searchBar.placeholder            = "Найти сообщество".localized
+            searchController.searchBar.autocapitalizationType = .sentences
         }
     }
     

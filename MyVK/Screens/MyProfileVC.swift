@@ -23,7 +23,7 @@ final class MyProfileVC: ProfileVC {
     }
     
     
-    func deletePost(postId: Int) {
+    override func deletePost(postId: Int) {
         let alertTitle   = "Вы точно хотите удалить запись?"
         let alertMessage = "Это действие будет невозможно отменить."
         let cancel       = UIAlertAction(title: "Нет".localized, style: .default)

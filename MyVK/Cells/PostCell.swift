@@ -38,7 +38,7 @@ final class PostCell: UITableViewCell {
     // MARK: - Initialization -
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        NotificationCenter.default.addObserver(self, selector: #selector(removeImages), name: Notification.Name("PostsVC.viewDidDisappear"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(removeImages), name: Notifications.postsVCviewWillDisappear.name, object: nil)
     }
     
     

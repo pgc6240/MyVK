@@ -15,21 +15,32 @@ enum SessionManager {
     
     
     static func login(token: String?, userId: String?) {
-        guard token != nil, userId != nil else {
+        guard let token = token, let userId = Int(userId), let user = PersistenceManager.create(User(id: userId)) else {
             logout()
             return
         }
-        self.token  = token
-        self.userId = Int(userId)
+        
+        self.token   = token
+        self.userId  = userId
+        
+        User.current = user
+        
+        NetworkManager.shared.getUsers(userIds: [userId]) { users in
+            guard let user = users.first else { return }
+            PersistenceManager.save(user)
+        }
+        
+        UIApplication.shared.windows.first?.rootViewController = UIStoryboard.main.instantiateInitialViewController()
     }
     
     
     static func logout() {
-        loggingOut  = true
-        token       = nil
-        userId      = nil
+        loggingOut   = true
+        token        = nil
+        userId       = nil
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        UIApplication.shared.windows.first?.rootViewController = storyboard.instantiateInitialViewController()
+        User.current = nil
+        
+        UIApplication.shared.windows.first?.rootViewController = LoginVC()
     }
 }

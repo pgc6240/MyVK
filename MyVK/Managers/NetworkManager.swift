@@ -167,7 +167,12 @@ final class NetworkManager {
     
     
     func searchUsers(_ q: String, users: @escaping ([User]) -> Void) {
-        makeRequest(.searchUsers, parameters: ["q": q], responseItem: User.self) { users($0) }
+        makeRequest(.searchUsers, parameters: ["q": q], responseItem: User.self, completion: users)
+    }
+    
+    
+    func addFriend(with userId: Int, isSuccessful: @escaping (Bool) -> Void) {
+        makeRequest(.addFriend, parameters: ["user_id": userId], isSuccessful: isSuccessful)
     }
 }
 

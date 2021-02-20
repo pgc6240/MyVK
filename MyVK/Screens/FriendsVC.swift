@@ -56,7 +56,7 @@ final class FriendsVC: UITableViewController {
         dismissLoadingView()
         super.viewWillDisappear(animated)
         guard navigationController?.visibleViewController is ProfileVC else { return }
-        NotificationCenter.default.post(Notification(name: Notification.Name("FriendsVC.viewDidDisappear")))
+        NotificationCenter.default.post(Notifications.friendsVCviewWillDisappear.notification)
     }
     
     
@@ -100,6 +100,20 @@ final class FriendsVC: UITableViewController {
         NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
             PersistenceManager.save(friends, in: self?.user.friends) {
                 self?.updateUI()
+            }
+        }
+    }
+    
+    
+    func addFriend(with userId: Int, onSuccess: @escaping () -> Void = {}) {
+        showLoadingView()
+        NetworkManager.shared.addFriend(with: userId) { [weak self] isSuccessful in
+            self?.dismissLoadingView()
+            if isSuccessful {
+                self?.presentAlert(title: "Заявка на добавление в друзья отправлена.".localized)
+                onSuccess()
+            } else {
+                self?.presentFailureAlert()
             }
         }
     }
