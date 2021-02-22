@@ -32,8 +32,8 @@ final class User: Object, CanPost, Identifiable {
     let posts = List<Post>()
     
     
-    // MARK: - Realm Object's methods -
     override class func primaryKey() -> String? { "id" }
+    override class func indexedProperties() -> [String] { ["lastNameFirstLetter", "firstName", "lastName"] }
 }
 
 

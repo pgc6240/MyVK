@@ -21,13 +21,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    
-    func application(_ application: UIApplication, shouldSaveSecureApplicationState coder: NSCoder) -> Bool {
-        coder.encode(PersistenceManager.appVersion, forKey: PersistenceManager.Keys.appVersion)
-        return true
-    }
-    
-    func application(_ application: UIApplication, shouldRestoreSecureApplicationState coder: NSCoder) -> Bool {
-        return coder.decodeObject(forKey: PersistenceManager.Keys.appVersion) as? String == PersistenceManager.appVersion
-    }
 }

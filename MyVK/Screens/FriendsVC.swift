@@ -39,7 +39,12 @@ final class FriendsVC: UITableViewController {
         if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty, !friends.isEmpty {
             showLoadingView()
         } else {
-            getFriends()
+            if tableView.visibleCells.isEmpty {
+                getFriends()
+            } else {
+                guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
+                tableView.reloadRows(at: indexPaths, with: .automatic)
+            }
         }
     }
     
@@ -94,9 +99,7 @@ final class FriendsVC: UITableViewController {
     
     // MARK: - External methods -
     func getFriends() {
-        if tableView.visibleCells.count < 1 {
-            showLoadingView()
-        }
+        showLoadingView()
         NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
             PersistenceManager.save(friends, in: self?.user.friends) {
                 self?.updateUI()

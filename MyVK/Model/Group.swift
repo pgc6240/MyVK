@@ -24,6 +24,7 @@ final class Group: Object, CanPost, Identifiable {
     
 
     override class func primaryKey() -> String? { "id" }
+    override class func indexedProperties() -> [String] { ["name"] }
 }
 
 

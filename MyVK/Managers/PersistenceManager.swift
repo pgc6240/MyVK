@@ -43,7 +43,7 @@ enum PersistenceManager {
         return configuration
     }()
     
-    private static let realmQueue = DispatchQueue(label: "com.pgc6240.MyVK.realmQueue")
+    private static let realmQueue = DispatchQueue(label: "com.pgc6240.MyVK.realmQueue", attributes: .concurrent)
     
     private static var notificationTokens = Set<NotificationToken?>()
     
@@ -95,8 +95,8 @@ enum PersistenceManager {
     
     // MARK: - External methods -
     static func save(_ objects: Object?...) {
-        let objects = objects.compactMap { $0 }
         guard let realm = realm() else { return }
+        let objects = objects.compactMap { $0 }
         try? realm.write {
             objects.forEach { save($0, in: realm) }
         }
@@ -106,10 +106,10 @@ enum PersistenceManager {
     static func save<T: Object>(_ objects: [T]?, in list: List<T>?, completion: @escaping () -> Void = {}) {
         guard let objects = objects, let list = list else { return }
         let listReference = ThreadSafeReference(to: list)
-        realmQueue.async {
+        let workItem = DispatchWorkItem(qos: .userInteractive, flags: .barrier) {
             guard let realm = realm(), let list = realm.resolve(listReference) else { return }
             try? realm.write {
-                if list.count != objects.count {
+                if objects.count != list.count {
                     list.removeAll()
                 }
                 for object in objects {
@@ -117,49 +117,52 @@ enum PersistenceManager {
                     guard list.index(of: object) == nil else { continue }
                     list.append(object)
                 }
-                DispatchQueue.main.async {
-                    guard let realm = self.realm() else { return }
-                    realm.refresh()
-                    completion()
-                }
             }
+        }
+        realmQueue.async(execute: workItem)
+        workItem.notify(queue: .main) {
+            guard let realm = realm() else { return }
+            realm.refresh()
+            completion()
         }
     }
     
     
     static func load<T: Object>(_ type: T.Type, with primaryKey: Int?) -> T? {
-        realm()?.object(ofType: T.self, forPrimaryKey: primaryKey)
+        guard let realm = realm() else { return nil }
+        return realm.object(ofType: T.self, forPrimaryKey: primaryKey)
     }
     
     
     static func load<T: ThreadConfined>(with reference: ThreadSafeReference<T>) -> T? {
-        realm()?.resolve(reference)
+        guard let realm = realm() else { return nil }
+        return realm.resolve(reference)
     }
     
     
-    static func delete<T: Object & Identifiable>(_ objects: T...) {
-        guard let realm = realm() else { return }
+    static func delete<T: Object & Identifiable>(_ object: T) {
+        guard let realm = realm(), let object = realm.object(ofType: T.self, forPrimaryKey: object.id) else { return }
         try? realm.write {
-            for object in objects {
-                guard let object = realm.object(ofType: T.self, forPrimaryKey: object.id) else { continue }
-                realm.delete(object)
-            }
+            realm.delete(object)
         }
     }
     
     
     static func create<T: Object & Identifiable>(_ object: T) -> T? {
-        guard let realm = realm() else { return nil }
-        return realm.object(ofType: T.self, forPrimaryKey: object.id) ?? {
-            return try? realm.write {
-                return realm.create(T.self, value: object)
-            }
-        }()
+        realmQueue.sync {
+            guard let realm = realm() else { return nil }
+            return realm.object(ofType: T.self, forPrimaryKey: object.id) ?? {
+                return try? realm.write {
+                    return realm.create(T.self, value: object)
+                }
+            }()
+        }
     }
     
     
     static func write(block: () -> Void) {
-        try? realm()?.write {
+        guard let realm = realm() else { return }
+        try? realm.write {
             block()
         }
     }

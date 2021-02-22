@@ -21,10 +21,6 @@ final class RootTabBarController: UITabBarController {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        guard let _ = User.current else {
-            SessionManager.logout()
-            return
-        }
         selectedIndex = PersistenceManager.selectedTab
         startObservingNetworkStatus()
     }

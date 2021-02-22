@@ -57,9 +57,10 @@ final class GroupsVC: UITableViewController {
     func loadGroups() {
         if groups.isEmpty {
             showLoadingView()
-            updateUI()
+            tableView.reloadSections([0], with: .automatic)
         }
         NetworkManager.shared.getGroups(userId: user.id) { [weak self] groups in
+            self?.dismissLoadingView()
             PersistenceManager.save(groups, in: self?.user.groups)
         }
     }
