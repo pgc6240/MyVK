@@ -38,14 +38,10 @@ final class ShadowedImageView: UIView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(springInImage)))
-    }
-    
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
+        
         backgroundColor = .clear
         
+        layer.masksToBounds = false
         layer.shadowColor   = shadowColor?.cgColor
         layer.shadowRadius  = shadowRadius
         layer.shadowOffset  = CGSize(width: shadowOffset, height: shadowOffset)
@@ -54,6 +50,8 @@ final class ShadowedImageView: UIView {
         layer.addSublayer(imageLayer)
         imageLayer.frame         = bounds
         imageLayer.masksToBounds = true
+        
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(springInImage)))
     }
     
     

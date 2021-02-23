@@ -9,7 +9,7 @@ import UIKit
 
 final class CanPostCell: UITableViewCell {
     
-    @IBOutlet weak var avatarImageView: MyImageView!
+    @IBOutlet weak var avatarImageView: PlaceholderImageView!
     @IBOutlet weak var nameLabel: PlaceholderLabel!
     @IBOutlet weak var secondaryLabel: SecondaryPlaceholderLabel!
     

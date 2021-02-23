@@ -82,12 +82,12 @@ class ProfileVC: UIViewController {
 
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if numberOfRowsInSection.isEmpty {
-            preparationQueue.cancelAllOperations()
-        }
         guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
         switch segueIdentifier {
-        case .toFriends: (segue.destination as? FriendsVC)?.user = owner as? User
+        case .toFriends:
+            (segue.destination as? FriendsVC)?.user = owner as? User
+            preparationQueue.cancelAllOperations()
+            postsVC.cleanUp()
         case .toGroups: (segue.destination as? GroupsVC)?.user = owner as? User
         case .toPhotos: (segue.destination as? PhotosVC)?.owner = owner
         case .fromPostToPhotos: (segue.destination as? PhotosVC)?.post = PersistenceManager.create(selectedPost)

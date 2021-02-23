@@ -9,7 +9,7 @@ import UIKit
 
 final class FriendCell: UITableViewCell {
     
-    @IBOutlet weak var avatarImageView: MyImageView!
+    @IBOutlet weak var avatarImageView: PlaceholderImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var secondaryLabel: UILabel!
     

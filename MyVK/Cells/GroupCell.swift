@@ -9,7 +9,7 @@ import UIKit
 
 final class GroupCell: UITableViewCell {
     
-    @IBOutlet weak var avatarImageView: MyImageView!
+    @IBOutlet weak var avatarImageView: PlaceholderImageView!
     @IBOutlet weak var groupNameLabel: UILabel!
     @IBOutlet weak var groupIsPublicLabel: UILabel!
     

@@ -62,8 +62,10 @@ final class NewsVC: UITableViewController {
     
     // MARK: - Internal methods -
     private func updateUI() {
-        guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
-        tableView.reloadRows(at: indexPaths, with: .fade)
+        for cell in tableView.visibleCells {
+            guard let cell = cell as? PostCell else { continue }
+            cell.reloadImages()
+        }
     }
     
     

@@ -25,12 +25,12 @@ final class PostCell: UITableViewCell {
     
     // MARK: - Subviews -
     @IBOutlet weak var profileStackView: UIStackView!
-    @IBOutlet weak var avatarImageView: MyImageView!
+    @IBOutlet weak var avatarImageView: PlaceholderImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var deletePostButton: UIButton!
     @IBOutlet weak var postTextView: PostTextView!
-    @IBOutlet weak var photoImageView: MyImageView!
+    @IBOutlet weak var photoImageView: PlaceholderImageView!
     @IBOutlet weak var likeButton: LikeButton!
     @IBOutlet weak var viewCountLabel: UIButton!
 
@@ -96,13 +96,12 @@ final class PostCell: UITableViewCell {
     }
     
     
-    // MARK: - Actions and segues -
+    // MARK: - PostCellDelegate -
     @IBAction func deletePost() {
         delegate?.deletePost(postId: post.id)
     }
     
     
-    // MARK: - Gesture recognizers -
     @objc func photoTapped() {
         delegate?.photoTapped(on: post)
     }

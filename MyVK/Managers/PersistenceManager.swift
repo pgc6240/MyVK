@@ -153,7 +153,7 @@ enum PersistenceManager {
             guard let realm = realm() else { return nil }
             return realm.object(ofType: T.self, forPrimaryKey: object.id) ?? {
                 return try? realm.write {
-                    return realm.create(T.self, value: object)
+                    return realm.create(T.self, value: object, update: .modified)
                 }
             }()
         }

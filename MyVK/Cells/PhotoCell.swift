@@ -9,7 +9,7 @@ import UIKit
 
 final class PhotoCell: UICollectionViewCell, UIScrollViewDelegate {
     
-    @IBOutlet weak var photoImageView: MyImageView!
+    @IBOutlet weak var photoImageView: ClearImageView!
     
     
     func set(with photo: Photo) {

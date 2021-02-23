@@ -42,12 +42,6 @@ final class PostsVC: UITableViewController {
     }
     
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        cleanUp()
-    }
-    
-    
     // MARK: - External methods -
     func set(with owner: CanPost, and profileHeaderView: ProfileHeaderView) {
         self.owner = owner
@@ -71,6 +65,12 @@ final class PostsVC: UITableViewController {
     }
     
     
+    func cleanUp() {
+        posts = List<Post>()
+        tableView.reloadData()
+    }
+    
+    
     // MARK: - Internal methods -
     private func updateUI() {
         _isLoading = false
@@ -79,16 +79,13 @@ final class PostsVC: UITableViewController {
     }
     
     
-    private func cleanUp() {
-        posts = List<Post>()
-        tableView.reloadData()
-    }
-    
-    
     private func reloadPosts() {
         if posts.isEmpty && !_isLoading {
             posts = owner.posts
             tableView.reloadSections([0], with: .fade)
+        } else {
+            guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
+            tableView.reloadRows(at: indexPaths, with: .fade)
         }
     }
 }

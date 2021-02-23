@@ -43,7 +43,7 @@ final class FriendsVC: UITableViewController {
                 getFriends()
             } else {
                 guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
-                tableView.reloadRows(at: indexPaths, with: .automatic)
+                tableView.reloadRows(at: indexPaths, with: .none)
             }
         }
     }

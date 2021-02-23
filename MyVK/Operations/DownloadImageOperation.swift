@@ -17,12 +17,12 @@ final class DownloadImageOperation: AsyncOperation {
     
     
     init?(_ downloadURLString: String?) {
-        guard let url = URL(string: downloadURLString),
+        guard let downloadURL     = URL(string: downloadURLString),
               let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             return nil
         }
-        self.downloadURL = url
-        self.dstURL      = cachesDirectory.appendingPathComponent(url.lastPathComponent)
+        self.downloadURL = downloadURL
+        self.dstURL      = cachesDirectory.appendingPathComponent(downloadURL.lastPathComponent)
         super.init()
     }
     
@@ -34,16 +34,17 @@ final class DownloadImageOperation: AsyncOperation {
             return
         }
         
-        downloadTask = URLSession.shared.downloadTask(with: downloadURL) { [weak self] location, _, _ in
+        downloadTask = URLSession.shared.downloadTask(with: downloadURL) { [weak self, dstURL] location, _, _ in
             guard let self = self, let srcURL = location else { return }
             defer { self.state = .finished }
-            if FileManager.default.fileExists(atPath: self.dstURL.path) {
-                try? FileManager.default.removeItem(at: self.dstURL)
+            if FileManager.default.fileExists(atPath: dstURL.path) {
+                try? FileManager.default.removeItem(at: dstURL)
             }
-            try? FileManager.default.moveItem(at: srcURL, to: self.dstURL)
+            try? FileManager.default.moveItem(at: srcURL, to: dstURL)
             guard !self.isCancelled else { return }
-            self.downloadedImage = UIImage(contentsOfFile: self.dstURL.path)
+            self.downloadedImage = UIImage(contentsOfFile: dstURL.path)
         }
+        
         downloadTask?.resume()
     }
     
