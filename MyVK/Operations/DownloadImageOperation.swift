@@ -21,8 +21,9 @@ final class DownloadImageOperation: AsyncOperation {
               let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             return nil
         }
-        self.downloadURL = downloadURL
-        self.dstURL      = cachesDirectory.appendingPathComponent(downloadURL.lastPathComponent)
+        let imagesDirectory = Self.createImagesDirectoryIfNoneExists(in: cachesDirectory)
+        self.downloadURL    = downloadURL
+        self.dstURL         = (imagesDirectory ?? cachesDirectory).appendingPathComponent(downloadURL.lastPathComponent)
         super.init()
     }
     
@@ -52,5 +53,18 @@ final class DownloadImageOperation: AsyncOperation {
     override func cancel() {
         downloadTask?.cancel()
         super.cancel()
+    }
+    
+    
+    // MARK: - Utility methods -
+    private static func createImagesDirectoryIfNoneExists(in directory: URL) -> URL? {
+        let imagesDirectory = directory.appendingPathComponent("images", isDirectory: true)
+        guard !FileManager.default.fileExists(atPath: imagesDirectory.path) else { return imagesDirectory }
+        do {
+            try FileManager.default.createDirectory(at: imagesDirectory, withIntermediateDirectories: false, attributes: nil)
+            return imagesDirectory
+        } catch {
+            return nil
+        }
     }
 }
