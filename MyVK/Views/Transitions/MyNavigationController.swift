@@ -1,5 +1,5 @@
 //
-//  _NavigationController.swift
+//  MyNavigationController.swift
 //  MyVK
 //
 //  Created by pgc6240 on 22.11.2020.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class _NavigationController: UINavigationController, UINavigationControllerDelegate {
+final class MyNavigationController: UINavigationController, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,9 +20,9 @@ final class _NavigationController: UINavigationController, UINavigationControlle
         
         switch operation {
         case .push:
-            return toVC is PhotosVC ? _PushAnimator() : nil
+            return toVC is PhotosVC ? MyPushAnimator() : nil
         case .pop:
-            return fromVC is PhotosVC ? _PopAnimator() : nil
+            return fromVC is PhotosVC ? MyPopAnimator() : nil
         default:
             return nil
         }

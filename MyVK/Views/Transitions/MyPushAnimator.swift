@@ -1,5 +1,5 @@
 //
-//  _PushAnimator.swift
+//  MyPushAnimator.swift
 //  MyVK
 //
 //  Created by pgc6240 on 22.11.2020.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class _PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
+final class MyPushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         1.5

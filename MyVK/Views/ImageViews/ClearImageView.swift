@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class ClearImageView: SelfDownloadableImageView {
+final class ClearImageView: UIImageView, URLDownloadableImage {
     
-    
+    var downloadURLString: String?
+    weak var downloadImageOperation: DownloadImageOperation?
 }

@@ -7,7 +7,11 @@
 
 import UIKit
 
-final class ShadowedImageView: UIView {
+final class ShadowedImageView: UIView, URLDownloadableImage {
+    
+    var downloadURLString: String?
+    weak var downloadImageOperation: DownloadImageOperation?
+    
     
     var imageLayer = CALayer()
 

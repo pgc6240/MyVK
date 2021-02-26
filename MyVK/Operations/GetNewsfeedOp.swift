@@ -32,8 +32,10 @@ final class GetNewsfeedOperation: AsyncOperation {
         let method: VKApiMethod    = .getNewsfeed
         let parameters: Parameters = startFrom == nil ? [:] : ["start_from": startFrom!]
         
-        request = AF.request(method, parameters: parameters).responseDecodable(of: Newsfeed.self, decoder: JSON.decoder) {
-            [weak self] in
+        request = AF.request(method, parameters: parameters).responseDecodable(of: Newsfeed.self,
+                                                                               queue: .global(qos: .userInitiated),
+                                                                               decoder: JSON.decoder)
+        { [weak self] in
             guard let self = self, !self.isCancelled else { return }
             defer { self.state = .finished }
             

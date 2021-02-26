@@ -7,7 +7,11 @@
 
 import UIKit
 
-final class PlaceholderImageView: SelfDownloadableImageView {
+final class PlaceholderImageView: UIImageView, URLDownloadableImage {
+    
+    var downloadURLString: String?
+    weak var downloadImageOperation: DownloadImageOperation?
+    
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

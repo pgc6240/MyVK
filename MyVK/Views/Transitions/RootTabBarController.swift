@@ -11,23 +11,29 @@ import Alamofire
 final class RootTabBarController: UITabBarController {
     
     // MARK: - Selected tab persistence -
+    @UserDefault(key: "selectedTab", defaultValue: 0)
+    var selectedTab
+    
+    
     override var selectedViewController: UIViewController? {
         willSet {
-            guard let selectedVC = newValue else { return }
-            guard let selectedVCIndex = viewControllers?.firstIndex(of: selectedVC) else { return }
-            PersistenceManager.selectedTab = selectedVCIndex
+            guard let selectedVC = newValue,
+                  let selectedVCIndex = viewControllers?.firstIndex(of: selectedVC) else { return }
+            selectedTab = selectedVCIndex
         }
     }
     
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        selectedIndex = PersistenceManager.selectedTab
+        selectedIndex = selectedTab
         startObservingNetworkStatus()
     }
     
     
     // MARK: - Network reachability status -
     let networkReachabilityManager = NetworkReachabilityManager(host: "yandex.ru")
+    
     
     func startObservingNetworkStatus() {
         networkReachabilityManager?.startListening { [weak self] status in

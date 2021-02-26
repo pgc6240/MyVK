@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol AlphabetPickerDelegate: class {
-    func letterTapped(_ alphabetPicker: AlphabetPicker, letter: String)
-}
-
 final class AlphabetPicker: UIControl {
     
     weak var delegate: AlphabetPickerDelegate?

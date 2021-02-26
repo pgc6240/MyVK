@@ -7,17 +7,6 @@
 
 import UIKit
 
-protocol PostCellDelegate: class {
-    func deletePost(postId: Int)
-    func profileTapped(on post: Post)
-    func photoTapped(on post: Post)
-}
-
-extension PostCellDelegate {
-    func deletePost(postId: Int) {}
-    func profileTapped(on post: Post) {}
-}
-
 final class PostCell: UITableViewCell {
     
     var post: Post!

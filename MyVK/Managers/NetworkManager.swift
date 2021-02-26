@@ -14,16 +14,28 @@ final class NetworkManager {
     // MARK: - Singleton -
     static let shared = NetworkManager()
     
-    private init() {}
+    private init() {
+        self.session = Session(rootQueue: queue)
+    }
+    
+    
+    // MARK: - Session -
+    private let session: Session
+    private let queue = DispatchQueue(label: "com.pgc6240.MyVK.alamofire")
     
     
     // MARK: - Internal methods -
+    private func request(_ vkApiMethod: VKApiMethod, parameters: Parameters?) -> DataRequest {
+        session.request(vkApiMethod, parameters: parameters).validate()
+    }
+    
+    
     private func makeRequest<I: Decodable>(_ vkApiMethod: VKApiMethod,
                                            parameters: Parameters?,
                                            responseItem: I.Type,
                                            completion: @escaping ([I]) -> Void)
     {
-        AF.request(vkApiMethod, parameters: parameters).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
+        request(vkApiMethod, parameters: parameters).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             [weak self] in
             switch $0.result {
             case .success(let response):
@@ -39,7 +51,7 @@ final class NetworkManager {
                              parameters: Parameters?,
                              isSuccessful: @escaping (Bool) -> Void)
     {
-        AF.request(vkApiMethod, parameters: parameters).responseJSON {
+        request(vkApiMethod, parameters: parameters).responseJSON {
             /* Sample response JSON: { "response": 1 } */
             isSuccessful(($0.value as? [String: Int])?["response"] == 1)
         }
@@ -51,7 +63,7 @@ final class NetworkManager {
                              expecting: String,
                              number: @escaping (Int?) -> Void)
     {
-        AF.request(vkApiMethod, parameters: parameters).responseJSON {
+        request(vkApiMethod, parameters: parameters).responseJSON {
             /* Sample response JSON: { "response": { "likes": 12 } } */
             number((($0.value as? [String: Any])?["response"] as? [String: Any])?[expecting] as? Int)
         }
@@ -62,7 +74,7 @@ final class NetworkManager {
                              parameters: Parameters?,
                              responseItem: I.Type) -> AnyPublisher<Response<I>?, Never>
     {
-        AF.request(vkApiMethod, parameters: parameters).publishDecodable(type: Response<I>.self, decoder: JSON.decoder)
+        request(vkApiMethod, parameters: parameters).publishDecodable(type: Response<I>.self, decoder: JSON.decoder)
             .map { [weak self] in
                 if let error = $0.error {
                     self?.handleError(error, data: $0.data, url: $0.request?.url)
@@ -77,7 +89,7 @@ final class NetworkManager {
                              parameters: Parameters?,
                              expecting: String) -> AnyPublisher<Int?, Never>
     {
-        AF.request(vkApiMethod, parameters: parameters).publishResponse(using: JSONResponseSerializer())
+        request(vkApiMethod, parameters: parameters).publishResponse(using: JSONResponseSerializer())
             .map { (($0.value as? [String: Any])?["response"] as? [String: Any])?[expecting] as? Int }
             .eraseToAnyPublisher()
     }

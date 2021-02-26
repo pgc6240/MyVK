@@ -5,13 +5,13 @@
 //  Created by pgc6240 on 19.12.2020.
 //
 
-import UIKit
 import WebKit
 import Alamofire
 
 final class LoginVC: UIViewController {
     
     private var webView: WKWebView!
+    private var appId = C.APP_IDS.first
     private let networkReachabilityManager = NetworkReachabilityManager(host: "yandex.ru")
     
     
@@ -47,7 +47,7 @@ final class LoginVC: UIViewController {
     private func loadAuthPage() {
         var urlComponents = URLComponents(string: "https://oauth.vk.com/authorize")
         let parameters    = [
-            "client_id"     : PersistenceManager.appId,
+            "client_id"     : appId,
             "redirect_uri"  : "https://oauth.vk.com/blank.html",
             "display"       : "mobile",
             "scope"         : "wall,friends,photos,groups,likes",
@@ -99,7 +99,7 @@ extension LoginVC: WKNavigationDelegate {
             
         } else if url.path == "/error", let newAppId = C.APP_IDS.randomElement() {
 
-            PersistenceManager.appId = newAppId
+            appId = newAppId
             loadAuthPage()
         }
     }

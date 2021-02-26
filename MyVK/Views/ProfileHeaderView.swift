@@ -9,7 +9,7 @@ import UIKit
 
 final class ProfileHeaderView: UIView {
     
-    @IBOutlet weak var avatarImageView: PlaceholderImageView!
+    @IBOutlet weak var avatarImageView: ShadowedImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var secondaryLabel: UILabel!
     @IBOutlet weak var tertiaryLabel: UILabel!

@@ -1,5 +1,5 @@
 //
-//  Swift+Ext.swift
+//  Foundation+Ext.swift
 //  MyVK
 //
 //  Created by pgc6240 on 03.11.2020.
