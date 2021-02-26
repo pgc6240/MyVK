@@ -32,7 +32,6 @@ extension URLDownloadableImage {
     
     func prepareForReuse() {
         image = nil
-        downloadURLString = nil
         downloadImageOperation?.cancel()
     }
     

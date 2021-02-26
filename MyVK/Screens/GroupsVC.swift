@@ -33,6 +33,11 @@ final class GroupsVC: UITableViewController {
     }
     
     
+    deinit {
+        PersistenceManager.unpair(tableView)
+    }
+    
+    
     // MARK: - Basic setup -
     private func configureTableViewController() {
         PersistenceManager.pair(groups, with: tableView)
@@ -60,8 +65,9 @@ final class GroupsVC: UITableViewController {
             tableView.reloadSections([0], with: .automatic)
         }
         NetworkManager.shared.getGroups(userId: user.id) { [weak self] groups in
-            self?.dismissLoadingView()
-            PersistenceManager.save(groups, in: self?.user.groups)
+            PersistenceManager.save(groups, in: self?.user.groups) {
+                self?.updateUI()
+            }
         }
     }
     

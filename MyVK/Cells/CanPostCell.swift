@@ -10,27 +10,16 @@ import UIKit
 final class CanPostCell: UITableViewCell {
     
     @IBOutlet weak var avatarImageView: PlaceholderImageView!
-    @IBOutlet weak var nameLabel: PlaceholderLabel!
-    @IBOutlet weak var secondaryLabel: SecondaryPlaceholderLabel!
+    @IBOutlet weak var nameLabel:       PlaceholderLabel!
+    @IBOutlet weak var secondaryLabel:  SecondaryPlaceholderLabel!
     
-    var secondaryTextForUser: (User) -> String? = {
-        $0.canAccessClosed ? ($0.homeTown ?? $0.age) : "Закрытый профиль".localized
-    }
-    
-    var secondaryTextForGroup: (Group) -> String = {
-        ($0.isOpen ? "Открытое" : "Закрытое").localized + " сообщество".localized
-    }
-    
-    
+
     func set(with owner: CanPost) {
         avatarImageView.downloadImage(with: owner.photoUrl)
-        nameLabel.text = owner.name
-        if let user = owner as? User {
-            secondaryLabel.text = secondaryTextForUser(user)
-        } else if let group = owner as? Group {
-            secondaryLabel.text = secondaryTextForGroup(group)
-        }
+        nameLabel.text      = owner.name
+        secondaryLabel.text = owner.secondaryText
     }
+    
     
     override func prepareForReuse() {
         super.prepareForReuse()

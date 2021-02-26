@@ -43,9 +43,8 @@ enum VKApiMethod: String, URLConvertible {
         case .getPhotos:        return ["album_id": "profile"]
         case .getNewsfeed:      return ["filters": "post,photo,wall_photo",
                                         "fields": "photo_max,first_name_gen,last_name_gen,home_town,bdate,is_closed,city"]
-        case .getPosts:         return ["count": "50"]
-        case .searchUsers:      return Self.getUsers.parameters  + ["count": "100"]
-        case .searchGroups:     return Self.getGroups.parameters + ["count": "100"]
+        case .searchUsers:      return Self.getUsers.parameters
+        case .searchGroups:     return Self.getGroups.parameters
         default:                return [:]
         }
     }

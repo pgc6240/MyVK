@@ -10,26 +10,23 @@ import UIKit
 final class FriendCell: UITableViewCell {
     
     @IBOutlet weak var avatarImageView: PlaceholderImageView!
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var secondaryLabel: UILabel!
+    @IBOutlet weak var nameLabel:       PlaceholderLabel!
+    @IBOutlet weak var secondaryLabel:  SecondaryPlaceholderLabel!
     
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        NotificationCenter.default.addObserver(self, selector: #selector(prepareForReuse), name: Notifications.friendsVCviewWillDisappear.name, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(prepareForReuse),
+                                               name: Notifications.friendsVCviewWillDisappear.name,
+                                               object: nil)
     }
     
     
     func set(with friend: User) {
         avatarImageView.downloadImage(with: friend.photoUrl)
-        nameLabel.text = friend.name
-        secondaryLabel.text = {
-            if friend.canAccessClosed {
-                return friend.homeTown ?? friend.age
-            } else {
-                return "Закрытый профиль".localized
-            }
-        }()
+        nameLabel.text      = friend.name
+        secondaryLabel.text = friend.secondaryText
     }
     
     

@@ -22,7 +22,7 @@ class ProfileVC: UIViewController {
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
-        postsVC.set(with: owner, and: profileHeaderView)
+        postsVC.owner = owner
     }
     
     

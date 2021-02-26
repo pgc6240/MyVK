@@ -14,26 +14,41 @@ final class NetworkManager {
     // MARK: - Singleton -
     static let shared = NetworkManager()
     
+    
+    // MARK: - Initialization -
     private init() {
-        self.session = Session(rootQueue: queue)
+        self.retrier = NetworkManagerRetrier()
+        self.session = Session(configuration: configuration, rootQueue: queue, interceptor: retrier)
     }
     
     
-    // MARK: - Session -
+    // MARK: - Internal properties -
     private let session: Session
-    private let queue = DispatchQueue(label: "com.pgc6240.MyVK.alamofire")
+    private let retrier: RequestInterceptor
+    private let queue = DispatchQueue(label: "com.pgc6240.MyVK.alamofire", qos: .userInteractive)
+    private let configuration: URLSessionConfiguration = {
+        let configuration                  = URLSessionConfiguration.default
+        configuration.requestCachePolicy   = .reloadRevalidatingCacheData
+        configuration.waitsForConnectivity = true
+        return configuration
+    }()
+}
+   
+
+//
+// MARK: - Internal methods -
+//
+private extension NetworkManager {
     
-    
-    // MARK: - Internal methods -
-    private func request(_ vkApiMethod: VKApiMethod, parameters: Parameters?) -> DataRequest {
+    func request(_ vkApiMethod: VKApiMethod, parameters: Parameters?) -> DataRequest {
         session.request(vkApiMethod, parameters: parameters).validate()
     }
     
     
-    private func makeRequest<I: Decodable>(_ vkApiMethod: VKApiMethod,
-                                           parameters: Parameters?,
-                                           responseItem: I.Type,
-                                           completion: @escaping ([I]) -> Void)
+    func makeRequest<I: Decodable>(_ vkApiMethod: VKApiMethod,
+                                   parameters: Parameters?,
+                                   responseItem: I.Type,
+                                   completion: @escaping ([I]) -> Void)
     {
         request(vkApiMethod, parameters: parameters).responseDecodable(of: Response<I>.self, decoder: JSON.decoder) {
             [weak self] in
@@ -47,32 +62,32 @@ final class NetworkManager {
     }
     
     
-    private func makeRequest(_ vkApiMethod: VKApiMethod,
-                             parameters: Parameters?,
-                             isSuccessful: @escaping (Bool) -> Void)
+    func makeRequest(_ vkApiMethod: VKApiMethod,
+                     parameters: Parameters?,
+                     isSuccessful: @escaping (Bool) -> Void)
     {
         request(vkApiMethod, parameters: parameters).responseJSON {
-            /* Sample response JSON: { "response": 1 } */
+            // Sample response JSON: { "response": 1 }
             isSuccessful(($0.value as? [String: Int])?["response"] == 1)
         }
     }
     
     
-    private func makeRequest(_ vkApiMethod: VKApiMethod,
-                             parameters: Parameters?,
-                             expecting: String,
-                             number: @escaping (Int?) -> Void)
+    func makeRequest(_ vkApiMethod: VKApiMethod,
+                     parameters: Parameters?,
+                     expecting: String,
+                     number: @escaping (Int?) -> Void)
     {
         request(vkApiMethod, parameters: parameters).responseJSON {
-            /* Sample response JSON: { "response": { "likes": 12 } } */
+            // Sample response JSON: { "response": { "likes": 12 }}
             number((($0.value as? [String: Any])?["response"] as? [String: Any])?[expecting] as? Int)
         }
     }
     
     
-    private func makeRequest<I: Decodable>(_ vkApiMethod: VKApiMethod,
-                             parameters: Parameters?,
-                             responseItem: I.Type) -> AnyPublisher<Response<I>?, Never>
+    func makeRequest<I: Decodable>(_ vkApiMethod: VKApiMethod,
+                                   parameters: Parameters?,
+                                   responseItem: I.Type) -> AnyPublisher<Response<I>?, Never>
     {
         request(vkApiMethod, parameters: parameters).publishDecodable(type: Response<I>.self, decoder: JSON.decoder)
             .map { [weak self] in
@@ -85,9 +100,9 @@ final class NetworkManager {
     }
     
     
-    private func makeRequest(_ vkApiMethod: VKApiMethod,
-                             parameters: Parameters?,
-                             expecting: String) -> AnyPublisher<Int?, Never>
+    func makeRequest(_ vkApiMethod: VKApiMethod,
+                     parameters: Parameters?,
+                     expecting: String) -> AnyPublisher<Int?, Never>
     {
         request(vkApiMethod, parameters: parameters).publishResponse(using: JSONResponseSerializer())
             .map { (($0.value as? [String: Any])?["response"] as? [String: Any])?[expecting] as? Int }
@@ -96,17 +111,21 @@ final class NetworkManager {
     
     
     // MARK: - Error handling -
-    private func handleError(_ error: AFError, data: Data?, url: URL?) {
+    func handleError(_ error: AFError, data: Data?, url: URL?) {
         if let data = data, let responseError = try? JSON.decoder.decode(ResponseError.self, from: data) {
-            print(responseError.code, responseError.message)
-        } else {
-            guard !error.isExplicitlyCancelledError else { return }
-            print(url ?? "", error)
+            debugPrint(responseError.code, responseError.message)
+        } else if !error.isExplicitlyCancelledError {
+            debugPrint(url ?? "", error)
         }
     }
+}
+  
+
+//
+// MARK: - External methods -
+//
+extension NetworkManager {
     
-    
-    // MARK: - External methods -
     func getUsers(userIds: [Int], users: @escaping ([User]) -> Void) {
         let userIds = userIds.map { String($0) }.joined(separator: ",")
         makeRequest(.getUsers, parameters: ["user_ids": userIds], responseItem: User.self) { users($0) }
@@ -195,7 +214,7 @@ final class NetworkManager {
 fileprivate struct Response<I: Decodable>: Decodable {
     
     var items: [I]
-    var count: Int?
+    let count: Int?
     
     private enum CodingKeys: CodingKey {
         case response, items, count
@@ -206,7 +225,7 @@ fileprivate struct Response<I: Decodable>: Decodable {
         do {
             let responseContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .response)
             self.items = try responseContainer.decode([I].self, forKey: .items)
-            self.count = try? responseContainer.decode(Int.self, forKey: .count)
+            self.count = try responseContainer.decode(Int.self, forKey: .count)
         } catch {
             self.items = try container.decode([I].self, forKey: .response)
             self.count = try? container.decode(Int.self, forKey: .count)
@@ -216,7 +235,7 @@ fileprivate struct Response<I: Decodable>: Decodable {
 
 
 //
-// MARK: - ResponseError
+// MARK: - ResponseError -
 //
 fileprivate struct ResponseError: Decodable {
     

@@ -12,13 +12,12 @@ import RealmSwift
 final class PostsVC: UITableViewController {
     
     var owner: CanPost = User.current
-    lazy var posts     = owner.posts
+    var posts          = List<Post>()
     
     private var getPostsTask: AnyCancellable?
     private var _isLoading = true
     
-    // MARK: - Subviews
-    private lazy var profileHeaderView = tableView.tableHeaderView as? ProfileHeaderView
+    private lazy var profileHeaderView = (parent as? ProfileVC)?.profileHeaderView
     
     
     // MARK: - View controller lifecycle -
@@ -30,7 +29,12 @@ final class PostsVC: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reloadPosts()
+        tableView.tableHeaderView = profileHeaderView
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.posts = self.owner.posts
+            self.getPosts()
+        }
     }
     
     
@@ -43,17 +47,6 @@ final class PostsVC: UITableViewController {
     
     
     // MARK: - External methods -
-    func set(with owner: CanPost, and profileHeaderView: ProfileHeaderView) {
-        self.owner = owner
-        self.posts = owner.posts
-        tableView.tableHeaderView = profileHeaderView
-        if owner.postsCount > -1 {
-            profileHeaderView.set(with: owner)
-        }
-        getPosts()
-    }
-    
-    
     func getPosts() {
         let ownerId = owner is User ? owner.id : -owner.id
         getPostsTask = NetworkManager.shared.getPosts(ownerId: ownerId) { [weak self] posts, postsCount in
@@ -76,17 +69,6 @@ final class PostsVC: UITableViewController {
         _isLoading = false
         profileHeaderView?.set(with: owner)
         tableView.reloadSections([0], with: .automatic)
-    }
-    
-    
-    private func reloadPosts() {
-        if posts.isEmpty && !_isLoading {
-            posts = owner.posts
-            tableView.reloadSections([0], with: .fade)
-        } else {
-            guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
-            tableView.reloadRows(at: indexPaths, with: .fade)
-        }
     }
 }
 
@@ -124,7 +106,7 @@ extension PostsVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
-        cell.set(with: post, and: owner)
+        cell.set(with: post)
         cell.delegate = parent as? PostCellDelegate
         return cell
     }

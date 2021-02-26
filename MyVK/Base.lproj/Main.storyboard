@@ -277,6 +277,7 @@
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RsI-2W-hKg" customClass="PlaceholderImageView" customModule="MyVK" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="RsI-2W-hKg" secondAttribute="height" multiplier="1:1" id="8i3-Xz-ZHi"/>
                                                         <constraint firstAttribute="width" constant="60" id="ySb-B3-t3x"/>
@@ -290,14 +291,16 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7AN-aY-Jbc">
                                                     <rect key="frame" x="68" y="7.5" width="306" height="45"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86Y-SL-dk0">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86Y-SL-dk0" customClass="PlaceholderLabel" customModule="MyVK" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="0.0" width="306" height="20.5"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Закрытый профиль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="INs-O1-Anm">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Закрытый профиль" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="INs-O1-Anm" customClass="SecondaryPlaceholderLabel" customModule="MyVK" customModuleProvider="target">
                                                             <rect key="frame" x="0.0" y="25.5" width="306" height="19.5"/>
+                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                                             <nil key="highlightedColor"/>
@@ -725,7 +728,7 @@
         <!--FriendsNC-->
         <scene sceneID="cwM-BT-l4H">
             <objects>
-                <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R1N-Pm-zQg" customClass="MyNavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="FriendsNC" title="FriendsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R1N-Pm-zQg" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" id="UCP-3E-Tdw">
                         <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="person.2" catalog="system" symbolScale="small"/>
@@ -773,13 +776,13 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Открытое сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eb3-ZI-lXK">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Открытое сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eb3-ZI-lXK" customClass="SecondaryPlaceholderLabel" customModule="MyVK" customModuleProvider="target">
                                             <rect key="frame" x="84" y="42" width="270" height="19.5"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                             <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jtv-rT-fP7">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сообщество" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jtv-rT-fP7" customClass="PlaceholderLabel" customModule="MyVK" customModuleProvider="target">
                                             <rect key="frame" x="84" y="17" width="270" height="21"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
@@ -799,7 +802,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="avatarImageView" destination="5MA-TC-DWb" id="0eF-Wd-Acj"/>
-                                    <outlet property="groupIsPublicLabel" destination="Eb3-ZI-lXK" id="P7V-5B-6Cs"/>
+                                    <outlet property="groupIsOpenLabel" destination="Eb3-ZI-lXK" id="P7V-5B-6Cs"/>
                                     <outlet property="groupNameLabel" destination="Jtv-rT-fP7" id="EEM-WR-IPv"/>
                                     <segue destination="5UF-dx-eoe" kind="show" identifier="toProfile" id="SWk-5C-xP9"/>
                                 </connections>
@@ -826,7 +829,7 @@
         <!--GroupsNC-->
         <scene sceneID="yJE-mF-7Kp">
             <objects>
-                <navigationController storyboardIdentifier="GroupsNC" title="GroupsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fgi-XJ-5Ml" customClass="MyNavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="GroupsNC" title="GroupsNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fgi-XJ-5Ml" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Сообщества" id="Qka-zD-b41">
                         <imageReference key="image" image="person.3" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="person.3" catalog="system" symbolScale="small"/>
@@ -872,7 +875,7 @@
         <!--ProfileNC-->
         <scene sceneID="wtx-6m-dNb">
             <objects>
-                <navigationController storyboardIdentifier="ProfileNC" title="ProfileNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fIT-ue-kvp" customClass="MyNavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNC" title="ProfileNC" automaticallyAdjustsScrollViewInsets="NO" modalTransitionStyle="crossDissolve" modalPresentationStyle="fullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fIT-ue-kvp" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Профиль" id="UxT-YE-jyv">
                         <imageReference key="image" image="person.crop.circle" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="person.crop.circle" catalog="system" symbolScale="small"/>
@@ -898,7 +901,7 @@
         <!--NewsNC-->
         <scene sceneID="PSw-UZ-zhb">
             <objects>
-                <navigationController storyboardIdentifier="NewsNC" title="NewsNC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BUZ-jL-ikA" customClass="MyNavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NewsNC" title="NewsNC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BUZ-jL-ikA" customClass="_NavigationController" customModule="MyVK" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Новости" id="pmV-83-RD8">
                         <imageReference key="image" image="menubar.rectangle" catalog="system" symbolScale="large"/>
                         <imageReference key="landscapeImage" image="menubar.rectangle" catalog="system" symbolScale="small"/>

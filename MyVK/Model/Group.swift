@@ -16,6 +16,7 @@ final class Group: Object, CanPost, Identifiable {
     @objc dynamic var isMember = false
     @objc dynamic var photoUrl = ""
     @objc dynamic var city: String? = nil
+    @objc dynamic var secondaryText: String? = nil
     @objc dynamic var membersCount = -1
     @objc dynamic var photosCount = -1
     @objc dynamic var postsCount = -1
@@ -25,6 +26,15 @@ final class Group: Object, CanPost, Identifiable {
 
     override class func primaryKey() -> String? { "id" }
     override class func indexedProperties() -> [String] { ["name"] }
+}
+
+
+// MARK: - Computed properties -
+extension Group {
+    
+    private var _secondaryText: String {
+        (isOpen ? "Открытое" : "Закрытое").localized + " сообщество".localized
+    }
 }
 
 
@@ -59,5 +69,6 @@ extension Group: Decodable {
         if let countersContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .counters) {
             self.photosCount = (try? countersContainer.decode(Int.self, forKey: .photos)) ?? 0
         }
+        self.secondaryText = _secondaryText
     }
 }

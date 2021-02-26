@@ -14,4 +14,5 @@ protocol CanPost: class {
     var postsCount: Int { get set }
     var posts: List<Post> { get }
     var photos: List<Photo> { get }
+    var secondaryText: String? { get }
 }

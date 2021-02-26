@@ -10,7 +10,6 @@ import UIKit
 
 enum PersistenceManager {
     
-    // MARK: - Realm -
     private static let realm: () -> Realm? = {
         do {
             return try Realm(configuration: realmConfiguration)
@@ -29,16 +28,21 @@ enum PersistenceManager {
     
     private static let realmQueue = DispatchQueue(label: "com.pgc6240.MyVK.realmQueue", attributes: .concurrent)
     
-    private static var notificationTokens = Set<NotificationToken?>()
-    
-    
-    // MARK: - Internal methods -
+    private static var notificationTokens = [ObjectIdentifier?: NotificationToken?]()
+}
+
+
+// MARK: - Internal methods -
+private extension PersistenceManager {
+
     @discardableResult
-    private static func save<T: Object>(_ object: T, in realm: Realm) -> T {
+    static func save<T: Object>(_ object: T, in realm: Realm) -> T {
         if let user = object as? User {
             return save(user, in: realm) as! T
         } else if let group = object as? Group {
             return save(group, in: realm) as! T
+        } else if let post = object as? Post {
+            return save(post, in: realm) as! T
         } else {
             return realm.create(T.self, value: object, update: .modified)
         }
@@ -46,7 +50,7 @@ enum PersistenceManager {
     
     
     @discardableResult
-    private static func save(_ newUser: User, in realm: Realm) -> User {
+    static func save(_ newUser: User, in realm: Realm) -> User {
         if let oldUser = realm.object(ofType: User.self, forPrimaryKey: newUser.id) {
             newUser.friends.append(objectsIn: oldUser.friends)
             newUser.groups.append(objectsIn: oldUser.groups)
@@ -64,7 +68,7 @@ enum PersistenceManager {
     
     
     @discardableResult
-    private static func save(_ newGroup: Group, in realm: Realm) -> Group {
+    static func save(_ newGroup: Group, in realm: Realm) -> Group {
         if let oldGroup = realm.object(ofType: Group.self, forPrimaryKey: newGroup.id) {
             newGroup.photos.append(objectsIn: oldGroup.photos)
             newGroup.posts.append(objectsIn: oldGroup.posts)
@@ -77,7 +81,33 @@ enum PersistenceManager {
     }
     
     
-    // MARK: - External methods -
+    @discardableResult
+    static func save(_ newPost: Post, in realm: Realm) -> Post {
+        if let userOwner = realm.object(ofType: User.self, forPrimaryKey: newPost.sourceId) {
+            newPost.userOwner = userOwner
+        } else if let groupOwner = realm.object(ofType: Group.self, forPrimaryKey: -newPost.sourceId) {
+            newPost.groupOwner = groupOwner
+        }
+        return realm.create(Post.self, value: newPost, update: .modified)
+    }
+}
+    
+    
+// MARK: - External methods -
+extension PersistenceManager {
+    
+    static func create<T: Object & Identifiable>(_ object: T) -> T? {
+        realmQueue.sync {
+            guard let realm = realm() else { return nil }
+            return realm.object(ofType: T.self, forPrimaryKey: object.id) ?? {
+                return try? realm.write {
+                    return realm.create(T.self, value: object, update: .modified)
+                }
+            }()
+        }
+    }
+    
+
     static func save(_ objects: Object?...) {
         guard let realm = realm() else { return }
         let objects = objects.compactMap { $0 }
@@ -112,6 +142,14 @@ enum PersistenceManager {
     }
     
     
+    static func write(block: () -> Void) {
+        guard let realm = realm() else { return }
+        try? realm.write {
+            block()
+        }
+    }
+    
+    
     static func load<T: Object>(_ type: T.Type, with primaryKey: Int?) -> T? {
         guard let realm = realm() else { return nil }
         return realm.object(ofType: T.self, forPrimaryKey: primaryKey)
@@ -130,29 +168,12 @@ enum PersistenceManager {
             realm.delete(object)
         }
     }
+}
     
-    
-    static func create<T: Object & Identifiable>(_ object: T) -> T? {
-        realmQueue.sync {
-            guard let realm = realm() else { return nil }
-            return realm.object(ofType: T.self, forPrimaryKey: object.id) ?? {
-                return try? realm.write {
-                    return realm.create(T.self, value: object, update: .modified)
-                }
-            }()
-        }
-    }
-    
-    
-    static func write(block: () -> Void) {
-        guard let realm = realm() else { return }
-        try? realm.write {
-            block()
-        }
-    }
-    
-    
-    // MARK: - Realm Notifications -
+ 
+// MARK: - Realm Notifications -
+extension PersistenceManager {
+
     static func pair<T: Object>(_ objects: List<T>?, with tableView: UITableView?, onChange: @escaping () -> Void = {}) {
         let token = objects?.observe { [weak tableView] changes in
             switch changes {
@@ -161,19 +182,25 @@ enum PersistenceManager {
                 tableView?.reloadData()
             case .update(let updatedObjects, let deletions, let insertions, let modifications):
                 onChange()
-                tableView?.beginUpdates()
                 if updatedObjects.isEmpty || updatedObjects.count == insertions.count {
                     tableView?.reloadSections([0], with: .automatic)
                 } else {
+                    tableView?.beginUpdates()
                     tableView?.deleteRows(at: deletions.map { IndexPath(row: $0, section: 0) }, with: .left)
                     tableView?.insertRows(at: insertions.map { IndexPath(row: $0, section: 0) }, with: .automatic)
                     tableView?.reloadRows(at: modifications.map { IndexPath(row: $0, section: 0) }, with: .automatic)
+                    tableView?.endUpdates()
                 }
-                tableView?.endUpdates()
             case .error(let error):
                 fatalError("\(error)")
             }
         }
-        notificationTokens.insert(token)
+        notificationTokens[tableView?.id] = token
+    }
+    
+    
+    static func unpair(_ tableView: UITableView?) {
+        notificationTokens[tableView?.id]??.invalidate()
+        notificationTokens[tableView?.id] = nil
     }
 }

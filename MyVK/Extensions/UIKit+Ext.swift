@@ -112,3 +112,6 @@ extension UIImage {
 extension UIStoryboard {
     static var main: UIStoryboard { UIStoryboard(name: "Main", bundle: nil) }
 }
+
+
+extension UITableView: Identifiable {}

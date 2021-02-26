@@ -9,18 +9,21 @@ import UIKit
 
 class PlaceholderLabel: UILabel {
     
-    override var text: String? { didSet { configure() }}
+    override var text: String? {
+        didSet {
+            configure()
+        }
+    }
     
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         text = "Placeholder"
-        configure()
     }
     
     
     func configure() {
-        textColor = text == "Placeholder" ? .secondarySystemBackground : .label
-        backgroundColor = text == "Placeholder" ? .secondarySystemBackground : .clear
+        textColor       = text == "Placeholder" ? .secondarySystemBackground : .label
+        backgroundColor = text == "Placeholder" ? .secondarySystemBackground : .systemBackground
     }
 }

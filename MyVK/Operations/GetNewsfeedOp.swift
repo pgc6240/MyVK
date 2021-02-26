@@ -33,7 +33,7 @@ final class GetNewsfeedOperation: AsyncOperation {
         let parameters: Parameters = startFrom == nil ? [:] : ["start_from": startFrom!]
         
         request = AF.request(method, parameters: parameters).responseDecodable(of: Newsfeed.self,
-                                                                               queue: .global(qos: .userInitiated),
+                                                                               queue: .global(qos: .userInteractive),
                                                                                decoder: JSON.decoder)
         { [weak self] in
             guard let self = self, !self.isCancelled else { return }

@@ -11,9 +11,11 @@ import RealmSwift
 final class User: Object, CanPost, Identifiable {
     
     @objc dynamic var id = 0
+    @objc dynamic var name = ""
     @objc dynamic var firstName = ""
     @objc dynamic var lastName = ""
     @objc dynamic var photoUrl = ""
+    @objc dynamic var nameGen = ""
     @objc dynamic var firstNameGen = "" // Gen - genetivus
     @objc dynamic var lastNameGen = ""
     @objc dynamic var lastNameFirstLetter: String? = nil
@@ -22,6 +24,8 @@ final class User: Object, CanPost, Identifiable {
     @objc dynamic var isFriend = false
     @objc dynamic var homeTown: String? = nil
     @objc dynamic var bdate: String? = nil
+    @objc dynamic var age: String? = nil
+    @objc dynamic var secondaryText: String? = nil
     @objc dynamic var friendsCount = -1
     @objc dynamic var groupsCount = -1
     @objc dynamic var photosCount = -1
@@ -40,12 +44,14 @@ final class User: Object, CanPost, Identifiable {
 // MARK: - Computed properties -
 extension User {
 
-    var name: String    { firstName    + " " + lastName }
-    var nameGen: String { firstNameGen + " " + lastNameGen }
-    var age: String? {
+    private var _age: String? {
         guard let byear = Int(bdate?.components(separatedBy: ".").first { $0.count == 4 }) else { return nil }
         let currentYear = Calendar.current.component(.year, from: Date())
         return "\(currentYear - byear) \("лет".localized)"
+    }
+    
+    private var _secondaryText: String? {
+        canAccessClosed ? (homeTown ?? age) : "Закрытый профиль".localized
     }
 }
 
@@ -97,5 +103,9 @@ extension User: Decodable {
             self.groupsCount = groups + pages
             self.photosCount = (try? countersContainer.decode(Int.self, forKey: .photos)) ?? 0
         }
+        self.name = "\(firstName) \(lastName)"
+        self.nameGen = "\(firstNameGen) \(lastNameGen)"
+        self.age = _age
+        self.secondaryText = _secondaryText
     }
 }

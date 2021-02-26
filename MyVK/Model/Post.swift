@@ -10,29 +10,31 @@ import RealmSwift
 
 final class Post: Object, Identifiable {
 
-    // MARK: - Realm stored properties -
     @objc dynamic var id = 0
     @objc dynamic var sourceId = 0
-    @objc dynamic var date = 0 /* unixtime */
+    @objc dynamic var date = ""
     @objc dynamic var text: String? = nil
     @objc dynamic var likeCount = 0
     @objc dynamic var likedByCurrentUser = false
     @objc dynamic var viewCount: String? = nil
     @objc dynamic var userOwner: User?
     @objc dynamic var groupOwner: Group?
+    @objc dynamic var attachmentsString: String? = nil
     let attachments = List<String>()
     let photos = List<Photo>()
     
     
-    // MARK: - Computed properties -
-    var attachmentsString: String? {
+    override class func primaryKey() -> String? { "id" }
+}
+
+
+// MARK: - Computed properties -
+extension Post {
+    
+    private var _attachmentsString: String? {
         guard !attachments.isEmpty else { return nil }
         return "[" + attachments.joined(separator: ", ").uppercased() + "]"
     }
-    
-    
-    // MARK: - Realm Object's methods -
-    override class func primaryKey() -> String? { "id" }
 }
 
 
@@ -42,13 +44,18 @@ final class Post: Object, Identifiable {
 extension Post: Decodable {
     
     private enum CodingKeys: CodingKey {
-        case id, sourceId, postId, date, text, likes, count, userLikes, views, attachments, type, photo, copyHistory
+        case id, sourceId, ownerId, postId, date, text, likes, count, userLikes, views, attachments, type, photo, copyHistory
     }
+    
     
     convenience init(from decoder: Decoder) throws {
         self.init()
         var container = try decoder.container(keyedBy: CodingKeys.self)
-        self.sourceId = (try? container.decode(Int.self, forKey: .sourceId)) ?? 0
+        do {
+            self.sourceId = try container.decode(Int.self, forKey: .sourceId)
+        } catch {
+            self.sourceId = (try? container.decode(Int.self, forKey: .ownerId)) ?? 0
+        }
         if var copyHistoryContainer = try? container.nestedUnkeyedContainer(forKey: .copyHistory) {
             while !copyHistoryContainer.isAtEnd {
                 container = try copyHistoryContainer.nestedContainer(keyedBy: CodingKeys.self)
@@ -59,8 +66,8 @@ extension Post: Decodable {
         } catch {
             self.id = try container.decode(Int.self, forKey: .postId)
         }
-        self.date = try container.decode(Int.self, forKey: .date)
-        self.text = try? container.decode(String.self, forKey: .text)
+        let date = try container.decode(Int.self, forKey: .date)
+        self.date = F.fd(date)
         if let likesContainer = try? container.nestedContainer(keyedBy: CodingKeys.self, forKey: .likes) {
             self.likeCount = try likesContainer.decode(Int.self, forKey: .count)
             let userLikes = try likesContainer.decode(Int.self, forKey: .userLikes)
@@ -79,5 +86,8 @@ extension Post: Decodable {
                 }
             }
         }
+        self.attachmentsString = _attachmentsString
+        let text = try? container.decode(String.self, forKey: .text)
+        self.text = "\(text ?? "") \(attachmentsString ?? "")"
     }
 }
