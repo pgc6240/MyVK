@@ -88,7 +88,8 @@ extension User: Decodable {
         self.photoUrl = try container.decode(String.self, forKey: .photoUrl)
         self.firstNameGen = try container.decode(String.self, forKey: .firstNameGen)
         self.lastNameGen = try container.decode(String.self, forKey: .lastNameGen)
-        self.homeTown = try? container.decode(String.self, forKey: .homeTown)
+        let homeTown = try? container.decode(String.self, forKey: .homeTown)
+        self.homeTown = homeTown == "" ? nil : homeTown
         self.bdate = try? container.decode(String.self, forKey: .bdate)
         self.canAccessClosed = (try? container.decode(Bool.self, forKey: .canAccessClosed)) ?? false
         let canSendFriendRequest = (try? container.decode(Int.self, forKey: .canSendFriendRequest)) ?? 0

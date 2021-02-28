@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import UIKit
 
 extension Int {
     
@@ -36,6 +37,13 @@ extension String {
     
     var toUrl: URL? {
         URL(string: self)
+    }
+    
+    
+    func size(maxWidth: CGFloat, font: UIFont) -> CGSize {
+        let size = CGSize(width: maxWidth, height: .greatestFiniteMagnitude)
+        let rect = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
+        return CGSize(width: ceil(rect.width), height: ceil(rect.height))
     }
 }
 
