@@ -17,8 +17,6 @@ final class FriendCell: UITableViewCell {
     private let horizontalInset: CGFloat = 16
     private let verticalSpacing: CGFloat = 2
     
-    private lazy var maxTextWidth = bounds.width - avatarImageView.bounds.width - horizontalInset * 3
-    
     
     // MARK: - Initialization -
     required init?(coder: NSCoder) {
@@ -44,8 +42,9 @@ extension FriendCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        nameLabel.frame      = getNameLabelFrame()
-        secondaryLabel.frame = getSecondaryLabelFrame()
+        avatarImageView.frame = getAvatarImageViewFrame()
+        nameLabel.frame       = getNameLabelFrame()
+        secondaryLabel.frame  = getSecondaryLabelFrame()
     }
     
     
@@ -69,12 +68,18 @@ extension FriendCell {
     
 // MARK: - Internal methods -
 private extension FriendCell {
+    
+    func getAvatarImageViewFrame() -> CGRect {
+        return CGRect(x: horizontalInset, y: verticalInset, width: 60, height: 60)
+    }
         
+    
     func getNameLabelFrame() -> CGRect {
         guard let text = nameLabel.text else { return .zero }
+        let maxTextWidth        = bounds.width - avatarImageView.bounds.width - horizontalInset * 3
         let secondaryTextHeight = secondaryLabel.text == nil ? 0 : secondaryLabel.font.capHeight
-        let nameLabelOriginY    = avatarImageView.frame.midY - nameLabel.font.capHeight - secondaryTextHeight
         let nameLabelOriginX    = avatarImageView.frame.maxX + horizontalInset
+        let nameLabelOriginY    = avatarImageView.frame.midY - nameLabel.font.capHeight - secondaryTextHeight
         let nameLabelOrigin     = CGPoint(x: ceil(nameLabelOriginX), y: ceil(nameLabelOriginY))
         let nameLabelSize       = text.size(maxWidth: maxTextWidth, font: nameLabel.font)
         return CGRect(origin: nameLabelOrigin, size: nameLabelSize)
@@ -83,6 +88,7 @@ private extension FriendCell {
     
     func getSecondaryLabelFrame() -> CGRect {
         guard let text = secondaryLabel.text else { return .zero }
+        let maxTextWidth          = bounds.width - avatarImageView.bounds.width - horizontalInset * 3
         let secondaryLabelOriginX = avatarImageView.frame.maxX + horizontalInset
         let secondaryLabelOriginY = avatarImageView.frame.midY + verticalSpacing
         let secondaryLabelOrigin  = CGPoint(x: ceil(secondaryLabelOriginX), y: ceil(secondaryLabelOriginY))
