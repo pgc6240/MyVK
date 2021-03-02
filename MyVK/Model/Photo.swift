@@ -14,8 +14,10 @@ final class Photo: Object, Identifiable {
     @objc dynamic var maxSizeUrl: String? = nil
     @objc private dynamic var _width = 0
     @objc private dynamic var _height = 0
+    @objc private dynamic var _aspectRatio: Float = 0.0
     var width: CGFloat { CGFloat(_width) }
     var height: CGFloat { CGFloat(_height) }
+    var aspectRatio: CGFloat { CGFloat(_aspectRatio) }
     
     
     override class func primaryKey() -> String? { "id" }
@@ -63,5 +65,6 @@ extension Photo: Decodable {
         let height = size?.last
         self._width = Int(width) ?? 0
         self._height = Int(height) ?? 0
+        self._aspectRatio = Float(_height) / Float(_width)
     }
 }

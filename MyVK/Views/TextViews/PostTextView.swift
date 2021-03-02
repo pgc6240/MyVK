@@ -17,7 +17,7 @@ final class PostTextView: UITextView {
     
     
     private func configure() {
-        let padding         = textContainer.lineFragmentPadding
-        textContainerInset  = UIEdgeInsets(top: 0, left: -padding, bottom: 0, right: -padding)
+        textContainer.lineFragmentPadding   = 0
+        textContainerInset                  = .zero
     }
 }

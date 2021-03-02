@@ -115,4 +115,16 @@ extension PostsVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let post = posts[indexPath.row]
+        if let photo = post.photos.first, let postText = post.text {
+            let cellWidth   = tableView.bounds.width
+            let photoHeight = cellWidth * photo.aspectRatio
+            let textHeight  = postText.size(in: cellWidth).height
+            return 60 + textHeight + photoHeight + 35
+        }
+        return UITableView.automaticDimension
+    }
 }

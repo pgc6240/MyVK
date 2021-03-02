@@ -81,7 +81,7 @@ private extension FriendCell {
         let nameLabelOriginX    = avatarImageView.frame.maxX + horizontalInset
         let nameLabelOriginY    = avatarImageView.frame.midY - nameLabel.font.capHeight - secondaryTextHeight
         let nameLabelOrigin     = CGPoint(x: ceil(nameLabelOriginX), y: ceil(nameLabelOriginY))
-        let nameLabelSize       = text.size(maxWidth: maxTextWidth, font: nameLabel.font)
+        let nameLabelSize       = text.size(in: maxTextWidth, font: nameLabel.font)
         return CGRect(origin: nameLabelOrigin, size: nameLabelSize)
     }
     
@@ -92,7 +92,7 @@ private extension FriendCell {
         let secondaryLabelOriginX = avatarImageView.frame.maxX + horizontalInset
         let secondaryLabelOriginY = avatarImageView.frame.midY + verticalSpacing
         let secondaryLabelOrigin  = CGPoint(x: ceil(secondaryLabelOriginX), y: ceil(secondaryLabelOriginY))
-        let secondaryLabelSize    = text.size(maxWidth: maxTextWidth, font: secondaryLabel.font)
+        let secondaryLabelSize    = text.size(in: maxTextWidth, font: secondaryLabel.font)
         return CGRect(origin: secondaryLabelOrigin, size: secondaryLabelSize)
     }
 }

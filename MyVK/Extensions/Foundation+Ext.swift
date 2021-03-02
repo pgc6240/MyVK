@@ -40,8 +40,8 @@ extension String {
     }
     
     
-    func size(maxWidth: CGFloat, font: UIFont) -> CGSize {
-        let size = CGSize(width: maxWidth, height: .greatestFiniteMagnitude)
+    func size(in width: CGFloat, font: UIFont = .preferredFont(forTextStyle: .body)) -> CGSize {
+        let size = CGSize(width: width, height: .greatestFiniteMagnitude)
         let rect = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
         return CGSize(width: ceil(rect.width), height: ceil(rect.height))
     }
