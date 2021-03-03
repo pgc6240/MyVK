@@ -126,6 +126,11 @@ class ProfileVC: UIViewController {
 //
 extension ProfileVC: PostCellDelegate {
     
+    func showMoreText(at row: Int) {
+        postsVC.showMoreTextAtIndexPath([0, row])
+    }
+    
+    
     func photoTapped(on post: Post) {
         selectedPost = post
         performSegue(withIdentifier: SegueIdentifier.fromPostToPhotos.rawValue, sender: nil)

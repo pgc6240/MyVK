@@ -65,9 +65,8 @@ final class GroupsVC: UITableViewController {
             tableView.reloadSections([0], with: .automatic)
         }
         NetworkManager.shared.getGroups(userId: user.id) { [weak self] groups in
-            PersistenceManager.save(groups, in: self?.user.groups) {
-                self?.updateUI()
-            }
+            self?.dismissLoadingView()
+            PersistenceManager.save(groups, in: self?.user.groups)
         }
     }
     

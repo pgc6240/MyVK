@@ -17,6 +17,7 @@ final class PostTextView: UITextView {
     
     
     private func configure() {
+        textContainer.maximumNumberOfLines  = 8
         textContainer.lineFragmentPadding   = 0
         textContainerInset                  = .zero
     }

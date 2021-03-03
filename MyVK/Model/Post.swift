@@ -80,14 +80,15 @@ extension Post: Decodable {
             while !attachmentsContainer.isAtEnd {
                 let attachmentContainer = try attachmentsContainer.nestedContainer(keyedBy: CodingKeys.self)
                 let type = try attachmentContainer.decode(String.self, forKey: .type)
-                self.attachments.append(type)
+                if type != "photo" {
+                    self.attachments.append(type)
+                }
                 if let photo = try? attachmentContainer.decode(Photo.self, forKey: .photo) {
                     self.photos.append(photo)
                 }
             }
         }
         self.attachmentsString = _attachmentsString
-        let text = try? container.decode(String.self, forKey: .text)
-        self.text = "\(text ?? "") \(attachmentsString ?? "")"
+        self.text = try? container.decode(String.self, forKey: .text)
     }
 }

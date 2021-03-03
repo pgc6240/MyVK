@@ -11,6 +11,8 @@ final class NewsVC: UITableViewController {
     
     var posts: [Post] = []
     
+    var textCroppedAtIndexPath = [IndexPath: Bool]()
+    
     // MARK: - Internal properties
     private var nextFrom: String?
     private var currentPage = 0
@@ -114,7 +116,8 @@ extension NewsVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
-        cell.set(with: post)
+        cell.tag = indexPath.row
+        cell.set(with: post, textCropped: &textCroppedAtIndexPath[indexPath])
         cell.delegate = self
         return cell
     }
@@ -122,6 +125,18 @@ extension NewsVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let post = posts[indexPath.row]
+        if let photo = post.photos.first, let postText = post.text {
+            let cellWidth   = tableView.bounds.width
+            let photoHeight = cellWidth * photo.aspectRatio
+            let textHeight  = (textCroppedAtIndexPath[indexPath] ?? true) ? 200 : postText.size(in: cellWidth).height
+            return 60 + textHeight + photoHeight + 35
+        }
+        return UITableView.automaticDimension
     }
 }
 
@@ -146,6 +161,14 @@ extension NewsVC {
 // MARK: - PostCellDelegate
 //
 extension NewsVC: PostCellDelegate {
+    
+    func showMoreText(at row: Int) {
+        textCroppedAtIndexPath[[0, row]]?.toggle()
+        UIView.transition(with: tableView, duration: 0.35, options: .transitionCrossDissolve) { [weak tableView] in
+            tableView?.reloadData()
+        }
+    }
+    
     
     func profileTapped(on post: Post) {
         selectedPost = post

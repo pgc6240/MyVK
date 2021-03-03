@@ -14,6 +14,8 @@ final class PostsVC: UITableViewController {
     var owner: CanPost = User.current
     var posts          = List<Post>()
     
+    var textCroppedAtIndexPath = [IndexPath: Bool]()
+    
     private var getPostsTask: AnyCancellable?
     private var _isLoading = true
     
@@ -64,6 +66,14 @@ final class PostsVC: UITableViewController {
     }
     
     
+    func showMoreTextAtIndexPath(_ indexPath: IndexPath) {
+        textCroppedAtIndexPath[indexPath]?.toggle()
+        UIView.transition(with: tableView, duration: 0.35, options: .transitionCrossDissolve) { [weak tableView] in
+            tableView?.reloadData()
+        }
+    }
+    
+    
     // MARK: - Internal methods -
     private func updateUI() {
         _isLoading = false
@@ -106,8 +116,9 @@ extension PostsVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
-        cell.set(with: post)
+        cell.set(with: post, textCropped: &textCroppedAtIndexPath[indexPath])
         cell.delegate = parent as? PostCellDelegate
+        cell.tag = indexPath.row
         return cell
     }
     
@@ -122,7 +133,7 @@ extension PostsVC {
         if let photo = post.photos.first, let postText = post.text {
             let cellWidth   = tableView.bounds.width
             let photoHeight = cellWidth * photo.aspectRatio
-            let textHeight  = postText.size(in: cellWidth).height
+            let textHeight  = (textCroppedAtIndexPath[indexPath] ?? true) ? 200 : postText.size(in: cellWidth).height
             return 60 + textHeight + photoHeight + 35
         }
         return UITableView.automaticDimension
