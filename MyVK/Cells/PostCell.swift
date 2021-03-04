@@ -112,12 +112,13 @@ private extension PostCell {
             postTextView.textContainer.maximumNumberOfLines = textCropped ? 9 : 0
             postTextView.invalidateIntrinsicContentSize()
             showMoreTextButton.isHidden = !textCropped && postTextHeight < 200
-            showMoreTextButton.setTitle((textCropped ? "Показать полностью..." : "Скрыть").localized, for: .normal)
+            showMoreTextButton.setTitle(textCropped ? "Показать полностью...".localized : "Скрыть".localized, for: .normal)
         } else {
             textCropped = postTextHeight > 200
             postTextView.textContainer.maximumNumberOfLines = textCropped! ? 9 : 0
             postTextView.invalidateIntrinsicContentSize()
             showMoreTextButton.isHidden = !textCropped!
+            showMoreTextButton.setTitle("Показать полностью...".localized, for: .normal)
         }
     }
     

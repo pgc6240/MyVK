@@ -14,10 +14,10 @@ final class PostsVC: UITableViewController {
     var owner: CanPost = User.current
     var posts          = List<Post>()
     
-    var textCroppedAtIndexPath = [IndexPath: Bool]()
-    
     private var getPostsTask: AnyCancellable?
     private var _isLoading = true
+    
+    private var textCroppedAtIndexPath = [IndexPath: Bool]()
     
     private lazy var profileHeaderView = (parent as? ProfileVC)?.profileHeaderView
     
@@ -68,9 +68,7 @@ final class PostsVC: UITableViewController {
     
     func showMoreTextAtIndexPath(_ indexPath: IndexPath) {
         textCroppedAtIndexPath[indexPath]?.toggle()
-        UIView.transition(with: tableView, duration: 0.35, options: .transitionCrossDissolve) { [weak tableView] in
-            tableView?.reloadData()
-        }
+        tableView.reloadData(animated: true)
     }
     
     
@@ -116,15 +114,15 @@ extension PostsVC {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
-        cell.set(with: post, textCropped: &textCroppedAtIndexPath[indexPath])
-        cell.delegate = parent as? PostCellDelegate
         cell.tag = indexPath.row
+        cell.delegate = parent as? PostCellDelegate
+        cell.set(with: post, textCropped: &textCroppedAtIndexPath[indexPath])
         return cell
     }
     
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     

@@ -9,37 +9,33 @@ import UIKit
 
 final class NewsVC: UITableViewController {
     
-    var posts: [Post] = []
-    
-    var textCroppedAtIndexPath = [IndexPath: Bool]()
+    var posts = [Post]()
     
     // MARK: - Internal properties
     private var nextFrom: String?
-    private var currentPage = 0
-    private let queue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.qualityOfService = .userInitiated
+    private weak var selectedPost: Post?
+    private var textCroppedAtIndexPath = [IndexPath: Bool]()
+    private let queue: OperationQueue  = {
+        let queue                         = OperationQueue()
+        queue.qualityOfService            = .userInteractive
         queue.maxConcurrentOperationCount = 1
         return queue
     }()
-    private weak var selectedPost: Post!
     
     
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
+        tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
+        configureRefreshControl()
+        refreshNewsfeed()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
-        if posts.isEmpty {
-            getNewsfeed()
-        } else {
-            updateUI()
-        }
+        updateUI()
     }
     
     
@@ -50,36 +46,37 @@ final class NewsVC: UITableViewController {
     
     
     // MARK: - External methods -
-    @objc func getNewsfeed() {
-        tableView.refreshControl?.beginRefreshing()
+    @objc func refreshNewsfeed() {
+        posts = []
+        nextFrom = nil
+        selectedPost = nil
+        textCroppedAtIndexPath = [:]
+        queue.cancelAllOperations()
+        refreshControl?.beginRefreshing()
+        tableView.reloadData()
+        getNewsfeed()
+    }
+    
+    
+    func getNewsfeed() {
         let operation = GetNewsfeedOperation(startFrom: nextFrom)
         operation.completionBlock = { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.refreshControl?.endRefreshing()
-            }
             self?.nextFrom = operation.nextFrom
             self?.updateNewsfeed(with: operation.posts)
         }
+        guard queue.operations.isEmpty else { return }
         queue.addOperation(operation)
     }
     
     
     // MARK: - Internal methods -
-    private func configureViewController() {
-        tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
+    private func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         let font = UIFont.preferredFont(forTextStyle: .body)
         refreshControl.attributedTitle = NSAttributedString(string: "Загрузка...".localized, attributes: [.font: font])
-        refreshControl.addTarget(self, action: #selector(getNewsfeed), for: .valueChanged)
-        tableView.refreshControl = refreshControl
-    }
-    
-    
-    private func updateUI() {
-        for cell in tableView.visibleCells {
-            guard let cell = cell as? PostCell else { continue }
-            cell.reloadImages()
-        }
+        refreshControl.addTarget(self, action: #selector(refreshNewsfeed), for: .valueChanged)
+        refreshControl.tintColor = .label
+        self.refreshControl = refreshControl
     }
     
     
@@ -88,7 +85,18 @@ final class NewsVC: UITableViewController {
         let indexPaths = (posts.count..<(posts.count + newPosts.count)).map { IndexPath(row: $0, section: 0) }
         posts.append(contentsOf: newPosts)
         DispatchQueue.main.async { [weak self] in
+            if (self?.refreshControl?.isRefreshing ?? false) {
+                self?.refreshControl?.endRefreshing()
+            }
             self?.tableView.insertRows(at: indexPaths, with: .bottom)
+        }
+    }
+    
+    
+    private func updateUI() {
+        for cell in tableView.visibleCells {
+            guard let cell = cell as? PostCell else { continue }
+            cell.reloadImages()
         }
     }
     
@@ -101,7 +109,8 @@ final class NewsVC: UITableViewController {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
+        guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? ""),
+              let selectedPost    = selectedPost else { return }
         switch segueIdentifier {
         case .fromPostToPhotos: (segue.destination as? PhotosVC)?.post = PersistenceManager.create(selectedPost)
         case .fromPostToProfile:
@@ -121,7 +130,7 @@ final class NewsVC: UITableViewController {
 extension NewsVC {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        return posts.count
     }
     
     
@@ -129,14 +138,14 @@ extension NewsVC {
         let cell = tableView.dequeueReusableCell(withIdentifier: PostCell.reuseId, for: indexPath) as! PostCell
         let post = posts[indexPath.row]
         cell.tag = indexPath.row
-        cell.set(with: post, textCropped: &textCroppedAtIndexPath[indexPath])
         cell.delegate = self
+        cell.set(with: post, textCropped: &textCroppedAtIndexPath[indexPath])
         return cell
     }
     
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     
@@ -154,15 +163,13 @@ extension NewsVC {
 
 
 //
-// MARK: - UIScrollViewDelegate
+// MARK: - UITableViewDataSourcePrefetching -
 //
-extension NewsVC {
+extension NewsVC: UITableViewDataSourcePrefetching {
     
-    override func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard let cell = tableView.visibleCells.first, let indexPath = tableView.indexPath(for: cell) else { return }
-        
-        if ((currentPage * 50)..<posts.count).contains(indexPath.row) {
-            currentPage = posts.count / 50
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        guard let maxRow = indexPaths.max()?.row else { return }
+        if maxRow > posts.count / 2 {
             getNewsfeed()
         }
     }
