@@ -28,7 +28,7 @@ final class NewsVC: UITableViewController {
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
+        configureViewController()
     }
     
     
@@ -36,7 +36,6 @@ final class NewsVC: UITableViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: true)
         if posts.isEmpty {
-            showLoadingView()
             getNewsfeed()
         } else {
             updateUI()
@@ -51,10 +50,13 @@ final class NewsVC: UITableViewController {
     
     
     // MARK: - External methods -
-    func getNewsfeed() {
+    @objc func getNewsfeed() {
+        tableView.refreshControl?.beginRefreshing()
         let operation = GetNewsfeedOperation(startFrom: nextFrom)
         operation.completionBlock = { [weak self] in
-            DispatchQueue.main.async { self?.dismissLoadingView() }
+            DispatchQueue.main.async {
+                self?.tableView.refreshControl?.endRefreshing()
+            }
             self?.nextFrom = operation.nextFrom
             self?.updateNewsfeed(with: operation.posts)
         }
@@ -63,6 +65,16 @@ final class NewsVC: UITableViewController {
     
     
     // MARK: - Internal methods -
+    private func configureViewController() {
+        tableView.register(PostCell.nib, forCellReuseIdentifier: PostCell.reuseId)
+        let refreshControl = UIRefreshControl()
+        let font = UIFont.preferredFont(forTextStyle: .body)
+        refreshControl.attributedTitle = NSAttributedString(string: "Загрузка...".localized, attributes: [.font: font])
+        refreshControl.addTarget(self, action: #selector(getNewsfeed), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
+    
+    
     private func updateUI() {
         for cell in tableView.visibleCells {
             guard let cell = cell as? PostCell else { continue }
@@ -164,9 +176,7 @@ extension NewsVC: PostCellDelegate {
     
     func showMoreText(at row: Int) {
         textCroppedAtIndexPath[[0, row]]?.toggle()
-        UIView.transition(with: tableView, duration: 0.35, options: .transitionCrossDissolve) { [weak tableView] in
-            tableView?.reloadData()
-        }
+        tableView.reloadData(animated: true)
     }
     
     

@@ -114,4 +114,16 @@ extension UIStoryboard {
 }
 
 
-extension UITableView: Identifiable {}
+extension UITableView: Identifiable {
+    
+    func reloadData(animated: Bool) {
+        if animated {
+            UIView.transition(with: self, duration: 0.35, options: [.transitionCrossDissolve, .allowUserInteraction]) {
+                [weak self] in
+                self?.reloadData()
+            }
+        } else {
+            reloadData()
+        }
+    }
+}
