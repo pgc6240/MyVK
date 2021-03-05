@@ -28,8 +28,10 @@ final class Photo: Object, Identifiable {
 // MARK: - Photo sizes -
 //
 fileprivate struct Size: Decodable, Comparable {
+    
     let url: String
     let type: String
+    
     
     static func < (lhs: Size, rhs: Size) -> Bool {
         switch (lhs.type, rhs.type) {
@@ -53,13 +55,14 @@ extension Photo: Decodable {
         case id, sizes
     }
     
+    
     convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.id = try container.decode(Int.self, forKey: .id)
         let sizes = try container.decode([Size].self, forKey: .sizes)
         self.maxSizeUrl = sizes.max()?.url
-        guard let paramaters = maxSizeUrl?.toUrl.parameters else { return }
+        guard let paramaters = maxSizeUrl?.toUrl?.parameters else { return }
         let size = paramaters["size"]?.components(separatedBy: "x")
         let width = size?.first
         let height = size?.last

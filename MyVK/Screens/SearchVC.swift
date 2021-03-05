@@ -149,7 +149,8 @@ extension SearchVC {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch searchFor {
         case .user:
-            guard let user = searchResults[indexPath.row] as? User, let friendsVC = prevVC as? FriendsVC else { return }
+            guard let user      = searchResults[indexPath.row] as? User,
+                  let friendsVC = previousViewController as? FriendsVC else { return }
             if editingStyle == .insert {
                 friendsVC.addFriend(with: user.id) { [weak self] in
                     user.isFriend = true
@@ -157,7 +158,8 @@ extension SearchVC {
                 }
             }
         case .group:
-            guard let group = searchResults[indexPath.row] as? Group, let groupsVC = prevVC as? GroupsVC else { return }
+            guard let group    = searchResults[indexPath.row] as? Group,
+                  let groupsVC = previousViewController as? GroupsVC else { return }
             if editingStyle == .insert {
                 groupsVC.joinGroup(group) { [weak self] in
                     group.isMember = true

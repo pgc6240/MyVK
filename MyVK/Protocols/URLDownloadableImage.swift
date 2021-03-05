@@ -20,7 +20,7 @@ extension URLDownloadableImage {
     
     func downloadImage(with downloadURLString: String?) {
         guard let downloadImageOperation = DownloadImageOperation(downloadURLString) else { return }
-        self.downloadURLString = downloadURLString
+        self.downloadURLString      = downloadURLString
         self.downloadImageOperation = downloadImageOperation
         downloadImageOperation.completionBlock = {
             DispatchQueue.main.async { [weak self] in

@@ -19,7 +19,7 @@ final class PrepareFriendsVCOperation: AsyncOperation {
     
     
     init(for user: User) {
-        self.userId = user.id
+        self.userId               = user.id
         self.userFriendsReference = ThreadSafeReference(to: user.friends)
         super.init()
     }

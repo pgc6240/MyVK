@@ -15,6 +15,7 @@ class AsyncOperation: Operation {
         fileprivate var keyPath: String { "is" + rawValue.capitalized }
     }
     
+    
     var state: State = .ready {
         willSet {
             willChangeValue(forKey: state.keyPath)
@@ -27,9 +28,9 @@ class AsyncOperation: Operation {
     }
     
     
+    override var isAsynchronous: Bool { true }
     override var isExecuting: Bool    { state == .executing }
     override var isFinished: Bool     { state == .finished }
-    override var isAsynchronous: Bool { true }
     
     
     override func start() {
@@ -59,7 +60,6 @@ class AsyncOperation: Operation {
             startTime = Date()
         }
         print(Self.self, state, Date().timeIntervalSince(startTime))
-        //print(Thread.current)
         #endif
     }
 }

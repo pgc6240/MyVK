@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-protocol CanPost: class {
+protocol CanPost: Object {
     var id: Int { get }
     var name: String { get }
     var photoUrl: String { get }

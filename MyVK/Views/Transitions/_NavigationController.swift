@@ -7,15 +7,19 @@
 
 import UIKit
 
-final class _NavigationController: UINavigationController, UINavigationControllerDelegate {
+final class _NavigationController: UINavigationController {
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
     }
+}
     
     
-    // MARK: - UINavigationControllerDelegate -
+// MARK: - UINavigationControllerDelegate -
+extension _NavigationController: UINavigationControllerDelegate {
+    
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         
         switch operation {

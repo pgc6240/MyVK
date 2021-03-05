@@ -12,6 +12,6 @@ final class SecondaryPlaceholderLabel: PlaceholderLabel {
     
     override func configure() {
         textColor       = text == "Placeholder" ? .secondarySystemBackground : .secondaryLabel
-        backgroundColor = text == "Placeholder" ? .secondarySystemBackground : .systemBackground
+        backgroundColor = text == "Placeholder" ? .secondarySystemBackground : .clear
     }
 }

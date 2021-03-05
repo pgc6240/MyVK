@@ -48,6 +48,7 @@ extension Group: Decodable {
         case counters, photos, membersCount
     }
     
+    
     convenience init(from decoder: Decoder) throws {
         self.init()
         let container = try decoder.container(keyedBy: CodingKeys.self)

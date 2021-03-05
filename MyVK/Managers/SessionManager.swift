@@ -10,25 +10,23 @@ import UIKit
 enum SessionManager {
     
     static var loggingOut = false
-    static var token: String!
+    static var token:  String!
     static var userId: Int!
     
     
     static func login(token: String?, userId: String?) {
-        guard let token = token, let userId = Int(userId), let user = PersistenceManager.create(User(id: userId)) else {
+        guard let token  = token,
+              let userId = Int(userId),
+              let user   = PersistenceManager.create(User(id: userId)) else {
             logout()
             return
         }
         
         self.token   = token
         self.userId  = userId
-        
         User.current = user
         
-        NetworkManager.shared.getUsers(userIds: [userId]) { users in
-            guard let user = users.first else { return }
-            PersistenceManager.save(user)
-        }
+        loadCurrentUser()
         
         UIApplication.shared.windows.first?.rootViewController = UIStoryboard.main.instantiateInitialViewController()
     }
@@ -36,11 +34,18 @@ enum SessionManager {
     
     static func logout() {
         loggingOut   = true
+        
         token        = nil
         userId       = nil
-        
         User.current = nil
         
         UIApplication.shared.windows.first?.rootViewController = LoginVC()
+    }
+    
+    
+    private static func loadCurrentUser() {
+        NetworkManager.shared.getUsers(userIds: [userId]) {
+            PersistenceManager.save($0.first)
+        }
     }
 }

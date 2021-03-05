@@ -5,9 +5,9 @@
 //  Created by pgc6240 on 19.12.2020.
 //
 
+import Foundation
 import Alamofire
 import Combine
-import Foundation
 
 final class NetworkManager {
     
@@ -112,11 +112,13 @@ private extension NetworkManager {
     
     // MARK: - Error handling -
     func handleError(_ error: AFError, data: Data?, url: URL?) {
+        #if DEBUG
         if let data = data, let responseError = try? JSON.decoder.decode(ResponseError.self, from: data) {
-            debugPrint(responseError.code, responseError.message)
+            print(responseError.code, responseError.message)
         } else if !error.isExplicitlyCancelledError {
-            debugPrint(url ?? "", error)
+            print(url ?? "", error)
         }
+        #endif
     }
 }
   
@@ -144,7 +146,7 @@ extension NetworkManager {
     }
     
     
-    func getGroups(userId: Int, groups: @escaping ([Group]) -> Void) {
+    func getGroups(for userId: Int, groups: @escaping ([Group]) -> Void) {
         makeRequest(.getGroups, parameters: ["user_id": userId], responseItem: Group.self) { groups($0) }
     }
     
@@ -251,5 +253,43 @@ fileprivate struct ResponseError: Decodable {
         let errorContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .error)
         self.code = try errorContainer.decode(Int.self, forKey: .errorCode)
         self.message = try errorContainer.decode(String.self, forKey: .errorMsg)
+    }
+}
+
+
+//
+// MARK: - NetworkManagerRetrier -
+//
+private extension NetworkManager {
+    
+    struct NetworkManagerRetrier: RequestInterceptor {
+        
+        let networkReachabilityManager = NetworkReachabilityManager(host: "yandex.ru")
+        let retryLimit                 = 3
+        let retryDelay: TimeInterval   = 3
+        
+        
+        func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+            if let afError  = error as? AFError,
+               let urlError = afError.underlyingError as? URLError,
+               (urlError.code == .timedOut || urlError.code == .notConnectedToInternet)
+            {
+                networkReachabilityManager?.startListening { status in
+                    switch status {
+                    case .reachable(_):
+                        networkReachabilityManager?.stopListening()
+                        completion(.retry)
+                    default: break
+                    }
+                }
+            } else if let response = request.task?.response as? HTTPURLResponse,
+                      response.statusCode == 200,
+                      request.retryCount < retryLimit
+            {
+                completion(.retryWithDelay(retryDelay))
+            } else {
+                completion(.doNotRetry)
+            }
+        }
     }
 }

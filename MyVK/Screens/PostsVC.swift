@@ -75,7 +75,7 @@ final class PostsVC: UITableViewController {
     // MARK: - Internal methods -
     private func updateUI() {
         _isLoading = false
-        profileHeaderView?.set(with: owner)
+        profileHeaderView?.configure(with: owner)
         tableView.reloadSections([0], with: .automatic)
     }
 }

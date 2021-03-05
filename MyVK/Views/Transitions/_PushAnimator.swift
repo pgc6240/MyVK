@@ -9,9 +9,11 @@ import UIKit
 
 final class _PushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         1.5
     }
+    
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         guard let source       = transitionContext.viewController(forKey: .from) else { return }

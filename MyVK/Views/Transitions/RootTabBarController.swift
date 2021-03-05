@@ -17,7 +17,7 @@ final class RootTabBarController: UITabBarController {
     
     override var selectedViewController: UIViewController? {
         willSet {
-            guard let selectedVC = newValue,
+            guard let selectedVC      = newValue,
                   let selectedVCIndex = viewControllers?.firstIndex(of: selectedVC) else { return }
             selectedTab = selectedVCIndex
         }

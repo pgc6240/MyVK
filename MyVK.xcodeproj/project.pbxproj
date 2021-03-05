@@ -24,7 +24,6 @@
 		3151A369254C600900F9BFAB /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151A368254C600900F9BFAB /* User.swift */; };
 		3151A36C254C60C200F9BFAB /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3151A36B254C60C200F9BFAB /* Group.swift */; };
 		3153ED6B259D08A60092F7F1 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 3153ED6A259D08A60092F7F1 /* Alamofire */; };
-		31582E9B25E91D97008EE92F /* NetworkManager+Retrier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31582E9A25E91D97008EE92F /* NetworkManager+Retrier.swift */; };
 		3158898D25C831B70033E70E /* PlaceholderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3158898C25C831B70033E70E /* PlaceholderLabel.swift */; };
 		31592D1D25C5C7EB00B385A1 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31592D1C25C5C7EB00B385A1 /* ProfileHeaderView.swift */; };
 		315A7B7925E8E837002F70B4 /* URLDownloadableImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315A7B7825E8E837002F70B4 /* URLDownloadableImage.swift */; };
@@ -89,7 +88,6 @@
 		3151A363254C5FC800F9BFAB /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
 		3151A368254C600900F9BFAB /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3151A36B254C60C200F9BFAB /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
-		31582E9A25E91D97008EE92F /* NetworkManager+Retrier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkManager+Retrier.swift"; sourceTree = "<group>"; };
 		3158898C25C831B70033E70E /* PlaceholderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderLabel.swift; sourceTree = "<group>"; };
 		31592D1C25C5C7EB00B385A1 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		315A7B7825E8E837002F70B4 /* URLDownloadableImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLDownloadableImage.swift; sourceTree = "<group>"; };
@@ -179,7 +177,6 @@
 				314FBDB425729E8800DA5E57 /* Foundation+Ext.swift */,
 				314FBDB325729E8800DA5E57 /* UIKit+Ext.swift */,
 				31B2D72425B851BF0059D1DF /* RealmSwift+Ext.swift */,
-				31582E9A25E91D97008EE92F /* NetworkManager+Retrier.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -457,7 +454,6 @@
 				31A72DEC2554199C006B664D /* AlphabetPicker.swift in Sources */,
 				315A7B7925E8E837002F70B4 /* URLDownloadableImage.swift in Sources */,
 				31C3130625E569C0000FE2E1 /* ClearImageView.swift in Sources */,
-				31582E9B25E91D97008EE92F /* NetworkManager+Retrier.swift in Sources */,
 				3107828C25BB716300FFBD7F /* Formatters.swift in Sources */,
 				3182B37C25438B1000E3E710 /* AppDelegate.swift in Sources */,
 				310E853225603BB20014C5EF /* MyProfileVC.swift in Sources */,

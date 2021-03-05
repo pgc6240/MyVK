@@ -181,7 +181,7 @@ extension NewsVC: UITableViewDataSourcePrefetching {
 //
 extension NewsVC: PostCellDelegate {
     
-    func showMoreText(at row: Int) {
+    func showMoreTextTapped(at row: Int) {
         textCroppedAtIndexPath[[0, row]]?.toggle()
         tableView.reloadData(animated: true)
     }

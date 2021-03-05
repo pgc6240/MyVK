@@ -51,7 +51,7 @@ class ProfileVC: UIViewController {
         NetworkManager.shared.getUsers(userIds: [owner.id]) { [weak self] users in
             guard let user = users.first else { return }
             PersistenceManager.save(user)
-            self?.profileHeaderView.set(with: user)
+            self?.profileHeaderView.configure(with: user)
         }
     }
     
@@ -60,7 +60,7 @@ class ProfileVC: UIViewController {
         NetworkManager.shared.getGroups(groupIds: [owner.id]) { [weak self] (groups) in
             guard let group = groups.first else { return }
             PersistenceManager.save(group)
-            self?.profileHeaderView.set(with: group)
+            self?.profileHeaderView.configure(with: group)
         }
     }
     
@@ -88,7 +88,7 @@ class ProfileVC: UIViewController {
             (segue.destination as? FriendsVC)?.user = owner as? User
             preparationQueue.cancelAllOperations()
             postsVC.cleanUp()
-        case .toGroups: (segue.destination as? GroupsVC)?.user = owner as? User
+        case .toGroups: (segue.destination as? GroupsVC)?.user  = owner as! User
         case .toPhotos: (segue.destination as? PhotosVC)?.owner = owner
         case .fromPostToPhotos: (segue.destination as? PhotosVC)?.post = PersistenceManager.create(selectedPost)
         }
@@ -126,7 +126,7 @@ class ProfileVC: UIViewController {
 //
 extension ProfileVC: PostCellDelegate {
     
-    func showMoreText(at row: Int) {
+    func showMoreTextTapped(at row: Int) {
         postsVC.showMoreTextAtIndexPath([0, row])
     }
     

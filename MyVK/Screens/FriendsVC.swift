@@ -17,7 +17,7 @@ final class FriendsVC: UITableViewController {
     private var alphabetPicker = AlphabetPicker()
     
     var numberOfRowsInSection  = [Int: Int]()
-    private lazy var profileVC = prevVC as? ProfileVC
+    private lazy var profileVC = previousViewController as? ProfileVC
     
     private var isFiltering    = false
     private var filteredFriends: Results<User>!

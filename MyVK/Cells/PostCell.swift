@@ -150,7 +150,7 @@ private extension PostCell {
     
     
     @IBAction func showMoreText() {
-        delegate?.showMoreText(at: tag)
+        delegate?.showMoreTextTapped(at: tag)
     }
     
     

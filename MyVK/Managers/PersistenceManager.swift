@@ -21,8 +21,8 @@ enum PersistenceManager {
     
     private static var realmConfiguration: Realm.Configuration = {
         var configuration = Realm.Configuration.defaultConfiguration
-        configuration.deleteRealmIfMigrationNeeded = true
         configuration.objectTypes = [User.self, Group.self, Photo.self, Post.self]
+        configuration.deleteRealmIfMigrationNeeded = true
         return configuration
     }()
     

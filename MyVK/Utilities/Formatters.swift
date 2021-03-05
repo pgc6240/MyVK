@@ -23,14 +23,15 @@ enum F { // Formatters
         return nf
     }()
     
-    static func fd(_ date: Int) -> String { // format date: 237667436432 -> 15 Jan 2015
-        let ti = TimeInterval(date)
+    
+    static func fd(_ date: Int) -> String {         // format date:     237667436432 -> 15 Jan 2015
+        let ti   = TimeInterval(date)
         let date = Date(timeIntervalSince1970: ti)
         return df.string(from: date)
     }
     
-    static func fn(_ number: Int?) -> String? { // format number: 1000 -> 1,000
-        guard let number = number else { return nil }
-        return nf.string(from: NSNumber(value: number))
+    static func fn(_ number: Int?) -> String? {     // format number:   1234567 -> 1,234,567
+        guard let value = number else { return nil }
+        return nf.string(from: NSNumber(value: value))
     }
 }

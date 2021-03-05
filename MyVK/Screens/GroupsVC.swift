@@ -9,14 +9,14 @@ import UIKit
 
 final class GroupsVC: UITableViewController {
     
-    var user: User! = User.current
+    var user: User  = User.current
     lazy var groups = user.groups
     
     
     // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableViewController()
+        configureViewController()
         configureSearchController()
     }
     
@@ -33,14 +33,8 @@ final class GroupsVC: UITableViewController {
     }
     
     
-    deinit {
-        PersistenceManager.unpair(tableView)
-    }
-    
-    
     // MARK: - Basic setup -
-    private func configureTableViewController() {
-        PersistenceManager.pair(groups, with: tableView)
+    private func configureViewController() {
         if user == User.current {
             if navigationController?.title != "ProfileNC" {
                 navigationItem.leftBarButtonItem = editButtonItem
@@ -64,9 +58,10 @@ final class GroupsVC: UITableViewController {
             showLoadingView()
             tableView.reloadSections([0], with: .automatic)
         }
-        NetworkManager.shared.getGroups(userId: user.id) { [weak self] groups in
-            self?.dismissLoadingView()
-            PersistenceManager.save(groups, in: self?.user.groups)
+        NetworkManager.shared.getGroups(for: user.id) { [weak self] groups in
+            PersistenceManager.save(groups, in: self?.user.groups) {
+                self?.updateUI()
+            }
         }
     }
     
@@ -74,13 +69,13 @@ final class GroupsVC: UITableViewController {
     func joinGroup(_ group: Group, onSuccess: @escaping () -> Void = {}) {
         showLoadingView()
         NetworkManager.shared.joinGroup(groupId: group.id) { [weak self] isSuccessful in
-            self?.dismissLoadingView()
             if isSuccessful {
                 self?.presentAlert(title: "\nВы теперь состоите в сообществе".localized + "\n\"\(group.name)\".".localized)
                 onSuccess()
             } else {
                 self?.presentFailureAlert()
             }
+            self?.updateUI()
         }
     }
     
@@ -88,7 +83,6 @@ final class GroupsVC: UITableViewController {
     func leaveGroup(_ group: Group, onSuccess: @escaping () -> Void = {}) {
         showLoadingView()
         NetworkManager.shared.leaveGroup(groupId: group.id) { [weak self] isSuccessful in
-            self?.dismissLoadingView()
             if isSuccessful {
                 self?.presentAlert(title: "Вы покинули сообщество".localized + "\n\"\(group.name)\".".localized)
                 PersistenceManager.delete(group)
@@ -96,6 +90,7 @@ final class GroupsVC: UITableViewController {
             } else {
                 self?.presentFailureAlert()
             }
+            self?.updateUI()
         }
     }
     
@@ -103,13 +98,9 @@ final class GroupsVC: UITableViewController {
     // MARK: - Prepare for segue to group detail VC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSearch", let searchVC = segue.destination as? SearchVC {
-            
-            searchVC.searchFor = .group
-            
-        } else if let indexPath = tableView.indexPathForSelectedRow,
-           let profileVC = segue.destination as? ProfileVC {
-            
-            profileVC.owner = groups[indexPath.row]
+            searchVC.searchFor  = .group
+        } else if let indexPath = tableView.indexPathForSelectedRow, let profileVC = segue.destination as? ProfileVC {
+            profileVC.owner     = groups[indexPath.row]
         }
     }
 }
@@ -130,7 +121,7 @@ extension GroupsVC {
         } else if Locale.isEnglishLocale {
             return "Communities"
         } else {
-            return "Cообщества ".localized + user.nameGen
+            return "Cообщества \(user.nameGen)"
         }
     }
     
@@ -141,7 +132,7 @@ extension GroupsVC {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
+        let cell  = tableView.dequeueReusableCell(withIdentifier: GroupCell.reuseId) as! GroupCell
         let group = groups[indexPath.row]
         cell.set(with: group)
         return cell

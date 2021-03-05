@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import RealmSwift
 import UIKit
 
 extension Int {
@@ -20,23 +19,19 @@ extension Int {
 
 extension String {
     
-    init?(_ optionalInt: Int?) {
-        guard let int = optionalInt else { return nil }
-        self.init(int)
-    }
-    
-    
     var localized: String {
         NSLocalizedString(self, comment: "")
     }
     
-    var toLatin: String {
-        let latinString = self.applyingTransform(StringTransform.toLatin, reverse: false) ?? self
-        return latinString.applyingTransform(StringTransform.stripDiacritics, reverse: false) ?? self
-    }
     
     var toUrl: URL? {
         URL(string: self)
+    }
+    
+    
+    init?(_ optionalInt: Int?) {
+        guard let int = optionalInt else { return nil }
+        self.init(int)
     }
     
     
@@ -44,37 +39,6 @@ extension String {
         let size = CGSize(width: width, height: .greatestFiniteMagnitude)
         let rect = self.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil)
         return CGSize(width: ceil(rect.width), height: ceil(rect.height))
-    }
-}
-
-
-extension Array where Element == String {
-    
-    var localized: Array<String> {
-        self.map { $0.localized }
-    }
-}
-
-
-extension Array where Element: Object {
-    
-    @discardableResult
-    mutating func updating(with newElement: Element) -> Bool {
-        guard !self.contains(where: { $0.hashValue == newElement.hashValue }) else { return false }
-        self.append(newElement)
-        return true
-    }
-    
-    
-    @discardableResult
-    mutating func updating(with newElements: [Element]) -> Bool {
-        var updated = false
-        newElements.forEach {
-            if updating(with: $0) {
-                updated = true
-            }
-        }
-        return updated
     }
 }
 
@@ -87,10 +51,11 @@ extension Dictionary {
 }
 
 
-extension Optional where Wrapped == URL {
+extension URL {
     
     var parameters: [String: String]? {
-        self?.query?
+        self
+            .query?
             .components(separatedBy: "&")
             .map { $0.components(separatedBy: "=") }
             .reduce([String: String]()) {
@@ -99,22 +64,11 @@ extension Optional where Wrapped == URL {
                 return parameters
             }
     }
-}
-
-
-extension Locale {
     
-    static var isEnglishLocale: Bool { Locale.current.identifier == "en" || Locale.current.identifier == "en_US" }
     
-    static var identifierShort: String {
-        switch Locale.current.identifier {
-        case "en_US":
-            return "en"
-        case "ru_RU", "ru_US":
-            return "ru"
-        default:
-            return Locale.current.identifier
-        }
+    init?(string: String?) {
+        guard let string = string else { return nil }
+        self.init(string: string)
     }
 }
 
@@ -128,10 +82,21 @@ extension Optional where Wrapped == Character {
 }
 
 
-extension URL {
+extension Locale {
     
-    init?(string: String?) {
-        guard let string = string else { return nil }
-        self.init(string: string)
+    static var isEnglishLocale: Bool {
+        Locale.current.identifier == "en" || Locale.current.identifier == "en_US"
+    }
+    
+    
+    static var identifierShort: String {
+        switch Locale.current.identifier {
+        case "en_US":
+            return "en"
+        case "ru_RU", "ru_US":
+            return "ru"
+        default:
+            return Locale.current.identifier
+        }
     }
 }

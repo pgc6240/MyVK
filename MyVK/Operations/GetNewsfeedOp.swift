@@ -30,7 +30,7 @@ final class GetNewsfeedOperation: AsyncOperation {
     
     override func main() {
         let method: VKApiMethod    = .getNewsfeed
-        let parameters: Parameters = startFrom == nil ? [:] : ["start_from": startFrom!]
+        let parameters: Parameters = startFrom == nil ? [:] : ["start_from": startFrom ?? ""]
         
         request = AF.request(method, parameters: parameters).responseDecodable(of: Newsfeed.self,
                                                                                queue: .global(qos: .userInteractive),
@@ -44,7 +44,9 @@ final class GetNewsfeedOperation: AsyncOperation {
                 self.posts     = newsfeed.parse()
                 self.nextFrom  = newsfeed.response.nextFrom
             case .failure(let error):
+                #if DEBUG
                 print(error)
+                #endif
             }
         }
     }

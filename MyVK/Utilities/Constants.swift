@@ -13,9 +13,8 @@ enum C { // Constants
 
 
 enum JSON {
-    
     static let decoder: JSONDecoder = {
-        let decoder = JSONDecoder()
+        let decoder                 = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
@@ -23,12 +22,11 @@ enum JSON {
 
 
 enum Notifications: String {
-    
     case friendsVCviewWillDisappear
     case postsVCviewWillDisappear
     
-    var name: Notification.Name { Notification.Name(rawValue) }
-    var notification: Notification { Notification(name: name) }
+    var name:         Notification.Name { Notification.Name(rawValue) }
+    var notification: Notification      { Notification(name: name)    }
 }
 
 

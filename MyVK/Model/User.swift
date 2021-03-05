@@ -50,6 +50,7 @@ extension User {
         return "\(currentYear - byear) \("лет".localized)"
     }
     
+    
     private var _secondaryText: String? {
         canAccessClosed ? (homeTown ?? age) : "Закрытый профиль".localized
     }
