@@ -11,7 +11,6 @@ final class SearchVC: UITableViewController {
 
     enum SearchType { case user, group }
     
-    
     var searchFor: SearchType    = .user
     var searchResults: [CanPost] = [] { didSet { updateUI() }}
     

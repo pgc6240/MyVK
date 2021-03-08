@@ -107,6 +107,11 @@ extension UICollectionViewCell {
 }
 
 
+extension UITableViewHeaderFooterView {
+    static var reuseId: String { String(describing: self) }
+}
+
+
 extension UIImage {
     
     convenience init?(data: Data?) {
@@ -132,5 +137,11 @@ extension UITableView: Identifiable {
         } else {
             reloadData()
         }
+    }
+    
+    
+    func reloadVisibleRows(with animation: UITableView.RowAnimation = .none) {
+        guard let indexPaths = indexPathsForVisibleRows else { return }
+        reloadRows(at: indexPaths, with: animation)
     }
 }

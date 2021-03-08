@@ -54,8 +54,7 @@ extension Dictionary {
 extension URL {
     
     var parameters: [String: String]? {
-        self
-            .query?
+        (self.query ?? self.fragment)?
             .components(separatedBy: "&")
             .map { $0.components(separatedBy: "=") }
             .reduce([String: String]()) {

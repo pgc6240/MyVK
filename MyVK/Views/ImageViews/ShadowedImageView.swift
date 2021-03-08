@@ -35,7 +35,7 @@ final class ShadowedImageView: UIView, URLDownloadableImage {
         willSet { layer.shadowOffset = CGSize(width: newValue, height: newValue) }
     }
     
-    @IBInspectable var shadowOpacity: Float = 0.75 {
+    @IBInspectable var shadowOpacity: Float = 0.5 {
         willSet { layer.shadowOpacity = newValue }
     }
     

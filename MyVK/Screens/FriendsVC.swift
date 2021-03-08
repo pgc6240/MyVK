@@ -10,22 +10,35 @@ import RealmSwift
 
 final class FriendsVC: UITableViewController {
     
-    var user: User!  = User.current
+    var user: User   = User.current
     lazy var friends = user.friends
     
-    var availableLetters       = [String]()
-    private var alphabetPicker = AlphabetPicker()
+    private var availableLetters      = [String]()
+    private var alphabetPicker        = AlphabetPicker()
     
-    var numberOfRowsInSection  = [Int: Int]()
-    private lazy var profileVC = previousViewController as? ProfileVC
+    private var numberOfRowsInSection = [Int: Int]()
+    private lazy var profileVC        = previousViewController as? ProfileVC
     
-    private var isFiltering    = false
-    private var filteredFriends: Results<User>!
+    private var isFiltering           = false
+    private var filteredFriends:      Results<User>!
     
-    @IBOutlet weak var searchButton: UIBarButtonItem!
+    @IBOutlet weak var searchButton:  UIBarButtonItem!
+}
+
+
+// MARK: - Computed properties -
+extension FriendsVC {
     
+    private var dataIsPrepared: Bool {
+        guard let profileVC = profileVC else { return false }
+        return !profileVC.numberOfRowsInSection.isEmpty && numberOfRowsInSection.isEmpty && !friends.isEmpty
+    }
+}
+
+
+// MARK: - View controller lifecycle -
+extension FriendsVC {
     
-    // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
@@ -36,22 +49,19 @@ final class FriendsVC: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureViewController()
-        if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty, !friends.isEmpty {
+        if dataIsPrepared {
             showLoadingView()
+        } else if tableView.visibleCells.isEmpty {
+            getFriends()
         } else {
-            if tableView.visibleCells.isEmpty {
-                getFriends()
-            } else {
-                guard let indexPaths = tableView.indexPathsForVisibleRows else { return }
-                tableView.reloadRows(at: indexPaths, with: .none)
-            }
+            tableView.reloadVisibleRows()
         }
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if let profileVC = profileVC, !profileVC.numberOfRowsInSection.isEmpty, numberOfRowsInSection.isEmpty, !friends.isEmpty {
+        if dataIsPrepared {
             loadPreparedData()
         }
     }
@@ -63,41 +73,35 @@ final class FriendsVC: UITableViewController {
         guard navigationController?.visibleViewController is ProfileVC else { return }
         NotificationCenter.default.post(Notifications.friendsVCviewWillDisappear.notification)
     }
+}
     
     
-    // MARK: - Basic setup -
-    private func configureTableView() {
-        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "headerReuseId")
+// MARK: - Basic configuration -
+private extension FriendsVC {
+    
+    func configureTableView() {
+        tableView.register(UITableViewHeaderFooterView.self,
+                           forHeaderFooterViewReuseIdentifier: UITableViewHeaderFooterView.reuseId)
         tableView.rowHeight = 76
     }
     
     
-    private func configureViewController() {
-        navigationItem.title = user == User.current ? "Мои друзья".localized : user.name
+    func configureViewController() {
+        navigationItem.title             = user == User.current ? "Мои друзья".localized : user.name
         navigationItem.leftBarButtonItem = user == User.current ? searchButton : nil
         navigationItem.searchController?.searchBar.isHidden = false
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            UIView.transition(with: self.view, duration: 0.6, options: []) {
+            UIView.transition(with: self.view, duration: 0.6, options: [.allowUserInteraction]) {
                 self.navigationController?.setNavigationBarHidden(false, animated: true)
             }
         }
     }
+}
     
     
-    private func loadPreparedData() {
-        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-            guard let self = self, let profileVC = self.profileVC else { return }
-            self.availableLetters      = profileVC.availableLetters
-            self.numberOfRowsInSection = profileVC.numberOfRowsInSection
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.dismissLoadingView()
-            }
-        }
-    }
+// MARK: - External methods -
+extension FriendsVC {
     
-    
-    // MARK: - External methods -
     func getFriends() {
         showLoadingView()
         NetworkManager.shared.getFriends(userId: user.id) { [weak self] friends in
@@ -113,26 +117,42 @@ final class FriendsVC: UITableViewController {
         NetworkManager.shared.addFriend(with: userId) { [weak self] isSuccessful in
             self?.dismissLoadingView()
             if isSuccessful {
-                self?.presentAlert(title: "Заявка на добавление в друзья отправлена.".localized)
+                self?.presentAlert(title: "Заявка на добавление в друзья отправлена.")
                 onSuccess()
             } else {
                 self?.presentFailureAlert()
             }
         }
     }
+}
     
     
-    // MARK: - Internal methods -
-    private func updateUI() {
+// MARK: - Internal methods -
+private extension FriendsVC {
+    
+    func loadPreparedData() {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            guard let self = self, let profileVC = self.profileVC else { return }
+            self.availableLetters      = profileVC.availableLetters
+            self.numberOfRowsInSection = profileVC.numberOfRowsInSection
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.dismissLoadingView()
+            }
+        }
+    }
+    
+    
+    func updateUI() {
         if !isFiltering {
             updateAvailableLetters()
         }
-        tableView.reloadData()
+        tableView.reloadData(animated: isFiltering)
         dismissLoadingView()
     }
     
     
-    private func updateAvailableLetters() {
+    func updateAvailableLetters() {
         var availableLetters: Set<String> = []
         for friend in friends {
             guard let letter = friend.lastNameFirstLetter else { continue }
@@ -140,15 +160,18 @@ final class FriendsVC: UITableViewController {
         }
         self.availableLetters = availableLetters.sorted(by: <)
     }
+}
     
     
-    // MARK: - Utility methods -
-    private func friendsForLetter(_ letter: String) -> Results<User> {
+// MARK: - Utility methods -
+private extension FriendsVC {
+        
+    func friendsForLetter(_ letter: String) -> Results<User> {
         friends.filter("lastNameFirstLetter = %@", letter)
     }
     
     
-    private func friendForIndexPath(_ indexPath: IndexPath) -> User {
+    func friendForIndexPath(_ indexPath: IndexPath) -> User {
         if isFiltering {
             return filteredFriends[indexPath.row]
         }
@@ -158,17 +181,20 @@ final class FriendsVC: UITableViewController {
     }
     
     
-    private func sectionForLetter(_ letter: String) -> Int? {
+    func sectionForLetter(_ letter: String) -> Int? {
         availableLetters.firstIndex(of: letter)
     }
     
     
-    private func letterForSection(_ section: Int) -> String {
+    func letterForSection(_ section: Int) -> String {
         availableLetters[section]
     }
+}
     
 
-    // MARK: - Segues -
+// MARK: - Segues -
+extension FriendsVC {
+    
     private enum SegueIdentifier: String {
         case toProfile
         case toSearch
@@ -181,8 +207,7 @@ final class FriendsVC: UITableViewController {
         case .toSearch:  return true
         case .toProfile:
             guard let indexPath = tableView.indexPathForSelectedRow else { return false }
-            let user = friendForIndexPath(indexPath)
-            return user.canAccessClosed
+            return friendForIndexPath(indexPath).canAccessClosed
         }
     }
     
@@ -223,15 +248,15 @@ extension FriendsVC {
             return numberOfRowsInSection[section] ?? 0
         }
         
-        let letter = letterForSection(section)
-        let numberOfRows = friendsForLetter(letter).count
+        let letter                     = letterForSection(section)
+        let numberOfRows               = friendsForLetter(letter).count
         numberOfRowsInSection[section] = numberOfRows
         return numberOfRows
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseId) as! FriendCell
+        let cell   = tableView.dequeueReusableCell(withIdentifier: FriendCell.reuseId) as! FriendCell
         let friend = friendForIndexPath(indexPath)
         cell.set(with: friend)
         return cell
@@ -240,11 +265,6 @@ extension FriendsVC {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    
-    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        isFiltering ? nil : availableLetters
     }
     
     
@@ -258,7 +278,7 @@ extension FriendsVC {
             return nil
         }
         
-        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: "headerReuseId")
+        let sectionHeader = tableView.dequeueReusableHeaderFooterView(withIdentifier: UITableViewHeaderFooterView.reuseId)
         sectionHeader?.backgroundView  = BlurView()
         sectionHeader?.textLabel?.text = letterForSection(section)
         return sectionHeader
@@ -267,6 +287,11 @@ extension FriendsVC {
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         isFiltering ? 0 : UITableView.automaticDimension
+    }
+    
+    
+    override func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        isFiltering ? nil : availableLetters
     }
 }
 
@@ -297,17 +322,19 @@ extension FriendsVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
-            isFiltering = false
+            isFiltering     = false
+            filteredFriends = nil
         } else {
+            isFiltering     = true
             filteredFriends = user.friends.filter("firstName BEGINSWITH %@ || lastName BEGINSWITH %@", searchText, searchText)
-            isFiltering = true
         }
         updateUI()
     }
     
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isFiltering = false
+        isFiltering     = false
+        filteredFriends = nil
         updateUI()
     }
 }

@@ -23,18 +23,18 @@ final class LoginVC: UIViewController {
     
     
     private func configureWebView() {
-        webView = WKWebView(frame: view.bounds)
-        webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        webView                    = WKWebView(frame: view.bounds)
+        webView.autoresizingMask   = [.flexibleWidth, .flexibleHeight]
         webView.navigationDelegate = self
         view.addSubview(webView)
     }
     
     
     private func startObservingNetworkStatus() {
+        showLoadingView()
         networkReachabilityManager?.startListening { [weak self] status in
             switch status {
             case .reachable(_):
-                self?.showLoadingView()
                 self?.loadAuthPage()
             case .notReachable:
                 self?.presentNetworkUnavailableAlert()
@@ -82,23 +82,13 @@ extension LoginVC: WKNavigationDelegate {
             return
         }
         
-        if url.path == "/blank.html", let fragment = url.fragment {
-            
-            let parameters = fragment
-                .components(separatedBy: "&")
-                .map { $0.components(separatedBy: "=") }
-                .reduce([String: String]()) {
-                    var parameters    = $0
-                    parameters[$1[0]] = $1[1]
-                    return parameters
-                }
+        if url.path == "/blank.html", let parameters = url.parameters {
             
             SessionManager.login(token: parameters["access_token"], userId: parameters["user_id"])
-            
             responsePolicy = .cancel
             
         } else if url.path == "/error", let newAppId = C.APP_IDS.randomElement() {
-
+            
             appId = newAppId
             loadAuthPage()
         }

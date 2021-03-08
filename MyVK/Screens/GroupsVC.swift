@@ -48,7 +48,7 @@ final class GroupsVC: UITableViewController {
     // MARK: - Internal methods -
     private func updateUI() {
         dismissLoadingView()
-        tableView.reloadSections([0], with: .automatic)
+        tableView.reloadData(animated: true)
     }
     
     

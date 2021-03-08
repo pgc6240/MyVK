@@ -6,13 +6,12 @@
 //
 
 import UIKit
-import RealmSwift
 
 class ProfileVC: UIViewController {
     
     var owner: CanPost = User.current
     
-    lazy var postsVC = children.first as! PostsVC
+    lazy var postsVC   = children.first as! PostsVC
     weak var selectedPost: Post!
     
     // MARK: - Subviews
@@ -23,6 +22,9 @@ class ProfileVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         postsVC.owner = owner
+        if owner.postsCount != -1 {
+            profileHeaderView.set(with: owner)
+        }
     }
     
     
@@ -50,17 +52,19 @@ class ProfileVC: UIViewController {
     func getProfileDetailsForUser(_ user: User) {
         NetworkManager.shared.getUsers(userIds: [owner.id]) { [weak self] users in
             guard let user = users.first else { return }
-            PersistenceManager.save(user)
-            self?.profileHeaderView.configure(with: user)
+            PersistenceManager.save(user) {
+                self?.profileHeaderView.set(with: user)
+            }
         }
     }
     
     
     func getProfileDetailsForGroup(_ group: Group) {
-        NetworkManager.shared.getGroups(groupIds: [owner.id]) { [weak self] (groups) in
+        NetworkManager.shared.getGroups(groupIds: [owner.id]) { [weak self] groups in
             guard let group = groups.first else { return }
-            PersistenceManager.save(group)
-            self?.profileHeaderView.configure(with: group)
+            PersistenceManager.save(group) {
+                self?.profileHeaderView.set(with: group)
+            }
         }
     }
     
@@ -85,7 +89,9 @@ class ProfileVC: UIViewController {
         guard let segueIdentifier = SegueIdentifier(rawValue: segue.identifier ?? "") else { return }
         switch segueIdentifier {
         case .toFriends:
-            (segue.destination as? FriendsVC)?.user = owner as? User
+            guard let friendsVC = segue.destination as? FriendsVC,
+                  let user      = owner as? User else { return }
+            friendsVC.user      = user
             preparationQueue.cancelAllOperations()
             postsVC.cleanUp()
         case .toGroups: (segue.destination as? GroupsVC)?.user  = owner as! User
@@ -103,8 +109,8 @@ class ProfileVC: UIViewController {
     
     
     // MARK: - Prepare FriendsVC operation -
-    var availableLetters = [String]()
-    var numberOfRowsInSection = [Int: Int]()
+    var availableLetters         = [String]()
+    var numberOfRowsInSection    = [Int: Int]()
     private let preparationQueue = OperationQueue()
     
     

@@ -10,7 +10,7 @@ import Combine
 
 final class PrepareFriendsVCOperation: AsyncOperation {
     
-    private let userId: Int
+    private let userId: Int?
     private let userFriendsReference: ThreadSafeReference<List<User>>
     private var request: AnyCancellable?
     
@@ -19,19 +19,25 @@ final class PrepareFriendsVCOperation: AsyncOperation {
     
     
     init(for user: User) {
-        self.userId               = user.id
+        self.userId               = user.friendsCount == -1 ? user.id : nil
         self.userFriendsReference = ThreadSafeReference(to: user.friends)
         super.init()
     }
     
     
     override func main() {
-        request = NetworkManager.shared.getFriends(for: userId) { [weak self] friends in
-            guard let self = self, !self.isCancelled, let friends = friends else { return }
-            defer { self.state = .finished }
-            self.updateAvailableLetters(for: friends)
+        if let userId = userId {
+            request = NetworkManager.shared.getFriends(for: userId) { [weak self] friends in
+                guard let self = self, !self.isCancelled, let friends = friends else { return }
+                defer { self.state = .finished }
+                self.updateAvailableLetters(for: friends)
+                guard let userFriends = PersistenceManager.load(with: self.userFriendsReference) else { return }
+                PersistenceManager.save(friends, in: userFriends)
+            }
+        } else {
+            defer { state = .finished }
             guard let userFriends = PersistenceManager.load(with: self.userFriendsReference) else { return }
-            PersistenceManager.save(friends, in: userFriends)
+            updateAvailableLetters(for: Array(userFriends))
         }
     }
     

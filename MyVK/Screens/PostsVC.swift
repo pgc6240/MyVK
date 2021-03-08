@@ -14,11 +14,9 @@ final class PostsVC: UITableViewController {
     var owner: CanPost = User.current
     var posts          = List<Post>()
     
+    private var _isLoading = false { didSet { tableView.reloadSections([0], with: .automatic) }}
     private var getPostsTask: AnyCancellable?
-    private var _isLoading = true
-    
     private var textCroppedAtIndexPath = [IndexPath: Bool]()
-    
     private lazy var profileHeaderView = (parent as? ProfileVC)?.profileHeaderView
     
     
@@ -30,10 +28,10 @@ final class PostsVC: UITableViewController {
     
     
     override func viewWillAppear(_ animated: Bool) {
+        _isLoading = true
         super.viewWillAppear(animated)
         tableView.tableHeaderView = profileHeaderView
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+        DispatchQueue.main.async {
             self.posts = self.owner.posts
             self.getPosts()
         }
@@ -75,8 +73,7 @@ final class PostsVC: UITableViewController {
     // MARK: - Internal methods -
     private func updateUI() {
         _isLoading = false
-        profileHeaderView?.configure(with: owner)
-        tableView.reloadSections([0], with: .automatic)
+        profileHeaderView?.set(with: owner)
     }
 }
 

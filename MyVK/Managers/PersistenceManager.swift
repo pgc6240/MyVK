@@ -108,11 +108,16 @@ extension PersistenceManager {
     }
     
 
-    static func save(_ objects: Object?...) {
+    static func save(_ objects: Object?..., completion: @escaping () -> Void = {}) {
         guard let realm = realm() else { return }
         let objects = objects.compactMap { $0 }
         try? realm.write {
             objects.forEach { save($0, in: realm) }
+            DispatchQueue.main.async {
+                guard let realm = self.realm() else { return }
+                realm.refresh()
+                completion()
+            }
         }
     }
     

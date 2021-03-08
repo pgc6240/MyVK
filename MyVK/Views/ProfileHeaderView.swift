@@ -36,52 +36,57 @@ final class ProfileHeaderView: UIView {
                                                name: Notifications.postsVCviewWillDisappear.name,
                                                object: nil)
     }
+}
+
+
+// MARK: - External methods -
+extension ProfileHeaderView {
     
+    func set(with owner: CanPost?) {
+        avatarImageView.downloadImage(with: owner?.photoUrl)
+        nameLabel.text = owner?.name
+        if let user = owner as? User {
+            set(with: user)
+        } else if let group = owner as? Group {
+            set(with: group)
+        }
+        configureCountLabels()
+    }
+}
+
+
+// MARK: - Internal methods -
+private extension ProfileHeaderView {
     
-    // MARK: - Internal methods -
-    @objc private func removeImages() {
+    @objc func removeImages() {
         avatarImageView.prepareForReuse()
     }
     
     
-    private func configureCountLabels() {
-        countLabels.forEach {
-            $0.isEnabled = ($0.currentTitle != "0" && $0.currentTitle != "-1")
-            $0.setTitleColor($0.isEnabled ? .vkColor : .label, for: .normal)
-            $0.backgroundColor = .clear
-        }
-    }
-    
-    
-    // MARK: - External methods -
-    func configure(with owner: CanPost?) {
-        avatarImageView.downloadImage(with: owner?.photoUrl)
-        nameLabel.text = owner?.name
-        if let user = owner as? User {
-            configure(with: user)
-        } else if let group = owner as? Group {
-            configure(with: group)
-        }
-        configureCountLabels()        
-    }
-    
-    
-    func configure(with user: User) {
+    func set(with user: User) {
         secondaryLabel.text        = user.homeTown
         tertiaryLabel.text         = user.age
         friendsOrMembersLabel.text = "Друзья".localized
         groupsStackView.isHidden   = false
         UIView.transition(with: self, duration: 0.6, options: [.allowUserInteraction, .transitionCrossDissolve]) {
             [weak self] in
-            self?.friendsOrMembersCountLabel.setTitle(String(user.friendsCount), for: .normal)
-            self?.groupsCountLabel.setTitle(String(user.groupsCount), for: .normal)
-            self?.photosCountLabel.setTitle(String(user.photosCount), for: .normal)
-            self?.wallPostsCountLabel.setTitle(String(user.postsCount), for: .normal)
+            if user.friendsCount != -1 {
+                self?.friendsOrMembersCountLabel.setTitle(String(user.friendsCount), for: .normal)
+            }
+            if user.groupsCount  != -1 {
+                self?.groupsCountLabel.setTitle(String(user.groupsCount), for: .normal)
+            }
+            if user.photosCount  != -1 {
+                self?.photosCountLabel.setTitle(String(user.photosCount), for: .normal)
+            }
+            if user.postsCount   != -1 {
+                self?.wallPostsCountLabel.setTitle(String(user.postsCount), for: .normal)
+            }
         }
     }
     
     
-    func configure(with group: Group) {
+    func set(with group: Group) {
         secondaryLabel.text                  = group.secondaryText
         tertiaryLabel.text                   = group.city
         friendsOrMembersLabel.text           = "Участники".localized
@@ -89,9 +94,24 @@ final class ProfileHeaderView: UIView {
         friendsOrMembersCountLabel.isEnabled = false
         UIView.transition(with: self, duration: 0.6, options: [.allowUserInteraction, .transitionCrossDissolve]) {
             [weak self] in
-            self?.friendsOrMembersCountLabel.setTitle(F.fn(group.membersCount), for: .normal)
-            self?.photosCountLabel.setTitle(F.fn(group.photosCount), for: .normal)
-            self?.wallPostsCountLabel.setTitle(F.fn(group.postsCount), for: .normal)
+            if group.membersCount != -1 {
+                self?.friendsOrMembersCountLabel.setTitle(F.fn(group.membersCount), for: .normal)
+            }
+            if group.photosCount  != -1 {
+                self?.photosCountLabel.setTitle(F.fn(group.photosCount), for: .normal)
+            }
+            if group.postsCount   != -1 {
+                self?.wallPostsCountLabel.setTitle(F.fn(group.postsCount), for: .normal)
+            }
+        }
+    }
+    
+    
+    func configureCountLabels() {
+        countLabels.forEach {
+            $0.isEnabled = ($0.currentTitle != "0" && $0.currentTitle != "-1")
+            $0.setTitleColor($0.isEnabled ? .vkColor : .label, for: .normal)
+            $0.backgroundColor = .clear
         }
     }
 }

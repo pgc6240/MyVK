@@ -11,28 +11,30 @@ import RealmSwift
 final class PhotosVC: UICollectionViewController {
     
     var owner: CanPost?
-    var post: Post?
-    lazy var photos = owner?.photos ?? post?.photos
-    
-    private var token: NotificationToken?
+    var post:  Post?
+    lazy var photos = owner?.photos ?? post?.photos ?? List<Photo>()
     
     private var currentPage = 0 { didSet { updateTitle() }}
+    private var token: NotificationToken?
     
     
+    // MARK: - View controller lifecycle -
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
         startObservingPhotos()
+        getPhotos()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureViewController()
-        getPhotos()
+        updateTitle()
     }
     
     
+    // MARK: - Internal methods -
     private func configureCollectionView() {
         collectionView.backgroundColor                = .black
         collectionView.showsHorizontalScrollIndicator = false
@@ -47,32 +49,31 @@ final class PhotosVC: UICollectionViewController {
     
     
     private func startObservingPhotos() {
-        token = photos?.observe { [weak self] changes in
-            self?.updateTitle()
+        token = photos.observe { [weak self] _ in
             self?.collectionView.reloadData()
-        }
-    }
-    
-    
-    func getPhotos() {
-        guard let owner = owner else { return }
-        showLoadingView()
-        let ownerId = owner is Group ? -owner.id : owner.id
-        NetworkManager.shared.getPhotos(for: ownerId) { [weak self] photos in
             self?.dismissLoadingView()
             self?.updateTitle()
-            PersistenceManager.save(photos, in: self?.owner?.photos)
         }
     }
     
     
     private func updateTitle() {
-        if isLoading && photos?.count ?? 0 == 0 {
+        if isLoading && photos.isEmpty {
             title = "..."
-        } else if photos?.count ?? 0 == 0 {
+        } else if photos.isEmpty {
             title = "Нет фотографий".localized
         } else {
-            title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos?.count ?? 0)
+            title = "Фотография ".localized + String(currentPage + 1) + " из ".localized + String(photos.count)
+        }
+    }
+    
+    
+    // MARK: - External methods -
+    func getPhotos() {
+        guard let ownerId = owner?.id else { return }
+        showLoadingView()
+        NetworkManager.shared.getPhotos(for: owner is Group ? -ownerId : ownerId) { [weak owner] photos in
+            PersistenceManager.save(photos, in: owner?.photos)
         }
     }
 }
@@ -84,15 +85,14 @@ final class PhotosVC: UICollectionViewController {
 extension PhotosVC {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos?.count ?? 0
+        photos.count
     }
     
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
-        if let photo = photos?[indexPath.row] {
-            cell.set(with: photo)
-        }
+        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
+        let photo = photos[indexPath.row]
+        cell.set(with: photo)
         return cell
     }
 }
